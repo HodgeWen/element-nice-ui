@@ -21,15 +21,15 @@ The above website enables you to preview theme of a new theme color in real-time
 $--color-primary: teal;
 
 /* icon font path, required */
-$--font-path: '~element-ui/lib/theme-chalk/fonts';
+$--font-path: '~element-nice-ui/lib/theme-chalk/fonts';
 
-@import "~element-ui/packages/theme-chalk/src/index";
+@import "~element-nice-ui/packages/theme-chalk/src/index";
 ```
 
 Then in the entry file of your project, import this style file instead of Element's built CSS:
 ```JS
 import Vue from 'vue'
-import Element from 'element-ui'
+import Element from 'element-nice-ui'
 import './element-variables.scss'
 
 Vue.use(Element)
@@ -94,7 +94,7 @@ $--color-primary: red;
 ```
 
 #### <strong>Build theme</strong>
-After saving the variable file, use `et` to build your theme. You can activate `watch` mode by adding a parameter `-w`. And if you customized the variable file's output, you need to add a parameter `-c` and variable file's name. By default the build theme file is placed inside `./theme`. You can specify its output directory with parameter `-o`. 
+After saving the variable file, use `et` to build your theme. You can activate `watch` mode by adding a parameter `-w`. And if you customized the variable file's output, you need to add a parameter `-c` and variable file's name. By default the build theme file is placed inside `./theme`. You can specify its output directory with parameter `-o`.
 ```shell
 et
 
@@ -107,7 +107,7 @@ Importing your own theme is just like importing the default theme, only this tim
 
 ```javascript
 import '../theme/index.css'
-import ElementUI from 'element-ui'
+import ElementUI from 'element-nice-ui'
 import Vue from 'vue'
 
 Vue.use(ElementUI)
@@ -121,7 +121,7 @@ If you are using `babel-plugin-component` for on-demand import, just modify `.ba
     [
       "component",
       {
-        "libraryName": "element-ui",
+        "libraryName": "element-nice-ui",
         "styleLibraryName": "~theme"
       }
     ]

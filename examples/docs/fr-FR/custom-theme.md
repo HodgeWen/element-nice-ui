@@ -21,15 +21,15 @@ Le site précédent vous permet de visualiser et de télécharger un nouveau th�
 $--color-primary: teal;
 
 /* chemin vers le fichier de police, requis */
-$--font-path: '~element-ui/lib/theme-chalk/fonts';
+$--font-path: '~element-nice-ui/lib/theme-chalk/fonts';
 
-@import "~element-ui/packages/theme-chalk/src/index";
+@import "~element-nice-ui/packages/theme-chalk/src/index";
 ```
 
 Puis dans le fichier d'entrée, importez ce style au lieu de celui d'Element:
 ```JS
 import Vue from 'vue'
-import Element from 'element-ui'
+import Element from 'element-nice-ui'
 import './element-variables.scss'
 
 Vue.use(Element)
@@ -95,7 +95,7 @@ $--color-primary: red;
 ```
 
 #### <strong>Générer le thème</strong>
-Après avoir sauvegardé le fichier de variables, utilisez `et` pour générer le thème. Vous pouvez activer le mode `watch` en ajoutant le paramètre `-w`. Si vous avez choisi le chemin du fichier de sortie, il vous faudra ajouter le paramètre `-c` avec le nom du fichier. Par défaut le thème généré est placé dans `./theme`. Vous pouvez spécifier le dossier de sortie grâce à `-o`. 
+Après avoir sauvegardé le fichier de variables, utilisez `et` pour générer le thème. Vous pouvez activer le mode `watch` en ajoutant le paramètre `-w`. Si vous avez choisi le chemin du fichier de sortie, il vous faudra ajouter le paramètre `-c` avec le nom du fichier. Par défaut le thème généré est placé dans `./theme`. Vous pouvez spécifier le dossier de sortie grâce à `-o`.
 ```shell
 et
 
@@ -109,7 +109,7 @@ Importing your own theme is just like importing the default theme, only this tim
 
 ```javascript
 import '../theme/index.css'
-import ElementUI from 'element-ui'
+import ElementUI from 'element-nice-ui'
 import Vue from 'vue'
 
 Vue.use(ElementUI)
@@ -123,7 +123,7 @@ Si vous utilisez `babel-plugin-component` pour les imports sur demande, modifiez
     [
       "component",
       {
-        "libraryName": "element-ui",
+        "libraryName": "element-nice-ui",
         "styleLibraryName": "~theme"
       }
     ]

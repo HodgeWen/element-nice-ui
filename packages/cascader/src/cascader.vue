@@ -112,21 +112,21 @@
 </template>
 
 <script>
-import Popper from 'element-ui/src/utils/vue-popper';
-import Clickoutside from 'element-ui/src/utils/clickoutside';
-import Emitter from 'element-ui/src/mixins/emitter';
-import Locale from 'element-ui/src/mixins/locale';
-import Migrating from 'element-ui/src/mixins/migrating';
-import ElInput from 'element-ui/packages/input';
-import ElTag from 'element-ui/packages/tag';
-import ElScrollbar from 'element-ui/packages/scrollbar';
-import ElCascaderPanel from 'element-ui/packages/cascader-panel';
-import AriaUtils from 'element-ui/src/utils/aria-utils';
-import { t } from 'element-ui/src/locale';
-import { isEqual, isEmpty, kebabCase } from 'element-ui/src/utils/util';
-import { isUndefined, isFunction } from 'element-ui/src/utils/types';
-import { isDef } from 'element-ui/src/utils/shared';
-import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/resize-event';
+import Popper from 'element-nice-ui/src/utils/vue-popper';
+import Clickoutside from 'element-nice-ui/src/utils/clickoutside';
+import Emitter from 'element-nice-ui/src/mixins/emitter';
+import Locale from 'element-nice-ui/src/mixins/locale';
+import Migrating from 'element-nice-ui/src/mixins/migrating';
+import ElInput from 'element-nice-ui/packages/input';
+import ElTag from 'element-nice-ui/packages/tag';
+import ElScrollbar from 'element-nice-ui/packages/scrollbar';
+import ElCascaderPanel from 'element-nice-ui/packages/cascader-panel';
+import AriaUtils from 'element-nice-ui/src/utils/aria-utils';
+import { t } from 'element-nice-ui/src/locale';
+import { isEqual, isEmpty, kebabCase } from 'element-nice-ui/src/utils/util';
+import { isUndefined, isFunction } from 'element-nice-ui/src/utils/types';
+import { isDef } from 'element-nice-ui/src/utils/shared';
+import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event';
 import debounce from 'throttle-debounce/debounce';
 
 const { keys: KeyCode } = AriaUtils;

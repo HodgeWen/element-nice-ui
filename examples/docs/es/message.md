@@ -20,7 +20,7 @@ Se muestra en la parte superior de la pagina y desaparece después de 3 segundos
       open() {
         this.$message('This is a message.');
       },
-      
+
       openVn() {
         const h = this.$createElement;
         this.$message({
@@ -193,7 +193,7 @@ Element ha agregado un método global llamado `$message` para Vue.prototype. Ent
 Import `Message`:
 
 ```javascript
-import { Message } from 'element-ui';
+import { Message } from 'element-nice-ui';
 ```
 
 En este caso debería llamar al método `Message(options)`. También se han registrado métodos para los diferentes tipos, e.g. `Message.success(options)`. Puede llamar al método `Message.closeAll()` para cerrar manualmente todas las instancias.

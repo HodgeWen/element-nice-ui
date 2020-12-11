@@ -1,4 +1,4 @@
-import { t } from 'element-ui/src/locale';
+import { t } from 'element-nice-ui/src/locale';
 
 export default {
   methods: {
