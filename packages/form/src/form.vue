@@ -9,7 +9,7 @@
 
 <script>
   import objectAssign from 'element-nice-ui/src/utils/merge';
-  import ElRow from '../../row'
+  import ElRow from '../../row/src/row'
   export default {
     name: 'ElForm',
 

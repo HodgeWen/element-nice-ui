@@ -40,7 +40,7 @@
   import objectAssign from 'element-nice-ui/src/utils/merge';
   import { noop, getPropByPath } from 'element-nice-ui/src/utils/util';
   import LabelWrap from './label-wrap';
-  import ELCol from '../../col'
+  import ElCol from '../../col/src/col'
   export default {
     name: 'ElFormItem',
 
@@ -80,7 +80,7 @@
     components: {
       // use this component to calculate auto width
       LabelWrap,
-      ELCol
+      ElCol
     },
     watch: {
       error: {
