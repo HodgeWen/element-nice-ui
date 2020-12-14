@@ -238,6 +238,8 @@
     },
 
     props: {
+      api: String,
+
       data: {
         type: Array,
         default: function() {
@@ -412,9 +414,10 @@
       },
 
       // TODO 使用 CSS transform
-      syncPostion: throttle(20, function() {
+      syncPostion: throttle(10, function() {
         const { scrollLeft, scrollTop, offsetWidth, scrollWidth } = this.bodyWrapper;
         const { headerWrapper, footerWrapper, fixedBodyWrapper, rightFixedBodyWrapper } = this.$refs;
+        // if (headerWrapper) headerWrapper.style.transform = `translate(${-scrollLeft}px)`;
         if (headerWrapper) headerWrapper.scrollLeft = scrollLeft;
         if (footerWrapper) footerWrapper.scrollLeft = scrollLeft;
         if (fixedBodyWrapper) fixedBodyWrapper.scrollTop = scrollTop;
@@ -479,6 +482,17 @@
 
       toggleAllSelection() {
         this.store.commit('toggleAllSelection');
+      },
+
+      // 获取表格数据
+      fetchData() {
+        if (!this.api || !this.$http || !this.EL_TABLE_CONFIG) return
+        const { pageDataKey, listDataKey, totalKey } = this.EL_TABLE_CONFIG
+        this.$http.get(this.api, {
+          params: {}
+        }).then(res => {
+          if (res.code !== 200) return
+        })
       }
 
     },
@@ -631,6 +645,8 @@
     },
 
     mounted() {
+      this.fetchData()
+
       this.bindEvents();
       this.store.updateColumns();
       this.doLayout();
@@ -687,7 +703,10 @@
         },
         // 是否拥有多级表头
         isGroup: false,
-        scrollPosition: 'left'
+        scrollPosition: 'left',
+
+        // 内部数据. 通过api即可请求
+        internal: []
       };
     }
   };

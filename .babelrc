@@ -25,13 +25,13 @@
               "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
             }
           }
-        ],
+        ]
       ],
       "plugins": [
         ["module-resolver", {
-          "root": ["element-ui"],
+          "root": ["element-nice-ui"],
           "alias": {
-            "element-ui/src": "element-ui/lib"
+            "element-ui/src": "element-nice-ui/lib"
           }
         }]
       ]

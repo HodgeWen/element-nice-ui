@@ -1,18 +1,25 @@
 <template>
-  <form class="el-form" :class="[
+  <el-row v-bind="$attrs" :gutter="+gutter" tag="form" type="flex" class="el-form" :class="[
     labelPosition ? 'el-form--label-' + labelPosition : '',
     { 'el-form--inline': inline }
   ]">
     <slot></slot>
-  </form>
+  </el-row>
 </template>
+
 <script>
   import objectAssign from 'element-nice-ui/src/utils/merge';
-
+  import ElRow from '../../row'
   export default {
     name: 'ElForm',
 
     componentName: 'ElForm',
+
+    inheritAttrs: false,
+
+    components: {
+      ElRow
+    },
 
     provide() {
       return {
@@ -29,6 +36,15 @@
         type: String,
         default: ''
       },
+      colspan: {
+        type: [Number, String],
+        default: 12
+      },
+      gutter: {
+        type: [String, Number],
+        default: 12
+      },
+
       inline: Boolean,
       inlineMessage: Boolean,
       statusIcon: Boolean,

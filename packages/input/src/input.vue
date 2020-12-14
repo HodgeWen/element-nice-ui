@@ -179,7 +179,7 @@
       label: String,
       clearable: {
         type: Boolean,
-        default: false
+        default: true
       },
       showPassword: {
         type: Boolean,
@@ -400,6 +400,9 @@
         this.$emit('input', '');
         this.$emit('change', '');
         this.$emit('clear');
+        if (this.validateEvent) {
+          this.dispatch('ElFormItem', 'el.form.blur', [this.value]);
+        }
       },
       handlePasswordVisible() {
         this.passwordVisible = !this.passwordVisible;

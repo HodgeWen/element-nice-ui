@@ -1,5 +1,5 @@
 <template>
-  <div class="el-form-item" :class="[{
+  <el-col :span="computedSpan" class="el-form-item" :class="[{
       'el-form-item--feedback': elForm && elForm.statusIcon,
       'is-error': validateState === 'error',
       'is-validating': validateState === 'validating',
@@ -25,18 +25,14 @@
           :error="validateMessage">
           <div
             class="el-form-item__error"
-            :class="{
-              'el-form-item__error--inline': typeof inlineMessage === 'boolean'
-                ? inlineMessage
-                : (elForm && elForm.inlineMessage || false)
-            }"
+
           >
             {{validateMessage}}
           </div>
         </slot>
       </transition>
     </div>
-  </div>
+  </el-col>
 </template>
 <script>
   import AsyncValidator from 'async-validator';
@@ -44,6 +40,7 @@
   import objectAssign from 'element-nice-ui/src/utils/merge';
   import { noop, getPropByPath } from 'element-nice-ui/src/utils/util';
   import LabelWrap from './label-wrap';
+  import ELCol from '../../col'
   export default {
     name: 'ElFormItem',
 
@@ -62,6 +59,9 @@
     props: {
       label: String,
       labelWidth: String,
+      span: {
+        type: [String, Number]
+      },
       prop: String,
       required: {
         type: Boolean,
@@ -71,10 +71,6 @@
       error: String,
       validateStatus: String,
       for: String,
-      inlineMessage: {
-        type: [String, Boolean],
-        default: ''
-      },
       showMessage: {
         type: Boolean,
         default: true
@@ -83,7 +79,8 @@
     },
     components: {
       // use this component to calculate auto width
-      LabelWrap
+      LabelWrap,
+      ELCol
     },
     watch: {
       error: {
@@ -100,6 +97,11 @@
     computed: {
       labelFor() {
         return this.for || this.prop;
+      },
+
+      computedSpan() {
+        const { span, elForm } = this
+        return +(span || elForm.colspan || 12)
       },
       labelStyle() {
         const ret = {};

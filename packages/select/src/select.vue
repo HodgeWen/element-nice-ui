@@ -270,7 +270,10 @@
       automaticDropdown: Boolean,
       size: String,
       disabled: Boolean,
-      clearable: Boolean,
+      clearable: {
+        type: Boolean,
+        default: true
+      },
       filterable: Boolean,
       allowCreate: Boolean,
       loading: Boolean,
