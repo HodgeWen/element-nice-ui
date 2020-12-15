@@ -21,9 +21,7 @@
   </el-form-item>
   <el-form-item label="活动时间">
       <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-
-   -
-
+        -
       <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
   </el-form-item>
   <el-form-item label="即时配送">
@@ -573,6 +571,8 @@ W3C 标准中有如下[规定](https://www.w3.org/MarkUp/html-spec/html-spec_8.h
 :::
 
 ### Form Attributes
+
+> TIPS 该属性同时支持某
 
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |

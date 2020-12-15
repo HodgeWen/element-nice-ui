@@ -101,7 +101,9 @@
 
       computedSpan() {
         const { span, elForm } = this
-        return +(span || elForm.colspan || 12)
+        if (elForm.inline) return
+        let cols = +(span || elForm.colspan)
+        return isNaN(cols) ? 12 : cols
       },
       labelStyle() {
         const ret = {};
