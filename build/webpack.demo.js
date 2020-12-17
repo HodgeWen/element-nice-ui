@@ -33,7 +33,8 @@ const webpackConfig = {
     host: '0.0.0.0',
     port: 8085,
     publicPath: '/',
-    hot: true
+    hot: true,
+    stats: 'errors-only'
   },
   performance: {
     hints: false

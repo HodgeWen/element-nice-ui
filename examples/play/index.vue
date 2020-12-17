@@ -1,15 +1,29 @@
 <template>
-  <div style="margin: 20px;">
-    <el-input v-model="input" placeholder="请输入内容"></el-input>
-  </div>
+  <el-table :headers="headers" page :data="data"> </el-table>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        input: 'Hello Element UI!'
-      };
+import 'packages/theme-chalk/src/base.scss'
+import 'packages/theme-chalk/src/table.scss'
+export default {
+  data() {
+    return {
+      headers: [
+        {
+          label: '你好啊',
+          prop: 'hello'
+        },
+        { label: '你好啊2', prop: 'b.c' }
+      ],
+
+      data: [{ hello: 'aa', b: { c: '1' } }]
     }
-  };
+  }
+}
 </script>
+
+<style lang="scss">
+body {
+  margin: 0;
+}
+</style>

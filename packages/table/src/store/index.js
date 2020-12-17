@@ -44,7 +44,6 @@ Watcher.prototype.mutations = {
       states.selectable = column.selectable;
       states.reserveSelection = column.reserveSelection;
     }
-
     if (this.table.$ready) {
       this.updateColumns(); // hack for dynamics insert column
       this.scheduleLayout();
