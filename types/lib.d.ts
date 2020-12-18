@@ -1,4 +1,4 @@
-export interface TableColumnItem{
+export interface TableHeaderItem{
   /** 列类型 */
   type?: 'selection' | 'index' | 'expand';
   /** 自定义索引 */

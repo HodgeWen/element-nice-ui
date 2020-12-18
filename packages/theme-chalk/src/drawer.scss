@@ -125,6 +125,10 @@ $directions: rtl, ltr, ttb, btt;
     @include animation-in($direction);
   }
 
+  &:focus {
+    outline: none;
+  }
+
   &__wrapper {
     position: fixed;
     top: 0;
