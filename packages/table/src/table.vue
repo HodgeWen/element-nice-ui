@@ -22,7 +22,12 @@
     <!-- 列 -->
     <template v-if="showHeader">
       <div class="hidden-columns" ref="hiddenColumns">
-        <el-table-column v-for="header of computedHeaders" :key="header._id" v-bind="header" />
+        <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
+
+          <template v-if="header.slot" #default="{ row, column, $index }">
+            <slot :name="header.slot" v-bind="{ row, column, value: row[header.prop], index: $index }" />
+          </template>
+        </table-column>
       </div>
 
       <div
@@ -252,6 +257,7 @@
 
 <script type="text/babel">
 import ElCheckbox from 'element-nice-ui/packages/checkbox'
+import TableColumn from './table-column'
 import { debounce, throttle } from 'throttle-debounce'
 import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
 import Mousewheel from 'element-nice-ui/src/directives/mousewheel'
@@ -388,6 +394,7 @@ export default {
     TableHeader,
     TableFooter,
     TableBody,
+    TableColumn,
     ElCheckbox
   },
 

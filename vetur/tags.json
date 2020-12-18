@@ -127,14 +127,10 @@
     "defaults": ["label"]
   },
   "el-table": {
-    "attributes": ["data", "api", "pagination", "height", "max-height", "stripe", "border", "fit", "show-header", "highlight-current-row", "current-row-key", "row-class-name", "cell-class-name", "cell-style", "header-row-class-name", "header-row-style", "header-cell-name", "header-cell-style", "row-style", "row-key", "empty-text", "default-expand-all", "expand-row-keys", "default-sort", "tooltip-effect", "show-summary", "sum-text", "summary-method", "span-method", "select-on-indeterminate", "select", "select-all", "selection-change", "cell-mouse-enter", "cell-mouse-leave", "cell-click", "cell-dbclick", "row-click", "row-contextmenu", "row-dbclick", "header-click", "sort-change", "filter-change", "current-change", "header-draggend", "expand", "expand-change"],
+    "attributes": ["data", "api", "pagination", "columns", "height", "max-height", "stripe", "border", "fit", "show-header", "highlight-current-row", "current-row-key", "row-class-name", "cell-class-name", "cell-style", "header-row-class-name", "header-row-style", "header-cell-name", "header-cell-style", "row-style", "row-key", "empty-text", "default-expand-all", "expand-row-keys", "default-sort", "tooltip-effect", "show-summary", "sum-text", "summary-method", "span-method", "select-on-indeterminate", "select", "select-all", "selection-change", "cell-mouse-enter", "cell-mouse-leave", "cell-click", "cell-dbclick", "row-click", "row-contextmenu", "row-dbclick", "header-click", "sort-change", "filter-change", "current-change", "header-draggend", "expand", "expand-change"],
     "defaults": [":data"],
     "subtags": ["el-table-column"],
     "description": "Display multiple data with similar format. You can sort, filter, compare your data in a table."
-  },
-  "el-table-column": {
-    "attributes": ["type", "column-key", "index", "label", "prop", "width", "min-width", "fixed", "render-header", "sortable", "sort-method", "sort-by", "resizable", "formatter", "show-overflow-tooltip", "align", "header-align", "class-name", "label-class-name", "selectable", "reserve-selection", "filters", "filter-placement", "filter-multiple", "filter-method", "filtered-value"],
-    "defaults": ["label"]
   },
   "el-tag": {
     "attributes": ["type", "closable", "close-transition", "hit", "color", "size", "close"],
@@ -253,5 +249,9 @@
   "el-collapse-item": {
     "attributes": ["name", "title"],
     "defaults": ["name", "title"]
+  },
+  "el-scrollbar": {
+    "attributes": ["noresize", "tag"],
+    "description": "更加好看的滚动条"
   }
 }

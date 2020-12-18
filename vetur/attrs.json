@@ -1173,5 +1173,13 @@
     "el-icon-delete2",
     "el-icon-upload2",
     "el-icon-view"
-  ]
+  ],
+  "el-scrollbar/noresize": {
+    "type": "boolean",
+    "description": "如果 container 尺寸不会发生变化，最好设置它可以优化性能"
+  },
+  "el-scrollbar/tag": {
+    "type": "string",
+    "description": "指定以何种html元素渲染"
+  }
 }

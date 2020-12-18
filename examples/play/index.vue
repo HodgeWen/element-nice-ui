@@ -5,7 +5,11 @@
 <script>
 import 'packages/theme-chalk/src/base.scss'
 import 'packages/theme-chalk/src/table.scss'
+import ElTable from 'packages/table'
 export default {
+  components: {
+    ElTable
+  },
   data() {
     return {
       headers: [

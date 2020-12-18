@@ -74,8 +74,6 @@ export interface TableColumnItem{
   selectable?: (row: any, index: number) => boolean
 }
 
-export type TableColumns = Array<TableColumnItem>
-
 /** Table Component */
 export declare class ElTable extends ElementUIComponent {
   /** Table data */
