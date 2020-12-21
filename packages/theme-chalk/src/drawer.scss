@@ -156,10 +156,16 @@ $directions: rtl, ltr, ttb, btt;
     flex: 1;
     line-height: inherit;
     font-size: 1rem;
+
+    span:focus {
+      outline: none;
+    }
+
   }
 
   &__close-btn {
     border: none;
+    outline: none;
     cursor: pointer;
     font-size: $--font-size-extra-large;
     color: inherit;

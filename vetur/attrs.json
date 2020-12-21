@@ -1181,5 +1181,18 @@
   "el-scrollbar/tag": {
     "type": "string",
     "description": "指定以何种html元素渲染"
+  },
+
+  "el-perfect-scrollbar/tag": {
+    "type": "string",
+    "description": "指定以何种html元素渲染"
+  },
+  "el-perfect-scrollbar/wheel-speed": {
+    "type": "number",
+    "description": "指定滚动速度"
+  },
+  "el-perfect-scrollbar/wheel-propagation": {
+    "type": "boolean",
+    "description": "滚动事件传播"
   }
 }

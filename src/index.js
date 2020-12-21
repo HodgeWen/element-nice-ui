@@ -58,6 +58,7 @@ import Steps from '../packages/steps/index.js';
 import Step from '../packages/step/index.js';
 import Carousel from '../packages/carousel/index.js';
 import Scrollbar from '../packages/scrollbar/index.js';
+import PerfectScrollbar from '../packages/perfect-scrollbar/index.js';
 import CarouselItem from '../packages/carousel-item/index.js';
 import Collapse from '../packages/collapse/index.js';
 import CollapseItem from '../packages/collapse-item/index.js';
@@ -140,6 +141,7 @@ const components = [
   Step,
   Carousel,
   Scrollbar,
+  PerfectScrollbar,
   CarouselItem,
   Collapse,
   CollapseItem,
@@ -198,7 +200,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '2.14.11',
+  version: '2.15.0',
   locale: locale.use,
   i18n: locale.i18n,
   install,
@@ -261,6 +263,7 @@ export default {
   Step,
   Carousel,
   Scrollbar,
+  PerfectScrollbar,
   CarouselItem,
   Collapse,
   CollapseItem,
