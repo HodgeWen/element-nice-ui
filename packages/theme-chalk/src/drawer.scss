@@ -1,5 +1,6 @@
 @import "mixins/mixins";
 @import "common/var";
+@import './perfect-scrollbar';
 
 @keyframes el-drawer-fade-in {
   0% {
@@ -143,10 +144,11 @@ $directions: rtl, ltr, ttb, btt;
     align-items: center;
     color: rgb(114, 118, 123);
     display: flex;
-    margin-bottom: 32px;
-    padding: $--dialog-padding-primary;
-    padding-bottom: 0;
+    padding: 10px;
     & > :first-child {
+      &:focus {
+        outline: none;
+      }
       flex: 1;
     }
   }
@@ -174,6 +176,8 @@ $directions: rtl, ltr, ttb, btt;
 
   &__body {
     flex: 1;
+    padding: 10px;
+    padding-top: 0;
     & > * {
       box-sizing: border-box;
     }
