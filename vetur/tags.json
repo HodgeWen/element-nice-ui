@@ -163,7 +163,7 @@
     "description": "Displays important alert messages."
   },
   "el-menu": {
-    "attributes": ["mode", "collapse", "background-color", "text-color", "active-text-color", "theme", "default-active", "default-openeds", "unique-opened", "menu-trigger", "router", "collapse-transition", "select", "open", "close"],
+    "attributes": ["mode", "size", "collapse", "background-color", "text-color", "active-text-color", "theme", "default-active", "default-openeds", "unique-opened", "menu-trigger", "router", "collapse-transition", "select", "open", "close"],
     "defaults": ["default-active"],
     "subtags": ["el-submenu", "el-menu-item"]
   },

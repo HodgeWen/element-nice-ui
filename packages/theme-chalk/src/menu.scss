@@ -1,18 +1,28 @@
-@import "mixins/mixins";
-@import "mixins/utils";
-@import "common/var";
-@import "common/transition";
+@import 'mixins/mixins';
+@import 'mixins/utils';
+@import 'common/var';
+@import 'common/transition';
+@import './tooltip';
 
-@mixin menu-item {
-  height: 56px;
-  line-height: 56px;
+@mixin menu-item($size: medium) {
+  @if $size == medium {
+    height: 50px;
+    line-height: 50px;
+  } @else if $size == small {
+    height: 44px;
+    line-height: 44px;
+  } @else if $size == large {
+    height: 56px;
+    line-height: 56px;
+  }
+
   font-size: $--menu-item-font-size;
   color: $--menu-item-font-color;
   padding: 0 20px;
   list-style: none;
   cursor: pointer;
   position: relative;
-  transition: border-color .3s, background-color .3s, color .3s;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
   box-sizing: border-box;
   white-space: nowrap;
 
@@ -64,7 +74,7 @@
       }
 
       &:not(.is-disabled):hover,
-      &:not(.is-disabled):focus{
+      &:not(.is-disabled):focus {
         background-color: #fff;
       }
     }
@@ -133,7 +143,7 @@
 
     > .el-menu-item,
     > .el-submenu > .el-submenu__title {
-      [class^="el-icon-"] {
+      [class^='el-icon-'] {
         margin: 0;
         vertical-align: middle;
         width: 24px;
@@ -195,11 +205,21 @@
       margin-right: 5px;
     }
   }
+  @include m(small) {
+    & .el-menu-item {
+      @include menu-item(small);
+    }
+  }
+  @include m(large) {
+    & .el-menu-item {
+      @include menu-item(large);
+    }
+  }
 }
 @include b(menu-item) {
   @include menu-item;
 
-  & [class^="el-icon-"] {
+  & [class^='el-icon-'] {
     margin-right: 5px;
     width: 24px;
     text-align: center;
@@ -207,6 +227,7 @@
     vertical-align: middle;
   }
   @include when(active) {
+    background: $--menu-item-hover-fill;
     color: $--color-primary;
     i {
       color: inherit;
@@ -230,8 +251,6 @@
     border: none;
   }
   & .el-menu-item {
-    height: 50px;
-    line-height: 50px;
     padding: 0 45px;
     min-width: 200px;
   }
@@ -240,7 +259,7 @@
     top: 50%;
     right: 20px;
     margin-top: -7px;
-    transition: transform .3s;
+    transition: transform 0.3s;
     font-size: 12px;
   }
   @include when(active) {
@@ -261,7 +280,7 @@
       background: none !important;
     }
   }
-  [class^="el-icon-"] {
+  [class^='el-icon-'] {
     vertical-align: middle;
     margin-right: 5px;
     width: 24px;
@@ -283,6 +302,6 @@
 }
 
 .horizontal-collapse-transition .el-submenu__title .el-submenu__icon-arrow {
-  transition: .2s;
+  transition: 0.2s;
   opacity: 0;
 }

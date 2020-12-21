@@ -12,7 +12,8 @@
             'is-fixed': $slots.default,
             'is-dot': isDot
           }
-        ]">
+        ]"
+      >
       </sup>
     </transition>
   </div>
@@ -29,25 +30,26 @@ export default {
     hidden: Boolean,
     type: {
       type: String,
+      default: 'danger',
       validator(val) {
-        return ['primary', 'success', 'warning', 'info', 'danger'].indexOf(val) > -1;
+        return ['primary', 'success', 'warning', 'info', 'danger'].indexOf(val) > -1
       }
     }
   },
 
   computed: {
     content() {
-      if (this.isDot) return;
+      if (this.isDot) return
 
-      const value = this.value;
-      const max = this.max;
+      const value = this.value
+      const max = this.max
 
       if (typeof value === 'number' && typeof max === 'number') {
-        return max < value ? `${max}+` : value;
+        return max < value ? `${max}+` : value
       }
 
-      return value;
+      return value
     }
   }
-};
+}
 </script>

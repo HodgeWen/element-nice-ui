@@ -454,6 +454,11 @@
     "version": ">=2.0.0",
     "description": "text color of currently active menu item (hex format), default: #409EFF"
   },
+  "el-menu/size": {
+    "version": ">=2.15.1",
+    "options": ["small", "medium", "large"],
+    "description": "menu水平状态下的尺寸"
+  },
   "el-tooltip/content": { "description": "display content, can be overridden by slot#content" },
   "el-popover/content": { "description": "popover content, can be replaced with a default slot" },
   "el-dropdown/trigger": { "options": ["hover", "click"], "description": "default: hover" },

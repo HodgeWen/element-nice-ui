@@ -2,7 +2,6 @@
 @import "common/var";
 
 @include b(badge) {
-  position: relative;
   vertical-align: middle;
   display: inline-block;
 
@@ -20,10 +19,7 @@
     border: 1px solid $--color-white;
 
     @include when(fixed) {
-      position: absolute;
-      top: 0;
-      right: #{1 + $--badge-size / 2};
-      transform: translateY(-50%) translateX(100%);
+      transform: translateY(-50%) translateX(-10px);
 
       @include when(dot) {
         right: 5px;
