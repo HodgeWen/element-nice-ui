@@ -2,12 +2,19 @@
   <div>
     <el-table
       :headers="headers"
-      page
+      pagination
       :crud="{
         update: () => {},
         create: () => {}
       }"
     >
+      <template #tools>
+
+      </template>
+
+      <template #searcher>
+        <el-btn>aaa</el-btn>
+      </template>
     </el-table>
     <el-icon name="setting" />
     <el-icon name="user" />
@@ -16,7 +23,7 @@
       11
     </el-dialog>
 
-    <el-context :ctx="{ size: 'small' }" :ctx-multiple="{ size: ['small:0,1,2,3,4', 'large:3'] }">
+    <el-context :ctx="{ size: 'small' }">
       <template>
         <el-btn icon="setting" @click="visible = true">按钮</el-btn>
         <el-btn>按钮1</el-btn>

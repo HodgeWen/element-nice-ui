@@ -271,11 +271,10 @@ import TableBody from './table-body'
 import TableHeader from './table-header'
 import TableFooter from './table-footer'
 import { parseHeight } from './util'
-
 let tableIdSeed = 1
 
 export default {
-  name: 'ElTable',
+  name: 'Table',
 
   mixins: [Locale, Migrating],
 
@@ -284,8 +283,6 @@ export default {
   },
 
   props: {
-    api: String,
-
     headers: {
       type: Array
     },
@@ -294,16 +291,11 @@ export default {
       type: String,
       default: 'center'
     },
-
-    pagination: {
-      type: Boolean
-    },
-
     //----------上面的属性为扩展的属性
 
     data: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       }
     },
@@ -401,24 +393,6 @@ export default {
   },
 
   methods: {
-    // 获取表格数据
-    fetchData() {
-      if (!this.api || !this.$http || !this.EL_TABLE_CONFIG) return
-      const { pageDataKey, listDataKey, totalKey } = this.EL_TABLE_CONFIG
-      this.$http
-        .get(this.api, {
-          params: {}
-        })
-        .then((res) => {
-          if (res.code !== 200) return
-          if (this.pagination) {
-            this.internal = res[pageDataKey]
-          } else {
-            this.internal = res[listDataKey]
-          }
-        })
-    },
-
     // 分割线-------------------以上属于自定义扩展方法
 
     getMigratingConfig() {
@@ -494,7 +468,7 @@ export default {
     },
 
     // TODO 使用 CSS transform
-    syncPostion: throttle(5, function() {
+    syncPostion: throttle(5, function () {
       const { scrollLeft, scrollTop, offsetWidth, scrollWidth } = this.bodyWrapper
       const { headerWrapper, footerWrapper, fixedBodyWrapper, rightFixedBodyWrapper } = this.$refs
       // if (headerWrapper) headerWrapper.style.transform = `translate(${-scrollLeft}px)`;
@@ -589,6 +563,7 @@ export default {
         showHeader: this.showHeader
       })
     },
+
     // 分割线---------------上边的为自定义扩展
     tableSize() {
       return this.size || (this.$ELEMENT || {}).size
@@ -739,8 +714,6 @@ export default {
   },
 
   mounted() {
-    this.fetchData()
-
     this.bindEvents()
     this.store.updateColumns()
     this.doLayout()
@@ -791,10 +764,7 @@ export default {
       },
       // 是否拥有多级表头
       isGroup: false,
-      scrollPosition: 'left',
-
-      // 内部数据. 通过api即可请求
-      internal: []
+      scrollPosition: 'left'
     }
   }
 }

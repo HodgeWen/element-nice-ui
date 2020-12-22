@@ -5,7 +5,7 @@
 @import "common/var";
 @import 'table-column';
 @import 'scrollbar';
-
+@import 'pagination';
 @include b(table) {
   position: relative;
   overflow: hidden;
@@ -561,5 +561,16 @@
       text-align: center;
       margin-right: 3px;
     }
+  }
+}
+
+@include b(happy-table) {
+  height: 100%;
+
+  @include e(header) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
   }
 }

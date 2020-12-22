@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "element-nice-ui/*": ["./*"]
+    }
+  },
+  "include": ["./src/**/*", "./vetur/**/*", "./packages/**/*", "./types/*"]
+}

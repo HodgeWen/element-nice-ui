@@ -253,6 +253,7 @@ export default {
               max={ this.$parent.internalPageCount }
               value={ this.userInput !== null ? this.userInput : this.$parent.internalCurrentPage }
               type="number"
+              clearable={false}
               disabled={ this.$parent.disabled }
               nativeOnKeyup={ this.handleKeyup }
               onInput={ this.handleInput }
