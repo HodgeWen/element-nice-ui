@@ -19,20 +19,20 @@
             size="mini">
           </el-input>
         </span>
-        <el-button
+        <el-btn
           size="mini"
           type="text"
           class="el-color-dropdown__link-btn"
           @click="$emit('clear')">
           {{ t('el.colorpicker.clear') }}
-        </el-button>
-        <el-button
+        </el-btn>
+        <el-btn
           plain
           size="mini"
           class="el-color-dropdown__btn"
           @click="confirmValue">
           {{ t('el.colorpicker.confirm') }}
-        </el-button>
+        </el-btn>
       </div>
     </div>
   </transition>
@@ -46,7 +46,7 @@
   import Popper from 'element-nice-ui/src/utils/vue-popper';
   import Locale from 'element-nice-ui/src/mixins/locale';
   import ElInput from 'element-nice-ui/packages/input';
-  import ElButton from 'element-nice-ui/packages/button';
+  import ElBtn from 'element-nice-ui/packages/btn';
 
   export default {
     name: 'el-color-picker-dropdown',
@@ -58,7 +58,7 @@
       HueSlider,
       AlphaSlider,
       ElInput,
-      ElButton,
+      ElBtn,
       Predefine
     },
 

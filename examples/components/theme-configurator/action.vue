@@ -2,40 +2,40 @@
   <div class="configurator-action">
       <div class="action-group">
         <el-tooltip :content="getActionDisplayName('undo')">
-          <img 
+          <img
             src="../../assets/images/icon-undo.svg"
             @click="onUndo"
             :class="{ 'active': userConfigHistory.length > 0 }"
           />
         </el-tooltip>
         <el-tooltip :content="getActionDisplayName('redo')">
-          <img 
+          <img
             src="../../assets/images/icon-redo.svg"
             @click="onRedo"
             :class="{ 'active': userConfigRedoHistory.length > 0 }"
           />
         </el-tooltip>
         <div class="button-group">
-          <el-button 
+          <el-btn
             class="reset"
-            type="primary" 
-            round 
+            type="primary"
+            round
             size="mini"
             :disabled="isOfficial"
             @click="onReset"
           >
             {{getActionDisplayName('reset-theme')}}
-          </el-button>
-          <el-button 
+          </el-btn>
+          <el-btn
             class="download"
-            type="primary" 
-            round 
+            type="primary"
+            round
             size="mini"
             :disabled="downloadDisabled"
             @click="onDownload"
           >
             {{getActionDisplayName('download-theme')}}
-          </el-button>
+          </el-btn>
         </div>
       </div>
       <el-select v-model="selectedComponent" class="selector">
@@ -72,7 +72,7 @@
     }
     .button-group {
       float: right;
-      .el-button {
+      .el-btn {
         padding: 6px 15px;
         &.is-disabled {
           color: #C0C4CC;

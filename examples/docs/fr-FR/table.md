@@ -359,8 +359,8 @@ Lorsque qu'il y a beaucoup de colonnes, il peut être utile d'en fixer certaines
       label="Opérations"
       width="120">
       <template slot-scope="scope">
-        <el-button @click="handleClick" type="text" size="small">Detail</el-button>
-        <el-button type="text" size="small">Editer</el-button>
+        <el-btn @click="handleClick" type="text" size="small">Detail</el-btn>
+        <el-btn type="text" size="small">Editer</el-btn>
       </template>
     </el-table-column>
   </el-table>
@@ -568,12 +568,12 @@ Quand les données changent dynamiquement, vous pouvez avoir besoin d'une hauteu
       label="Opérations"
       width="120">
       <template slot-scope="scope">
-        <el-button
+        <el-btn
           @click.native.prevent="deleteRow(scope.$index, tableData)"
           type="text"
           size="small">
           Supprimer
-        </el-button>
+        </el-btn>
       </template>
     </el-table-column>
   </el-table>
@@ -786,8 +786,8 @@ Vous pouvez activer la sélection d'une ligne.
     </el-table-column>
   </el-table>
   <div style="margin-top: 20px">
-    <el-button @click="setCurrent(tableData[1])">Sélectionner la deuxième ligne</el-button>
-    <el-button @click="setCurrent()">Effacer la sélection</el-button>
+    <el-btn @click="setCurrent(tableData[1])">Sélectionner la deuxième ligne</el-btn>
+    <el-btn @click="setCurrent()">Effacer la sélection</el-btn>
   </div>
 </template>
 
@@ -862,8 +862,8 @@ Vous pouvez aussi sélectionner plusieurs lignes.
     </el-table-column>
   </el-table>
   <div style="margin-top: 20px">
-    <el-button @click="toggleSelection([tableData[1], tableData[2]])">Sélectionner les deuxième et troisième lignes</el-button>
-    <el-button @click="toggleSelection()">Effacer la sélection</el-button>
+    <el-btn @click="toggleSelection([tableData[1], tableData[2]])">Sélectionner les deuxième et troisième lignes</el-btn>
+    <el-btn @click="toggleSelection()">Effacer la sélection</el-btn>
   </div>
 </template>
 
@@ -993,8 +993,8 @@ Vous pouvez filtrer la table pour obtenir rapidement les lignes désirées.
 :::demo Réglez `filters` et `filter-method` dans `el-table-column` pour rendre la colonne filtrable. `filters` prends un tableau, et `filter-method` est une fonction déterminant comment les lignes s'affichent. Elle prend trois paramètres: `value`, `row` et `column`.
 ```html
 <template>
-  <el-button @click="resetDateFilter">Effacer le filtre date</el-button>
-  <el-button @click="clearFilter">Effacer tout les filtres</el-button>
+  <el-btn @click="resetDateFilter">Effacer le filtre date</el-btn>
+  <el-btn @click="clearFilter">Effacer tout les filtres</el-btn>
   <el-table
     ref="filterTable"
     :data="tableData"
@@ -1119,13 +1119,13 @@ Vous pouvez customiser le contenu des colonnes afin de pouvoir utiliser d'autres
     <el-table-column
       label="Opérations">
       <template slot-scope="scope">
-        <el-button
+        <el-btn
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Editer</el-button>
-        <el-button
+          @click="handleEdit(scope.$index, scope.row)">Editer</el-btn>
+        <el-btn
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">Supprimer</el-button>
+          @click="handleDelete(scope.$index, scope.row)">Supprimer</el-btn>
       </template>
     </el-table-column>
   </el-table>
@@ -1194,13 +1194,13 @@ Vous pouvez également personnaliser le header de la table.
           placeholder="Type to search"/>
       </template>
       <template slot-scope="scope">
-        <el-button
+        <el-btn
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Editer</el-button>
-        <el-button
+          @click="handleEdit(scope.$index, scope.row)">Editer</el-btn>
+        <el-btn
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">Supprimer</el-button>
+          @click="handleDelete(scope.$index, scope.row)">Supprimer</el-btn>
       </template>
     </el-table-column>
   </el-table>

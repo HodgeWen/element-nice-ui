@@ -1,89 +1,54 @@
 <template>
-  <!-- <el-table :headers="headers" page :data="data"> </el-table> -->
-  <el-perfect-scrollbar tag="ul" class="aaa">
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
+  <div>
+    <el-table
+      :headers="headers"
+      page
+      :crud="{
+        update: () => {},
+        create: () => {}
+      }"
+    >
+    </el-table>
+    <el-icon name="setting" />
+    <el-icon name="user" />
 
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-    <template v-if="show">
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-      <li>1</li>
-    </template>
-  </el-perfect-scrollbar>
+    <el-dialog v-model="visible">
+      11
+    </el-dialog>
+
+    <el-context :ctx="{ size: 'small' }" :ctx-multiple="{ size: ['small:0,1,2,3,4', 'large:3'] }">
+      <template>
+        <el-btn icon="setting" @click="visible = true">按钮</el-btn>
+        <el-btn>按钮1</el-btn>
+        <el-btn>按钮2</el-btn>
+      </template>
+    </el-context>
+  </div>
 </template>
 
 <script>
-// import 'packages/theme-chalk/src/base.scss'
-// import 'packages/theme-chalk/src/table.scss'
-// import ElTable from 'packages/table'
-import 'packages/theme-chalk/src/perfect-scrollbar.scss'
-import ElPerfectScrollbar from 'packages/perfect-scrollbar'
+import 'packages/theme-chalk/src/base.scss'
+import 'packages/theme-chalk/src/table.scss'
+import ElTable from 'packages/table'
+import ElIcon from 'packages/icon'
+import 'packages/theme-chalk/src/icon.scss'
+import ElDialog from 'packages/dialog'
+import 'packages/theme-chalk/src/dialog.scss'
+import ElBtn from 'packages/btn'
+import 'packages/theme-chalk/src/btn.scss'
+import ElContext from 'packages/context'
 export default {
   components: {
-    ElPerfectScrollbar
+    ElIcon,
+    ElDialog,
+    ElContext,
+    ElBtn,
+    ElTable
   },
   data() {
     return {
       headers: [
+        { type: 'selection' },
         {
           label: '你好啊',
           prop: 'hello'
@@ -93,7 +58,7 @@ export default {
 
       data: [{ hello: 'aa', b: { c: '1' } }],
 
-      show: false
+      visible: false
     }
   },
 

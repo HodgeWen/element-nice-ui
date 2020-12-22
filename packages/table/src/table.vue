@@ -23,13 +23,6 @@
     <template v-if="showHeader">
       <div class="hidden-columns" ref="hiddenColumns">
         <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
-          <!-- <template v-if="header.children">
-            <table-column
-              label="嘿嘿"
-              v-for="cHeader of header.children"
-              :key="cHeader._id">
-            </table-column>
-          </template> -->
           <template v-if="header.slot" #default="{ row, column, $index }">
             <slot
               :name="header.slot"

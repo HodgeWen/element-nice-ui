@@ -294,12 +294,12 @@
     }
 
     .el-select,
-    .el-button {
+    .el-btn {
       display: inline-block;
       margin: -10px -20px;
     }
 
-    button.el-button,
+    button.el-btn,
     div.el-select .el-input__inner,
     div.el-select:hover .el-input__inner {
       border-color: transparent;
@@ -309,7 +309,7 @@
       border-bottom: 0;
     }
 
-    .el-button,
+    .el-btn,
     .el-input {
       font-size: inherit;
     }

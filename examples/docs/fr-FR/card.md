@@ -11,7 +11,7 @@ Le composant Card comprend un titre, un contenu et des opérations.
 <el-card class="box-card">
   <div slot="header" class="clearfix">
     <span>Card name</span>
-    <el-button style="float: right; padding: 3px 0" type="text">Bouton</el-button>
+    <el-btn style="float: right; padding: 3px 0" type="text">Bouton</el-btn>
   </div>
   <div v-for="o in 4" :key="o" class="text item">
     {{'List item ' + o }}
@@ -85,7 +85,7 @@ Affichez un contenu plus riche grâce à la configuration.
         <span>Yummy hamburger</span>
         <div class="bottom clearfix">
           <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">Operating</el-button>
+          <el-btn type="text" class="button">Operating</el-btn>
         </div>
       </div>
     </el-card>

@@ -28,14 +28,14 @@
       </transition>
       <el-tooltip effect="dark" :content="langConfig['tooltip-text']" placement="right">
         <transition name="text-slide">
-          <el-button
+          <el-btn
             v-show="hovering || isExpanded"
             size="small"
             type="text"
             class="control-button"
             @click.stop="goCodepen">
             {{ langConfig['button-text'] }}
-          </el-button>
+          </el-btn>
         </transition>
       </el-tooltip>
     </div>

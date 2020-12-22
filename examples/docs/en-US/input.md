@@ -234,7 +234,7 @@ Prepend or append an element, generally a label or a button.
       <el-option label="Order No." value="2"></el-option>
       <el-option label="Tel" value="3"></el-option>
     </el-select>
-    <el-button slot="append" icon="el-icon-search"></el-button>
+    <el-btn slot="append" icon="el-icon-search"></el-btn>
   </el-input>
 </div>
 

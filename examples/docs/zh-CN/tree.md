@@ -314,11 +314,11 @@
 </el-tree>
 
 <div class="buttons">
-  <el-button @click="getCheckedNodes">通过 node 获取</el-button>
-  <el-button @click="getCheckedKeys">通过 key 获取</el-button>
-  <el-button @click="setCheckedNodes">通过 node 设置</el-button>
-  <el-button @click="setCheckedKeys">通过 key 设置</el-button>
-  <el-button @click="resetChecked">清空</el-button>
+  <el-btn @click="getCheckedNodes">通过 node 获取</el-btn>
+  <el-btn @click="getCheckedKeys">通过 key 获取</el-btn>
+  <el-btn @click="setCheckedNodes">通过 node 设置</el-btn>
+  <el-btn @click="setCheckedKeys">通过 key 设置</el-btn>
+  <el-btn @click="resetChecked">清空</el-btn>
 </div>
 
 <script>
@@ -423,18 +423,18 @@
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
         <span>
-          <el-button
+          <el-btn
             type="text"
             size="mini"
             @click="() => append(data)">
             Append
-          </el-button>
-          <el-button
+          </el-btn>
+          <el-btn
             type="text"
             size="mini"
             @click="() => remove(node, data)">
             Delete
-          </el-button>
+          </el-btn>
         </span>
       </span>
     </el-tree>
@@ -508,8 +508,8 @@
           <span class="custom-tree-node">
             <span>{node.label}</span>
             <span>
-              <el-button size="mini" type="text" on-click={ () => this.append(data) }>Append</el-button>
-              <el-button size="mini" type="text" on-click={ () => this.remove(node, data) }>Delete</el-button>
+              <el-btn size="mini" type="text" on-click={ () => this.append(data) }>Append</el-btn>
+              <el-btn size="mini" type="text" on-click={ () => this.remove(node, data) }>Delete</el-btn>
             </span>
           </span>);
       }

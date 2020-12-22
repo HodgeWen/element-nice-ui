@@ -15,20 +15,20 @@
       {{title}}
     </p>
     <div class="el-popconfirm__action">
-      <el-button
+      <el-btn
         size="mini"
-        :type="cancelButtonType"
+        :type="cancElBtnType"
         @click="cancel"
       >
-        {{cancelButtonText}}
-      </el-button>
-      <el-button
+        {{cancelBtnText}}
+      </el-btn>
+      <el-btn
         size="mini"
         :type="confirmButtonType"
         @click="confirm"
       >
         {{confirmButtonText}}
-      </el-button>
+      </el-btn>
     </div>
   </div>
   <slot name="reference" slot="reference"></slot>
@@ -37,7 +37,7 @@
 
 <script>
 import ElPopover from 'element-nice-ui/packages/popover';
-import ElButton from 'element-nice-ui/packages/button';
+import ElBtn from 'element-nice-ui/packages/btn';
 import {t} from 'element-nice-ui/src/locale';
 
 export default {
@@ -50,15 +50,15 @@ export default {
       type: String,
       default: t('el.popconfirm.confirmButtonText')
     },
-    cancelButtonText: {
+    cancelBtnText: {
       type: String,
-      default: t('el.popconfirm.cancelButtonText')
+      default: t('el.popconfirm.cancelBtnText')
     },
     confirmButtonType: {
       type: String,
       default: 'primary'
     },
-    cancelButtonType: {
+    cancElBtnType: {
       type: String,
       default: 'text'
     },
@@ -77,7 +77,7 @@ export default {
   },
   components: {
     ElPopover,
-    ElButton
+    ElBtn
   },
   data() {
     return {

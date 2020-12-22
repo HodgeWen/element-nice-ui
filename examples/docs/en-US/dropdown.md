@@ -41,9 +41,9 @@ Use the button to trigger the dropdown list.
 :::demo Use `split-button` to split the triggering element into a button group with the left button being a normal button and right one the actual triggering target. If you wanna insert a separator line between item three and item four, just add a class `divider` to item four.
 ```html
 <el-dropdown>
-  <el-button type="primary">
+  <el-btn type="primary">
     Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
-  </el-button>
+  </el-btn>
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item>Action 1</el-dropdown-item>
     <el-dropdown-item>Action 2</el-dropdown-item>
@@ -270,7 +270,7 @@ Besides default size, Dropdown component provides three additional sizes for you
 ### Dropdown Attributes
 | Attribute      | Description          | Type      | Accepted Values       | Default  |
 |-------------  |---------------- |---------------- |---------------------- |-------- |
-| type          | menu button type, refer to `Button` Component, only works when `split-button` is true  | string  |  —   |    —     |
+| type          | menu button type, refer to `Btn` Component, only works when `split-button` is true  | string  |  —   |    —     |
 | size          | menu size, also works on the split button  | string  | medium / small / mini  |    —     |
 | split-button | whether a button group is displayed | boolean         |     —       | false   |
 | placement    | placement of pop menu | string | top/top-start/top-end/bottom/bottom-start/bottom-end  | bottom-end |

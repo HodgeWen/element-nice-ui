@@ -51,17 +51,17 @@
           </div>
         </div>
         <div class="el-message-box__btns">
-          <el-button
-            :loading="cancelButtonLoading"
-            :class="[ cancelButtonClasses ]"
-            v-if="showCancelButton"
+          <el-btn
+            :loading="cancElBtnLoading"
+            :class="[ cancElBtnClasses ]"
+            v-if="showCancElBtn"
             :round="roundButton"
             size="small"
             @click.native="handleAction('cancel')"
             @keydown.enter="handleAction('cancel')">
-            {{ cancelButtonText || t('el.messagebox.cancel') }}
-          </el-button>
-          <el-button
+            {{ cancelBtnText || t('el.messagebox.cancel') }}
+          </el-btn>
+          <el-btn
             :loading="confirmButtonLoading"
             ref="confirm"
             :class="[ confirmButtonClasses ]"
@@ -71,7 +71,7 @@
             @click.native="handleAction('confirm')"
             @keydown.enter="handleAction('confirm')">
             {{ confirmButtonText || t('el.messagebox.confirm') }}
-          </el-button>
+          </el-btn>
         </div>
       </div>
     </div>
@@ -82,7 +82,7 @@
   import Popup from 'element-nice-ui/src/utils/popup';
   import Locale from 'element-nice-ui/src/mixins/locale';
   import ElInput from 'element-nice-ui/packages/input';
-  import ElButton from 'element-nice-ui/packages/button';
+  import ElBtn from 'element-nice-ui/packages/btn';
   import { addClass, removeClass } from 'element-nice-ui/src/utils/dom';
   import { t } from 'element-nice-ui/src/locale';
   import Dialog from 'element-nice-ui/src/utils/aria-dialog';
@@ -130,7 +130,7 @@
 
     components: {
       ElInput,
-      ElButton
+      ElBtn
     },
 
     computed: {
@@ -140,10 +140,10 @@
       },
 
       confirmButtonClasses() {
-        return `el-button--primary ${ this.confirmButtonClass }`;
+        return `el-btn--primary ${ this.confirmButtonClass }`;
       },
-      cancelButtonClasses() {
-        return `${ this.cancelButtonClass }`;
+      cancElBtnClasses() {
+        return `${ this.cancElBtnClass }`;
       }
     },
 
@@ -226,7 +226,7 @@
         return true;
       },
       getFirstFocus() {
-        const btn = this.$el.querySelector('.el-message-box__btns .el-button');
+        const btn = this.$el.querySelector('.el-message-box__btns .el-btn');
         const title = this.$el.querySelector('.el-message-box__btns .el-message-box__title');
         return btn || title;
       },
@@ -311,15 +311,15 @@
         inputValidator: null,
         inputErrorMessage: '',
         showConfirmButton: true,
-        showCancelButton: false,
+        showCancElBtn: false,
         action: '',
         confirmButtonText: '',
-        cancelButtonText: '',
+        cancelBtnText: '',
         confirmButtonLoading: false,
-        cancelButtonLoading: false,
+        cancElBtnLoading: false,
         confirmButtonClass: '',
         confirmButtonDisabled: false,
-        cancelButtonClass: '',
+        cancElBtnClass: '',
         editorErrorMessage: null,
         callback: null,
         dangerouslyUseHTMLString: false,

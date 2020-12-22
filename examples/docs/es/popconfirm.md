@@ -1,4 +1,4 @@
-## Popconfirm 
+## Popconfirm
 
 Un dialogo de confirmación simple asociado al evento click de un elemento.
 
@@ -12,7 +12,7 @@ Popconfirm es parecido a Popover. Para algunos atributos duplicados, por favor c
 <el-popconfirm
   title="Are you sure to delete this?"
 >
-  <el-button slot="reference">Delete</el-button>
+  <el-btn slot="reference">Delete</el-btn>
 </el-popconfirm>
 </template>
 ````
@@ -26,12 +26,12 @@ Se puede personalizar Popconfirm así:
 <template>
 <el-popconfirm
   confirm-button-text='OK'
-  cancel-button-text='No, Thanks'
+  cancel-btn-text='No, Thanks'
   icon="el-icon-info"
   icon-color="red"
   title="Are you sure to delete this?"
 >
-  <el-button slot="reference">Delete</el-button>
+  <el-btn slot="reference">Delete</el-btn>
 </el-popconfirm>
 </template>
 ```
@@ -42,9 +42,9 @@ Se puede personalizar Popconfirm así:
 |--------------------|----------------------------------------------------------|-------------------|-------------|--------|
 |  title              | Titulo | String | — | — |
 |  confirm-button-text              | Texto del botón de confirmación | String | — | — |
-|  cancel-button-text              | Texto del botón de cancelación | String | — | — |
+|  cancel-btn-text              | Texto del botón de cancelación | String | — | — |
 |  confirm-button-type              | Tipo del botón de confirmación | String | — | Primary |
-|  cancel-button-type              | Tipo del botón de cancelación | String | — | Text |
+|  cancel-btn-type              | Tipo del botón de cancelación | String | — | Text |
 |  icon              | Icono | String | — | el-icon-question |
 |  icon-color              | Color icono | String | — | #f90 |
 |  hide-icon              | ¿Es un icono oculto? | Boolean | — | false |

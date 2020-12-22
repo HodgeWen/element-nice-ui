@@ -27,10 +27,23 @@
             @click="handleClose">
             <i class="el-dialog__close el-icon el-icon-close"></i>
           </button>
+          <button
+            type="button"
+            class="el-dialog__headerbtn"
+            aria-label="Close"
+            v-if="showClose"
+            @click="handleClose">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
         </div>
         <div class="el-dialog__body" v-if="rendered"><slot></slot></div>
-        <div class="el-dialog__footer" v-if="$slots.footer">
-          <slot name="footer"></slot>
+        <div class="el-dialog__footer">
+          <slot name="footer"  v-if="$slots.footer" />
+
+          <template v-else>
+            <el-btn size="small" @click="handleClose">取消</el-btn>
+            <el-btn size="small" type="primary">确认</el-btn>
+          </template>
         </div>
       </div>
     </div>
@@ -41,16 +54,21 @@
   import Popup from 'element-nice-ui/src/utils/popup';
   import Migrating from 'element-nice-ui/src/mixins/migrating';
   import emitter from 'element-nice-ui/src/mixins/emitter';
+  import ElBtn from 'element-nice-ui/packages/btn'
 
   export default {
     name: 'ElDialog',
+
+    components: {
+      ElBtn
+    },
 
     mixins: [Popup, emitter, Migrating],
 
     props: {
       title: {
         type: String,
-        default: ''
+        default: '对话框'
       },
 
       modal: {
@@ -141,6 +159,11 @@
       }
     },
 
+    model: {
+      prop: 'visible',
+      event: 'change'
+    },
+
     computed: {
       style() {
         let style = {};
@@ -175,7 +198,7 @@
       },
       hide(cancel) {
         if (cancel !== false) {
-          this.$emit('update:visible', false);
+          this.$emit('change', false);
           this.$emit('close');
           this.closed = true;
         }

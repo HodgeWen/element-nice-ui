@@ -114,7 +114,7 @@ export default {
     },
     popconfirm: {
       confirmButtonText: 'Ya',
-      cancelButtonText: 'Tidak'
+      cancelBtnText: 'Tidak'
     }
   }
 };

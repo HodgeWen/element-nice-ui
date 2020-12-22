@@ -79,7 +79,7 @@ There are two ways to expand child option items.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -299,7 +299,7 @@ Disable an option by setting a `disabled` field in the option object.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -513,7 +513,7 @@ Set `clearable` attribute for `el-cascader` and a clear icon will appear when se
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -726,7 +726,7 @@ The input can display only the last level instead of all levels.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1057,7 +1057,7 @@ In single selection, only the leaf nodes can be checked, and in multiple selecti
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1322,7 +1322,7 @@ Search and select options with a keyword.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1541,7 +1541,7 @@ You can customize the content of cascader node.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1755,7 +1755,7 @@ You can customize the content of cascader node.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',

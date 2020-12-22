@@ -7,26 +7,26 @@
       <div
         class="el-calendar__button-group"
         v-if="validatedRange.length === 0">
-        <el-button-group>
-          <el-button
+        <el-btn-group>
+          <el-btn
             type="plain"
             size="mini"
             @click="selectDate('prev-month')">
             {{ t('el.datepicker.prevMonth') }}
-          </el-button>
-          <el-button
+          </el-btn>
+          <el-btn
             type="plain"
             size="mini"
             @click="selectDate('today')">
             {{ t('el.datepicker.today') }}
-          </el-button>
-          <el-button
+          </el-btn>
+          <el-btn
             type="plain"
             size="mini"
             @click="selectDate('next-month')">
             {{ t('el.datepicker.nextMonth') }}
-          </el-button>
-        </el-button-group>
+          </el-btn>
+        </el-btn-group>
       </div>
     </div>
     <div
@@ -59,8 +59,8 @@
 <script>
 import Locale from 'element-nice-ui/src/mixins/locale';
 import fecha from 'element-nice-ui/src/utils/date';
-import ElButton from 'element-nice-ui/packages/button';
-import ElButtonGroup from 'element-nice-ui/packages/button-group';
+import ElBtn from 'element-nice-ui/packages/btn';
+import ElBtnGroup from 'element-nice-ui/packages/btn-group';
 import DateTable from './date-table';
 import { validateRangeInOneMonth } from 'element-nice-ui/src/utils/date-util';
 
@@ -75,8 +75,8 @@ export default {
 
   components: {
     DateTable,
-    ElButton,
-    ElButtonGroup
+    ElBtn,
+    ElBtnGroup
   },
 
   props: {

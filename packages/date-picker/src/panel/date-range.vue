@@ -167,21 +167,21 @@
         </div>
       </div>
       <div class="el-picker-panel__footer" v-if="showTime">
-        <el-button
+        <el-btn
           size="mini"
           type="text"
           class="el-picker-panel__link-btn"
           @click="handleClear">
           {{ t('el.datepicker.clear') }}
-        </el-button>
-        <el-button
+        </el-btn>
+        <el-btn
           plain
           size="mini"
           class="el-picker-panel__link-btn"
           :disabled="btnDisabled"
           @click="handleConfirm(false)">
           {{ t('el.datepicker.confirm') }}
-        </el-button>
+        </el-btn>
       </div>
     </div>
   </transition>
@@ -208,7 +208,7 @@
   import TimePicker from './time';
   import DateTable from '../basic/date-table';
   import ElInput from 'element-nice-ui/packages/input';
-  import ElButton from 'element-nice-ui/packages/button';
+  import ElBtn from 'element-nice-ui/packages/btn';
 
   const calcDefaultValue = (defaultValue) => {
     if (Array.isArray(defaultValue)) {
@@ -675,6 +675,6 @@
       }
     },
 
-    components: { TimePicker, DateTable, ElInput, ElButton }
+    components: { TimePicker, DateTable, ElInput, ElBtn }
   };
 </script>

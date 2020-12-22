@@ -14,7 +14,7 @@ Similaire à Tooltip, Popover est aussi construit avec `Vue-popper`. Certains at
     width="200"
     trigger="hover"
     content="this is content, this is content, this is content">
-    <el-button slot="reference">S'active au passage du curseur</el-button>
+    <el-btn slot="reference">S'active au passage du curseur</el-btn>
   </el-popover>
 
   <el-popover
@@ -23,7 +23,7 @@ Similaire à Tooltip, Popover est aussi construit avec `Vue-popper`. Certains at
     width="200"
     trigger="click"
     content="this is content, this is content, this is content">
-    <el-button slot="reference">S'active en cliquant</el-button>
+    <el-btn slot="reference">S'active en cliquant</el-btn>
   </el-popover>
 
   <el-popover
@@ -34,7 +34,7 @@ Similaire à Tooltip, Popover est aussi construit avec `Vue-popper`. Certains at
     trigger="focus"
     content="this is content, this is content, this is content">
   </el-popover>
-  <el-button v-popover:popover>S'active au focus</el-button>
+  <el-btn v-popover:popover>S'active au focus</el-btn>
 
   <el-popover
     placement="bottom"
@@ -43,7 +43,7 @@ Similaire à Tooltip, Popover est aussi construit avec `Vue-popper`. Certains at
     trigger="manual"
     content="this is content, this is content, this is content"
     v-model="visible">
-    <el-button slot="reference" @click="visible = !visible">S'active manuellement</el-button>
+    <el-btn slot="reference" @click="visible = !visible">S'active manuellement</el-btn>
   </el-popover>
 </template>
 
@@ -75,7 +75,7 @@ D'autres composants peuvent s'imbriquer dans un popover.
     <el-table-column width="100" property="name" label="name"></el-table-column>
     <el-table-column width="300" property="address" label="address"></el-table-column>
   </el-table>
-  <el-button slot="reference">Cliquez pour activer</el-button>
+  <el-btn slot="reference">Cliquez pour activer</el-btn>
 </el-popover>
 
 <script>
@@ -118,10 +118,10 @@ Vous pouvez aussi imbriquer des opérations. Procéder ainsi est plus léger que
   v-model="visible">
   <p>Voulez-vous vraiment supprimer ceci?</p>
   <div style="text-align: right; margin: 0">
-    <el-button size="mini" type="text" @click="visible = false">Annuler</el-button>
-    <el-button type="primary" size="mini" @click="visible = false">Confirmer</el-button>
+    <el-btn size="mini" type="text" @click="visible = false">Annuler</el-btn>
+    <el-btn type="primary" size="mini" @click="visible = false">Confirmer</el-btn>
   </div>
-  <el-button slot="reference">Supprimer</el-button>
+  <el-btn slot="reference">Supprimer</el-btn>
 </el-popover>
 
 <script>

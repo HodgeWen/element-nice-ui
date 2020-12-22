@@ -1,5 +1,5 @@
 <template>
-  <i :class="'el-icon-' + name" @click="$emit('click', $event)"></i>
+  <i :class="name" @click="$emit('click', $event)"></i>
 </template>
 
 <script>

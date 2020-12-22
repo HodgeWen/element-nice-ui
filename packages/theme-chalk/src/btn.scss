@@ -4,7 +4,7 @@
 @import "mixins/mixins";
 @import "mixins/utils";
 
-@include b(button) {
+@include b(btn) {
   display: inline-block;
   line-height: 1;
   white-space: nowrap;
@@ -82,7 +82,7 @@
       border-color: $--button-disabled-border-color;
     }
 
-    &.el-button--text {
+    &.el-btn--text {
       background-color: transparent;
     }
 
@@ -181,15 +181,15 @@
   }
 }
 
-@include b(button-group) {
+@include b(btn-group) {
   @include utils-clearfix;
   display: inline-block;
   vertical-align: middle;
 
-  & > .el-button {
+  & > .el-btn {
     float: left;
     position: relative;
-    & + .el-button {
+    & + .el-btn {
       margin-left: 0;
     }
     &.is-disabled {
@@ -234,9 +234,9 @@
       z-index: 1;
     }
   }
-  
+
   & > .el-dropdown {
-    & > .el-button {
+    & > .el-btn {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       border-left-color: rgba($--color-white, 0.5);
@@ -244,7 +244,7 @@
   }
 
   @each $type in (primary, success, warning, danger, info) {
-    .el-button--#{$type} {
+    .el-btn--#{$type} {
       &:first-child {
         border-right-color: rgba($--color-white, 0.5);
       }

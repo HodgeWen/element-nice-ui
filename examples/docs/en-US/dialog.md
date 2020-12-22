@@ -9,7 +9,7 @@ Dialog pops up a dialog box, and it's quite customizable.
 :::demo Set the `visible` attribute with a `Boolean`, and Dialog shows when it is `true`. The Dialog has two parts: `body` and `footer`, and the latter requires a `slot` named `footer`. The optional `title` attribute (empty by default) is for defining a title. Finally, this example demonstrates how `before-close` is used.
 
 ```html
-<el-button type="text" @click="dialogVisible = true">click to open the Dialog</el-button>
+<el-btn type="text" @click="dialogVisible = true">click to open the Dialog</el-btn>
 
 <el-dialog
   title="Tips"
@@ -18,8 +18,8 @@ Dialog pops up a dialog box, and it's quite customizable.
   :before-close="handleClose">
   <span>This is a message</span>
   <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">Cancel</el-button>
-    <el-button type="primary" @click="dialogVisible = false">Confirm</el-button>
+    <el-btn @click="dialogVisible = false">Cancel</el-btn>
+    <el-btn type="primary" @click="dialogVisible = false">Confirm</el-btn>
   </span>
 </el-dialog>
 
@@ -56,7 +56,7 @@ The content of Dialog can be anything, even a table or a form. This example show
 
 ```html
 <!-- Table -->
-<el-button type="text" @click="dialogTableVisible = true">open a Table nested Dialog</el-button>
+<el-btn type="text" @click="dialogTableVisible = true">open a Table nested Dialog</el-btn>
 
 <el-dialog title="Shipping address" :visible.sync="dialogTableVisible">
   <el-table :data="gridData">
@@ -67,7 +67,7 @@ The content of Dialog can be anything, even a table or a form. This example show
 </el-dialog>
 
 <!-- Form -->
-<el-button type="text" @click="dialogFormVisible = true">open a Form nested Dialog</el-button>
+<el-btn type="text" @click="dialogFormVisible = true">open a Form nested Dialog</el-btn>
 
 <el-dialog title="Shipping address" :visible.sync="dialogFormVisible">
   <el-form :model="form">
@@ -82,8 +82,8 @@ The content of Dialog can be anything, even a table or a form. This example show
     </el-form-item>
   </el-form>
   <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisible = false">Cancel</el-button>
-    <el-button type="primary" @click="dialogFormVisible = false">Confirm</el-button>
+    <el-btn @click="dialogFormVisible = false">Cancel</el-btn>
+    <el-btn type="primary" @click="dialogFormVisible = false">Confirm</el-btn>
   </span>
 </el-dialog>
 
@@ -133,8 +133,8 @@ If a Dialog is nested in another Dialog, `append-to-body` is required.
 :::demo Normally we do not recommend using nested Dialog. If you need multiple Dialogs rendered on the page, you can simply flat them so that they're siblings to each other. If you must nest a Dialog inside another Dialog, set `append-to-body` of the nested Dialog to true, and it will append to body instead of its parent node, so both Dialogs can be correctly rendered.
 ```html
 <template>
-  <el-button type="text" @click="outerVisible = true">open the outer Dialog</el-button>
-  
+  <el-btn type="text" @click="outerVisible = true">open the outer Dialog</el-btn>
+
   <el-dialog title="Outer Dialog" :visible.sync="outerVisible">
     <el-dialog
         width="30%"
@@ -143,8 +143,8 @@ If a Dialog is nested in another Dialog, `append-to-body` is required.
         append-to-body>
     </el-dialog>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="outerVisible = false">Cancel</el-button>
-      <el-button type="primary" @click="innerVisible = true">open the inner Dialog</el-button>
+      <el-btn @click="outerVisible = false">Cancel</el-btn>
+      <el-btn type="primary" @click="innerVisible = true">open the inner Dialog</el-btn>
     </div>
   </el-dialog>
 </template>
@@ -168,7 +168,7 @@ Dialog's content can be centered.
 :::demo Setting `center` to `true` will center dialog's header and footer horizontally. `center` only affects Dialog's header and footer. The body of Dialog can be anything, so sometimes it may not look good when centered. You need to write some CSS if you wish to center the body as well.
 
 ```html
-<el-button type="text" @click="centerDialogVisible = true">Click to open the Dialog</el-button>
+<el-btn type="text" @click="centerDialogVisible = true">Click to open the Dialog</el-btn>
 
 <el-dialog
   title="Warning"
@@ -177,8 +177,8 @@ Dialog's content can be centered.
   center>
   <span>It should be noted that the content will not be aligned in center by default</span>
   <span slot="footer" class="dialog-footer">
-    <el-button @click="centerDialogVisible = false">Cancel</el-button>
-    <el-button type="primary" @click="centerDialogVisible = false">Confirm</el-button>
+    <el-btn @click="centerDialogVisible = false">Cancel</el-btn>
+    <el-btn type="primary" @click="centerDialogVisible = false">Confirm</el-btn>
   </span>
 </el-dialog>
 

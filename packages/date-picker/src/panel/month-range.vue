@@ -89,7 +89,7 @@
   import Locale from 'element-nice-ui/src/mixins/locale';
   import MonthTable from '../basic/month-table';
   import ElInput from 'element-nice-ui/packages/input';
-  import ElButton from 'element-nice-ui/packages/button';
+  import ElBtn from 'element-nice-ui/packages/btn';
 
   const calcDefaultValue = (defaultValue) => {
     if (Array.isArray(defaultValue)) {
@@ -284,6 +284,6 @@
       }
     },
 
-    components: { MonthTable, ElInput, ElButton }
+    components: { MonthTable, ElInput, ElBtn }
   };
 </script>

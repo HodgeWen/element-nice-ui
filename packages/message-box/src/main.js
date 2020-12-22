@@ -17,14 +17,14 @@ const defaults = {
   inputValidator: null,
   inputErrorMessage: '',
   showConfirmButton: true,
-  showCancelButton: false,
+  showCancElBtn: false,
   confirmButtonPosition: 'right',
   confirmButtonHighlight: false,
-  cancelButtonHighlight: false,
+  cancElBtnHighlight: false,
   confirmButtonText: '',
-  cancelButtonText: '',
+  cancelBtnText: '',
   confirmButtonClass: '',
-  cancelButtonClass: '',
+  cancElBtnClass: '',
   customClass: '',
   beforeClose: null,
   dangerouslyUseHTMLString: false,
@@ -185,7 +185,7 @@ MessageBox.confirm = (message, title, options) => {
     title: title,
     message: message,
     $type: 'confirm',
-    showCancelButton: true
+    showCancElBtn: true
   }, options));
 };
 
@@ -199,7 +199,7 @@ MessageBox.prompt = (message, title, options) => {
   return MessageBox(merge({
     title: title,
     message: message,
-    showCancelButton: true,
+    showCancElBtn: true,
     showInput: true,
     $type: 'prompt'
   }, options));

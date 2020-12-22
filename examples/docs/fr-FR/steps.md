@@ -15,7 +15,7 @@ Voici une barre d'étapes basique.
   <el-step title="Étape 3"></el-step>
 </el-steps>
 
-<el-button style="margin-top: 12px;" @click="next">Prochaine étape</el-button>
+<el-btn style="margin-top: 12px;" @click="next">Prochaine étape</el-btn>
 
 <script>
   export default {

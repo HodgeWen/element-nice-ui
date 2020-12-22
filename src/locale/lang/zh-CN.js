@@ -114,7 +114,7 @@ export default {
     },
     popconfirm: {
       confirmButtonText: '确定',
-      cancelButtonText: '取消'
+      cancelBtnText: '取消'
     }
   }
 };

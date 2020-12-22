@@ -105,8 +105,8 @@ Vous pouvez personnaliser les titres, les textes des boutons, les fonctions de r
       }"
       @change="handleChange"
       :data="data">
-      <el-button class="transfer-footer" slot="left-footer" size="small">Opération</el-button>
-      <el-button class="transfer-footer" slot="right-footer" size="small">Opération</el-button>
+      <el-btn class="transfer-footer" slot="left-footer" size="small">Opération</el-btn>
+      <el-btn class="transfer-footer" slot="right-footer" size="small">Opération</el-btn>
     </el-transfer>
     <p style="text-align: center; margin: 50px 0 20px">Utilise des slots</p>
     <div style="text-align: center">
@@ -125,8 +125,8 @@ Vous pouvez personnaliser les titres, les textes des boutons, les fonctions de r
         @change="handleChange"
         :data="data">
         <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
-        <el-button class="transfer-footer" slot="left-footer" size="small">Opération</el-button>
-        <el-button class="transfer-footer" slot="right-footer" size="small">Opération</el-button>
+        <el-btn class="transfer-footer" slot="left-footer" size="small">Opération</el-btn>
+        <el-btn class="transfer-footer" slot="right-footer" size="small">Opération</el-btn>
       </el-transfer>
     </div>
   </div>

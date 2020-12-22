@@ -9,7 +9,7 @@ Le Dialog ouvre un modal personnalisable.
 :::demo Configurez l'attribut `visible` avec un `Boolean`, un modal apparaîtra quand la valeur sera à `true`. Le Dialog possède deux parties: `body` et `footer`, ce-dernier nécessitant un `slot` appelé `footer`. L'attribut optionnel `title` (vide par défaut) définit le titre. Cet exemple montre également comment `before-close` peut être utilisé.
 
 ```html
-<el-button type="text" @click="dialogVisible = true">Cliquez pour ouvrir le modal</el-button>
+<el-btn type="text" @click="dialogVisible = true">Cliquez pour ouvrir le modal</el-btn>
 
 <el-dialog
   title="Tips"
@@ -18,8 +18,8 @@ Le Dialog ouvre un modal personnalisable.
   :before-close="handleClose">
   <span>Ceci est un message</span>
   <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">Annuler</el-button>
-    <el-button type="primary" @click="dialogVisible = false">Confirmer</el-button>
+    <el-btn @click="dialogVisible = false">Annuler</el-btn>
+    <el-btn type="primary" @click="dialogVisible = false">Confirmer</el-btn>
   </span>
 </el-dialog>
 
@@ -56,7 +56,7 @@ Le contenu du modal peut être n'importe quoi, tableau ou formulaire compris.
 
 ```html
 <!-- Table -->
-<el-button type="text" @click="dialogTableVisible = true">Ouvrir un modal avec tableau</el-button>
+<el-btn type="text" @click="dialogTableVisible = true">Ouvrir un modal avec tableau</el-btn>
 
 <el-dialog title="Adresse d'expédition" :visible.sync="dialogTableVisible">
   <el-table :data="gridData">
@@ -67,7 +67,7 @@ Le contenu du modal peut être n'importe quoi, tableau ou formulaire compris.
 </el-dialog>
 
 <!-- Form -->
-<el-button type="text" @click="dialogFormVisible = true">Ouvrir un modal avec formulaire</el-button>
+<el-btn type="text" @click="dialogFormVisible = true">Ouvrir un modal avec formulaire</el-btn>
 
 <el-dialog title="Adresse d'expédition" :visible.sync="dialogFormVisible">
   <el-form :model="form">
@@ -82,8 +82,8 @@ Le contenu du modal peut être n'importe quoi, tableau ou formulaire compris.
     </el-form-item>
   </el-form>
   <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisible = false">Annuler</el-button>
-    <el-button type="primary" @click="dialogFormVisible = false">Confirmer</el-button>
+    <el-btn @click="dialogFormVisible = false">Annuler</el-btn>
+    <el-btn type="primary" @click="dialogFormVisible = false">Confirmer</el-btn>
   </span>
 </el-dialog>
 
@@ -135,7 +135,7 @@ Si un Dialog est imbriqué dans un autre Dialog, `append-to-body` est requis.
 :::demo Normalement l'utilisation de Dialog imbriqué est déconseillée. Si vous avez besoin de plusieurs Dialogs sur la page, vous pouvez les aplatir afin qu'ils soit au même niveau. Si vous devez absolument utiliser un Dialog imbriqué, configurez l'attribut `append-to-body` du Dialog imbriqué à `true` et il sera ajouté au body au lieu de son noeud parent, afin d'avoir un affichage correct.
 ```html
 <template>
-  <el-button type="text" @click="outerVisible = true">Ouvrir le modal extérieur</el-button>
+  <el-btn type="text" @click="outerVisible = true">Ouvrir le modal extérieur</el-btn>
 
   <el-dialog title="Modal extérieur" :visible.sync="outerVisible">
     <el-dialog
@@ -145,8 +145,8 @@ Si un Dialog est imbriqué dans un autre Dialog, `append-to-body` est requis.
         append-to-body>
     </el-dialog>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="outerVisible = false">Annuler</el-button>
-      <el-button type="primary" @click="innerVisible = true">Ouvrir le modal intérieur</el-button>
+      <el-btn @click="outerVisible = false">Annuler</el-btn>
+      <el-btn type="primary" @click="innerVisible = true">Ouvrir le modal intérieur</el-btn>
     </div>
   </el-dialog>
 </template>
@@ -171,7 +171,7 @@ Le contenu du modal peut être centré.
 :::demo Régler `center` à `true` centrera horizontalement le header et le footer. `center` n'affecte que le header et le footer. Le contenu du body pouvant être n'importe quoi, si vous désirez le centrer vous devrez ajouter des règles CSS.
 
 ```html
-<el-button type="text" @click="centerDialogVisible = true">Cliquez pour ouvrir le modal</el-button>
+<el-btn type="text" @click="centerDialogVisible = true">Cliquez pour ouvrir le modal</el-btn>
 
 <el-dialog
   title="Attention"
@@ -180,8 +180,8 @@ Le contenu du modal peut être centré.
   center>
   <span>Le contenu du modal n'est pas centré par défaut.</span>
   <span slot="footer" class="dialog-footer">
-    <el-button @click="centerDialogVisible = false">Annuler</el-button>
-    <el-button type="primary" @click="centerDialogVisible = false">Confirmer</el-button>
+    <el-btn @click="centerDialogVisible = false">Annuler</el-btn>
+    <el-btn type="primary" @click="centerDialogVisible = false">Confirmer</el-btn>
   </span>
 </el-dialog>
 

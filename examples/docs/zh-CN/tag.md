@@ -70,7 +70,7 @@
   @blur="handleInputConfirm"
 >
 </el-input>
-<el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+<el-btn v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-btn>
 
 <style>
   .el-tag + .el-tag {

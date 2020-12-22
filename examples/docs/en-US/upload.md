@@ -16,7 +16,7 @@ Upload files by clicking or drag-and-drop
   :limit="3"
   :on-exceed="handleExceed"
   :file-list="fileList">
-  <el-button size="small" type="primary">Click to upload</el-button>
+  <el-btn size="small" type="primary">Click to upload</el-btn>
   <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
 </el-upload>
 <script>
@@ -234,7 +234,7 @@ Use `scoped-slot` to change default thumbnail template.
   :on-remove="handleRemove"
   :file-list="fileList"
   list-type="picture">
-  <el-button size="small" type="primary">Click to upload</el-button>
+  <el-btn size="small" type="primary">Click to upload</el-btn>
   <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
 </el-upload>
 <script>
@@ -268,7 +268,7 @@ Use `on-change` hook function to control upload file list
   action="https://jsonplaceholder.typicode.com/posts/"
   :on-change="handleChange"
   :file-list="fileList">
-  <el-button size="small" type="primary">Click to upload</el-button>
+  <el-btn size="small" type="primary">Click to upload</el-btn>
   <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
 </el-upload>
 <script>
@@ -324,8 +324,8 @@ You can drag your file to a certain area to upload it.
   ref="upload"
   action="https://jsonplaceholder.typicode.com/posts/"
   :auto-upload="false">
-  <el-button slot="trigger" size="small" type="primary">select file</el-button>
-  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">upload to server</el-button>
+  <el-btn slot="trigger" size="small" type="primary">select file</el-btn>
+  <el-btn style="margin-left: 10px;" size="small" type="success" @click="submitUpload">upload to server</el-btn>
   <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
 </el-upload>
 <script>

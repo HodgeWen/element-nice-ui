@@ -79,7 +79,7 @@
               label: 'Icon 图标'
             }, {
               value: 'button',
-              label: 'Button 按钮'
+              label: 'Btn 按钮'
             }]
           }, {
             value: 'form',
@@ -299,7 +299,7 @@
               label: 'Icon 图标'
             }, {
               value: 'button',
-              label: 'Button 按钮'
+              label: 'Btn 按钮'
             }]
           }, {
             value: 'form',
@@ -513,7 +513,7 @@
               label: 'Icon 图标'
             }, {
               value: 'button',
-              label: 'Button 按钮'
+              label: 'Btn 按钮'
             }]
           }, {
             value: 'form',
@@ -727,7 +727,7 @@
               label: 'Icon 图标'
             }, {
               value: 'button',
-              label: 'Button 按钮'
+              label: 'Btn 按钮'
             }]
           }, {
             value: 'form',
@@ -1036,7 +1036,7 @@
               label: 'Icon 图标'
             }, {
               value: 'button',
-              label: 'Button 按钮'
+              label: 'Btn 按钮'
             }]
           }, {
             value: 'form',
@@ -1301,7 +1301,7 @@
               label: 'Icon 图标'
             }, {
               value: 'button',
-              label: 'Button 按钮'
+              label: 'Btn 按钮'
             }]
           }, {
             value: 'form',
@@ -1520,7 +1520,7 @@
               label: 'Icon 图标'
             }, {
               value: 'button',
-              label: 'Button 按钮'
+              label: 'Btn 按钮'
             }]
           }, {
             value: 'form',
@@ -1734,7 +1734,7 @@
               label: 'Icon 图标'
             }, {
               value: 'button',
-              label: 'Button 按钮'
+              label: 'Btn 按钮'
             }]
           }, {
             value: 'form',

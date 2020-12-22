@@ -13,7 +13,7 @@ Alert interrumpe las operaciones realizadas hasta que el usuario confirme la ale
 
 ```html
 <template>
-  <el-button type="text" @click="open">Click to open the Message Box</el-button>
+  <el-btn type="text" @click="open">Click to open the Message Box</el-btn>
 </template>
 
 <script>
@@ -21,7 +21,7 @@ Alert interrumpe las operaciones realizadas hasta que el usuario confirme la ale
     methods: {
       open() {
         this.$alert('This is a message', 'Title', {
-          confirmButtonText: 'OK',
+          confirmBtnText: 'OK',
           callback: action => {
             this.$message({
               type: 'info',
@@ -45,7 +45,7 @@ Confirm es utilizado para preguntar al usuario y recibir una confirmación.
 
 ```html
 <template>
-  <el-button type="text" @click="open">Click to open the Message Box</el-button>
+  <el-btn type="text" @click="open">Click to open the Message Box</el-btn>
 </template>
 
 <script>
@@ -53,8 +53,8 @@ Confirm es utilizado para preguntar al usuario y recibir una confirmación.
     methods: {
       open() {
         this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+          confirmBtnText: 'OK',
+          cancelBtnText: 'Cancel',
           type: 'warning'
         }).then(() => {
           this.$message({
@@ -83,7 +83,7 @@ Prompt es utilizado cuando se requiere entrada de información del usuario.
 
 ```html
 <template>
-  <el-button type="text" @click="open">Click to open Message Box</el-button>
+  <el-btn type="text" @click="open">Click to open Message Box</el-btn>
 </template>
 
 <script>
@@ -91,8 +91,8 @@ Prompt es utilizado cuando se requiere entrada de información del usuario.
     methods: {
       open() {
         this.$prompt('Please input your e-mail', 'Tip', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+          confirmBtnText: 'OK',
+          cancelBtnText: 'Cancel',
           inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
           inputErrorMessage: 'Invalid Email'
         }).then(({ value }) => {
@@ -117,11 +117,11 @@ Prompt es utilizado cuando se requiere entrada de información del usuario.
 
 Puede ser personalizado para mostrar diversos contenidos.
 
-:::demo Los tres métodos mencionados anteriormente son un rempaquetado del método `$msgbox`. En este ejemplo se realiza una llamada al método `$msgbox` directamente utilizando el atributo `showCancelButton`, el cual es utilizado para indicar si el botón cancelar es mostrado en pantalla. Además podemos utilizar el atributo `cancelButtonClass` para agregar un estilo personalizado y el atributo `cancelButtonText` para personalizar el texto del botón (el botón de confirmación también cuenta con estos campos, y podrá encontrar una lista completa de estos atributos al final de esta documentación). Este ejemplo también utiliza el atributo `beforeClose`. Es un método que es disparado cuando una instancia del componente MessageBox es cerrada, y su ejecución detendrá el cierre de la instancia. Tiene tres parámetros: `action`, `instance` y `done`. Al utilizarla te permite manipular la instancia antes de que sea cerrada, e.g. activando `loading` para el botón de confirmación; puede invocar el método `done` para cerrar la instancia del componente MessageBox  (si el método `done` no es llamado dentro del atributo `beforeClose`, la instancia no podrá cerrarse).
+:::demo Los tres métodos mencionados anteriormente son un rempaquetado del método `$msgbox`. En este ejemplo se realiza una llamada al método `$msgbox` directamente utilizando el atributo `showCancelBtn`, el cual es utilizado para indicar si el botón cancelar es mostrado en pantalla. Además podemos utilizar el atributo `cancelBtnClass` para agregar un estilo personalizado y el atributo `cancelBtnText` para personalizar el texto del botón (el botón de confirmación también cuenta con estos campos, y podrá encontrar una lista completa de estos atributos al final de esta documentación). Este ejemplo también utiliza el atributo `beforeClose`. Es un método que es disparado cuando una instancia del componente MessageBox es cerrada, y su ejecución detendrá el cierre de la instancia. Tiene tres parámetros: `action`, `instance` y `done`. Al utilizarla te permite manipular la instancia antes de que sea cerrada, e.g. activando `loading` para el botón de confirmación; puede invocar el método `done` para cerrar la instancia del componente MessageBox  (si el método `done` no es llamado dentro del atributo `beforeClose`, la instancia no podrá cerrarse).
 
 ```html
 <template>
-  <el-button type="text" @click="open">Click to open Message Box</el-button>
+  <el-btn type="text" @click="open">Click to open Message Box</el-btn>
 </template>
 
 <script>
@@ -135,17 +135,17 @@ Puede ser personalizado para mostrar diversos contenidos.
             h('span', null, 'Message can be '),
             h('i', { style: 'color: teal' }, 'VNode')
           ]),
-          showCancelButton: true,
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+          showCancelBtn: true,
+          confirmBtnText: 'OK',
+          cancelBtnText: 'Cancel',
           beforeClose: (action, instance, done) => {
             if (action === 'confirm') {
-              instance.confirmButtonLoading = true;
-              instance.confirmButtonText = 'Loading...';
+              instance.confirmBtnLoading = true;
+              instance.confirmBtnText = 'Loading...';
               setTimeout(() => {
                 done();
                 setTimeout(() => {
-                  instance.confirmButtonLoading = false;
+                  instance.confirmBtnLoading = false;
                 }, 300);
               }, 3000);
             } else {
@@ -179,7 +179,7 @@ El contenido de MessageBox puede ser `VNode`, permitiéndonos pasar componentes 
 
 ```html
 <template>
-  <el-button type="text" @click="open">Click to open Message Box</el-button>
+  <el-btn type="text" @click="open">Click to open Message Box</el-btn>
 </template>
 
 <script>
@@ -209,7 +209,7 @@ En algunos casos, hacer clic en el botón Cancelar y en el botón Cerrar puede t
 
 ```html
 <template>
-  <el-button type="text" @click="open">Click to open Message Box</el-button>
+  <el-btn type="text" @click="open">Click to open Message Box</el-btn>
 </template>
 
 <script>
@@ -218,8 +218,8 @@ En algunos casos, hacer clic en el botón Cancelar y en el botón Cerrar puede t
       open() {
         this.$confirm('You have unsaved changes, save and proceed?', 'Confirm', {
           distinguishCancelAndClose: true,
-          confirmButtonText: 'Save',
-          cancelButtonText: 'Discard Changes'
+          confirmBtnText: 'Save',
+          cancelBtnText: 'Discard Changes'
         })
           .then(() => {
             this.$message({
@@ -249,7 +249,7 @@ El contenido del componente MessageBox puede ser centrado.
 
 ```html
 <template>
-  <el-button type="text" @click="open">Click to open Message Box</el-button>
+  <el-btn type="text" @click="open">Click to open Message Box</el-btn>
 </template>
 
 <script>
@@ -257,8 +257,8 @@ El contenido del componente MessageBox puede ser centrado.
     methods: {
       open() {
         this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+          confirmBtnText: 'OK',
+          cancelBtnText: 'Cancel',
           type: 'warning',
           center: true
         }).then(() => {
@@ -311,12 +311,12 @@ Los métodos correspondientes: `MessageBox`, `MessageBox.alert`, `MessageBox.con
 | beforeClose              | callback llamado antes de cerrar el componente MessageBox, y previene que el componente MessageBox se cierre | function(action, instance, done), donde `action` pueden ser 'confirm', 'cancel' o 'close'; `instance` es la instancia del componente MessageBox, Puedes acceder a los metodos y atributos de esa instancia; `done` es para cerrar la instancia | —                                | —                                        |
 | distinguishCancelAndClose | si se debe distinguir entre cancelar y cerrar | boolean | — | false |
 | lockScroll               | utilizado para bloquear el desplazamiento del contenido del MessageBox prompts | boolean                                  | —                                | true                                     |
-| showCancelButton         | utilizado para mostrar un botón cancelar | boolean                                  | —                                | false (true cuando es llamado con confirm y prompt) |
-| showConfirmButton        | utilizado para mostrar un botón confirmar | boolean                                  | —                                | true                                     |
-| cancelButtonText         | contenido de texto del botón cancelar | string                                   | —                                | Cancel                                   |
-| confirmButtonText        | contenido de texto del botón confirmar | string                                   | —                                | OK                                       |
-| cancelButtonClass        | nombre de la clase personalizada del botón cancelar | string                                   | —                                | —                                        |
-| confirmButtonClass       | nombre de la clase personalizada del botón confirmar | string                                   | —                                | —                                        |
+| showCancelBtn         | utilizado para mostrar un botón cancelar | boolean                                  | —                                | false (true cuando es llamado con confirm y prompt) |
+| showConfirmBtn        | utilizado para mostrar un botón confirmar | boolean                                  | —                                | true                                     |
+| cancelBtnText         | contenido de texto del botón cancelar | string                                   | —                                | Cancel                                   |
+| confirmBtnText        | contenido de texto del botón confirmar | string                                   | —                                | OK                                       |
+| cancelBtnClass        | nombre de la clase personalizada del botón cancelar | string                                   | —                                | —                                        |
+| confirmBtnClass       | nombre de la clase personalizada del botón confirmar | string                                   | —                                | —                                        |
 | closeOnClickModal        | utilizado para que que el componente MessageBox pueda ser cerrado al dar clic en la mascara | boolean                                  | —                                | true (false cuando es llamado con alert) |
 | closeOnPressEscape       | utilizado para que que el componente MessageBox pueda ser cerrado al presionar la tecla ESC | boolean                                  | —                                | true (false cuando es llamado con alert) |
 | closeOnHashChange        | utilizado para cerra el componente MessageBox cuando hash cambie | boolean                                  | —                                | true                                     |
@@ -328,4 +328,4 @@ Los métodos correspondientes: `MessageBox`, `MessageBox.alert`, `MessageBox.con
 | inputValidator           | función de validación del componente input. Debe regresar un valor de tipo boolean o string. Si regresa un valor tipo string, sera asignado a inputErrorMessage | function                                 | —                                | —                                        |
 | inputErrorMessage        | mensaje de error cuando la validación falla | string                                   | —                                | Illegal input                            |
 | center                   | utilizado para alinear el contenido al centro | boolean                                  | —                                | false                                    |
-| roundButton              | utilizado para redondear el botón   | boolean                                  | —                                | false                                    |
+| roundBtn              | utilizado para redondear el botón   | boolean                                  | —                                | false                                    |

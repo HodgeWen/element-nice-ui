@@ -6,7 +6,7 @@
       float: right;
       padding: 0;
 
-      &.el-button {
+      &.el-btn {
         transform: translateY(-3px);
       }
 
@@ -87,7 +87,7 @@
           vertical-align: middle;
         }
       }
-  
+
       i {
         padding: 0 20px;
         display: inline-block;
@@ -137,9 +137,9 @@
 <template>
   <div class="page-changelog">
     <div class="heading">
-      <el-button class="fr">
+      <el-btn class="fr">
         <a href="https://github.com/ElemeFE/element/releases" target="_blank">GitHub Releases</a>
-      </el-button>
+      </el-btn>
       <%= 1 >
     </div>
     <ul class="timeline" ref="timeline">

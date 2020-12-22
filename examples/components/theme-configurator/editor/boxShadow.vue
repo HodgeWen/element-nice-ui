@@ -4,69 +4,69 @@
       <el-tooltip :content="displayName" placement="top">
         <span>{{displayKeyName}}</span>
       </el-tooltip>
-      <el-button 
-        class="plus-button" 
-        size="mini" 
-        round 
+      <el-btn
+        class="plus-button"
+        size="mini"
+        round
         icon="el-icon-plus"
         @click.stop="onAddShadow"
       >
-      </el-button>
+      </el-btn>
     </div>
     <div class="config-content" v-for="(each, key) in valueArr" :key="key">
       <div class="content-10">
-        <color-picker 
+        <color-picker
           size="mini"
           class="colorPicker"
-          v-model="each.color" 
+          v-model="each.color"
           @change="val => onInputChange(val, key, 'color')"
           show-alpha
         ></color-picker>
         <span class="content-tip">Color</span>
       </div>
       <div class="content-20">
-        <theme-input  
+        <theme-input
           size="mini"
-          :val="each.offsetX" 
+          :val="each.offsetX"
           @change="val => onInputChange(Number(val), key, 'offsetX')"
         >
         </theme-input>
         <span class="content-tip">X-px</span>
       </div>
       <div class="content-20">
-        <theme-input 
+        <theme-input
           size="mini"
-          :val="each.offsetY" 
+          :val="each.offsetY"
           @change="val => onInputChange(Number(val), key, 'offsetY')"
         >
         </theme-input>
         <span class="content-tip">Y-px</span>
       </div>
       <div class="content-20">
-        <theme-input 
+        <theme-input
           size="mini"
-          :val="each.spreadRadius" 
+          :val="each.spreadRadius"
           @change="val => onInputChange(Number(val), key, 'spreadRadius')"
         >
         </theme-input>
         <span class="content-tip">Spread</span>
       </div>
       <div class="content-20">
-        <theme-input 
+        <theme-input
           size="mini"
-          :val="each.blurRadius" 
+          :val="each.blurRadius"
           @change="val => onInputChange(Number(val), key, 'blurRadius')"
         >
         </theme-input>
         <span class="content-tip">Blur</span>
       </div>
       <div class="content-10">
-        <el-button 
-          size="mini" 
-          round 
+        <el-btn
+          size="mini"
+          round
           icon="el-icon-minus"
           @click.stop="val => onMinusShadow(key)"
-        ></el-button>
+        ></el-btn>
       </div>
     </div>
   </section>
@@ -87,7 +87,7 @@
 .content-20 {
   padding: 0 3px;
 }
-.content-10 { 
+.content-10 {
   vertical-align: top;
 }
 .content-tip {
@@ -98,8 +98,8 @@
   padding: 5px 0;
 }
 /* Element buton style override */
-.el-button--mini.is-round {
-  padding: 3px 3px;  
+.el-btn--mini.is-round {
+  padding: 3px 3px;
 }
 </style>
 <script>

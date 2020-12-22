@@ -3,8 +3,8 @@
 @import "tag";
 @import "tooltip";
 @import "common/var";
-@import './table-column';
-@import './scrollbar';
+@import 'table-column';
+@import 'scrollbar';
 
 @include b(table) {
   position: relative;

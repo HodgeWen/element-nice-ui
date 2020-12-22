@@ -16,9 +16,9 @@ Callout a temporary drawer, from multiple direction
   <el-radio label="btt">bottom to top</el-radio>
 </el-radio-group>
 
-<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+<el-btn @click="drawer = true" type="primary" style="margin-left: 16px;">
   open
-</el-button>
+</el-btn>
 
 <el-drawer
   title="I am the title"
@@ -57,9 +57,9 @@ When you no longer need a title, you can remove title from drawer.
 :::demo Set the `withHeader` attribute to **false**, you can remove the title from drawer, thus your drawer can have more space on screen. If you want to be accessible, make sure to set the `title` attribute.
 
 ```html
-<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+<el-btn @click="drawer = true" type="primary" style="margin-left: 16px;">
   open
-</el-button>
+</el-btn>
 
 <el-drawer
   title="I am the title"
@@ -87,8 +87,8 @@ Like `Dialog`, `Drawer` can do many diverse interaction as you wanted.
 :::demo
 
 ```html
-<el-button type="text" @click="table = true">Open Drawer with nested table</el-button>
-<el-button type="text" @click="dialog = true">Open Drawer with nested form</el-button>
+<el-btn type="text" @click="table = true">Open Drawer with nested table</el-btn>
+<el-btn type="text" @click="dialog = true">Open Drawer with nested form</el-btn>
 <el-drawer
   title="I have a nested table inside!"
   :visible.sync="table"
@@ -122,8 +122,8 @@ Like `Dialog`, `Drawer` can do many diverse interaction as you wanted.
       </el-form-item>
     </el-form>
     <div class="demo-drawer__footer">
-      <el-button @click="cancelForm">Cancel</el-button>
-      <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? 'Submitting ...' : 'Submit' }}</el-button>
+      <el-btn @click="cancelForm">Cancel</el-btn>
+      <el-btn type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? 'Submitting ...' : 'Submit' }}</el-btn>
     </div>
   </div>
 </el-drawer>
@@ -202,16 +202,16 @@ You can also have multiple layer of `Drawer` just like `Dialog`.
 
 ```html
 
-<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+<el-btn @click="drawer = true" type="primary" style="margin-left: 16px;">
   open
-</el-button>
+</el-btn>
 
 <el-drawer
   title="I'm outer Drawer"
   :visible.sync="drawer"
   size="50%">
   <div>
-   <el-button @click="innerDrawer = true">Click me!</el-button>
+   <el-btn @click="innerDrawer = true">Click me!</el-btn>
    <el-drawer
      title="I'm inner Drawer"
      :append-to-body="true"

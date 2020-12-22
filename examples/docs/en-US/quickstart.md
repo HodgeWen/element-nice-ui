@@ -63,17 +63,17 @@ Then edit .babelrc:
 }
 ```
 
-Next, if you need Button and Select, edit main.js:
+Next, if you need Btn and Select, edit main.js:
 
 ```javascript
 import Vue from 'vue';
-import { Button, Select } from 'element-nice-ui';
+import { Btn, Select } from 'element-nice-ui';
 import App from './App.vue';
 
-Vue.component(Button.name, Button);
+Vue.component(Btn.name, Btn);
 Vue.component(Select.name, Select);
 /* or
- * Vue.use(Button)
+ * Vue.use(Btn)
  * Vue.use(Select)
  */
 
@@ -102,16 +102,16 @@ import {
   InputNumber,
   Radio,
   RadioGroup,
-  RadioButton,
+  RadioBtn,
   Checkbox,
-  CheckboxButton,
+  CheckboxBtn,
   CheckboxGroup,
   Switch,
   Select,
   Option,
   OptionGroup,
-  Button,
-  ButtonGroup,
+  Btn,
+  BtnGroup,
   Table,
   TableColumn,
   DatePicker,
@@ -181,16 +181,16 @@ Vue.use(Input);
 Vue.use(InputNumber);
 Vue.use(Radio);
 Vue.use(RadioGroup);
-Vue.use(RadioButton);
+Vue.use(RadioBtn);
 Vue.use(Checkbox);
-Vue.use(CheckboxButton);
+Vue.use(CheckboxBtn);
 Vue.use(CheckboxGroup);
 Vue.use(Switch);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(OptionGroup);
-Vue.use(Button);
-Vue.use(ButtonGroup);
+Vue.use(Btn);
+Vue.use(BtnGroup);
 Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(DatePicker);
@@ -268,10 +268,10 @@ Partial import Element：
 
 ```js
 import Vue from 'vue';
-import { Button } from 'element-nice-ui';
+import { Btn } from 'element-nice-ui';
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
-Vue.use(Button);
+Vue.use(Btn);
 ```
 
 With the above config, the default size of all components that have size attribute will be 'small', and the initial z-index of modal boxes is 3000.

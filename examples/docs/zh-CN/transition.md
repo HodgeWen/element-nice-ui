@@ -8,7 +8,7 @@ Element 内应用在部分组件的过渡动画，你也可以直接使用。在
 ```html
 <template>
   <div>
-    <el-button @click="show = !show">Click Me</el-button>
+    <el-btn @click="show = !show">Click Me</el-btn>
 
     <div style="display: flex; margin-top: 20px; height: 100px;">
       <transition name="el-fade-in-linear">
@@ -52,7 +52,7 @@ Element 内应用在部分组件的过渡动画，你也可以直接使用。在
 ```html
 <template>
   <div>
-    <el-button @click="show2 = !show2">Click Me</el-button>
+    <el-btn @click="show2 = !show2">Click Me</el-btn>
 
     <div style="display: flex; margin-top: 20px; height: 100px;">
       <transition name="el-zoom-in-center">
@@ -104,7 +104,7 @@ Element 内应用在部分组件的过渡动画，你也可以直接使用。在
 ```html
 <template>
   <div>
-    <el-button @click="show3 = !show3">Click Me</el-button>
+    <el-btn @click="show3 = !show3">Click Me</el-btn>
 
     <div style="margin-top: 20px; height: 200px;">
       <el-collapse-transition>

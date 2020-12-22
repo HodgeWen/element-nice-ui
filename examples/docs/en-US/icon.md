@@ -12,7 +12,7 @@ Just assign the class name to `el-icon-iconName`.
 <i class="el-icon-edit"></i>
 <i class="el-icon-share"></i>
 <i class="el-icon-delete"></i>
-<el-button type="primary" icon="el-icon-search">Search</el-button>
+<el-btn type="primary" icon="el-icon-search">Search</el-btn>
 
 ```
 :::

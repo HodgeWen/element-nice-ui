@@ -114,7 +114,7 @@ export default {
     },
     popconfirm: {
       confirmButtonText: 'ھەئە',
-      cancelButtonText: 'ياق'
+      cancelBtnText: 'ياق'
     }
   }
 };

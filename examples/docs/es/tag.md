@@ -17,7 +17,7 @@ Se utiliza para marcar y seleccionar.
 
 ### Etiqueta removible
 
-:::demo el atributo `closable` puede usarse para definir una etiqueta removible. Acepta un `Boolean`. De forma predeterminada, la eliminación de la etiqueta tiene una animación que se desvanece. Si no quiere usarlo, puede configurar el atributo `disable-transitions` , que acepta `Boolean`, como `true`. Se dispara el evento `close` cuando la etiqueta es removida. 
+:::demo el atributo `closable` puede usarse para definir una etiqueta removible. Acepta un `Boolean`. De forma predeterminada, la eliminación de la etiqueta tiene una animación que se desvanece. Si no quiere usarlo, puede configurar el atributo `disable-transitions` , que acepta `Boolean`, como `true`. Se dispara el evento `close` cuando la etiqueta es removida.
 
 ```html
 <el-tag
@@ -70,7 +70,7 @@ Puede utilizar el evento `close` para añadir y eliminar etiquetas dinámicament
   @blur="handleInputConfirm"
 >
 </el-input>
-<el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+<el-btn v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-btn>
 
 <style>
   .el-tag + .el-tag {

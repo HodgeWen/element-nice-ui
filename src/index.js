@@ -3,6 +3,7 @@
 import Pagination from '../packages/pagination/index.js';
 import Dialog from '../packages/dialog/index.js';
 import Autocomplete from '../packages/autocomplete/index.js';
+import Context from '../packages/context/index.js';
 import Dropdown from '../packages/dropdown/index.js';
 import DropdownMenu from '../packages/dropdown-menu/index.js';
 import DropdownItem from '../packages/dropdown-item/index.js';
@@ -22,8 +23,8 @@ import Switch from '../packages/switch/index.js';
 import Select from '../packages/select/index.js';
 import Option from '../packages/option/index.js';
 import OptionGroup from '../packages/option-group/index.js';
-import Button from '../packages/button/index.js';
-import ButtonGroup from '../packages/button-group/index.js';
+import Btn from '../packages/btn/index.js';
+import BtnGroup from '../packages/btn-group/index.js';
 import Table from '../packages/table/index.js';
 import TableColumn from '../packages/table-column/index.js';
 import DatePicker from '../packages/date-picker/index.js';
@@ -90,6 +91,7 @@ const components = [
   Pagination,
   Dialog,
   Autocomplete,
+  Context,
   Dropdown,
   DropdownMenu,
   DropdownItem,
@@ -109,8 +111,8 @@ const components = [
   Select,
   Option,
   OptionGroup,
-  Button,
-  ButtonGroup,
+  Btn,
+  BtnGroup,
   Table,
   TableColumn,
   DatePicker,
@@ -209,6 +211,7 @@ export default {
   Pagination,
   Dialog,
   Autocomplete,
+  Context,
   Dropdown,
   DropdownMenu,
   DropdownItem,
@@ -228,8 +231,8 @@ export default {
   Select,
   Option,
   OptionGroup,
-  Button,
-  ButtonGroup,
+  Btn,
+  BtnGroup,
   Table,
   TableColumn,
   DatePicker,

@@ -122,21 +122,21 @@
       <div
         class="el-picker-panel__footer"
         v-show="footerVisible && currentView === 'date'">
-        <el-button
+        <el-btn
           size="mini"
           type="text"
           class="el-picker-panel__link-btn"
           @click="changeToNow"
           v-show="selectionMode !== 'dates'">
           {{ t('el.datepicker.now') }}
-        </el-button>
-        <el-button
+        </el-btn>
+        <el-btn
           plain
           size="mini"
           class="el-picker-panel__link-btn"
           @click="confirm">
           {{ t('el.datepicker.confirm') }}
-        </el-button>
+        </el-btn>
       </div>
     </div>
   </transition>
@@ -165,7 +165,7 @@
   import Clickoutside from 'element-nice-ui/src/utils/clickoutside';
   import Locale from 'element-nice-ui/src/mixins/locale';
   import ElInput from 'element-nice-ui/packages/input';
-  import ElButton from 'element-nice-ui/packages/button';
+  import ElBtn from 'element-nice-ui/packages/btn';
   import TimePicker from './time';
   import YearTable from '../basic/year-table';
   import MonthTable from '../basic/month-table';
@@ -500,7 +500,7 @@
     },
 
     components: {
-      TimePicker, YearTable, MonthTable, DateTable, ElInput, ElButton
+      TimePicker, YearTable, MonthTable, DateTable, ElInput, ElBtn
     },
 
     data() {

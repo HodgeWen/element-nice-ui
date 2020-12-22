@@ -41,9 +41,9 @@ Utilisez le bouton pour ouvrir le menu déroulant.
 :::demo Utilisez `split-button` pour séparer le déclencheur du reste du bouton, ce dernier devenant la partie gauche et le déclencheur la partie droite.
 ```html
 <el-dropdown>
-  <el-button type="primary">
+  <el-btn type="primary">
     Liste déroulante<i class="el-icon-arrow-down el-icon--right"></i>
-  </el-button>
+  </el-btn>
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item>Action 1</el-dropdown-item>
     <el-dropdown-item>Action 2</el-dropdown-item>
@@ -272,7 +272,7 @@ En plus de la taille par défaut, le composant Dropdown propose trois autres tai
 
 | Attribut      | Description          | Type      | Valeurs acceptées       | Défaut  |
 |-------------  |---------------- |---------------- |---------------------- |-------- |
-| type          | Type du bouton, se référer au composant `Button`. Ne marche que si `split-button` est `true`.  | string  |  —   |    —     |
+| type          | Type du bouton, se référer au composant `Btn`. Ne marche que si `split-button` est `true`.  | string  |  —   |    —     |
 | size          | Taille du menu, marche aussi avec `split button`.  | string  | medium / small / mini  |    —     |
 | split-button | Si le bouton est séparé en deux. | boolean         |     —       | false   |
 | placement    | Emplacement du menu déroulant | string | top/top-start/top-end/bottom/bottom-start/bottom-end  | bottom-end |

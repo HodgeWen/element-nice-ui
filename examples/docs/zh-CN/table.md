@@ -369,8 +369,8 @@
     <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
     <el-table-column fixed="right" label="操作" width="100">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-        <el-button type="text" size="small">编辑</el-button>
+        <el-btn @click="handleClick(scope.row)" type="text" size="small">查看</el-btn>
+        <el-btn type="text" size="small">编辑</el-btn>
       </template>
     </el-table-column> -->
   </el-table>
@@ -537,13 +537,13 @@
     <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
     <el-table-column fixed="right" label="操作" width="120">
       <template slot-scope="scope">
-        <el-button
+        <el-btn
           @click.native.prevent="deleteRow(scope.$index, tableData)"
           type="text"
           size="small"
         >
           移除
-        </el-button>
+        </el-btn>
       </template>
     </el-table-column> -->
   </el-table>
@@ -737,8 +737,8 @@
     <el-table-column property="address" label="地址"> </el-table-column>
   </el-table>
   <div style="margin-top: 20px">
-    <el-button @click="setCurrent(tableData[1])">选中第二行</el-button>
-    <el-button @click="setCurrent()">取消选择</el-button>
+    <el-btn @click="setCurrent(tableData[1])">选中第二行</el-btn>
+    <el-btn @click="setCurrent()">取消选择</el-btn>
   </div>
 </template>
 
@@ -811,10 +811,10 @@
     <el-table-column prop="address" label="地址" show-overflow-tooltip> </el-table-column> -->
   </el-table>
   <div style="margin-top: 20px">
-    <el-button @click="toggleSelection([tableData[1], tableData[2]])"
-      >切换第二、第三行的选中状态</el-button
+    <el-btn @click="toggleSelection([tableData[1], tableData[2]])"
+      >切换第二、第三行的选中状态</el-btn
     >
-    <el-button @click="toggleSelection()">取消选择</el-button>
+    <el-btn @click="toggleSelection()">取消选择</el-btn>
   </div>
 </template>
 
@@ -949,8 +949,8 @@
 
 ```html
 <template>
-  <el-button @click="resetDateFilter">清除日期过滤器</el-button>
-  <el-button @click="clearFilter">清除所有过滤器</el-button>
+  <el-btn @click="resetDateFilter">清除日期过滤器</el-btn>
+  <el-btn @click="clearFilter">清除所有过滤器</el-btn>
   <el-table ref="filterTable" :data="tableData" style="width: 100%">
     <el-table-column
       prop="date"
@@ -1064,9 +1064,9 @@
     </el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">
-        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"
-          >删除</el-button
+        <el-btn size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-btn>
+        <el-btn size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-btn
         >
       </template>
     </el-table-column> -->
@@ -1374,9 +1374,9 @@
         <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
       </template>
       <template slot-scope="scope">
-        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button
+        <el-btn size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-btn>
+        <el-btn size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)"
+          >Delete</el-btn
         >
       </template>
     </el-table-column> -->

@@ -36,7 +36,7 @@ If you have too much data to display in one page, use pagination.
 ```
 :::
 
-### Buttons with background color
+### Btns with background color
 
 :::demo Set the `background` attribute and the buttons will have a background color.
 ```html

@@ -113,7 +113,7 @@ export default {
     },
     popconfirm: {
       confirmButtonText: 'تأكيد',
-      cancelButtonText: 'إلغاء'
+      cancelBtnText: 'إلغاء'
     }
   }
 };

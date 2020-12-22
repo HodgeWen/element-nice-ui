@@ -208,12 +208,12 @@ Seuls les onglets de type carte supportent l'ajout et la suppression.
 :::demo
 ```html
 <div style="margin-bottom: 20px;">
-  <el-button
+  <el-btn
     size="small"
     @click="addTab(editableTabsValue)"
   >
     Ajouter un onglet
-  </el-button>
+  </el-btn>
 </div>
 <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
   <el-tab-pane

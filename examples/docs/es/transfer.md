@@ -103,8 +103,8 @@ Puede personalizar los títulos, botones, la función de renderizado de los item
       }"
       @change="handleChange"
       :data="data">
-      <el-button class="transfer-footer" slot="left-footer" size="small">Operation</el-button>
-      <el-button class="transfer-footer" slot="right-footer" size="small">Operation</el-button>
+      <el-btn class="transfer-footer" slot="left-footer" size="small">Operation</el-btn>
+      <el-btn class="transfer-footer" slot="right-footer" size="small">Operation</el-btn>
     </el-transfer>
   </div>
   <p style="text-align: center; margin: 50px 0 20px">Customize data items using scoped slot</p>
@@ -124,8 +124,8 @@ Puede personalizar los títulos, botones, la función de renderizado de los item
       @change="handleChange"
       :data="data">
       <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
-      <el-button class="transfer-footer" slot="left-footer" size="small">Operation</el-button>
-      <el-button class="transfer-footer" slot="right-footer" size="small">Operation</el-button>
+      <el-btn class="transfer-footer" slot="left-footer" size="small">Operation</el-btn>
+      <el-btn class="transfer-footer" slot="right-footer" size="small">Operation</el-btn>
     </el-transfer>
   </div>
 </template>

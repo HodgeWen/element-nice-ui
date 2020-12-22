@@ -8,7 +8,7 @@ You can use Element's built-in transitions directly. Before that, please read th
 ```html
 <template>
   <div>
-    <el-button @click="show = !show">Click Me</el-button>
+    <el-btn @click="show = !show">Click Me</el-btn>
 
     <div style="display: flex; margin-top: 20px; height: 100px;">
       <transition name="el-fade-in-linear">
@@ -52,7 +52,7 @@ You can use Element's built-in transitions directly. Before that, please read th
 ```html
 <template>
   <div>
-    <el-button @click="show2 = !show2">Click Me</el-button>
+    <el-btn @click="show2 = !show2">Click Me</el-btn>
 
     <div style="display: flex; margin-top: 20px; height: 100px;">
       <transition name="el-zoom-in-center">
@@ -104,7 +104,7 @@ For collapse effect, use the `el-collapse-transition` component.
 ```html
 <template>
   <div>
-    <el-button @click="show3 = !show3">Click Me</el-button>
+    <el-btn @click="show3 = !show3">Click Me</el-btn>
 
     <div style="margin-top: 20px; height: 200px;">
       <el-collapse-transition>

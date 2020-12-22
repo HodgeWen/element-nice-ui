@@ -16,9 +16,9 @@
   <el-radio label="btt">从下往上开</el-radio>
 </el-radio-group>
 
-<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+<el-btn @click="drawer = true" type="primary" style="margin-left: 16px;">
   点我打开
-</el-button>
+</el-btn>
 
 <el-drawer
   title="我是标题"
@@ -57,9 +57,9 @@
 :::demo 当遇到不需要 title 的场景时, 可以通过 `withHeader` 这个属性来关闭掉 title 的显示, 这样可以留出更大的空间给到用户, 为了用户的可访问性, 请务必设定 `title` 的值
 
 ```html
-<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+<el-btn @click="drawer = true" type="primary" style="margin-left: 16px;">
   点我打开
-</el-button>
+</el-btn>
 
 <el-drawer
   title="我是标题"
@@ -88,8 +88,8 @@
 :::demo
 
 ```html
-<el-button type="text" @click="table = true">打开嵌套表格的 Drawer</el-button>
-<el-button type="text" @click="dialog = true">打开嵌套 Form 的 Drawer</el-button>
+<el-btn type="text" @click="table = true">打开嵌套表格的 Drawer</el-btn>
+<el-btn type="text" @click="dialog = true">打开嵌套 Form 的 Drawer</el-btn>
 <el-drawer
   title="我嵌套了表格!"
   :visible.sync="table"
@@ -123,8 +123,8 @@
       </el-form-item>
     </el-form>
     <div class="demo-drawer__footer">
-      <el-button @click="cancelForm">取 消</el-button>
-      <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
+      <el-btn @click="cancelForm">取 消</el-btn>
+      <el-btn type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-btn>
     </div>
   </div>
 </el-drawer>
@@ -204,16 +204,16 @@ export default {
 
 ```html
 
-<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+<el-btn @click="drawer = true" type="primary" style="margin-left: 16px;">
   点我打开
-</el-button>
+</el-btn>
 
 <el-drawer
   title="我是外面的 Drawer"
   :visible.sync="drawer"
   size="50%">
   <div>
-   <el-button @click="innerDrawer = true">打开里面的!</el-button>
+   <el-btn @click="innerDrawer = true">打开里面的!</el-btn>
    <el-drawer
      title="我是里面的"
      :append-to-body="true"

@@ -525,7 +525,7 @@
   "el-input/type": {
     "description": "Same as the 'type' attribute of native input, except that it can be 'textarea'"
   },
-  "el-button/type": {
+  "el-btn/type": {
     "options": ["primary", "success", "warning", "danger", "info", "text"],
     "description": "button type"
   },
@@ -710,7 +710,7 @@
     "type": "boolean",
     "description": "whether only one node among the same level can be expanded at one time, default: false"
   },
-  "el-button/round": {
+  "el-btn/round": {
     "version": ">=2.0.0",
     "type": "boolean",
     "description": "determine whether it's a round button, default: false"

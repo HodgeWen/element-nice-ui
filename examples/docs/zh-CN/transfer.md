@@ -100,8 +100,8 @@
       }"
       @change="handleChange"
       :data="data">
-      <el-button class="transfer-footer" slot="left-footer" size="small">操作</el-button>
-      <el-button class="transfer-footer" slot="right-footer" size="small">操作</el-button>
+      <el-btn class="transfer-footer" slot="left-footer" size="small">操作</el-btn>
+      <el-btn class="transfer-footer" slot="right-footer" size="small">操作</el-btn>
     </el-transfer>
   </div>
   <p style="text-align: center; margin: 50px 0 20px">使用 scoped-slot 自定义数据项</p>
@@ -121,8 +121,8 @@
       @change="handleChange"
       :data="data">
       <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
-      <el-button class="transfer-footer" slot="left-footer" size="small">操作</el-button>
-      <el-button class="transfer-footer" slot="right-footer" size="small">操作</el-button>
+      <el-btn class="transfer-footer" slot="left-footer" size="small">操作</el-btn>
+      <el-btn class="transfer-footer" slot="right-footer" size="small">操作</el-btn>
     </el-transfer>
   </div>
 </template>

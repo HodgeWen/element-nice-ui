@@ -1,6 +1,6 @@
 @import "mixins/mixins";
 @import "common/var";
-@import "button";
+@import "btn";
 @import "./popper";
 
 @include b(dropdown) {
@@ -9,9 +9,9 @@
   color: $--color-text-regular;
   font-size: $--font-size-base;
 
-  .el-button-group {
+  .el-btn-group {
     display: block;
-    .el-button {
+    .el-btn {
       float: none;
     }
   }
@@ -35,7 +35,7 @@
       background: mix(white, transparent, 50%);
     }
 
-    &.el-button--default::before {
+    &.el-btn--default::before {
       background: mix($--button-default-border-color, transparent, 50%);
     }
 

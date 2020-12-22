@@ -42,9 +42,9 @@ Utilizando un botón para activar la lista desplegable.
 
 ```html
 <el-dropdown>
-  <el-button type="primary">
+  <el-btn type="primary">
     Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
-  </el-button>
+  </el-btn>
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item>Action 1</el-dropdown-item>
     <el-dropdown-item>Action 2</el-dropdown-item>
@@ -272,7 +272,7 @@ Además del tamaño predeterminado, el componente Dropdown proporciona tres tama
 ### Dropdown atributos
 | Atributo      | Descripción                              | Tipo    | Valores aceptados                        | Por defecto |
 | ------------- | ---------------------------------------- | ------- | ---------------------------------------- | ----------- |
-| type          | tipo de botón de menú, consulte Componente`Button`, sólo funciona cuando `split-button` es true. | string  | —                                        | —           |
+| type          | tipo de botón de menú, consulte Componente`Btn`, sólo funciona cuando `split-button` es true. | string  | —                                        | —           |
 | size          | tamaño del menú, también funciona en `split-button` | string  | medium / small / mini                    | —           |
 | split-button  | si se visualiza un grupo de botones      | boolean | —                                        | false       |
 | placement     | colocación del menú                      | string  | top/top-start/top-end/bottom/bottom-start/bottom-end | bottom-end  |

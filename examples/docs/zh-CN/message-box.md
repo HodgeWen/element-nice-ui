@@ -12,7 +12,7 @@
 :::demo 调用`$alert`方法即可打开消息提示，它模拟了系统的 `alert`，无法通过按下 ESC 或点击框外关闭。此例中接收了两个参数，`message`和`title`。值得一提的是，窗口被关闭后，它默认会返回一个`Promise`对象便于进行后续操作的处理。若不确定浏览器是否支持`Promise`，可自行引入第三方 polyfill 或像本例一样使用回调进行后续处理。
 ```html
 <template>
-  <el-button type="text" @click="open">点击打开 Message Box</el-button>
+  <el-btn type="text" @click="open">点击打开 Message Box</el-btn>
 </template>
 
 <script>
@@ -20,7 +20,7 @@
     methods: {
       open() {
         this.$alert('这是一段内容', '标题名称', {
-          confirmButtonText: '确定',
+          confirmBtnText: '确定',
           callback: action => {
             this.$message({
               type: 'info',
@@ -43,7 +43,7 @@
 
 ```html
 <template>
-  <el-button type="text" @click="open">点击打开 Message Box</el-button>
+  <el-btn type="text" @click="open">点击打开 Message Box</el-btn>
 </template>
 
 <script>
@@ -51,8 +51,8 @@
     methods: {
       open() {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+          confirmBtnText: '确定',
+          cancelBtnText: '取消',
           type: 'warning'
         }).then(() => {
           this.$message({
@@ -80,7 +80,7 @@
 
 ```html
 <template>
-  <el-button type="text" @click="open">点击打开 Message Box</el-button>
+  <el-btn type="text" @click="open">点击打开 Message Box</el-btn>
 </template>
 
 <script>
@@ -88,8 +88,8 @@
     methods: {
       open() {
         this.$prompt('请输入邮箱', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+          confirmBtnText: '确定',
+          cancelBtnText: '取消',
           inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
           inputErrorMessage: '邮箱格式不正确'
         }).then(({ value }) => {
@@ -114,11 +114,11 @@
 
 可自定义配置不同内容。
 
-:::demo 以上三个方法都是对`$msgbox`方法的再包装。本例直接调用`$msgbox`方法，使用了`showCancelButton`字段，用于显示取消按钮。另外可使用`cancelButtonClass`为其添加自定义样式，使用`cancelButtonText`来自定义按钮文本（Confirm 按钮也具有相同的字段，在文末的字段说明中有完整的字段列表）。此例还使用了`beforeClose`属性，它的值是一个方法，会在 MessageBox 的实例关闭前被调用，同时暂停实例的关闭。它有三个参数：`action`、实例本身和`done`方法。使用它能够在关闭前对实例进行一些操作，比如为确定按钮添加`loading`状态等；此时若需要关闭实例，可以调用`done`方法（若在`beforeClose`中没有调用`done`，则实例不会关闭）。
+:::demo 以上三个方法都是对`$msgbox`方法的再包装。本例直接调用`$msgbox`方法，使用了`showCancelBtn`字段，用于显示取消按钮。另外可使用`cancelBtnClass`为其添加自定义样式，使用`cancelBtnText`来自定义按钮文本（Confirm 按钮也具有相同的字段，在文末的字段说明中有完整的字段列表）。此例还使用了`beforeClose`属性，它的值是一个方法，会在 MessageBox 的实例关闭前被调用，同时暂停实例的关闭。它有三个参数：`action`、实例本身和`done`方法。使用它能够在关闭前对实例进行一些操作，比如为确定按钮添加`loading`状态等；此时若需要关闭实例，可以调用`done`方法（若在`beforeClose`中没有调用`done`，则实例不会关闭）。
 
 ```html
 <template>
-  <el-button type="text" @click="open">点击打开 Message Box</el-button>
+  <el-btn type="text" @click="open">点击打开 Message Box</el-btn>
 </template>
 
 <script>
@@ -132,17 +132,17 @@
             h('span', null, '内容可以是 '),
             h('i', { style: 'color: teal' }, 'VNode')
           ]),
-          showCancelButton: true,
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+          showCancelBtn: true,
+          confirmBtnText: '确定',
+          cancelBtnText: '取消',
           beforeClose: (action, instance, done) => {
             if (action === 'confirm') {
-              instance.confirmButtonLoading = true;
-              instance.confirmButtonText = '执行中...';
+              instance.confirmBtnLoading = true;
+              instance.confirmBtnText = '执行中...';
               setTimeout(() => {
                 done();
                 setTimeout(() => {
-                  instance.confirmButtonLoading = false;
+                  instance.confirmBtnLoading = false;
                 }, 300);
               }, 3000);
             } else {
@@ -174,7 +174,7 @@
 
 ```html
 <template>
-  <el-button type="text" @click="open">点击打开 Message Box</el-button>
+  <el-btn type="text" @click="open">点击打开 Message Box</el-btn>
 </template>
 
 <script>
@@ -203,7 +203,7 @@
 
 ```html
 <template>
-  <el-button type="text" @click="open">点击打开 Message Box</el-button>
+  <el-btn type="text" @click="open">点击打开 Message Box</el-btn>
 </template>
 
 <script>
@@ -212,8 +212,8 @@
       open() {
         this.$confirm('检测到未保存的内容，是否在离开页面前保存修改？', '确认信息', {
           distinguishCancelAndClose: true,
-          confirmButtonText: '保存',
-          cancelButtonText: '放弃修改'
+          confirmBtnText: '保存',
+          cancelBtnText: '放弃修改'
         })
           .then(() => {
             this.$message({
@@ -243,7 +243,7 @@
 
 ```html
 <template>
-  <el-button type="text" @click="open">点击打开 Message Box</el-button>
+  <el-btn type="text" @click="open">点击打开 Message Box</el-btn>
 </template>
 
 <script>
@@ -251,8 +251,8 @@
     methods: {
       open() {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+          confirmBtnText: '确定',
+          cancelBtnText: '取消',
           type: 'warning',
           center: true
         }).then(() => {
@@ -306,12 +306,12 @@ import { MessageBox } from 'element-nice-ui';
 | beforeClose | MessageBox 关闭前的回调，会暂停实例的关闭 | function(action, instance, done)，action 的值为'confirm', 'cancel'或'close'；instance 为 MessageBox 实例，可以通过它访问实例上的属性和方法；done 用于关闭 MessageBox 实例 | — | — |
 | distinguishCancelAndClose | 是否将取消（点击取消按钮）与关闭（点击关闭按钮或遮罩层、按下 ESC 键）进行区分 | boolean | — | false |
 | lockScroll | 是否在 MessageBox 出现时将 body 滚动锁定 | boolean | — | true |
-| showCancelButton | 是否显示取消按钮 | boolean | — | false（以 confirm 和 prompt 方式调用时为 true） |
-| showConfirmButton | 是否显示确定按钮 | boolean | — | true |
-| cancelButtonText | 取消按钮的文本内容 | string | — | 取消 |
-| confirmButtonText | 确定按钮的文本内容 | string | — | 确定 |
-| cancelButtonClass | 取消按钮的自定义类名 | string | — | — |
-| confirmButtonClass | 确定按钮的自定义类名 | string | — | — |
+| showCancelBtn | 是否显示取消按钮 | boolean | — | false（以 confirm 和 prompt 方式调用时为 true） |
+| showConfirmBtn | 是否显示确定按钮 | boolean | — | true |
+| cancelBtnText | 取消按钮的文本内容 | string | — | 取消 |
+| confirmBtnText | 确定按钮的文本内容 | string | — | 确定 |
+| cancelBtnClass | 取消按钮的自定义类名 | string | — | — |
+| confirmBtnClass | 确定按钮的自定义类名 | string | — | — |
 | closeOnClickModal | 是否可通过点击遮罩关闭 MessageBox | boolean | — | true（以 alert 方式调用时为 false） |
 | closeOnPressEscape | 是否可通过按下 ESC 键关闭 MessageBox | boolean | — | true（以 alert 方式调用时为 false） |
 | closeOnHashChange | 是否在 hashchange 时关闭 MessageBox | boolean | — | true |
@@ -323,4 +323,4 @@ import { MessageBox } from 'element-nice-ui';
 | inputValidator | 输入框的校验函数。可以返回布尔值或字符串，若返回一个字符串, 则返回结果会被赋值给 inputErrorMessage | function | — | — |
 | inputErrorMessage | 校验未通过时的提示文本 | string | — | 输入的数据不合法! |
 | center | 是否居中布局 | boolean | — | false |
-| roundButton | 是否使用圆角按钮 | boolean | — | false |
+| roundBtn | 是否使用圆角按钮 | boolean | — | false |

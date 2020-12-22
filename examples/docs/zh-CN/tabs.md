@@ -190,7 +190,7 @@
               }
             });
           }
-          
+
           this.editableTabsValue = activeName;
           this.editableTabs = tabs.filter(tab => tab.name !== targetName);
         }
@@ -206,12 +206,12 @@
 :::demo
 ```html
 <div style="margin-bottom: 20px;">
-  <el-button
+  <el-btn
     size="small"
     @click="addTab(editableTabsValue)"
   >
     add tab
-  </el-button>
+  </el-btn>
 </div>
 <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
   <el-tab-pane
@@ -263,7 +263,7 @@
             }
           });
         }
-        
+
         this.editableTabsValue = activeName;
         this.editableTabs = tabs.filter(tab => tab.name !== targetName);
       }

@@ -15,7 +15,7 @@ Carga archivos haciendo clic o arrastrándolos.
   :limit="3"
   :on-exceed="handleExceed"
   :file-list="fileList">
-  <el-button size="small" type="primary">Clic para subir archivo</el-button>
+  <el-btn size="small" type="primary">Clic para subir archivo</el-btn>
   <div slot="tip" class="el-upload__tip">Solo archivos jpg/png con un tamaño menor de 500kb</div>
 </el-upload>
 <script>
@@ -230,7 +230,7 @@ Use el `scoped-slot`  para cambiar el template por defecto del thumbnail.
   :on-remove="handleRemove"
   :file-list="fileList"
   list-type="picture">
-  <el-button size="small" type="primary">Clic para subir archivo</el-button>
+  <el-btn size="small" type="primary">Clic para subir archivo</el-btn>
   <div slot="tip" class="el-upload__tip">Solo archivos jpg/png con un tamaño menor de 500kb</div>
 </el-upload>
 <script>
@@ -264,7 +264,7 @@ Utilice el _hook_ `on-change` para controlar la funcionalidad de la lista de arc
   action="https://jsonplaceholder.typicode.com/posts/"
   :on-change="handleChange"
   :file-list="fileList">
-  <el-button size="small" type="primary">Clic para subir archivo</el-button>
+  <el-btn size="small" type="primary">Clic para subir archivo</el-btn>
   <div slot="tip" class="el-upload__tip">Solo archivos jpg/png con un tamaño menor de 500kb</div>
 </el-upload>
 <script>
@@ -320,8 +320,8 @@ Puede arrastrar el archivo dentro de un área en especifico para cargar el archi
   ref="upload"
   action="https://jsonplaceholder.typicode.com/posts/"
   :auto-upload="false">
-  <el-button slot="trigger" size="small" type="primary">Selecciona un archivo</el-button>
-  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">Cargar al servidor</el-button>
+  <el-btn slot="trigger" size="small" type="primary">Selecciona un archivo</el-btn>
+  <el-btn style="margin-left: 10px;" size="small" type="success" @click="submitUpload">Cargar al servidor</el-btn>
   <div slot="tip" class="el-upload__tip">Solo archivos jpg/png con un tamaño menor de 500kb</div>
 </el-upload>
 <script>

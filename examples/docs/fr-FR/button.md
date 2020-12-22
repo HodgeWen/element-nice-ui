@@ -8,39 +8,39 @@ Bouton communément utilisé.
 
 ```html
 <el-row>
-  <el-button>Défaut</el-button>
-  <el-button type="primary">Primary</el-button>
-  <el-button type="success">Success</el-button>
-  <el-button type="info">Info</el-button>
-  <el-button type="warning">Warning</el-button>
-  <el-button type="danger">Danger</el-button>
+  <el-btn>Défaut</el-btn>
+  <el-btn type="primary">Primary</el-btn>
+  <el-btn type="success">Success</el-btn>
+  <el-btn type="info">Info</el-btn>
+  <el-btn type="warning">Warning</el-btn>
+  <el-btn type="danger">Danger</el-btn>
 </el-row>
 
 <el-row>
-  <el-button plain>Plein</el-button>
-  <el-button type="primary" plain>Primary</el-button>
-  <el-button type="success" plain>Success</el-button>
-  <el-button type="info" plain>Info</el-button>
-  <el-button type="warning" plain>Warning</el-button>
-  <el-button type="danger" plain>Danger</el-button>
+  <el-btn plain>Plein</el-btn>
+  <el-btn type="primary" plain>Primary</el-btn>
+  <el-btn type="success" plain>Success</el-btn>
+  <el-btn type="info" plain>Info</el-btn>
+  <el-btn type="warning" plain>Warning</el-btn>
+  <el-btn type="danger" plain>Danger</el-btn>
 </el-row>
 
 <el-row>
-  <el-button round>Arrondi</el-button>
-  <el-button type="primary" round>Primary</el-button>
-  <el-button type="success" round>Success</el-button>
-  <el-button type="info" round>Info</el-button>
-  <el-button type="warning" round>Warning</el-button>
-  <el-button type="danger" round>Danger</el-button>
+  <el-btn round>Arrondi</el-btn>
+  <el-btn type="primary" round>Primary</el-btn>
+  <el-btn type="success" round>Success</el-btn>
+  <el-btn type="info" round>Info</el-btn>
+  <el-btn type="warning" round>Warning</el-btn>
+  <el-btn type="danger" round>Danger</el-btn>
 </el-row>
 
 <el-row>
-  <el-button icon="el-icon-search" circle></el-button>
-  <el-button type="primary" icon="el-icon-edit" circle></el-button>
-  <el-button type="success" icon="el-icon-check" circle></el-button>
-  <el-button type="info" icon="el-icon-message" circle></el-button>
-  <el-button type="warning" icon="el-icon-star-off" circle></el-button>
-  <el-button type="danger" icon="el-icon-delete" circle></el-button>
+  <el-btn icon="el-icon-search" circle></el-btn>
+  <el-btn type="primary" icon="el-icon-edit" circle></el-btn>
+  <el-btn type="success" icon="el-icon-check" circle></el-btn>
+  <el-btn type="info" icon="el-icon-message" circle></el-btn>
+  <el-btn type="warning" icon="el-icon-star-off" circle></el-btn>
+  <el-btn type="danger" icon="el-icon-delete" circle></el-btn>
 </el-row>
 ```
 :::
@@ -53,21 +53,21 @@ L'attribut `disabled` détermine si le bouton est désactivé.
 
 ```html
 <el-row>
-  <el-button disabled>Défaut</el-button>
-  <el-button type="primary" disabled>Principal</el-button>
-  <el-button type="success" disabled>Succès</el-button>
-  <el-button type="info" disabled>Info</el-button>
-  <el-button type="warning" disabled>Attention</el-button>
-  <el-button type="danger" disabled>Danger</el-button>
+  <el-btn disabled>Défaut</el-btn>
+  <el-btn type="primary" disabled>Principal</el-btn>
+  <el-btn type="success" disabled>Succès</el-btn>
+  <el-btn type="info" disabled>Info</el-btn>
+  <el-btn type="warning" disabled>Attention</el-btn>
+  <el-btn type="danger" disabled>Danger</el-btn>
 </el-row>
 
 <el-row>
-  <el-button plain disabled>Plein</el-button>
-  <el-button type="primary" plain disabled>Principal</el-button>
-  <el-button type="success" plain disabled>Succès</el-button>
-  <el-button type="info" plain disabled>Info</el-button>
-  <el-button type="warning" plain disabled>Attention</el-button>
-  <el-button type="danger" plain disabled>Danger</el-button>
+  <el-btn plain disabled>Plein</el-btn>
+  <el-btn type="primary" plain disabled>Principal</el-btn>
+  <el-btn type="success" plain disabled>Succès</el-btn>
+  <el-btn type="info" plain disabled>Info</el-btn>
+  <el-btn type="warning" plain disabled>Attention</el-btn>
+  <el-btn type="danger" plain disabled>Danger</el-btn>
 </el-row>
 ```
 :::
@@ -78,8 +78,8 @@ Bouton sans bordure ni fond.
 
 :::demo
 ```html
-<el-button type="text">Bouton texte</el-button>
-<el-button type="text" disabled>Bouton texte</el-button>
+<el-btn type="text">Bouton texte</el-btn>
+<el-btn type="text" disabled>Bouton texte</el-btn>
 ```
 :::
 
@@ -90,11 +90,11 @@ Utilisez des icônes pour ajouter plus de sens aux boutons. Vous pouvez utiliser
 :::demo Utilisez l'attribut `icon` pour ajouter une icône. Vous pourrez trouver la liste des icônes dans le composant Icon d'Element. Ajouter des icônes sur le coté droit du texte est possible grâce à la balise `<i>`. Des icônes personnalisées peuvent également être utilisées.
 
 ```html
-<el-button type="primary" icon="el-icon-edit"></el-button>
-<el-button type="primary" icon="el-icon-share"></el-button>
-<el-button type="primary" icon="el-icon-delete"></el-button>
-<el-button type="primary" icon="el-icon-search">Recherche</el-button>
-<el-button type="primary">Upload<i class="el-icon-upload el-icon-right"></i></el-button>
+<el-btn type="primary" icon="el-icon-edit"></el-btn>
+<el-btn type="primary" icon="el-icon-share"></el-btn>
+<el-btn type="primary" icon="el-icon-delete"></el-btn>
+<el-btn type="primary" icon="el-icon-search">Recherche</el-btn>
+<el-btn type="primary">Upload<i class="el-icon-upload el-icon-right"></i></el-btn>
 ```
 :::
 
@@ -102,18 +102,18 @@ Utilisez des icônes pour ajouter plus de sens aux boutons. Vous pouvez utiliser
 
 Affiche un groupe de bouton. Peut être utilisé pour grouper un ensemble d'opérations similaires.
 
-:::demo Utilisez la balise `<el-button-group>` pour grouper vos boutons.
+:::demo Utilisez la balise `<el-btn-group>` pour grouper vos boutons.
 
 ```html
-<el-button-group>
-  <el-button type="primary" icon="el-icon-arrow-left">Page précédente</el-button>
-  <el-button type="primary">Page suivante<i class="el-icon-arrow-right el-icon-right"></i></el-button>
-</el-button-group>
-<el-button-group>
-  <el-button type="primary" icon="el-icon-edit"></el-button>
-  <el-button type="primary" icon="el-icon-share"></el-button>
-  <el-button type="primary" icon="el-icon-delete"></el-button>
-</el-button-group>
+<el-btn-group>
+  <el-btn type="primary" icon="el-icon-arrow-left">Page précédente</el-btn>
+  <el-btn type="primary">Page suivante<i class="el-icon-arrow-right el-icon-right"></i></el-btn>
+</el-btn-group>
+<el-btn-group>
+  <el-btn type="primary" icon="el-icon-edit"></el-btn>
+  <el-btn type="primary" icon="el-icon-share"></el-btn>
+  <el-btn type="primary" icon="el-icon-delete"></el-btn>
+</el-btn-group>
 ```
 :::
 
@@ -124,28 +124,28 @@ Cliquez sur le bouton pour charger des données et il affichera un état de char
 :::demo Configurez l'attribut `loading` à `true` pour afficher un état de chargement.
 
 ```html
-<el-button type="primary" :loading="true">Chargement</el-button>
+<el-btn type="primary" :loading="true">Chargement</el-btn>
 ```
 :::
 
 ### Tailles
 
-En plus de la taille par défaut, le composant Button fournit trois tailles supplémentaires pour différents scénarios.
+En plus de la taille par défaut, le composant Btn fournit trois tailles supplémentaires pour différents scénarios.
 
 :::demo Utilisez l'attribut `size` pour choisir d'autres tailles parmi `medium`, `small` ou `mini`.
 
 ```html
 <el-row>
-  <el-button>Défaut</el-button>
-  <el-button size="medium">Medium</el-button>
-  <el-button size="small">Small</el-button>
-  <el-button size="mini">Mini</el-button>
+  <el-btn>Défaut</el-btn>
+  <el-btn size="medium">Medium</el-btn>
+  <el-btn size="small">Small</el-btn>
+  <el-btn size="mini">Mini</el-btn>
 </el-row>
 <el-row>
-  <el-button round>Défaut</el-button>
-  <el-button size="medium" round>Medium</el-button>
-  <el-button size="small" round>Small</el-button>
-  <el-button size="mini" round>Mini</el-button>
+  <el-btn round>Défaut</el-btn>
+  <el-btn size="medium" round>Medium</el-btn>
+  <el-btn size="small" round>Small</el-btn>
+  <el-btn size="mini" round>Mini</el-btn>
 </el-row>
 ```
 :::

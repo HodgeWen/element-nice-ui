@@ -79,7 +79,7 @@ Hay dos maneras de ampliar los elementos de opción hijos.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -300,7 +300,7 @@ Deshabilite una opción estableciendo el campo  `disabled` en las opciones del o
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -514,7 +514,7 @@ Establezca el atributo `clearable` para `el-cascader` y aparecerá un icono de b
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -727,7 +727,7 @@ La entrada puede mostrar sólo el último nivel en lugar de todos los niveles.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1058,7 +1058,7 @@ En la selección única, sólo se pueden comprobar los nodos de la hoja, y en la
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1325,7 +1325,7 @@ Buscar y seleccionar opciones con una palabra clave.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1544,7 +1544,7 @@ Puede personalizar el contenido del nodo de cascada.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1758,7 +1758,7 @@ Puede personalizar el contenido del nodo de cascada.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',

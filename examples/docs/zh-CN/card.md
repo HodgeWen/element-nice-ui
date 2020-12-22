@@ -11,7 +11,7 @@
 <el-card class="box-card">
   <div slot="header" class="clearfix">
     <span>卡片名称</span>
-    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+    <el-btn style="float: right; padding: 3px 0" type="text">操作按钮</el-btn>
   </div>
   <div v-for="o in 4" :key="o" class="text item">
     {{'列表内容 ' + o }}
@@ -85,7 +85,7 @@
         <span>好吃的汉堡</span>
         <div class="bottom clearfix">
           <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
+          <el-btn type="text" class="button">操作按钮</el-btn>
         </div>
       </div>
     </el-card>
@@ -97,7 +97,7 @@
     font-size: 13px;
     color: #999;
   }
-  
+
   .bottom {
     margin-top: 13px;
     line-height: 12px;
@@ -118,7 +118,7 @@
       display: table;
       content: "";
   }
-  
+
   .clearfix:after {
       clear: both
   }

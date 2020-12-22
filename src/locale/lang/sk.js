@@ -116,7 +116,7 @@ export default {
     },
     popconfirm: {
       confirmButtonText: 'Yes', // to be translated
-      cancelButtonText: 'No' // to be translated
+      cancelBtnText: 'No' // to be translated
     }
   }
 };

@@ -52,10 +52,10 @@
 
 <el-progress :percentage="percentage" :color="customColors"></el-progress>
 <div>
-  <el-button-group>
-    <el-button icon="el-icon-minus" @click="decrease"></el-button>
-    <el-button icon="el-icon-plus" @click="increase"></el-button>
-  </el-button-group>
+  <el-btn-group>
+    <el-btn icon="el-icon-minus" @click="decrease"></el-btn>
+    <el-btn icon="el-icon-plus" @click="increase"></el-btn>
+  </el-btn-group>
 </div>
 
 <script>
@@ -124,10 +124,10 @@ Progress 组件可通过 `type` 属性来指定使用环形进度条，在环形
 
 <el-progress type="dashboard" :percentage="percentage" :color="colors"></el-progress>
 <div>
-  <el-button-group>
-    <el-button icon="el-icon-minus" @click="decrease"></el-button>
-    <el-button icon="el-icon-plus" @click="increase"></el-button>
-  </el-button-group>
+  <el-btn-group>
+    <el-btn icon="el-icon-minus" @click="decrease"></el-btn>
+    <el-btn icon="el-icon-plus" @click="increase"></el-btn>
+  </el-btn-group>
 </div>
 
 <script>

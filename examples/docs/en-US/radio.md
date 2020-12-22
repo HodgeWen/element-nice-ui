@@ -73,7 +73,7 @@ Suitable for choosing from some mutually exclusive options.
 ```
 :::
 
-### Button style
+### Btn style
 
 Radio with button styles.
 

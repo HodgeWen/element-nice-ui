@@ -71,7 +71,7 @@ Recomendado para seleccionar opciones que se excluyen mutuamente.
 ```
 :::
 
-### Estilo Button
+### Estilo Btn
 
 Radio con estilo de botón.
 
@@ -198,14 +198,14 @@ Radio con estilo de botón.
 | text-color | color de las letras cuando el botón está activo | string  | —                     | #ffffff             |
 | fill       | color del borde y fondo cuando el botón está activo | string  | —                     | #409EFF             |
 
-### Eventos de Radio 
+### Eventos de Radio
 
 | Nombre de evento | Descripción                       | Parámetros                               |
 | ---------------- | --------------------------------- | ---------------------------------------- |
 | change           | se dispara cuando el valor cambia | el valor del `label` del Radio seleccionado |
 
 
-### Eventos de Radio-group 
+### Eventos de Radio-group
 
 | Nombre de evento | Descripción                       | Parámetros                               |
 | ---------------- | --------------------------------- | ---------------------------------------- |

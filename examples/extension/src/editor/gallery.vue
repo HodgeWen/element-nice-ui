@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ 
+  <div :style="{
     height: `${height}px`,
       width: `${width}px`
       }"
@@ -22,8 +22,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="closeCopyForm">取消</el-button>
-        <el-button type="primary" @click="copyToUser">确认</el-button>
+        <el-btn @click="closeCopyForm">取消</el-btn>
+        <el-btn type="primary" @click="copyToUser">确认</el-btn>
       </div>
     </el-dialog>
   </div>
@@ -107,8 +107,8 @@ export default {
           break;
         case 'delete':
           this.$confirm('确定要删除这个主题?', '提示', {
-            confirmButtonText: '确认',
-            cancelButtonText: '取消',
+            confirmBtnText: '确认',
+            cancelBtnText: '取消',
             type: 'warning'
           }).then(() => {
             this.deleteUserThemeByName(value.name);

@@ -239,7 +239,7 @@ Añade un elemento antes o después del input, generalmente una etiqueta o un bo
       <el-option label="Order No." value="2"></el-option>
       <el-option label="Tel" value="3"></el-option>
     </el-select>
-    <el-button slot="append" icon="el-icon-search"></el-button>
+    <el-btn slot="append" icon="el-icon-search"></el-btn>
   </el-input>
 </div>
 

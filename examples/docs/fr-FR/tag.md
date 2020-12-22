@@ -70,7 +70,7 @@ Vous pouvez utiliser l'évènement `close` pour ajouter et supprimer des tags dy
   @blur="handleInputConfirm"
 >
 </el-input>
-<el-button v-else class="button-new-tag" size="small" @click="showInput">+ Nouveau Tag</el-button>
+<el-btn v-else class="button-new-tag" size="small" @click="showInput">+ Nouveau Tag</el-btn>
 
 <style>
   .el-tag + .el-tag {

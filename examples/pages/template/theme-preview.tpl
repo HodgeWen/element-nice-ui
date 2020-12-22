@@ -31,9 +31,9 @@
 <template>
   <div class="page-container page-theme-preview" ref="themePreview">
     <section class="display">
-      <el-button type="text" icon="el-icon-back" @click="navBack">
+      <el-btn type="text" icon="el-icon-back" @click="navBack">
         <%= 1 >
-      </el-button>
+      </el-btn>
       <h3>{{previewConfig.name}}</h3>
       <basic-tokens-preview>
       </basic-tokens-preview>
@@ -177,7 +177,7 @@ export default {
     const pageRefer = this.$route.params.refer;
     if (!previewConfig || !pageRefer) {
       this.$alert(getActionDisplayName('no-preview-config'), getActionDisplayName('notice'), {
-        confirmButtonText: getActionDisplayName('confirm'),
+        confirmBtnText: getActionDisplayName('confirm'),
         callback: action => {
           const newPath = this.$route.path.replace('/preview', '');
           this.$router.replace(newPath);

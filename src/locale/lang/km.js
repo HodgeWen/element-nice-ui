@@ -114,7 +114,7 @@ export default {
     },
     popconfirm: {
       confirmButtonText: 'ព្រម',
-      cancelButtonText: 'មិនព្រម'
+      cancelBtnText: 'មិនព្រម'
     }
   }
 };

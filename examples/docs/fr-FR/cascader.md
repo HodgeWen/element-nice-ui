@@ -79,7 +79,7 @@ Il y a deux manières d'étendres les options enfants.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -299,7 +299,7 @@ Désactivez une option en définissant un champ `disabled` dans l'objet d'option
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -513,7 +513,7 @@ Définissez l'attribut `clearable` pour` el-cascader` et une icône claire appar
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -726,7 +726,7 @@ L'entrée peut afficher uniquement le dernier niveau au lieu de tous les niveaux
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1057,7 +1057,7 @@ Dans la sélection simple, seuls les noeuds terminaux peuvent être coché, et d
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1322,7 +1322,7 @@ Rechercher et sélectionner des options avec un mot clé.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1541,7 +1541,7 @@ Vous pouvez personnaliser le contenu du noeud cascader.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',
@@ -1755,7 +1755,7 @@ Vous pouvez personnaliser le contenu du noeud cascader.
               label: 'Icon'
             }, {
               value: 'button',
-              label: 'Button'
+              label: 'Btn'
             }]
           }, {
             value: 'form',

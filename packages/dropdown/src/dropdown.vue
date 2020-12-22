@@ -2,8 +2,8 @@
   import Clickoutside from 'element-nice-ui/src/utils/clickoutside';
   import Emitter from 'element-nice-ui/src/mixins/emitter';
   import Migrating from 'element-nice-ui/src/mixins/migrating';
-  import ElButton from 'element-nice-ui/packages/button';
-  import ElButtonGroup from 'element-nice-ui/packages/button-group';
+  import ElBtn from 'element-nice-ui/packages/btn';
+  import ElBtnGroup from 'element-nice-ui/packages/btn-group';
   import { generateId } from 'element-nice-ui/src/utils/util';
 
   export default {
@@ -16,8 +16,8 @@
     directives: { Clickoutside },
 
     components: {
-      ElButton,
-      ElButtonGroup
+      ElBtn,
+      ElBtnGroup
     },
 
     provide() {
@@ -259,14 +259,14 @@
 
       let triggerElm = !splitButton
         ? this.$slots.default
-        : (<el-button-group>
-          <el-button type={type} size={dropdownSize} nativeOn-click={handleMainButtonClick}>
+        : (<el-btn-group>
+          <el-btn type={type} size={dropdownSize} nativeOn-click={handleMainButtonClick}>
             {this.$slots.default}
-          </el-button>
-          <el-button ref="trigger" type={type} size={dropdownSize} class="el-dropdown__caret-button">
+          </el-btn>
+          <el-btn ref="trigger" type={type} size={dropdownSize} class="el-dropdown__caret-button">
             <i class="el-dropdown__icon el-icon-arrow-down"></i>
-          </el-button>
-        </el-button-group>);
+          </el-btn>
+        </el-btn-group>);
 
       return (
         <div class="el-dropdown" v-clickoutside={hide}>

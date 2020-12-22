@@ -192,7 +192,7 @@ Only card type Tabs support addable & closeable.
               }
             });
           }
-          
+
           this.editableTabsValue = activeName;
           this.editableTabs = tabs.filter(tab => tab.name !== targetName);
         }
@@ -208,12 +208,12 @@ Only card type Tabs support addable & closeable.
 :::demo
 ```html
 <div style="margin-bottom: 20px;">
-  <el-button
+  <el-btn
     size="small"
     @click="addTab(editableTabsValue)"
   >
     add tab
-  </el-button>
+  </el-btn>
 </div>
 <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
   <el-tab-pane
@@ -265,7 +265,7 @@ Only card type Tabs support addable & closeable.
             }
           });
         }
-        
+
         this.editableTabsValue = activeName;
         this.editableTabs = tabs.filter(tab => tab.name !== targetName);
       }
