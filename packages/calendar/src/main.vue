@@ -63,7 +63,6 @@ import ElBtn from 'element-nice-ui/packages/btn';
 import ElBtnGroup from 'element-nice-ui/packages/btn-group';
 import DateTable from './date-table';
 import { validateRangeInOneMonth } from 'element-nice-ui/src/utils/date-util';
-
 const validTypes = ['prev-month', 'today', 'next-month'];
 const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const oneDay = 86400000;

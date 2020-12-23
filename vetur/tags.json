@@ -10,7 +10,7 @@
     "description": "A column in grid system"
   },
   "el-btn": {
-    "attributes": ["type", "size", "plain", "loading", "disabled", "icon", "autofocus", "native-type", "round", "circle"],
+    "attributes": ["type", "size", "plain", "loading", "disabled", "icon", "suffix-icon", "autofocus", "native-type", "round", "circle"],
     "defaults": ["type"],
     "description": "Commonly used button."
   },

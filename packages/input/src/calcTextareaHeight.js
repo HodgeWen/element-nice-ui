@@ -68,7 +68,7 @@ export default function calcTextareaHeight(
   } = calculateNodeStyling(targetElement);
 
   hiddenTextarea.setAttribute('style', `${contextStyle};${HIDDEN_STYLE}`);
-  hiddenTextarea.value = targetElement.value || targetElement.placeholder || '';
+  hiddenTextarea.value = targetElement.value || targetElement.placeholder;
 
   let height = hiddenTextarea.scrollHeight;
   const result = {};

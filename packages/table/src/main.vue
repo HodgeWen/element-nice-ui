@@ -1,18 +1,39 @@
 <template>
   <div class="el-happy-table">
-    <div class="el-happy-table__header">
+    <!-- 搜索栏 start -->
+    <div class="el-happy-table__searcher">
+      <section>
+        <searcher-render
+          :ctx="ctx"
+          :label-width="stringQueryLabelWidth"
+          v-for="(node, i) of $slots.searcher"
+          :key="i"
+          :node="node"
+        />
+      </section>
+
+      <el-context :ctx="ctx" tag="section">
+        <el-btn icon="search" type="primary" @click="fetchData">查询</el-btn>
+        <el-btn icon="refresh" type="danger">重置</el-btn>
+      </el-context>
+    </div>
+    <!-- 搜索栏 end -->
+
+    <!-- 工具栏 start -->
+    <div class="el-happy-table__tools">
       <el-context :ctx="ctx" tag="section">
         <slot name="tools" />
       </el-context>
 
-      <el-context :ctx="ctx" tag="section">
-        <slot name="searcher" />
-
-        <el-btn>1111</el-btn>
+      <el-context depth="2" :ctx="ctx" tag="section">
+        <el-tooltip content="配置列">
+          <el-btn icon="s-operation" circle />
+        </el-tooltip>
       </el-context>
     </div>
+    <!-- 工具栏 end -->
 
-    <main-table v-bind="$attrs" v-on="$listeners" :data="computedData" />
+    <main-table v-bind="$attrs" :size="size" v-on="$listeners" :data="computedData" />
 
     <el-pagination v-if="pagination" />
 
@@ -22,10 +43,11 @@
 
 <script>
 import MainTable from './table'
-import ElContext from '../../context'
-import ElPagination from '../../pagination'
-import ElBtn from '../../btn'
-// import
+import ElContext from 'element-nice-ui/packages/context'
+import ElPagination from 'element-nice-ui/packages/pagination'
+import ElBtn from 'element-nice-ui/packages/btn'
+import ElTooltip from 'element-nice-ui/packages/tooltip'
+import SearcherRender from './searcher-render'
 export default {
   name: 'ElTable',
 
@@ -35,7 +57,9 @@ export default {
     MainTable,
     ElContext,
     ElPagination,
-    ElBtn
+    ElBtn,
+    ElTooltip,
+    SearcherRender
   },
 
   props: {
@@ -53,17 +77,22 @@ export default {
       type: Object
     },
 
+    queryLabelWidth: {
+      type: [Number, String]
+    },
+
     autoQueryFields: {
       type: Array
+    },
+
+    size: {
+      type: String,
+      default: 'mini'
     }
   },
 
   data: () => ({
     internalData: [],
-
-    ctx: {
-      size: 'medium'
-    },
 
     pager: {
       page: 1,
@@ -78,6 +107,16 @@ export default {
 
     params() {
       return this.pagination ? { ...this.query, ...this.pager } : this.query
+    },
+
+    ctx() {
+      return {
+        size: this.size
+      }
+    },
+
+    stringQueryLabelWidth() {
+      return isNaN(+this.queryLabelWidth) ? this.queryLabelWidth : this.queryLabelWidth + 'px'
     }
   },
 

@@ -25,10 +25,11 @@
         v-if="type !== 'textarea'"
         class="el-input__inner"
         v-bind="$attrs"
+        :placeholder="placeholder"
         :type="showPassword ? (passwordVisible ? 'text': 'password') : type"
         :disabled="inputDisabled"
         :readonly="readonly"
-        :autocomplete="autoComplete || autocomplete"
+        :autocomplete="autocomplete"
         ref="input"
         @compositionstart="handleCompositionStart"
         @compositionupdate="handleCompositionUpdate"
@@ -94,9 +95,10 @@
       @input="handleInput"
       ref="textarea"
       v-bind="$attrs"
+      :placeholder="placeholder"
       :disabled="inputDisabled"
       :readonly="readonly"
-      :autocomplete="autoComplete || autocomplete"
+      :autocomplete="autocomplete"
       :style="textareaStyle"
       @focus="handleFocus"
       @blur="handleBlur"
@@ -149,6 +151,10 @@
       form: String,
       disabled: Boolean,
       readonly: Boolean,
+      placeholder: {
+        type: String,
+        default: '请输入'
+      },
       type: {
         type: String,
         default: 'text'
@@ -160,15 +166,6 @@
       autocomplete: {
         type: String,
         default: 'off'
-      },
-      /** @Deprecated in next major version */
-      autoComplete: {
-        type: String,
-        validator(val) {
-          process.env.NODE_ENV !== 'production' &&
-            console.warn('[Element Warn][Input]\'auto-complete\' property will be deprecated in next major version. please use \'autocomplete\' instead.');
-          return true;
-        }
       },
       validateEvent: {
         type: Boolean,

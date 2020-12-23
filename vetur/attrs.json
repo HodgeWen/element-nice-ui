@@ -459,7 +459,10 @@
     "options": ["small", "medium", "large"],
     "description": "menu水平状态下的尺寸"
   },
-  "el-tooltip/content": { "description": "display content, can be overridden by slot#content" },
+  "el-tooltip/content": {
+    "type": "string",
+    "description": "display content, can be overridden by slot#content"
+  },
   "el-popover/content": { "description": "popover content, can be replaced with a default slot" },
   "el-dropdown/trigger": { "options": ["hover", "click"], "description": "default: hover" },
   "el-carousel/trigger": { "options": ["hover", "click"], "description": "default: hover" },
@@ -529,6 +532,14 @@
     "options": ["primary", "success", "warning", "danger", "info", "text"],
     "description": "button type"
   },
+  "el-btn/icon": {
+    "type": "string",
+    "description": "按钮图标"
+  },
+  "el-btn/suffix-icon": {
+    "type": "string",
+    "description": "按钮右侧图标"
+  },
   "el-date-picker/type": {
     "options": ["year", "month", "date", "week", "datetime", "datetimerange", "daterange"],
     "description": "type of the picker, default: date"
@@ -562,6 +573,10 @@
   "el-slider/height": { "description": "Slider height, required in vertical mode" },
   "el-table/height": {
     "description": "Table's height. By default it has an auto height. If its value is a number, the height is measured in pixels; if its value is a string, the height is affected by external styles"
+  },
+  "el-table/pagination": {
+    "type": "boolean",
+    "description": "这是一个分页表格, 会去渲染分页"
   },
   "el-table/max-height": {
     "description": "Table's max-height. The height of the table starts from 'auto' until it reaches the maxHeight limit. The 'maxHeight' is measured in pixels, same as 'heigh't"
@@ -698,7 +713,7 @@
     "type": "boolean",
     "description": "whether the menu is collapsed (available only in vertical mode)"
   },
-  "el-tooltip/vavlue": {
+  "el-tooltip/value": {
     "type": "boolean",
     "description": "visibility of Tooltip, default: false"
   },

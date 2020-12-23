@@ -1,57 +1,57 @@
 <template>
-  <div>
+  <div style="padding: 8px">
+
     <el-table
       :headers="headers"
       pagination
+      query-label-width="100"
       :crud="{
         update: () => {},
         create: () => {}
       }"
     >
       <template #tools>
-
+        <el-btn type='primary'>新增</el-btn>
       </template>
 
       <template #searcher>
-        <el-btn>aaa</el-btn>
+        <el-input label="名称" />
+        <el-input />
       </template>
     </el-table>
     <el-icon name="setting" />
     <el-icon name="user" />
-
-    <el-dialog v-model="visible">
-      11
-    </el-dialog>
-
-    <el-context :ctx="{ size: 'small' }">
-      <template>
-        <el-btn icon="setting" @click="visible = true">按钮</el-btn>
-        <el-btn>按钮1</el-btn>
-        <el-btn>按钮2</el-btn>
-      </template>
-    </el-context>
   </div>
 </template>
 
 <script>
-import 'packages/theme-chalk/src/base.scss'
-import 'packages/theme-chalk/src/table.scss'
-import ElTable from 'packages/table'
-import ElIcon from 'packages/icon'
-import 'packages/theme-chalk/src/icon.scss'
-import ElDialog from 'packages/dialog'
-import 'packages/theme-chalk/src/dialog.scss'
-import ElBtn from 'packages/btn'
-import 'packages/theme-chalk/src/btn.scss'
-import ElContext from 'packages/context'
+// TODO table属性需要添加到json文件中
+// import 'packages/theme-chalk/src/base.scss'
+// import 'packages/theme-chalk/src/table.scss'
+// import ElTable from 'packages/table'
+// import ElIcon from 'packages/icon'
+// import 'packages/theme-chalk/src/icon.scss'
+// import ElDialog from 'packages/dialog'
+// import 'packages/theme-chalk/src/dialog.scss'
+// import ElBtn from 'packages/btn'
+// import 'packages/theme-chalk/src/btn.scss'
+// import ElMenu from 'packages/menu'
+// import ElMenuItem from 'packages/menu-item'
+// import ElSubmenu from 'packages/submenu'
+// import 'packages/theme-chalk/src/menu.scss'
+// import ElContext from 'packages/context'
+
 export default {
-  components: {
-    ElIcon,
-    ElDialog,
-    ElContext,
-    ElBtn,
-    ElTable
-  },
+  // components: {
+  //   ElIcon,
+  //   ElDialog,
+  //   ElContext,
+  //   ElBtn,
+  //   ElTable,
+  //   ElMenu,
+  //   ElMenuItem,
+  //   ElSubmenu
+  // },
   data() {
     return {
       headers: [

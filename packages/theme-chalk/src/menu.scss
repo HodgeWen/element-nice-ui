@@ -209,16 +209,31 @@
     & .el-menu-item {
       @include menu-item(small);
     }
+
+    & .el-submenu__title {
+      @include menu-item(small);
+    }
+  }
+  @include m(medium) {
+    & .el-menu-item {
+      @include menu-item(medium);
+    }
+
+    & .el-submenu__title {
+      @include menu-item(medium);
+    }
   }
   @include m(large) {
     & .el-menu-item {
       @include menu-item(large);
     }
+
+    & .el-submenu__title {
+      @include menu-item(large);
+    }
   }
 }
 @include b(menu-item) {
-  @include menu-item;
-
   & [class^='el-icon-'] {
     margin-right: 5px;
     width: 24px;
@@ -241,8 +256,6 @@
   padding-left: 0;
 
   @include e(title) {
-    @include menu-item;
-
     &:hover {
       background-color: $--menu-item-hover-fill;
     }
