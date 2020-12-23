@@ -6,6 +6,8 @@
 @import 'table-column';
 @import 'scrollbar';
 @import 'pagination';
+@import 'btn';
+
 @include b(table) {
   position: relative;
   overflow: hidden;

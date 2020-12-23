@@ -1199,5 +1199,10 @@
   "el-perfect-scrollbar/wheel-propagation": {
     "type": "boolean",
     "description": "滚动事件传播"
+  },
+
+  "el-context/ctx": {
+    "type": "object",
+    "description": "上下文对象, 里面的每个属性会作为子组件的prop传入子组件"
   }
 }

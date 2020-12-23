@@ -7,6 +7,8 @@
 
       <el-context :ctx="ctx" tag="section">
         <slot name="searcher" />
+
+        <el-btn>1111</el-btn>
       </el-context>
     </div>
 
@@ -22,6 +24,8 @@
 import MainTable from './table'
 import ElContext from '../../context'
 import ElPagination from '../../pagination'
+import ElBtn from '../../btn'
+// import
 export default {
   name: 'ElTable',
 
@@ -30,7 +34,8 @@ export default {
   components: {
     MainTable,
     ElContext,
-    ElPagination
+    ElPagination,
+    ElBtn
   },
 
   props: {

@@ -257,5 +257,9 @@
   "el-perfect-scrollbar": {
     "attributes": ["wheel-speed", "tag", "wheel-propagation"],
     "description": "完美滚动条"
+  },
+  "el-context": {
+    "attributes": ["tag", "ctx"],
+    "description": "上下文组件"
   }
 }
