@@ -1,7 +1,7 @@
 <template>
   <div class="el-happy-table">
     <!-- 搜索栏 start -->
-    <div class="el-happy-table__searcher" v-if="api && !data">
+    <div class="el-happy-table__searcher" v-if="showSearcher" ref="searcher">
       <section>
         <searcher-render
           :ctx="ctx"
@@ -20,7 +20,7 @@
     <!-- 搜索栏 end -->
 
     <!-- 工具栏 start -->
-    <div class="el-happy-table__tools" v-if="showTools">
+    <div class="el-happy-table__tools"  v-if="showTools" ref="tools">
       <el-context :ctx="ctx" tag="section">
         <slot name="tools" />
       </el-context>
@@ -41,12 +41,13 @@
       :class="{ 'el-happy-table--with-footer': pagination }"
       v-bind="$attrs"
       :size="size"
-      height="calc(100% - 160px)"
+      :height="bodyHeight"
       v-on="$listeners"
       :data="computedData"
     />
 
     <el-pagination
+      ref="pagination"
       :page-size="pager.size"
       :current-page.sync="pager.page"
       layout="total, sizes, prev, pager, next, jumper"
@@ -67,6 +68,8 @@ import ElPagination from 'element-nice-ui/packages/pagination'
 import ElBtn from 'element-nice-ui/packages/btn'
 import ElTooltip from 'element-nice-ui/packages/tooltip'
 import SearcherRender from './searcher-render'
+import { debounce } from 'throttle-debounce'
+
 export default {
   name: 'ElTable',
 
@@ -120,7 +123,7 @@ export default {
     },
 
     autoHeight: {
-      typo: Boolean
+      type: Boolean
     }
   },
 
@@ -134,12 +137,20 @@ export default {
     pager: {
       page: 1,
       size: 20
-    }
+    },
+
+    searcherAble: true,
+
+    height: 0
   }),
 
   computed: {
     computedData() {
       return Array.isArray(this.data) ? this.data : this.internalData
+    },
+
+    showSearcher() {
+      return this.searcherAble && this.api && !this.data
     },
 
     params() {
@@ -150,6 +161,19 @@ export default {
       return {
         size: this.size
       }
+    },
+
+    bodyHeight() {
+      if (!this.height || this.autoHeight) {
+        return null
+      }
+      return `calc(100% - ${this.height}px)`
+    }
+  },
+
+  watch: {
+    showSearcher() {
+      this.updateHeight()
     }
   },
 
@@ -170,11 +194,35 @@ export default {
             this.internalData = res[listDataKey]
           }
         })
-    }
+    },
+
+    updateHeight: debounce(0, function () {
+      let height = 0
+      let margin = 8
+      if (this.showSearcher && this.$refs.searcher) {
+        height += this.$refs.searcher.clientHeight + margin
+      }
+      if (this.showTools && this.$refs.tools) {
+        height += this.$refs.tools.clientHeight + margin
+      }
+      if (this.pagination) {
+        height += 36 + margin
+      }
+      this.height = height
+    })
+  },
+
+  beforeMount() {
+    window.addEventListener('resize', this.updateHeight)
+    this.$nextTick(this.updateHeight)
   },
 
   mounted() {
     this.fetchData()
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.updateHeight)
   }
 }
 </script>

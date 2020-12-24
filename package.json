@@ -1,6 +1,6 @@
 {
   "name": "element-nice-ui",
-  "version": "2.15.7",
+  "version": "2.15.8",
   "description": "A Component Library for Vue.js.",
   "main": "lib/element-nice-ui.common.js",
   "files": [
@@ -58,7 +58,7 @@
     "vue": "^2.6.12"
   },
   "devDependencies": {
-    "@vue/component-compiler-utils": "^2.6.0",
+    "@vue/component-compiler-utils": "^3.2.0",
     "algoliasearch": "^3.24.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
