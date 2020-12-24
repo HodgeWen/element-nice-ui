@@ -5,7 +5,7 @@
       <section>
         <searcher-render
           :ctx="ctx"
-          :label-width="stringQueryLabelWidth"
+          :label-width="queryLabelWidth"
           v-for="(node, i) of $slots.searcher"
           :key="i"
           :node="node"
@@ -78,7 +78,8 @@ export default {
     },
 
     queryLabelWidth: {
-      type: [Number, String]
+      type: [Number, String],
+      default: 50
     },
 
     autoQueryFields: {
@@ -114,10 +115,6 @@ export default {
         size: this.size
       }
     },
-
-    stringQueryLabelWidth() {
-      return isNaN(+this.queryLabelWidth) ? this.queryLabelWidth : this.queryLabelWidth + 'px'
-    }
   },
 
   methods: {

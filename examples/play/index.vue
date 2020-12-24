@@ -1,24 +1,23 @@
 <template>
   <div style="padding: 8px">
 
-    <el-table
-      :headers="headers"
-      pagination
-      query-label-width="100"
-      :crud="{
-        update: () => {},
-        create: () => {}
-      }"
-    >
+    <!-- query-label-width: 所有的query元素的label宽度, 默认50 -->
+    <el-table :headers="headers" pagination query-label-width="60">
       <template #tools>
-        <el-btn type='primary'>新增</el-btn>
+        <el-btn type="primary">新增</el-btn>
       </template>
 
       <template #searcher>
-        <el-input label="名称" />
-        <el-input />
+        <!--
+          s-label 给一个label名称并生成一个label元素,
+          s-label-width label元素的宽度,
+          s-width 整个 query项的宽度
+        -->
+        <el-input s-label="名称" />
+        <el-input s-label="很长很长的名称" s-label-width="110" s-width="300" />
       </template>
     </el-table>
+
     <el-icon name="setting" />
     <el-icon name="user" />
   </div>
@@ -54,6 +53,7 @@ export default {
   // },
   data() {
     return {
+
       headers: [
         { type: 'selection' },
         {

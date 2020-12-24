@@ -590,16 +590,35 @@
     background: #fff;
     margin-bottom: 8px;
     & > section {
-      // max-width: 200px;
-      flex-grow: 1;
+      &:first-child {
+        flex-grow: 1;
+        & > * {
+          width: 220px;
+          margin-right: 10px;
+        }
+      }
+
+      &:last-child {
+        width: 150px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+
     }
   }
 
   @include e(tools) {
     @include flex;
     & > section {
-      // max-width: 200px;
-      flex-grow: 1;
+      &:first-child {
+        flex-grow: 1;
+      }
+
+      &:last-child {
+        width: 150px;
+        flex-shrink: 0;
+        text-align: right;
+      }
     }
   }
 
@@ -612,5 +631,8 @@
   }
 
   @include e(query-label) {
+    font-size: 14px;
+    color: #999;
+    flex-shrink: 0;
   }
 }
