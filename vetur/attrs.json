@@ -571,15 +571,29 @@
   "el-checkbox-group/max": { "description": "maximum number of checkbox checked" },
   "el-input-number/max": { "description": "the maximum allowed value" },
   "el-slider/height": { "description": "Slider height, required in vertical mode" },
-  "el-table/height": {
-    "description": "Table's height. By default it has an auto height. If its value is a number, the height is measured in pixels; if its value is a string, the height is affected by external styles"
-  },
   "el-table/pagination": {
     "type": "boolean",
     "description": "这是一个分页表格, 会去渲染分页"
   },
-  "el-table/max-height": {
-    "description": "Table's max-height. The height of the table starts from 'auto' until it reaches the maxHeight limit. The 'maxHeight' is measured in pixels, same as 'heigh't"
+  "el-table/auto-height": {
+    "type": "boolean",
+    "description": "表示改表格高度是自适应的而非固定"
+  },
+  "el-table/auto-queried": {
+    "type": "array",
+    "description": "改表格在值改变时自动检索的字段有哪些"
+  },
+  "el-table/query-label-width": {
+    "type": "number",
+    "description": "所有query项的label宽度"
+  },
+  "el-table/show-tools": {
+    "type": "boolean",
+    "description": "显示工具栏"
+  },
+  "el-table/api": {
+    "type": "string",
+    "description": "发起查询的远程接口的地址"
   },
   "el-time-select/value": { "description": "value of the picker, default: HH:mm:ss" },
   "el-tooltip/open-delay": { "description": "delay of appearance, in millisecond, default: 0" },
