@@ -584,11 +584,15 @@
 
 @include b(happy-table) {
   height: 100%;
+  padding: 6px 8px;
 
   @include e(searcher) {
     @include flex;
     background: #fff;
     margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 4px;
+
     & > section {
       &:first-child {
         flex-grow: 1;
@@ -609,6 +613,11 @@
 
   @include e(tools) {
     @include flex;
+    padding: 6px 8px;
+    background: #fff;
+    margin-bottom: 8px;
+    border-radius: 4px;
+
     & > section {
       &:first-child {
         flex-grow: 1;

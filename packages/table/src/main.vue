@@ -1,7 +1,7 @@
 <template>
   <div class="el-happy-table">
     <!-- 搜索栏 start -->
-    <div class="el-happy-table__searcher">
+    <div class="el-happy-table__searcher" v-if="api && !data">
       <section>
         <searcher-render
           :ctx="ctx"
@@ -20,12 +20,16 @@
     <!-- 搜索栏 end -->
 
     <!-- 工具栏 start -->
-    <div class="el-happy-table__tools">
+    <div class="el-happy-table__tools" v-if="showTools">
       <el-context :ctx="ctx" tag="section">
         <slot name="tools" />
       </el-context>
 
       <el-context depth="2" :ctx="ctx" tag="section">
+        <el-tooltip content="显示/隐藏 搜索栏">
+          <el-btn icon="set-up" circle />
+        </el-tooltip>
+
         <el-tooltip content="配置列">
           <el-btn icon="s-operation" circle />
         </el-tooltip>
@@ -82,13 +86,18 @@ export default {
       default: 50
     },
 
-    autoQueryFields: {
+    autoQueried: {
       type: Array
     },
 
     size: {
       type: String,
       default: 'mini'
+    },
+
+    showTools: {
+      type: Boolean,
+      default: true
     }
   },
 

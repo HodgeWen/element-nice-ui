@@ -1,8 +1,8 @@
 <template>
-  <div style="padding: 8px">
+  <div>
 
     <!-- query-label-width: 所有的query元素的label宽度, 默认50 -->
-    <el-table :headers="headers" pagination query-label-width="60">
+    <el-table :headers="headers" api="aa" pagination query-label-width="60">
       <template #tools>
         <el-btn type="primary">新增</el-btn>
       </template>
@@ -85,6 +85,7 @@ body {
   margin: 0;
   height: 100%;
   padding: 0;
+  background: #f2f2f2;
 }
 
 .aaa {
