@@ -5,7 +5,9 @@
 
 @include b(pagination) {
   white-space: nowrap;
-  padding: 2px 5px;
+  padding: 4px;
+  text-align: right;
+  background: #fff;
   color: $--pagination-font-color;
   font-weight: bold;
   @include utils-clearfix;
@@ -84,7 +86,7 @@
   }
 
   .btn-next {
-    padding-left: 12px;    
+    padding-left: 12px;
   }
 
   .el-pager li.disabled {
@@ -168,7 +170,7 @@
     line-height: 18px;
     padding: 0 2px;
     height: $--pagination-button-height;
-      
+
     text-align: center;
     margin: 0 2px;
     box-sizing: border-box;

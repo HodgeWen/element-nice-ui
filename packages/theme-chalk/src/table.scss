@@ -584,12 +584,11 @@
 
 @include b(happy-table) {
   height: 100%;
-  padding: 6px 8px;
 
   @include e(searcher) {
     @include flex;
     background: #fff;
-    margin-bottom: 8px;
+    margin-bottom: $--tabel-vertical-margin;
     padding: 8px;
     border-radius: 4px;
 
@@ -603,7 +602,7 @@
       }
 
       &:last-child {
-        width: 150px;
+        width: 170px;
         text-align: right;
         flex-shrink: 0;
       }
@@ -615,7 +614,7 @@
     @include flex;
     padding: 6px 8px;
     background: #fff;
-    margin-bottom: 8px;
+    margin-bottom: $--tabel-vertical-margin;
     border-radius: 4px;
 
     & > section {
@@ -643,5 +642,9 @@
     font-size: 14px;
     color: #999;
     flex-shrink: 0;
+  }
+
+  @include m(with-footer) {
+    margin-bottom: $--tabel-vertical-margin;
   }
 }

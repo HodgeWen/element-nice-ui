@@ -37,9 +37,24 @@
     </div>
     <!-- 工具栏 end -->
 
-    <main-table v-bind="$attrs" :size="size" v-on="$listeners" :data="computedData" />
+    <main-table
+      :class="{ 'el-happy-table--with-footer': pagination }"
+      v-bind="$attrs"
+      :size="size"
+      height="calc(100% - 160px)"
+      v-on="$listeners"
+      :data="computedData"
+    />
 
-    <el-pagination v-if="pagination" />
+    <el-pagination
+      :page-size="pager.size"
+      :current-page.sync="pager.page"
+      layout="total, sizes, prev, pager, next, jumper"
+      :page-sizes="pageSizes"
+      :total="total"
+      v-bind="pageConfig"
+      v-if="pagination"
+    />
 
     <slot name="outer" />
   </div>
@@ -86,6 +101,10 @@ export default {
       default: 50
     },
 
+    pageConfig: {
+      type: Object
+    },
+
     autoQueried: {
       type: Array
     },
@@ -98,11 +117,19 @@ export default {
     showTools: {
       type: Boolean,
       default: true
+    },
+
+    autoHeight: {
+      typo: Boolean
     }
   },
 
   data: () => ({
     internalData: [],
+
+    pageSizes: [20, 40, 80, 150, 200],
+
+    total: 0,
 
     pager: {
       page: 1,
@@ -123,7 +150,7 @@ export default {
       return {
         size: this.size
       }
-    },
+    }
   },
 
   methods: {

@@ -148,6 +148,7 @@
           }"
         >
         </table-body>
+
         <div
           v-if="$slots.append"
           class="el-table__append-gutter"
@@ -555,15 +556,6 @@ export default {
       return !!(this.headers && this.headers.length)
     },
 
-    layout() {
-      return new TableLayout({
-        store: this.store,
-        table: this,
-        fit: this.fit,
-        showHeader: this.showHeader
-      })
-    },
-
     // 分割线---------------上边的为自定义扩展
     tableSize() {
       return this.size || (this.$ELEMENT || {}).size
@@ -754,7 +746,14 @@ export default {
       childrenColumnName: children
     })
 
+    const layout = new TableLayout({
+      store: this.store,
+      table: this,
+      fit: this.fit
+    });
+
     return {
+      layout,
       isHidden: false,
       renderExpanded: null,
       resizeProxyVisible: false,

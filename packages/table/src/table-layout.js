@@ -9,7 +9,6 @@ class TableLayout {
     this.store = null;
     this.columns = null;
     this.fit = true;
-    this.showHeader = true;
 
     this.height = null;
     this.scrollX = false;
@@ -57,18 +56,18 @@ class TableLayout {
   setHeight(value, prop = 'height') {
     if (Vue.prototype.$isServer) return;
     const el = this.table.$el;
-    value = parseHeight(value);
-    this.height = value;
 
-    if (!el && (value || value === 0)) return Vue.nextTick(() => this.setHeight(value, prop));
-
-    if (typeof value === 'number') {
-      el.style[prop] = value + 'px';
-      this.updateElsHeight();
-    } else if (typeof value === 'string') {
-      el.style[prop] = value;
-      this.updateElsHeight();
+    if (!el) {
+      return value !== null ? Vue.nextTick(() => this.setHeight(value, prop)) : null
     }
+
+    if (!isNaN(+value)) {
+      el.style[prop] = value + 'px';
+    } else {
+      el.style[prop] = value;
+    }
+    this.height = el.getBoundingClientRect().height
+    this.updateElsHeight();
   }
 
   setMaxHeight(value) {
@@ -91,17 +90,17 @@ class TableLayout {
 
   updateElsHeight() {
     if (!this.table.$ready) return Vue.nextTick(() => this.updateElsHeight());
+
     const { headerWrapper, appendWrapper, footerWrapper } = this.table.$refs;
     this.appendHeight = appendWrapper ? appendWrapper.offsetHeight : 0;
 
-    if (this.showHeader && !headerWrapper) return;
+    if (this.table.showHeader && !headerWrapper) return;
 
-    // fix issue (https://github.com/ElemeFE/element/pull/16956)
     const headerTrElm = headerWrapper ? headerWrapper.querySelector('.el-table__header tr') : null;
     const noneHeader = this.headerDisplayNone(headerTrElm);
 
-    const headerHeight = this.headerHeight = !this.showHeader ? 0 : headerWrapper.offsetHeight;
-    if (this.showHeader && !noneHeader && headerWrapper.offsetWidth > 0 && (this.table.columns || []).length > 0 && headerHeight < 2) {
+    const headerHeight = this.headerHeight = !this.table.showHeader ? 0 : headerWrapper.offsetHeight;
+    if (this.table.showHeader && !noneHeader && headerWrapper.offsetWidth > 0 && (this.table.columns || []).length > 0 && headerHeight < 2) {
       return Vue.nextTick(() => this.updateElsHeight());
     }
     const tableHeight = this.tableHeight = this.table.$el.clientHeight;

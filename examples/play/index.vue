@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="height: 100%">
 
     <!-- query-label-width: 所有的query元素的label宽度, 默认50 -->
-    <el-table :headers="headers" api="aa" pagination query-label-width="60">
+    <el-table size="medium" :headers="headers" api="aa" :data="data" pagination query-label-width="60">
       <template #tools>
         <el-btn type="primary">新增</el-btn>
       </template>
@@ -63,7 +63,14 @@ export default {
         { label: '你好啊2', prop: 'b.c' }
       ],
 
-      data: [{ hello: 'aa', b: { c: '1' } }],
+      data: [
+        { hello: 'aa', b: { c: '1' } },
+        { hello: 'aa', b: { c: '1' } },
+        { hello: 'aa', b: { c: '1' } },
+        { hello: 'aa', b: { c: '1' } },
+        { hello: 'aa', b: { c: '1' } },
+        { hello: 'aa', b: { c: '1' } },
+      ],
 
       visible: false
     }
@@ -86,6 +93,8 @@ body {
   height: 100%;
   padding: 0;
   background: #f2f2f2;
+
+
 }
 
 .aaa {
