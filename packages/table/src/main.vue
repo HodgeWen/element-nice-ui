@@ -37,6 +37,7 @@
     </div>
     <!-- 工具栏 end -->
 
+    <!-- 表格主体 strart -->
     <main-table
       :class="{ 'el-happy-table--with-footer': pagination }"
       v-bind="$attrs"
@@ -45,7 +46,10 @@
       v-on="$listeners"
       :data="computedData"
     />
+    <!-- 表格主体 end -->
 
+
+    <!-- 分页 start -->
     <el-pagination
       ref="pagination"
       :page-size="pager.size"
@@ -56,6 +60,7 @@
       v-bind="pageConfig"
       v-if="pagination"
     />
+    <!-- 分页 end -->
 
     <slot name="outer" />
   </div>

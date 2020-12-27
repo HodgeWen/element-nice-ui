@@ -6,11 +6,10 @@
       :headers="headers"
       api="aa"
       pagination
-      :data="data"
       query-label-width="60"
     >
       <template #tools>
-        <el-btn type="primary">新增</el-btn>
+        <el-btn type="primary" @click="visible = true">新增</el-btn>
       </template>
 
       <template #searcher>
@@ -19,13 +18,31 @@
           s-label-width label元素的宽度,
           s-width 整个 query项的宽度
         -->
-        <el-input s-label="名称" />
-        <el-input s-label="很长很长的名称" s-label-width="110" s-width="300" />
+        <el-input t-label="名称" />
+        <el-input t-label="很长很长的名称" t-label-width="110" t-width="300" />
       </template>
     </el-table>
 
     <el-icon name="setting" />
     <el-icon name="user" />
+
+    <!--
+      不需要手动验证, 只要是在dialog下的所有form都可以在确认的时候自动验证,
+      传入一个confirm方法就会显示确认弹框
+    -->
+    <el-dialog v-model="visible" :confirm="onConfirm">
+
+      <!--
+        用法 demo
+        一旦将表单元素置于 el-form 中, 那么 el-form 就会直接接管这些元素
+        原来必须包裹表单元素的el-form-item 对开发者而言会隐藏
+        trigger 指定表单验证的触发方式
+       -->
+      <el-form :model="form" trigger="blur" label-width="60px">
+        <el-input t-label="姓名" t-span="12" t-prop='name' />
+        <el-input t-label="身高" t-prop='height' />
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -77,11 +94,40 @@ export default {
         { hello: 'aa', b: { c: '1' } }
       ],
 
-      visible: false
+      visible: false,
+
+      form: {
+        name: {
+          value: '',
+          trigger: 'blur',
+          required: '姓名是必填的'
+        },
+
+        height: null
+      },
+
+      rules: {
+        aa: [{ required: true, message: '不能为空' }]
+      }
     }
   },
 
-  methods: {},
+  watch: {
+    'form.height' (v) {
+      console.log(v)
+    }
+  },
+
+  methods: {
+    onConfirm() {
+      return new Promise((res) => {
+        setTimeout(() => {
+          console.log(11)
+          res(true)
+        }, 2000)
+      })
+    }
+  },
 
   mounted() {
     setTimeout(() => {

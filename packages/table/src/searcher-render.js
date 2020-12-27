@@ -25,14 +25,14 @@ export default {
     if (data) {
       let { attrs } = data
 
-      if (attrs['s-label']) {
+      if (attrs['t-label']) {
         let labelStyle = {
           width: props.labelWidth + 'px'
         }
 
-        if (attrs['s-label-width']) {
-          labelStyle.width = attrs['s-label-width'] + 'px'
-          delete attrs['s-label-width']
+        if (attrs['t-label-width']) {
+          labelStyle.width = attrs['t-label-width'] + 'px'
+          delete attrs['t-label-width']
         }
 
         let labelNode = h(
@@ -41,15 +41,15 @@ export default {
             class: 'el-happy-table__query-label',
             style: labelStyle
           },
-          attrs['s-label'] + ': '
+          attrs['t-label'] + ': '
         )
 
-        delete attrs['s-label']
+        delete attrs['t-label']
 
         let itemStyle = {}
-        if (attrs['s-width']) {
-          itemStyle.width = attrs['s-width'] + 'px'
-          delete attrs['s-width']
+        if (attrs['t-width']) {
+          itemStyle.width = attrs['t-width'] + 'px'
+          delete attrs['t-width']
         }
 
         return h(
