@@ -9,6 +9,7 @@
       type ? 'el-btn--' + type : '',
       buttonSize ? 'el-btn--' + buttonSize : '',
       {
+        'is-active': value,
         'is-disabled': buttonDisabled,
         'is-loading': loading,
         'is-plain': plain,
@@ -52,6 +53,9 @@ export default {
       type: String,
       default: 'button'
     },
+    value: {
+      type: Boolean
+    },
     loading: Boolean,
     disabled: Boolean,
     plain: Boolean,
@@ -74,6 +78,7 @@ export default {
 
   methods: {
     handleClick(evt) {
+      this.$emit('input', !this.value)
       this.$emit('click', evt)
     }
   }

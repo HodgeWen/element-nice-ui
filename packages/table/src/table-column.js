@@ -169,6 +169,7 @@ export default {
         // 对 renderCell 进行包装
         column.renderCell = (h, data) => {
           let children = null
+
           if (this.$scopedSlots.default) {
             children = this.$scopedSlots.default(data)
           } else {

@@ -32,5 +32,7 @@ export interface TableHeaderItem{
   /** 数据过滤使用的方法 */
   filterMethod?: (value: any, row: any, column: any) => boolean;
   /** 仅对type=selection的列有效 */
-  selectable?: (row: any, index: number) => boolean
+  selectable?: (row: any, index: number) => boolean;
+  /** 作为一个插槽传入 */
+  slot?: string
 }

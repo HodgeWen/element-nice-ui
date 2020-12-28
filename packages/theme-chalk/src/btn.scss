@@ -32,8 +32,8 @@
     $--button-border-radius
   );
 
-  &:hover,
-  &:focus {
+  // &:focus
+  &:hover {
     color: $--color-primary;
     border-color: $--color-primary-light-7;
     background-color: $--color-primary-light-9;
@@ -126,6 +126,7 @@
     border-radius: 50%;
     padding: $--button-padding-vertical;
   }
+
   @include m(primary) {
     @include button-variant(
       $--button-primary-font-color,
@@ -161,6 +162,7 @@
       $--button-info-border-color
     );
   }
+
   @include m(medium) {
     @include button-size(
       $--button-medium-padding-vertical,

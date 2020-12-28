@@ -2,14 +2,22 @@
   <div style="height: 100%">
     <!-- query-label-width: 所有的query元素的label宽度, 默认50 -->
     <el-table
-      size="medium"
+      size="small"
       :headers="headers"
       api="aa"
+      :query="query"
       pagination
+      :auto-queried="['name', 'age']"
       query-label-width="60"
     >
+      <template #column.aa="{ value }">
+        <span>{{ value }}</span>
+      </template>
       <template #tools>
         <el-btn type="primary" @click="visible = true">新增</el-btn>
+        <el-btn @click="query.name += 'a'">改变name</el-btn>
+        <el-btn @click="query.age++">改变age</el-btn>
+        <el-btn @click="query.name += 'a';query.age++">改变name+age</el-btn>
       </template>
 
       <template #searcher>
@@ -18,8 +26,8 @@
           s-label-width label元素的宽度,
           s-width 整个 query项的宽度
         -->
-        <el-input t-label="名称" />
-        <el-input t-label="很长很长的名称" t-label-width="110" t-width="300" />
+        <el-input v-model="query.name" t-label="名称" />
+        <el-input v-model="query.age" t-label="年龄" t-width="300" />
       </template>
     </el-table>
 
@@ -31,7 +39,6 @@
       传入一个confirm方法就会显示确认弹框
     -->
     <el-dialog v-model="visible" :confirm="onConfirm">
-
       <!--
         用法 demo
         一旦将表单元素置于 el-form 中, 那么 el-form 就会直接接管这些元素
@@ -80,10 +87,16 @@ export default {
         { type: 'selection' },
         {
           label: '你好啊',
-          prop: 'hello'
+          prop: 'hello',
+          slot: 'aa'
         },
         { label: '你好啊2', prop: 'b.c' }
       ],
+
+      query: {
+        name: 'a',
+        age: 20
+      },
 
       data: [
         { hello: 'aa', b: { c: '1' } },

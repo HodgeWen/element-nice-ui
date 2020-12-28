@@ -93,14 +93,14 @@ loadingDirective.install = Vue => {
       const spinnerExr = el.getAttribute('element-loading-spinner');
       const backgroundExr = el.getAttribute('element-loading-background');
       const customClassExr = el.getAttribute('element-loading-custom-class');
-      const vm = vnode.context;
+
       const mask = new Mask({
         el: document.createElement('div'),
         data: {
-          text: vm && vm[textExr] || textExr,
-          spinner: vm && vm[spinnerExr] || spinnerExr,
-          background: vm && vm[backgroundExr] || backgroundExr,
-          customClass: vm && vm[customClassExr] || customClassExr,
+          text: textExr || '加载中...',
+          spinner: spinnerExr,
+          background: backgroundExr,
+          customClass: customClassExr,
           fullscreen: !!binding.modifiers.fullscreen
         }
       });
@@ -112,7 +112,7 @@ loadingDirective.install = Vue => {
     },
 
     update: function(el, binding) {
-      el.instance.setText(el.getAttribute('element-loading-text'));
+      el.instance.setText(el.getAttribute('element-loading-text') || '加载中...');
       if (binding.oldValue !== binding.value) {
         toggleLoading(el, binding);
       }

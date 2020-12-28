@@ -3,9 +3,8 @@
   color: $color;
   background: mix($--color-white, $color, 90%);
   border-color: mix($--color-white, $color, 60%);
-
-  &:hover,
-  &:focus {
+  // &:focus
+  &:hover {
     background: $color;
     border-color: $color;
     color: $--color-white;
@@ -34,14 +33,13 @@
   color: $color;
   background-color: $background-color;
   border-color: $border-color;
-
-  &:hover,
-  &:focus {
+  // &:focus
+  &:hover {
     background: mix($--color-white, $background-color, $--button-hover-tint-percent);
     border-color: mix($--color-white, $border-color, $--button-hover-tint-percent);
     color: $color;
   }
-  
+
   &:active {
     background: mix($--color-black, $background-color, $--button-active-shade-percent);
     border-color: mix($--color-black, $border-color, $--button-active-shade-percent);

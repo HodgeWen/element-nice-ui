@@ -22,14 +22,7 @@
     <!-- 列 -->
     <template v-if="showHeader">
       <div class="hidden-columns" ref="hiddenColumns">
-        <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
-          <template v-if="header.slot" #default="{ row, column, $index }">
-            <slot
-              :name="header.slot"
-              v-bind="{ row, column, value: row[header.prop], index: $index }"
-            />
-          </template>
-        </table-column>
+        <slot />
       </div>
 
       <div
@@ -260,7 +253,6 @@
 
 <script type="text/babel">
 import ElCheckbox from 'element-nice-ui/packages/checkbox'
-import TableColumn from './table-column'
 import { debounce, throttle } from 'throttle-debounce'
 import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
 import Mousewheel from 'element-nice-ui/src/directives/mousewheel'
@@ -284,19 +276,15 @@ export default {
   },
 
   props: {
-    headers: {
-      type: Array
-    },
-
-    align: {
-      type: String,
-      default: 'center'
+    showHeader: {
+      type: Boolean,
+      default: true
     },
     //----------上面的属性为扩展的属性
 
     data: {
       type: Array,
-      default: function () {
+      default: function() {
         return []
       }
     },
@@ -389,7 +377,6 @@ export default {
     TableHeader,
     TableFooter,
     TableBody,
-    TableColumn,
     ElCheckbox
   },
 
@@ -469,7 +456,7 @@ export default {
     },
 
     // TODO 使用 CSS transform
-    syncPostion: throttle(5, function () {
+    syncPostion: throttle(5, function() {
       const { scrollLeft, scrollTop, offsetWidth, scrollWidth } = this.bodyWrapper
       const { headerWrapper, footerWrapper, fixedBodyWrapper, rightFixedBodyWrapper } = this.$refs
       // if (headerWrapper) headerWrapper.style.transform = `translate(${-scrollLeft}px)`;
@@ -541,20 +528,6 @@ export default {
   },
 
   computed: {
-    computedHeaders() {
-      if (!this.headers) return []
-      return this.headers.map((header, i) => {
-        let ret = { ...header, _id: i }
-        if (!ret.align) {
-          ret.align = this.align
-        }
-        return ret
-      })
-    },
-
-    showHeader() {
-      return !!(this.headers && this.headers.length)
-    },
 
     // 分割线---------------上边的为自定义扩展
     tableSize() {
@@ -750,7 +723,7 @@ export default {
       store: this.store,
       table: this,
       fit: this.fit
-    });
+    })
 
     return {
       layout,
@@ -764,6 +737,7 @@ export default {
       // 是否拥有多级表头
       isGroup: false,
       scrollPosition: 'left'
+
     }
   }
 }
