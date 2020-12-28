@@ -6,6 +6,7 @@
       :headers="headers"
       api="aa"
       :query="query"
+      :data="data"
       pagination
       :auto-queried="['name', 'age']"
       query-label-width="60"
@@ -46,7 +47,7 @@
         trigger 指定表单验证的触发方式
        -->
       <el-form :model="form" trigger="blur" label-width="60px">
-        <el-input t-label="姓名" t-span="12" t-prop='name' />
+        <el-input v-model="form.name.value" t-label="姓名" t-span="12" t-prop='name' />
         <el-input t-label="身高" t-prop='height' />
       </el-form>
     </el-dialog>
@@ -88,7 +89,7 @@ export default {
         {
           label: '你好啊',
           prop: 'hello',
-          slot: 'aa'
+          slotName: 'aa'
         },
         { label: '你好啊2', prop: 'b.c' }
       ],
@@ -111,7 +112,7 @@ export default {
 
       form: {
         name: {
-          value: '',
+          value: 'asdasd',
           trigger: 'blur',
           required: '姓名是必填的'
         },

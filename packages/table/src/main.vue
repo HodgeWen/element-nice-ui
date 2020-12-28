@@ -49,12 +49,11 @@
       v-loading="loading"
     >
       <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
-        <template v-if="header.slot" #default="{ row, column, $index }">
-          <span>111</span>
-          <!-- <slot
-            :name="'column.' + header.slot"
+        <template v-if="header.slotName" #default="{ row, column, $index }">
+          <slot
+            :name="'column.' + header.slotName"
             v-bind="{ row, column, value: row[header.prop], index: $index }"
-          /> -->
+          />
         </template>
       </table-column>
     </main-table>
