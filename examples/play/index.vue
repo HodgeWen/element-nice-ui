@@ -40,15 +40,14 @@
       传入一个confirm方法就会显示确认弹框
     -->
     <el-dialog v-model="visible" :confirm="onConfirm">
-      <!--
-        用法 demo
-        一旦将表单元素置于 el-form 中, 那么 el-form 就会直接接管这些元素
-        原来必须包裹表单元素的el-form-item 对开发者而言会隐藏
-        trigger 指定表单验证的触发方式
-       -->
-      <el-form :model="form" trigger="blur" label-width="60px">
-        <el-input v-model="form.name.value" t-label="姓名" t-span="12" t-prop='name' />
-        <el-input t-label="身高" t-prop='height' />
+      <el-form :colspan="24" :model="form" :rules="formRules" size="small" label-width="60px">
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="form.name" />
+        </el-form-item>
+
+        <el-form-item label="身高" prop="height">
+          <el-input v-model="form.height" />
+        </el-form-item>
       </el-form>
     </el-dialog>
   </div>
@@ -111,26 +110,17 @@ export default {
       visible: false,
 
       form: {
-        name: {
-          value: 'asdasd',
-          trigger: 'blur',
-          required: '姓名是必填的'
-        },
+        name: '',
 
         height: null
       },
 
-      rules: {
-        aa: [{ required: true, message: '不能为空' }]
+      formRules: {
+        name: [{ required: true, message: '不能为空' }]
       }
     }
   },
 
-  watch: {
-    'form.height' (v) {
-      console.log(v)
-    }
-  },
 
   methods: {
     onConfirm() {
@@ -144,9 +134,7 @@ export default {
   },
 
   mounted() {
-    setTimeout(() => {
-      this.show = true
-    }, 5000)
+
   }
 }
 </script>

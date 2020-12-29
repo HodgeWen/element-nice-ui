@@ -20,21 +20,20 @@
           </slot>
           <button
             type="button"
-            class="el-dialog__headerbtn"
-            aria-label="Close"
-            v-if="showClose"
-            @click="handleClose"
+            class="el-dialog__headerbtn el-dialog__headerbtn-full"
+            aria-label="FullScreen"
+            @click="onToogleFullScreen"
           >
-            <i class="el-dialog__close el-icon el-icon-close"></i>
+            <i :class="fullscreen ? 'el-icon-minus' : 'el-icon-full-screen'"></i>
           </button>
           <button
             type="button"
-            class="el-dialog__headerbtn"
+            class="el-dialog__headerbtn el-dialog__headerbtn-close"
             aria-label="Close"
             v-if="showClose"
             @click="handleClose"
           >
-            <i class="el-dialog__close el-icon el-icon-close"></i>
+            <i class="el-icon-close"></i>
           </button>
         </div>
         <div class="el-dialog__body" v-if="rendered"><slot></slot></div>
@@ -42,8 +41,10 @@
           <slot name="footer" v-if="$slots.footer" />
 
           <template v-else>
-            <el-btn size="small" @click="handleClose">取消</el-btn>
-            <el-btn v-if="confirm" @click="onConfirm" size="small" type="primary">确认</el-btn>
+            <el-btn :loading="loading" size="small" @click="handleClose">取消</el-btn>
+            <el-btn :loading="loading" v-if="confirm" @click="onConfirm" size="small" type="primary"
+              >确认</el-btn
+            >
           </template>
         </div>
       </div>
@@ -112,8 +113,6 @@ export default {
 
     width: String,
 
-    fullscreen: Boolean,
-
     customClass: {
       type: String,
       default: ''
@@ -135,7 +134,9 @@ export default {
   data() {
     return {
       closed: false,
-      key: 0
+      key: 0,
+      loading: false,
+      fullscreen: false
     }
   },
 
@@ -153,7 +154,7 @@ export default {
         }
       } else {
         if (this.formInstances) {
-          this.formInstances.forEach(instance => {
+          this.formInstances.forEach((instance) => {
             instance.resetFields()
           })
         }
@@ -195,23 +196,28 @@ export default {
       }
     },
 
+    onToogleFullScreen() {
+      this.fullscreen = !this.fullscreen
+    },
+
     onConfirm() {
-      if (!this.confirm) return
+      if (!this.confirm || !this.formInstances) return
 
-      if (this.formInstances) {
-
-        Promise.all(this.formInstances.map((item) => item.validate())).then((res) => {
-          if (res.every((v) => v)) {
-            this.confirm()
-              .then((res) => {
-                if (res !== false) {
-                  this.$emit('change', false)
-                }
-              })
-              .catch(() => {})
-          }
-        })
-      }
+      Promise.all(this.formInstances.map((item) => item.validate())).then((res) => {
+        if (res.every((v) => v)) {
+          this.loading = true
+          this.confirm()
+            .then((res) => {
+              if (res !== false) {
+                this.loading = false
+                this.$emit('change', false)
+              }
+            })
+            .catch(() => {
+              this.loading = false
+            })
+        }
+      })
     },
 
     getMigratingConfig() {

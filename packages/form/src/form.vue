@@ -7,16 +7,22 @@
     class="el-form"
     :class="[labelPosition ? 'el-form--label-' + labelPosition : '', { 'el-form--inline': inline }]"
   >
-    <template v-if="$slots.default">
-      <slot-render :node="node" :model="model" v-for="(node, i) of $slots.default" :key="i" />
-    </template>
+    <!-- <template v-if="$slots.default">
+      <slot-render
+        :node="node"
+        :value="node.data.attrs['s-prop']"
+        v-for="(node, i) of $slots.default"
+        :key="key"
+      />
+    </template> -->
+    <slot />
   </el-row>
 </template>
 
 <script>
 import objectAssign from 'element-nice-ui/src/utils/merge'
 import ElRow from '../../row/src/row'
-import SlotRender from './slot-render'
+// import SlotRender from './slot-render'
 export default {
   name: 'ElForm',
 
@@ -26,7 +32,7 @@ export default {
 
   components: {
     ElRow,
-    SlotRender
+    // SlotRender
   },
 
   provide() {
@@ -36,8 +42,10 @@ export default {
   },
 
   props: {
+    // form: Object,
     model: Object,
     rules: Object,
+    trigger: String,
     labelPosition: String,
     labelWidth: String,
     labelSuffix: {
@@ -89,7 +97,61 @@ export default {
       if (!this.potentialLabelWidthArr.length) return 0
       const max = Math.max(...this.potentialLabelWidthArr)
       return max ? `${max}px` : ''
-    }
+    },
+
+    // model() {
+    //   let ret = {}
+    //   let { form } = this
+    //   return Object.keys(form).forEach((key) => {
+    //     if (typeof form[key] === 'object' && form[key] !== null) {
+    //       ret[key] = form[key].value
+    //     } else {
+    //       ret[key] = form[key]
+    //     }
+    //   })
+    // },
+
+    // rules() {
+    //   let ret = {}
+    //   let { form, trigger } = this
+    //   let ruleMap = {
+    //     required: (required) => ({
+    //       required: true,
+    //       message: typeof required === 'string' ? required : '该项是必填项'
+    //     }),
+    //     min: (min) => {
+    //       let isArr = Array.isArray(min)
+    //       let minVal = isArr ? min[0] : min
+    //       return {
+    //         min: minVal,
+    //         message: isArr && min[1] ? min[1] : `该项最小值为 ${minVal}`
+    //       }
+    //     },
+    //     max: (max) => {
+    //       let isArr = Array.isArray(max)
+    //       let maxVal = isArr ? max[0] : max
+    //       return {
+    //         max: maxVal,
+    //         message: isArr && max[1] ? max[1] : `该项最大值为 ${maxVal}`
+    //       }
+    //     },
+    //   }
+    //   Object.keys(form).forEach((key) => {
+    //     let value = form[key]
+    //     if (typeof value !== 'object' || value === null) return
+    //     let trigger = value.trigger || trigger
+
+    //     Object.keys(value).forEach((vk) => {
+    //       if (vk === 'value' || vk === 'trigger') return
+
+    //       if (ret[key]) {
+    //         ret[key].push({ ...ruleMap[vk](value[vk]), trigger })
+    //       } else {
+    //         ret[key] = [{ ...ruleMap[vk](value[vk]), trigger }]
+    //       }
+    //     })
+    //   })
+    // }
   },
   data() {
     return {
@@ -125,7 +187,7 @@ export default {
 
     resetFields() {
       if (!this.model) {
-        console.warn('[warn] 你需要往model中传入一个model方可清除验证')
+        console.warn('[warn] 你需要往form中传入一个model方可清除验证')
         return
       }
       this.fields.forEach((field) => {
@@ -144,7 +206,7 @@ export default {
     },
     validate(callback) {
       if (!this.model) {
-        console.warn('[warn] 你需要往model中传入一个model方可验证')
+        console.warn('[warn] 你需要往form中传入一个model方可验证')
         return
       }
 

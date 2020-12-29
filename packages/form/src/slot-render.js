@@ -1,7 +1,6 @@
 import FormItem from './form-item.vue'
-import Vue from 'vue'
+
 export default {
-  functional: true,
 
   props: {
     node: {
@@ -15,26 +14,10 @@ export default {
     }
   },
 
-  render(h, { props }) {
-    // function anonymous() {
-    //   with (this) {
-    //     return _c('el-input', {
-    //       model: {
-    //         value: form.name.value,
-    //         callback: function($$v) {
-    //           $set(form.name, 'value', $$v)
-    //         },
-    //         expression: 'form.name.value'
-    //       }
-    //     })
-    //   }
-    // }
-
-    let { componentOptions: opts } = props.node
-    let { model, node } = props
-
+  render(h) {
+    let { model, node } = this
+    let { componentOptions: opts, data: nodeData } = node
     if (opts && opts.tag !== 'el-form-item') {
-      let { data: nodeData, componentOptions } = props.node
 
       let formItemObj = {
         props: {}
@@ -55,33 +38,32 @@ export default {
           let prop = attrs['t-prop']
           formItemObj.props.prop = prop
           delete attrs['t-prop']
-
-          // if (typeof model[prop] === 'object' && model[prop] !== null) {
-          //   node = h(opts.tag, {
-          //     model: {
-          //       value: model[prop].value,
-          //       callback: function($$v) {
-          //         console.log(Vue.set)
-          //         Vue.set(model[prop], 'value', $$v)
-          //       },
-          //       expression: `model.${prop}.value`
-          //     }
-          //   })
-          // } else {
-          //   node = h(opts.tag, {
-          //     model: {
-          //       value: model[prop],
-          //       callback: function($$v) {
-          //         Vue.set(model, prop, $$v)
-          //       },
-          //       expression: `model.${prop}`
-          //     }
-          //   })
-          // }
+          if (typeof model[prop] === 'object' && model[prop] !== null) {
+            node = h(opts.tag, {
+              props: {
+                value: model[prop].value
+              },
+              on: {
+                input(e) {
+                  model[prop].value = e
+                }
+              }
+            })
+          } else {
+            node = h(opts.tag, {
+              props: {
+                value: model[prop]
+              },
+              on: {
+                input(e) {
+                  model[prop] = e
+                }
+              }
+            })
+          }
         }
       }
-      console.log(h(opts.tag, opts.data))
-      // return h(FormItem, formItemObj, [props.node])
+
       return <FormItem {...formItemObj}>{node}</FormItem>
     } else {
       return node

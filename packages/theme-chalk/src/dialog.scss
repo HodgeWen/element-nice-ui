@@ -10,7 +10,7 @@
   border-radius: $--border-radius-small;
   box-shadow: $--dialog-box-shadow;
   box-sizing: border-box;
-  width: 50%;
+  width: 720px;
 
   @include when(fullscreen) {
     width: 100%;
@@ -18,6 +18,10 @@
     margin-bottom: 0;
     height: 100%;
     overflow: auto;
+
+    & .el-dialog__body {
+      height: calc(100% - 90px);
+    }
   }
 
   @include e(wrapper) {
@@ -38,22 +42,23 @@
   @include e(headerbtn) {
     position: absolute;
     top: $--dialog-padding-primary;
-    right: $--dialog-padding-primary;
     padding: 0;
     background: transparent;
     border: none;
     outline: none;
     cursor: pointer;
     font-size: $--message-close-size;
+    color: $--color-info;
 
-    .el-dialog__close {
-      color: $--color-info;
+    &:hover {
+      color: $--color-primary;
     }
 
-    &:focus, &:hover {
-      .el-dialog__close {
-        color: $--color-primary;
-      }
+    &-full {
+      right: $--dialog-padding-primary * 2 + 16px;
+    }
+    &-close {
+      right: $--dialog-padding-primary;
     }
   }
 
@@ -68,6 +73,9 @@
     color: $--color-text-regular;
     font-size: $--dialog-content-font-size;
     word-break: break-all;
+    box-sizing: border-box;
+    overflow: auto;
+    max-height: calc(100% - 90px);
   }
 
   @include e(footer) {

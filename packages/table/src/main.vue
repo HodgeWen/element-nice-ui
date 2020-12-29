@@ -26,7 +26,7 @@
       </el-context>
 
       <el-context depth="2" :ctx="ctx" tag="section">
-        <el-tooltip content="显示/隐藏 搜索栏">
+        <el-tooltip v-if="api && !data" content="显示/隐藏 搜索栏">
           <el-btn v-model="searchable" @input="onToggleSearcher" icon="set-up" circle />
         </el-tooltip>
 
@@ -310,7 +310,6 @@ export default {
 
       this.$watch('willSearch', (v) => {
         if (v) {
-          console.log(111)
           this.willSearch = false
           this.fetchData()
         }
