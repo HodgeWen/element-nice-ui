@@ -6,7 +6,6 @@
       :headers="headers"
       api="aa"
       :query="query"
-      :data="data"
       pagination
       :auto-queried="['name', 'age']"
       query-label-width="60"
@@ -29,6 +28,7 @@
         -->
         <el-input v-model="query.name" t-label="名称" />
         <el-input v-model="query.age" t-label="年龄" t-width="300" />
+        <el-date-picker type="daterange" />
       </template>
     </el-table>
 
@@ -99,12 +99,7 @@ export default {
       },
 
       data: [
-        { hello: 'aa', b: { c: '1' } },
-        { hello: 'aa', b: { c: '1' } },
-        { hello: 'aa', b: { c: '1' } },
-        { hello: 'aa', b: { c: '1' } },
-        { hello: 'aa', b: { c: '1' } },
-        { hello: 'aa', b: { c: '1' } }
+
       ],
 
       visible: false,

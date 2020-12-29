@@ -241,6 +241,52 @@ export default {
   },
 
   methods: {
+    create(record) {
+      this.total++
+      let data = this.find()
+      data.unshift(record)
+      if (data.length > this.pager.size) {
+        data.pop()
+      }
+    },
+
+    update(i, newRecord) {
+      if (newRecord instanceof Function) {
+        let record = this.find(i)
+        newRecord(record)
+        this.splice(i, 1, record)
+      }
+      this.splice(i, 1, newRecord)
+    },
+
+    delete(i) {
+      let data = this.find()
+      if (!data.length) {
+        return this.fetchData(true)
+      }
+      data.splice(i, 1)
+      this.total--
+    },
+
+    find(i) {
+      let data = Array.isArray(this.data) ? this.data : this.internalData
+      if (typeof i === 'number') {
+        if (i < 0) {
+          console.warn('find 方法 应该传入一个 > 0的参数')
+        }
+        return data[i]
+      } else if (typeof o === 'object' && i !== null) {
+        return data.find((item) => {
+          return Object.keys(i).every(key => item[key] === i[key])
+        })
+      } else if (i === undefined) {
+        return data
+      }
+      return []
+    },
+
+
+    // query 替换
     queryReplace() {
       historyReplace({ ...this.params, sa: this.searchable })
     },
@@ -288,7 +334,7 @@ export default {
         this.pager.page = 1
       }
 
-      if (!this.api || !this.$http || !this.$EL_TABLE_CONFIG) return
+      if (!this.api || !this.$http || !this.$EL_TABLE_PROP_CONFIG) return
       this.loading = true
 
       this.fetch().then(() => {

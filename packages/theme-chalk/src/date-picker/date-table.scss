@@ -33,17 +33,15 @@
   }
 
   td {
-    width: 32px;
-    height: 30px;
-    padding: 4px 0;
+    // width: 24px;
+    height: 24px;
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;
     position: relative;
 
     & div {
-      height: 30px;
-      padding: 3px 0;
+      height: 24px;
       box-sizing: border-box;
     }
 

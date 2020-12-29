@@ -171,4 +171,39 @@ export declare class ElTable extends ElementUIComponent {
 
   /** method for lazy load subtree data */
   load (row: object, treeNode: treeNode, resolve: Function): void
+
+  /**
+   * 添加一条新的记录
+   * @param record 记录值
+   */
+  create (record: any): void
+
+  /**
+   * 删除一条记录
+   * @param index 记录索引
+   */
+  delete(index: number): void
+
+  /**
+   * 更新一条记录
+   * @param index 索引
+   * @param callback 回调函数, 可以更改记录的属性值
+   */
+  update(index: number, callback: (record: any) => void): void
+  /**
+   * 更新一条记录
+   * @param index 索引
+   * @param record 新的记录值
+   */
+  update(index: number, record: any): void
+
+  /**
+   * 查询所有的数据
+   */
+  find(): any[]
+  /**
+   * 查询单个索引值
+   * @param index 索引
+   */
+  find(index: number): any
 }

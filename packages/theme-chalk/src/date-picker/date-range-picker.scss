@@ -1,10 +1,10 @@
 @import "../common/var";
 
 @include b(date-range-picker) {
-  width: 646px;
+  width: 500px;
 
   &.has-sidebar {
-    width: 756px;
+    width: 610px;
   }
 
   table {
@@ -13,7 +13,7 @@
   }
 
   .el-picker-panel__body {
-    min-width: 513px;
+    min-width: 500px;
   }
 
   .el-picker-panel__content {
@@ -45,7 +45,7 @@
     width: 50%;
     box-sizing: border-box;
     margin: 0;
-    padding: 16px;
+    padding: 8px;
 
     @include when(left) {
       border-right: 1px solid $--datepicker-inner-border-color;
