@@ -1,5 +1,4 @@
 import { getPropByPath } from 'element-nice-ui/src/utils/util'
-
 export const cellStarts = {
   default: {
     order: ''

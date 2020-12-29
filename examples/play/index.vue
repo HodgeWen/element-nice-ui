@@ -2,22 +2,27 @@
   <div style="height: 100%">
     <!-- query-label-width: 所有的query元素的label宽度, 默认50 -->
     <el-table
-      size="small"
       :headers="headers"
       api="aa"
       :query="query"
+      stripe
       pagination
-      :auto-queried="['name', 'age']"
       query-label-width="60"
+      @selection-change="selected = $event"
     >
-      <template #column.aa="{ value }">
-        <span>{{ value }}</span>
+      <template #column.bb="{ value, row }">
+        <el-btn type="text" icon="download">{{ value }}</el-btn>
+        <el-btn type="text" icon="download">下载</el-btn>
+        <el-btn type="text" icon="download">下载</el-btn>
+        <el-btn type="text" icon="download">下载</el-btn>
       </template>
+      <template #column.name="{ value, row }">
+        <el-btn type="text" @click="$log(value)">{{ value }}</el-btn>
+      </template>
+
       <template #tools>
         <el-btn type="primary" @click="visible = true">新增</el-btn>
-        <el-btn @click="query.name += 'a'">改变name</el-btn>
-        <el-btn @click="query.age++">改变age</el-btn>
-        <el-btn @click="query.name += 'a';query.age++">改变name+age</el-btn>
+        <el-btn :disabled="selected.length === 0">删除</el-btn>
       </template>
 
       <template #searcher>
@@ -29,6 +34,84 @@
         <el-input v-model="query.name" t-label="名称" />
         <el-input v-model="query.age" t-label="年龄" t-width="300" />
         <el-date-picker type="daterange" />
+        <el-date-picker type="daterange" />
+        <el-date-picker type="daterange" />
+        <el-date-picker type="daterange" />
+        <el-date-picker type="daterange" />
+        <el-date-picker type="daterange" />
+        <el-date-picker type="daterange" />
+        <el-date-picker type="daterange" />
+        <el-date-picker type="daterange" />
+      </template>
+
+      <template #outer>
+        <el-dialog v-model="visible">
+          <el-form ref="form" :colspan="24" :model="form" :rules="formRules" size="small" label-width="60px">
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+
+
+          </el-form>
+
+          <template #footer>
+            <el-btn @click="">草稿</el-btn>
+          </template>
+        </el-dialog>
       </template>
     </el-table>
 
@@ -39,17 +122,6 @@
       不需要手动验证, 只要是在dialog下的所有form都可以在确认的时候自动验证,
       传入一个confirm方法就会显示确认弹框
     -->
-    <el-dialog v-model="visible" :confirm="onConfirm">
-      <el-form :colspan="24" :model="form" :rules="formRules" size="small" label-width="60px">
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="form.name" />
-        </el-form-item>
-
-        <el-form-item label="身高" prop="height">
-          <el-input v-model="form.height" />
-        </el-form-item>
-      </el-form>
-    </el-dialog>
   </div>
 </template>
 
@@ -83,14 +155,15 @@ export default {
   // },
   data() {
     return {
+      selected: [],
       headers: [
         { type: 'selection' },
         {
           label: '你好啊',
-          prop: 'hello',
-          slotName: 'aa'
+          // prop: 'hello',
+          slotName: 'bb'
         },
-        { label: '你好啊2', prop: 'b.c' }
+        { label: '你好啊2', prop: 'b', slotName: 'name' }
       ],
 
       query: {
@@ -98,9 +171,7 @@ export default {
         age: 20
       },
 
-      data: [
-
-      ],
+      data: [],
 
       visible: false,
 
@@ -116,7 +187,6 @@ export default {
     }
   },
 
-
   methods: {
     onConfirm() {
       return new Promise((res) => {
@@ -128,9 +198,7 @@ export default {
     }
   },
 
-  mounted() {
-
-  }
+  mounted() {}
 }
 </script>
 

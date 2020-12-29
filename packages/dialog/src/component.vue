@@ -37,16 +37,18 @@
           </button>
         </div>
         <div class="el-dialog__body" v-if="rendered"><slot></slot></div>
-        <div class="el-dialog__footer">
+        <el-context :ctx="{ size: 'small' }" class="el-dialog__footer">
+          <el-btn :loading="loading" @click="handleClose">取消</el-btn>
           <slot name="footer" v-if="$slots.footer" />
-
-          <template v-else>
-            <el-btn :loading="loading" size="small" @click="handleClose">取消</el-btn>
-            <el-btn :loading="loading" v-if="confirm" @click="onConfirm" size="small" type="primary"
-              >确认</el-btn
-            >
-          </template>
-        </div>
+          <el-btn
+            :loading="loading"
+            v-if="confirm"
+            @click="onConfirm"
+            size="small"
+            type="primary"
+            >{{ confirmText }}</el-btn
+          >
+        </el-context>
       </div>
     </div>
   </transition>
@@ -57,12 +59,15 @@ import Popup from 'element-nice-ui/src/utils/popup'
 import Migrating from 'element-nice-ui/src/mixins/migrating'
 import emitter from 'element-nice-ui/src/mixins/emitter'
 import ElBtn from 'element-nice-ui/packages/btn'
+import ElContext from 'element-nice-ui/packages/context'
+
 // TODO loading
 export default {
   name: 'ElDialog',
 
   components: {
-    ElBtn
+    ElBtn,
+    ElContext
   },
 
   mixins: [Popup, emitter, Migrating],
@@ -70,6 +75,10 @@ export default {
   props: {
     confirm: {
       type: Function
+    },
+    confirmText: {
+      type: String,
+      default: '确认'
     },
     title: {
       type: String,

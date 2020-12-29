@@ -52,7 +52,7 @@
         <template v-if="header.slotName" #default="{ row, column, $index }">
           <slot
             :name="'column.' + header.slotName"
-            v-bind="{ row, column, value: row[header.prop], index: $index }"
+            v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
           />
         </template>
       </table-column>
@@ -241,6 +241,8 @@ export default {
   },
 
   methods: {
+    getValueByPath,
+
     create(record) {
       this.total++
       let data = this.find()

@@ -17,12 +17,12 @@ Vue.prototype.$http = {
       code: 200,
       data: {
         records: [
-          { hello: 'aa', b: { c: '1' } },
-          { hello: 'aa', b: { c: '1' } },
-          { hello: 'aa', b: { c: '1' } },
-          { hello: 'aa', b: { c: '1' } },
-          { hello: 'aa', b: { c: '1' } },
-          { hello: 'aa', b: { c: '1' } }
+          { hello: true, b: '某某某项目' },
+          { hello: false, b: '测试'},
+          { hello: false, b: '某某某项目' },
+          { hello: false, b: '某某某项目' },
+          { hello: false, b: '某某某项目' },
+          { hello: false, b: '某某某项目' }
         ],
 
         total: 6
