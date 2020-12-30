@@ -37,7 +37,7 @@
           </button>
         </div>
         <div class="el-dialog__body" v-if="rendered"><slot></slot></div>
-        <el-context :ctx="{ size: 'small' }" class="el-dialog__footer">
+        <el-context v-if="!hideFooter" :ctx="{ size: 'small' }" class="el-dialog__footer">
           <el-btn :loading="loading" @click="handleClose">取消</el-btn>
           <slot name="footer" v-if="$slots.footer" />
           <el-btn
@@ -61,7 +61,6 @@ import emitter from 'element-nice-ui/src/mixins/emitter'
 import ElBtn from 'element-nice-ui/packages/btn'
 import ElContext from 'element-nice-ui/packages/context'
 
-// TODO loading
 export default {
   name: 'ElDialog',
 
@@ -80,6 +79,11 @@ export default {
       type: String,
       default: '确认'
     },
+
+    hideFooter: {
+      type: Boolean
+    },
+
     title: {
       type: String,
       default: '对话框'

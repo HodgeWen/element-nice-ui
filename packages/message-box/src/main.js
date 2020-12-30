@@ -56,12 +56,12 @@ const defaultCallback = action => {
     if (currentMsg.resolve) {
       if (action === 'confirm') {
         if (instance.showInput) {
-          currentMsg.resolve({ value: instance.inputValue, action });
+          currentMsg.resolve({ value: instance.inputValue });
         } else {
-          currentMsg.resolve(action);
+          currentMsg.resolve(true);
         }
       } else if (currentMsg.reject && (action === 'cancel' || action === 'close')) {
-        currentMsg.reject(action);
+        currentMsg.resolve(false);
       }
     }
   }

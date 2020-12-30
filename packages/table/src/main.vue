@@ -12,6 +12,8 @@
         />
       </section>
 
+      {{ $log(11) }}
+
       <el-context :ctx="ctx" tag="section">
         <el-btn :loading="loading" icon="search" type="primary" @click="fetchData">查询</el-btn>
         <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset">重置</el-btn>
@@ -40,6 +42,7 @@
     <!-- 表格主体 strart -->
     <main-table
       :class="{ 'el-happy-table--with-footer': pagination }"
+      ref="table"
       v-bind="$attrs"
       :size="size"
       :height="bodyHeight"
@@ -47,10 +50,20 @@
       :showHeader="headers && !!headers.length"
       :data="computedData"
       v-loading="loading"
+      @selection-change="$emit('input', $event)"
+      :highlight-current-row="isSingle"
+      @current-change="$emit('input', $event)"
     >
       <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
         <template v-if="header.slotName" #default="{ row, column, $index }">
+          <el-action v-if="header.type === 'action'" :ctx="ctx">
+            <slot
+              :name="'column.' + header.slotName"
+              v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
+            />
+          </el-action>
           <slot
+            v-else
             :name="'column.' + header.slotName"
             v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
           />
@@ -90,6 +103,7 @@ import TableColumn from './table-column'
 import { debounce } from 'throttle-debounce'
 import { getValueByPath } from 'element-nice-ui/src/utils/util'
 import { extendQuery, getUrlSearchObj, historyReplace } from 'element-nice-ui/src/utils/shared'
+import ElAction from 'element-nice-ui/packages/action'
 
 export default {
   name: 'ElTable',
@@ -103,7 +117,8 @@ export default {
     ElBtn,
     ElTooltip,
     SearcherRender,
-    TableColumn
+    TableColumn,
+    ElAction
   },
 
   props: {
@@ -156,6 +171,10 @@ export default {
     align: {
       type: String,
       default: 'center'
+    },
+
+    value: {
+      type: [Array, Object]
     }
   },
 
@@ -182,7 +201,11 @@ export default {
     // 能否自动检索
     canAutoQuery: true,
 
-    loading: false
+    loading: false,
+
+    isMultiple: false,
+
+    isSingle: false
   }),
 
   computed: {
@@ -198,13 +221,21 @@ export default {
     // 表格的头部属性
     computedHeaders() {
       if (!this.headers) return []
-      return this.headers.map((header) => {
+      let headers = this.headers.map((header) => {
         let ret = { ...header, _id: this.headerId++ }
         if (!ret.align) {
           ret.align = this.align
         }
         return ret
       })
+
+      if (this.isMultiple) {
+        headers.unshift({
+          type: 'selection',
+          align: this.align
+        })
+      }
+      return headers
     },
 
     // 显示搜索
@@ -235,13 +266,21 @@ export default {
       this.updateHeight()
     },
 
-    params() {
-      this.queryReplace()
+    value(v) {
+      if (Array.isArray(v)) {
+        !v.length && this.$refs.table.clearSelection()
+      } else {
+        v === null && this.$refs.table.clearSelection()
+      }
     }
   },
 
   methods: {
     getValueByPath,
+
+    clearSelection() {
+      this.$refs.table.clearSelection()
+    },
 
     create(record) {
       this.total++
@@ -279,14 +318,13 @@ export default {
         return data[i]
       } else if (typeof o === 'object' && i !== null) {
         return data.find((item) => {
-          return Object.keys(i).every(key => item[key] === i[key])
+          return Object.keys(i).every((key) => item[key] === i[key])
         })
       } else if (i === undefined) {
         return data
       }
       return []
     },
-
 
     // query 替换
     queryReplace() {
@@ -337,6 +375,9 @@ export default {
       }
 
       if (!this.api || !this.$http || !this.$EL_TABLE_PROP_CONFIG) return
+
+      this.queryReplace()
+
       this.loading = true
 
       this.fetch().then(() => {
@@ -402,12 +443,22 @@ export default {
     onPaginationPageChange(page) {
       this.pager.page = page
       this.fetchData(true)
+    },
+
+    init() {
+      if (Array.isArray(this.value)) {
+        this.isMultiple = true
+      } else if (this.value !== undefined) {
+        this.isSingle = true
+      }
     }
   },
 
   created() {
     // 该属性一定要放在第一个
     this.defaultQuery = JSON.parse(JSON.stringify(this.query))
+
+    this.init()
 
     // 还原url中的查询条件
     this.readQuery()

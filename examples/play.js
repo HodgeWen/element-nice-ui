@@ -1,9 +1,22 @@
 import Vue from 'vue'
 import Element from 'main/index.js'
 import App from './play/index.vue'
-import 'packages/theme-chalk/src/index.scss'
+import 'packages/theme-chalk/src/table.scss'
+import 'packages/theme-chalk/src/action.scss'
+import 'packages/theme-chalk/src/btn.scss'
+import 'packages/theme-chalk/src/dialog.scss'
+import 'packages/theme-chalk/src/form.scss'
+import 'packages/theme-chalk/src/loading.scss'
+// import 'packages/theme-chalk/src/.scss'
 
-Vue.use(Element)
+Vue.use(Element.Table)
+Vue.use(Element.ActionItem)
+Vue.use(Element.Btn)
+Vue.use(Element.Dialog)
+Vue.use(Element.Form)
+Vue.use(Element.FormItem)
+Vue.use(Element.Loading)
+Vue.prototype.$confirm = Element.MessageBox.confirm
 
 Vue.prototype.$log = console.log
 Vue.prototype.$EL_TABLE_PROP_CONFIG = {

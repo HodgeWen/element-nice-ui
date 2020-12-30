@@ -40,8 +40,9 @@
 
   @include e(header) {
     padding: $--dialog-padding-primary;
-    padding-bottom: 10px;
+    padding-bottom: 9px;
     border-bottom: 1px solid #eee;
+    box-sizing: border-box;
   }
 
   @include e(headerbtn) {

@@ -25,6 +25,8 @@ import Option from '../packages/option/index.js';
 import OptionGroup from '../packages/option-group/index.js';
 import Btn from '../packages/btn/index.js';
 import BtnGroup from '../packages/btn-group/index.js';
+import Action from '../packages/action/index.js';
+import ActionItem from '../packages/action-item/index.js';
 import Table from '../packages/table/index.js';
 import TableColumn from '../packages/table-column/index.js';
 import DatePicker from '../packages/date-picker/index.js';
@@ -113,6 +115,8 @@ const components = [
   OptionGroup,
   Btn,
   BtnGroup,
+  Action,
+  ActionItem,
   Table,
   TableColumn,
   DatePicker,
@@ -202,7 +206,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '2.15.11',
+  version: '2.15.12',
   locale: locale.use,
   i18n: locale.i18n,
   install,
@@ -233,6 +237,8 @@ export default {
   OptionGroup,
   Btn,
   BtnGroup,
+  Action,
+  ActionItem,
   Table,
   TableColumn,
   DatePicker,

@@ -8,21 +8,25 @@
       stripe
       pagination
       query-label-width="60"
-      @selection-change="selected = $event"
+      v-model="selected"
+      @input="$log"
     >
       <template #column.bb="{ value, row }">
-        <el-btn type="text" icon="download">{{ value }}</el-btn>
-        <el-btn type="text" icon="download">下载</el-btn>
-        <el-btn type="text" icon="download">下载</el-btn>
-        <el-btn type="text" icon="download">下载</el-btn>
+        <el-action-item @click="$log(row)" need-to-confirm>删除</el-action-item>
+        <el-action-item @click="$log(row)">查看</el-action-item>
+        <el-action-item @click="$log(row)">编辑</el-action-item>
+        <el-action-item @click="$log(row)">编辑</el-action-item>
+        <el-action-item @click="$log(row)">编辑</el-action-item>
       </template>
+
       <template #column.name="{ value, row }">
         <el-btn type="text" @click="$log(value)">{{ value }}</el-btn>
       </template>
 
       <template #tools>
+        <!-- <el-btn @click="selected = null">清除</el-btn> -->
         <el-btn type="primary" @click="visible = true">新增</el-btn>
-        <el-btn :disabled="selected.length === 0">删除</el-btn>
+        <el-btn :disabled="selected && selected.length">删除</el-btn>
       </template>
 
       <template #searcher>
@@ -32,135 +36,37 @@
           s-width 整个 query项的宽度
         -->
         <el-input v-model="query.name" t-label="名称" />
-        <el-input v-model="query.age" t-label="年龄" t-width="300" />
-        <el-date-picker type="daterange" />
-        <el-date-picker type="daterange" />
-        <el-date-picker type="daterange" />
-        <el-date-picker type="daterange" />
-        <el-date-picker type="daterange" />
-        <el-date-picker type="daterange" />
-        <el-date-picker type="daterange" />
-        <el-date-picker type="daterange" />
-        <el-date-picker type="daterange" />
+        <el-input v-model="query.age" t-label="年龄" />
       </template>
 
       <template #outer>
         <el-dialog v-model="visible">
-          <el-form ref="form" :colspan="24" :model="form" :rules="formRules" size="small" label-width="60px">
+          <el-form :colspan="24" :model="form" :rules="formRules" size="small" label-width="60px">
             <el-form-item label="姓名" prop="name">
               <el-input v-model="form.name" />
             </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
-
-
           </el-form>
 
           <template #footer>
-            <el-btn @click="">草稿</el-btn>
+            <el-btn>草稿</el-btn>
           </template>
         </el-dialog>
       </template>
     </el-table>
-
-    <el-icon name="setting" />
-    <el-icon name="user" />
-
-    <!--
-      不需要手动验证, 只要是在dialog下的所有form都可以在确认的时候自动验证,
-      传入一个confirm方法就会显示确认弹框
-    -->
   </div>
 </template>
 
 <script>
-// TODO table属性需要添加到json文件中
-// import 'packages/theme-chalk/src/base.scss'
-// import 'packages/theme-chalk/src/table.scss'
-// import ElTable from 'packages/table'
-// import ElIcon from 'packages/icon'
-// import 'packages/theme-chalk/src/icon.scss'
-// import ElDialog from 'packages/dialog'
-// import 'packages/theme-chalk/src/dialog.scss'
-// import ElBtn from 'packages/btn'
-// import 'packages/theme-chalk/src/btn.scss'
-// import ElMenu from 'packages/menu'
-// import ElMenuItem from 'packages/menu-item'
-// import ElSubmenu from 'packages/submenu'
-// import 'packages/theme-chalk/src/menu.scss'
-// import ElContext from 'packages/context'
 
 export default {
-  // components: {
-  //   ElIcon,
-  //   ElDialog,
-  //   ElContext,
-  //   ElBtn,
-  //   ElTable,
-  //   ElMenu,
-  //   ElMenuItem,
-  //   ElSubmenu
-  // },
   data() {
     return {
-      selected: [],
+      selected: null,
       headers: [
-        { type: 'selection' },
         {
           label: '你好啊',
-          // prop: 'hello',
+          prop: 'hello',
+          type: 'action',
           slotName: 'bb'
         },
         { label: '你好啊2', prop: 'b', slotName: 'name' }

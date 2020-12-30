@@ -405,6 +405,7 @@ export default {
     },
 
     clearSelection() {
+      this.setCurrentRow()
       this.store.clearSelection()
     },
 

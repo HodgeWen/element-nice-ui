@@ -24,6 +24,8 @@
   "option-group": "./packages/option-group/index.js",
   "btn": "./packages/btn/index.js",
   "btn-group": "./packages/btn-group/index.js",
+  "action": "./packages/action/index.js",
+  "action-item": "./packages/action-item/index.js",
   "table": "./packages/table/index.js",
   "table-column": "./packages/table-column/index.js",
   "date-picker": "./packages/date-picker/index.js",
