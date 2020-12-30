@@ -12,8 +12,6 @@
         />
       </section>
 
-      {{ $log(11) }}
-
       <el-context :ctx="ctx" tag="section">
         <el-btn :loading="loading" icon="search" type="primary" @click="fetchData">查询</el-btn>
         <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset">重置</el-btn>
