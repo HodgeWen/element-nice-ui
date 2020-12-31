@@ -709,6 +709,7 @@ export default {
 
   data() {
     const { hasChildren = 'hasChildren', children = 'children' } = this.treeProps
+
     this.store = createStore(this, {
       rowKey: this.rowKey,
       defaultExpandAll: this.defaultExpandAll,

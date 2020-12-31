@@ -1,6 +1,6 @@
-export interface TableHeaderItem{
+export interface TableHeaderItem<Prop extends string = string> {
   /** 列类型 */
-  type?: 'selection' | 'index' | 'expand';
+  type?: 'selection' | 'index' | 'expand' | 'action';
   /** 自定义索引 */
   index?: number | ((index: number) => number)
   /** 列的key值, 如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件 */
@@ -8,7 +8,7 @@ export interface TableHeaderItem{
   /** 表头的标题 */
   label?: string;
   /** 对应列内容的字段名 */
-  prop?: string;
+  prop?: Prop;
   /** 对应列的宽度 */
   width?: string | number;
   /** 列的最小宽度，与width的区别是 width 是固定的，minWidth 会把剩余宽度按比例分配给设置了 minWidth 的列 */
@@ -33,6 +33,6 @@ export interface TableHeaderItem{
   filterMethod?: (value: any, row: any, column: any) => boolean;
   /** 仅对type=selection的列有效 */
   selectable?: (row: any, index: number) => boolean;
-  /** 作为一个插槽传入 */
-  slot?: string
+  /** 该列的插槽名称, 列作为一个插槽传入 */
+  slotName?: string
 }

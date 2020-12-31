@@ -112,7 +112,9 @@ export function defaultRenderCell(h, { row, column, $index }) {
 }
 
 export function treeCellPrefix(h, { row, treeNode, store }) {
+
   if (!treeNode) return null
+
   const ele = []
   const callback = function(e) {
     e.stopPropagation()
@@ -130,6 +132,7 @@ export function treeCellPrefix(h, { row, treeNode, store }) {
     if (treeNode.loading) {
       iconClasses = ['el-icon-loading']
     }
+
     ele.push(
       <div class={expandClasses} on-click={callback}>
         <i class={iconClasses} />

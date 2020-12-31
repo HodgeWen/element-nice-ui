@@ -47,11 +47,11 @@ export default {
   render(h) {
     let children = this.$slots.default
     return this.isDrop ? (
-      <ElDropdownItem onClick={this.onClick}>
+      <ElDropdownItem {...{ props: this.$attrs }} onClick={this.onClick}>
         {children}
       </ElDropdownItem>
     ) : (
-      <ElBtn size={this.size} type='text' onClick={this.onClick}>
+      <ElBtn size={this.size} {...{ props: this.$attrs }} type='text' onClick={this.onClick}>
         {children}
       </ElBtn>
     )

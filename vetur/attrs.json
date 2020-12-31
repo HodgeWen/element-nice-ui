@@ -1,4 +1,10 @@
 {
+  "el-action-item/need-to-confirm": {
+    "type": "boolean", "description": "是否需要确认"
+  },
+  "el-action-item/confirm-text": {
+    "type": "string", "description": "确认的内荣"
+  },
   "gutter": { "type": "boolean", "description": "grid spacing" },
   "justify": {
     "options": ["start", "end", "center", "space-around", "space-between"],

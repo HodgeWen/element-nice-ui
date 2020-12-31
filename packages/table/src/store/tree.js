@@ -24,6 +24,7 @@ export default {
     // @return { id: { level, children } }
     normalizedData() {
       if (!this.states.rowKey) return {};
+
       const data = this.states.data || [];
       return this.normalize(data);
     },
@@ -68,6 +69,7 @@ export default {
       walkTreeNode(
         data,
         (parent, children, level) => {
+          // TODO table tree
           const parentId = getRowIdentity(parent, rowKey);
           if (Array.isArray(children)) {
             res[parentId] = {
