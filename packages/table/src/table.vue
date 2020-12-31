@@ -443,9 +443,9 @@ export default {
         ) {
           event.preventDefault()
         }
-        bodyWrapper.scrollTop += Math.ceil(data.pixelY / 5)
+        bodyWrapper.scrollTop += data.pixelY
       } else {
-        bodyWrapper.scrollLeft += Math.ceil(data.pixelX / 5)
+        bodyWrapper.scrollLeft += data.pixelX
       }
     },
 

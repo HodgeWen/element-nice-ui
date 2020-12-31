@@ -7,6 +7,7 @@ import 'packages/theme-chalk/src/btn.scss'
 import 'packages/theme-chalk/src/dialog.scss'
 import 'packages/theme-chalk/src/form.scss'
 import 'packages/theme-chalk/src/loading.scss'
+import 'packages/theme-chalk/src/input.scss'
 // import 'packages/theme-chalk/src/.scss'
 
 Vue.use(Element.Table)
@@ -16,6 +17,7 @@ Vue.use(Element.Dialog)
 Vue.use(Element.Form)
 Vue.use(Element.FormItem)
 Vue.use(Element.Loading)
+Vue.use(Element.Input)
 Vue.prototype.$confirm = Element.MessageBox.confirm
 
 Vue.prototype.$log = console.log

@@ -261,5 +261,13 @@
   "el-context": {
     "attributes": ["tag", "ctx"],
     "description": "上下文组件"
+  },
+  "el-action": {
+    "attributes": ["ctx"],
+    "description": "操作组件容器"
+  },
+  "el-action-item": {
+    "attributes": ["need-to-confirm", "confirm-text"],
+    "description": "操作组件容项"
   }
 }

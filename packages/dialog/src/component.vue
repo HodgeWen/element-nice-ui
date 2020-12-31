@@ -36,7 +36,9 @@
             <i class="el-icon-close"></i>
           </button>
         </div>
-        <div class="el-dialog__body" v-if="rendered"><slot></slot></div>
+        <el-perfect-scrollbar class="el-dialog__body" v-if="rendered">
+          <slot />
+        </el-perfect-scrollbar>
         <el-context v-if="!hideFooter" :ctx="{ size: 'small' }" class="el-dialog__footer">
           <el-btn :loading="loading" @click="handleClose">取消</el-btn>
           <slot name="footer" v-if="$slots.footer" />
@@ -60,13 +62,14 @@ import Migrating from 'element-nice-ui/src/mixins/migrating'
 import emitter from 'element-nice-ui/src/mixins/emitter'
 import ElBtn from 'element-nice-ui/packages/btn'
 import ElContext from 'element-nice-ui/packages/context'
-
+import ElPerfectScrollbar from 'element-nice-ui/packages/perfect-scrollbar'
 export default {
   name: 'ElDialog',
 
   components: {
     ElBtn,
-    ElContext
+    ElContext,
+    ElPerfectScrollbar
   },
 
   mixins: [Popup, emitter, Migrating],

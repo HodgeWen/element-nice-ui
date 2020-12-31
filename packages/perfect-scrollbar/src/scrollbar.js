@@ -15,7 +15,8 @@ export default {
     },
 
     wheelPropagation: {
-      type: Boolean
+      type: Boolean,
+      default: true
     }
   },
 

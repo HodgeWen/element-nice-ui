@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import scrollbarWidth from 'element-nice-ui/src/utils/scrollbar-width';
-import { parseHeight } from './util';
+// import { parseHeight } from './util';
 
 class TableLayout {
   constructor(options) {
