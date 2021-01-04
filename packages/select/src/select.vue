@@ -940,6 +940,7 @@ export default {
   mounted() {
     const { baseUrl = '', option = 'data' } = this.$EL_SELECT_PROP_CONFIG || {}
     !this.options &&
+      this.api &&
       this.$http &&
       this.$http.get(baseUrl + this.api).then((res) => {
         if (res.code !== 200) return
