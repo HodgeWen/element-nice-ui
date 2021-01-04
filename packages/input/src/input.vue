@@ -20,6 +20,7 @@
       <div class="el-input-group__prepend" v-if="$slots.prepend">
         <slot name="prepend"></slot>
       </div>
+
       <input
         :tabindex="tabindex"
         v-if="type !== 'textarea'"

@@ -7,22 +7,23 @@
     class="el-form"
     :class="[labelPosition ? 'el-form--label-' + labelPosition : '', { 'el-form--inline': inline }]"
   >
-    <!-- <template v-if="$slots.default">
+    <template v-if="$slots.default">
       <slot-render
-        :node="node"
-        :value="node.data.attrs['s-prop']"
-        v-for="(node, i) of $slots.default"
-        :key="key"
+        :node="node.node"
+        :value="model[node.prop]"
+        @input="onInput(node.prop, $event)"
+        v-for="(node, i) of transSlots($slots.default)"
+        :key="i"
       />
-    </template> -->
-    <slot />
+    </template>
+    <!-- <slot /> -->
   </el-row>
 </template>
 
 <script>
 import objectAssign from 'element-nice-ui/src/utils/merge'
 import ElRow from '../../row/src/row'
-// import SlotRender from './slot-render'
+import SlotRender from './slot-render'
 export default {
   name: 'ElForm',
 
@@ -32,7 +33,7 @@ export default {
 
   components: {
     ElRow,
-    // SlotRender
+    SlotRender
   },
 
   provide() {
@@ -175,6 +176,21 @@ export default {
     this.notifyParent()
   },
   methods: {
+    onInput(prop, val) {
+      this.model[prop] = val
+    },
+    transSlots(slots) {
+      return slots.map((node) => {
+        let { componentOptions: opts, data } = node
+        let { attrs } = data
+        return {
+          tag: opts.tag,
+          prop: attrs['t-prop'],
+          node
+        }
+      })
+    },
+
     notifyParent() {
       let p = this.$parent
       while (p) {

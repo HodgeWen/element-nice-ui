@@ -32,9 +32,8 @@
       <template #outer>
         <el-dialog v-model="visible">
           <el-form :colspan="24" :model="form" :rules="formRules" size="small" label-width="60px">
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
-            </el-form-item>
+            <el-input t-prop="name" t-label="名字" />
+            <el-input t-prop="height" t-label="身高" />
           </el-form>
         </el-dialog>
       </template>
@@ -88,7 +87,9 @@ export default {
           res(true)
         }, 2000)
       })
-    }
+    },
+
+    onInput(e) {}
   },
 
   mounted() {}

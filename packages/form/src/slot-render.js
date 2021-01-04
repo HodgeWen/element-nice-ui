@@ -1,68 +1,84 @@
 import FormItem from './form-item.vue'
 
 export default {
-
   props: {
     node: {
       type: Object,
       required: true
     },
 
-    model: {
-      type: Object,
-      required: true
-    }
+    value: {},
+
+    // model: {
+    //   type: Object,
+    //   required: true
+    // }
   },
 
   render(h) {
+
     let { model, node } = this
-    let { componentOptions: opts, data: nodeData } = node
+    let self = this
+    let { componentOptions: opts } = node
+    const { attrs } = node.data
     if (opts && opts.tag !== 'el-form-item') {
+      let label = attrs['t-label'],
+        prop = attrs['t-prop'],
+        span = attrs['t-span']
 
       let formItemObj = {
-        props: {}
+        props: { label, prop, span }
       }
-      if (nodeData) {
-        let { attrs } = nodeData
-        if (attrs['t-label']) {
-          formItemObj.props.label = attrs['t-label']
-          delete attrs['t-label']
-        }
 
-        if (attrs['t-span']) {
-          formItemObj.props.span = attrs['t-span']
-          delete attrs['t-span']
-        }
+      console.log(prop)
 
-        if (attrs['t-prop']) {
-          let prop = attrs['t-prop']
-          formItemObj.props.prop = prop
-          delete attrs['t-prop']
-          if (typeof model[prop] === 'object' && model[prop] !== null) {
-            node = h(opts.tag, {
-              props: {
-                value: model[prop].value
-              },
-              on: {
-                input(e) {
-                  model[prop].value = e
-                }
-              }
-            })
-          } else {
-            node = h(opts.tag, {
-              props: {
-                value: model[prop]
-              },
-              on: {
-                input(e) {
-                  model[prop] = e
-                }
-              }
-            })
+      // if (prop) {
+      //   let on = opts.listeners || {}
+      //   let props = opts.propsData
+
+      //   let cb
+
+      //   if (typeof model[prop] === 'object' && model[prop] !== null) {
+      //     props.value = model[prop].value
+
+      //     cb = function(value) {
+      //       model[prop].value = value
+      //     }
+      //   } else {
+      //     props.value = model[prop]
+
+      //     cb = function(value) {
+      //       model[prop] = value
+      //     }
+      //   }
+
+      //   if (on.input) {
+      //     if (Array.isArray(on.input)) {
+      //       on.input.push(cb)
+      //     } else {
+      //       on.input = [on.input, cb]
+      //     }
+      //   } else {
+      //     on.input = cb
+      //   }
+
+      //   node = h(opts.tag, {
+      //     props,
+      //     on
+      //   })
+      // }
+
+      node = h(opts.tag, {
+        props: {
+          ...opts.propsData,
+          value: this.value
+        },
+        on: {
+          input(v) {
+            self.$emit('input', v)
           }
         }
-      }
+      })
 
       return <FormItem {...formItemObj}>{node}</FormItem>
     } else {
