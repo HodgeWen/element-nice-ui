@@ -637,16 +637,22 @@
     margin-bottom: $--tabel-vertical-margin;
     border-radius: 4px;
 
-    & > section {
-      &:first-child {
-        flex-grow: 1;
-      }
+    &-left {
+      flex-grow: 1;
 
-      &:last-child {
-        width: 150px;
-        flex-shrink: 0;
-        text-align: right;
+      & > * {
+        margin-left: 0!important;
+        &:not(:last-child) {
+          margin-right: 8px;
+
+        }
       }
+    }
+
+    &-right {
+      width: 150px;
+      flex-shrink: 0;
+      text-align: right;
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "element-nice-ui",
-  "version": "2.15.13",
+  "version": "2.15.14",
   "description": "A Component Library for Vue.js.",
   "main": "lib/element-nice-ui.common.js",
   "files": [
@@ -8,13 +8,14 @@
     "src",
     "packages",
     "types",
-    "vetur"
+    "vetur",
+    "theme-chalk"
   ],
   "typings": "types/index.d.ts",
   "scripts": {
     "bootstrap": "yarn || npm i",
     "build:file": "node build/bin/iconInit.js & node build/bin/build-entry.js & node build/bin/i18n.js & node build/bin/version.js",
-    "build:theme": "node build/bin/gen-cssfile && gulp build --gulpfile packages/theme-chalk/gulpfile.js && cp-cli packages/theme-chalk/lib lib/theme-chalk",
+    "build:theme": "node build/bin/gen-cssfile && gulp build --gulpfile theme-chalk/gulpfile.js && cp-cli theme-chalk/lib lib/theme-chalk",
     "build:utils": "cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/index.js",
     "build:umd": "node build/bin/build-locale.js",
     "clean": "rimraf lib && rimraf packages/*/lib && rimraf test/**/coverage",
@@ -81,10 +82,9 @@
     "fibers": "^5.0.0",
     "file-loader": "^1.1.11",
     "file-save": "^0.2.0",
-    "gulp": "^4.0.0",
-    "gulp-autoprefixer": "^6.0.0",
+    "gulp": "^4.0.2",
     "gulp-cssmin": "^0.2.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^4.1.0",
     "highlight.js": "^9.3.0",
     "html-webpack-plugin": "^3.2.0",
     "json-loader": "^0.5.7",

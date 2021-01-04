@@ -12,6 +12,9 @@
     >
       <template #tools>
         <!-- <el-btn @click="selected = null">清除</el-btn> -->
+        <el-popconfirm>
+          <el-btn>你好啊</el-btn>
+        </el-popconfirm>
         <el-btn type="primary" @click="visible = true">新增</el-btn>
         <el-btn :disabled="selected && selected.length">删除</el-btn>
       </template>
@@ -23,6 +26,7 @@
       <template #searcher>
         <el-input v-model="query.name" t-label="名称" />
         <el-input v-model="query.age" t-label="年龄" />
+        <el-select v-model="query.test" option-label="label1" t-label="测试" api="select" />
       </template>
 
       <template #outer>
@@ -50,13 +54,14 @@ export default {
         { label: '路由地址', prop: 'path' },
         { label: '类型', prop: 'type' },
         { label: '类型', prop: 'type' },
-        { label: '权限表示', prop: 'permission' },
+        { label: '权限表示', prop: 'permission' }
         // { label: '操作', type: 'action', fixed: 'right', width: 150, slotName: 'action' }
       ],
 
       query: {
         name: 'a',
-        age: 20
+        age: 20,
+        select: null
       },
 
       data: [],

@@ -932,6 +932,22 @@
     "type": "method",
     "descriptino": "triggers when the clear icon is clicked in a clearable Select"
   },
+  "el-select/options": {
+    "type": "array|object",
+    "descriptino": "传入options列表, 优先级高于api, 可以为对象或者数组, 为对象时以对象的key为值, value为标签"
+  },
+  "el-select/api": {
+    "type": "string",
+    "descriptino": "接口地址, 自动获取选项"
+  },
+  "el-select/option-value": {
+    "type": "string",
+    "descriptino": "指定选项的value值的字段, 默认为value"
+  },
+  "el-select/option-label": {
+    "type": "string",
+    "descriptino": "指定选项的value值的字段, 默认为label"
+  },
   "el-popover/after-enter": {
     "version": ">=2.2.2",
     "type": "method",

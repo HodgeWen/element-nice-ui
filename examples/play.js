@@ -2,15 +2,17 @@ import Vue from 'vue'
 import Element from 'main/index.js'
 import App from './play/index.vue'
 
-import 'packages/theme-chalk/src/base.scss'
-import 'packages/theme-chalk/src/table.scss'
-import 'packages/theme-chalk/src/action.scss'
-import 'packages/theme-chalk/src/btn.scss'
-import 'packages/theme-chalk/src/dialog.scss'
-import 'packages/theme-chalk/src/form.scss'
-import 'packages/theme-chalk/src/loading.scss'
-import 'packages/theme-chalk/src/input.scss'
-// import 'packages/theme-chalk/src/.scss'
+import 'theme/src/base.scss'
+import 'theme/src/table.scss'
+import 'theme/src/action.scss'
+import 'theme/src/btn.scss'
+import 'theme/src/dialog.scss'
+import 'theme/src/form.scss'
+import 'theme/src/loading.scss'
+import 'theme/src/input.scss'
+import 'theme/src/popconfirm.scss'
+import 'theme/src/select.scss'
+// import 'theme/src/.scss'
 
 Vue.use(Element.Table)
 Vue.use(Element.ActionItem)
@@ -20,6 +22,8 @@ Vue.use(Element.Form)
 Vue.use(Element.FormItem)
 Vue.use(Element.Loading)
 Vue.use(Element.Input)
+Vue.use(Element.Popconfirm)
+Vue.use(Element.Select)
 Vue.prototype.$confirm = Element.MessageBox.confirm
 
 Vue.prototype.$log = console.log
@@ -28,9 +32,24 @@ Vue.prototype.$EL_TABLE_PROP_CONFIG = {
   total: 'data.total',
   list: 'data.records'
 }
+Vue.prototype.$EL_SELECT_PROP_CONFIG = {
+  baseUrl: '',
+  option: 'data'
+}
 
 Vue.prototype.$http = {
-  get() {
+  get(url = '') {
+    if (url === 'select') {
+      return Promise.resolve({
+        code: 200,
+        data: [
+          { label: '测试1', label1: '测试一', value: 1, value1: '1'  },
+          { label: '测试2', label1: '测试二', value: 2, value1: '2'  },
+          { label: '测试3', label1: '测试三', value: 3, value1: '3'  },
+        ]
+      })
+    }
+
     return Promise.resolve({
       code: 200,
       data: {

@@ -23,7 +23,7 @@ $--color-primary: teal;
 /* chemin vers le fichier de police, requis */
 $--font-path: '~element-nice-ui/lib/theme-chalk/fonts';
 
-@import "~element-nice-ui/packages/theme-chalk/src/index";
+@import "~element-nice-ui/theme-chalk/src/index";
 ```
 
 Puis dans le fichier d'entrée, importez ce style au lieu de celui d'Element:

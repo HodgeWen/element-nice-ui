@@ -124,7 +124,7 @@
 
       hoverItem() {
         if (!this.disabled && !this.groupDisabled) {
-          this.select.hoverIndex = this.select.options.indexOf(this);
+          this.select.hoverIndex = this.select.internalOptions.indexOf(this);
         }
       },
 
@@ -143,7 +143,7 @@
     },
 
     created() {
-      this.select.options.push(this);
+      this.select.internalOptions.push(this);
       this.select.cachedOptions.push(this);
       this.select.optionsCount++;
       this.select.filteredOptionsCount++;
@@ -162,7 +162,7 @@
       if (index > -1 && selectedIndex < 0) {
         this.select.cachedOptions.splice(index, 1);
       }
-      this.select.onOptionDestroy(this.select.options.indexOf(this));
+      this.select.onOptionDestroy(this.select.internalOptions.indexOf(this));
     }
   };
 </script>

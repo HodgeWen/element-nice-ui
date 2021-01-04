@@ -31,7 +31,10 @@
       </el-btn>
     </div>
   </div>
-  <slot name="reference" slot="reference"></slot>
+  <!-- <template #reference>
+
+  </template> -->
+  <slot  slot="reference"></slot>
 </el-popover>
 </template>
 
@@ -44,7 +47,8 @@ export default {
   name: 'ElPopconfirm',
   props: {
     title: {
-      type: String
+      type: String,
+      default: '确认执行当前操作吗?'
     },
     confirmButtonText: {
       type: String,

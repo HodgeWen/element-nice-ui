@@ -23,7 +23,7 @@ $--color-primary: teal;
 /* icon font path, required */
 $--font-path: '~element-nice-ui/lib/theme-chalk/fonts';
 
-@import "~element-nice-ui/packages/theme-chalk/src/index";
+@import "~element-nice-ui/theme-chalk/src/index";
 ```
 
 Then in the entry file of your project, import this style file instead of Element's built CSS:

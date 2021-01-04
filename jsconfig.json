@@ -4,5 +4,6 @@
       "element-nice-ui/*": ["./*"]
     }
   },
-  "include": ["./src/**/*", "./vetur/**/*", "./packages/**/*", "./types/*"]
+  "include": ["./src/**/*", "./vetur/**/*", "./packages/**/*", "./types/*", "./theme-chalk/**/*"],
+  "exclude": ["./node_modules/**/*"]
 }

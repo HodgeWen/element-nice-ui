@@ -21,11 +21,11 @@
 
     <!-- 工具栏 start -->
     <div class="el-happy-table__tools" v-if="showTools" ref="tools">
-      <el-context :ctx="ctx" tag="section">
+      <el-context :ctx="ctx" :depth="2" class="el-happy-table__tools-left" tag="section">
         <slot name="tools" />
       </el-context>
 
-      <el-context depth="2" :ctx="ctx" tag="section">
+      <el-context depth="2" :ctx="ctx" class="el-happy-table__tools-right" tag="section">
         <el-tooltip v-if="api && !data" content="显示/隐藏 搜索栏">
           <el-btn v-model="searchable" @input="onToggleSearcher" icon="set-up" circle />
         </el-tooltip>

@@ -35,6 +35,7 @@ exports.externals = externals;
 exports.alias = {
   main: path.resolve(__dirname, '../src'),
   packages: path.resolve(__dirname, '../packages'),
+  theme: path.resolve(__dirname, '../theme-chalk'),
   examples: path.resolve(__dirname, '../examples'),
   'element-nice-ui': path.resolve(__dirname, '../')
 };
