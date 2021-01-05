@@ -1,4 +1,16 @@
 {
+  "t-label": {
+    "type": "string",
+    "description": "标签"
+  },
+  "t-prop": {
+    "type": "string",
+    "description": "表单键"
+  },
+  "t-span": {
+    "type": "string|number",
+    "description": "表单栅格长度"
+  },
   "el-action-item/need-to-confirm": {
     "type": "boolean", "description": "是否需要确认"
   },

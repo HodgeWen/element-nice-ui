@@ -14,6 +14,7 @@ export default {
 
   render(h) {
     let { componentOptions: opts, data } = this.node
+
     let self = this
     const { attrs } = data
     if (opts && opts.tag !== 'el-form-item') {

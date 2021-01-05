@@ -265,7 +265,7 @@ export default {
     transSlots(slots) {
       return slots.map((node) => {
         let { componentOptions: opts, data } = node
-        let { attrs } = data
+        let { attrs = {} } = data
         return {
           prop: attrs['t-prop'],
           node

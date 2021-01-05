@@ -30,9 +30,12 @@
       </template>
 
       <template #outer>
-        <el-dialog v-model="visible">
+        <el-dialog v-model="visible" :confirm="onConfirm">
           <el-form :colspan="24" :form="form" size="small" label-width="60px">
-            <el-input t-prop="name" t-label="名字" />
+            <el-form-item label="名字">
+              <el-input t-prop="name" t-label="名字" />
+            </el-form-item>
+
             <el-input t-prop="height" t-label="身高" />
           </el-form>
         </el-dialog>
@@ -70,7 +73,8 @@ export default {
       form: {
         name: {
           value: '',
-          match: ['phone', '格式错误']
+          match: ['phone', '格式错误'],
+          required: '必须的'
         },
 
         height: null

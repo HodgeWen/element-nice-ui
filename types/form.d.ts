@@ -23,7 +23,7 @@ export interface ValidateFieldCallback {
 
 type MacherType = 'email' | 'phone' | 'id'
 
-export interface ElFormModel {
+export interface ElFormRule {
   /** 值 */
   value?: any;
   /** 值类型, 默认为字符串 */
@@ -43,6 +43,8 @@ export interface ElFormModel {
   /** 字符长度 */
   len?: number | [number, string?];
 }
+
+export type ElFormModel = Record<string, string | number | Array<any> | null | ElFormRule>
 
 /** Form Component */
 export declare class ElForm extends ElementUIComponent {
