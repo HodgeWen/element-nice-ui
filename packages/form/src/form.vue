@@ -242,8 +242,14 @@ export default {
     this.notifyParent()
   },
   methods: {
-    getFormValue() {
+    getValue() {
       return this.model
+    },
+
+    setValue(values) {
+      Object.keys(this.model).forEach(key => {
+        this.model[key] = values[key]
+      })
     },
 
     onInput(prop, val) {

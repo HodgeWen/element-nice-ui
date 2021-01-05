@@ -104,5 +104,8 @@ export declare class ElForm extends ElementUIComponent {
   clearValidate (props?: string | string[]): void
 
   /** 获取表单值 */
-  getFormValue(): Record<string, any>
+  getValue(): Record<string, any>
+
+  /** 设置表单值 */
+  setValue(value: Record<string, any>): void
 }
