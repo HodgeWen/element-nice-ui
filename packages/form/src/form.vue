@@ -10,10 +10,10 @@
     <template v-if="$slots.default">
       <slot-render
         :node="item.node"
-        :value="getValue(item.prop)"
+        :value="getItemValue(item.prop)"
         @input="onInput(item.prop, $event)"
         v-for="(item, i) of transSlots($slots.default)"
-        :key="i"
+        :key="item.prop || i"
       />
     </template>
     <!-- <slot /> -->
@@ -259,7 +259,7 @@ export default {
       this.model[prop] = val
     },
 
-    getValue(prop) {
+    getItemValue(prop) {
       if (!prop) return
       return this.model[prop]
     },
