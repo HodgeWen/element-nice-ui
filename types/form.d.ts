@@ -21,6 +21,29 @@ export interface ValidateFieldCallback {
   (errorMessage: string): void
 }
 
+type MacherType = 'email' | 'phone' | 'id'
+
+export interface ElFormModel {
+  /** 值 */
+  value?: any;
+  /** 值类型, 默认为字符串 */
+  type?: 'string' | 'number' | 'boolean' | 'method' | 'integer' | 'float' | 'array' | 'object' | 'enum' | 'date' | 'url' | 'email' | 'any'
+  /** 表示必填, 如果指定为字符串, 则应用于消息的提示 */
+  required?: boolean | string;
+  /** 值的范围 */
+  range?: [number, number, string?];
+  /** 值的最小值, 如果为数组则 第一个值表示最小值, 第二个表示错误提示消息 */
+  min?: number | [number, string];
+  /** 值的最大值, 如果为数组则 第一个值表示最大值, 第二个表示错误提示消息 */
+  max?: number;
+  /** 值匹配的正则, 可以是正则表达式和预设的正则表达式别名 */
+  match?: MacherType | RegExp | [RegExp | MacherType, string?];
+  /** 自定义验证器 */
+  validator?: (rule: any, value: any, callback: (msg: string) => void) => void;
+  /** 字符长度 */
+  len?: number | [number, string?];
+}
+
 /** Form Component */
 export declare class ElForm extends ElementUIComponent {
   /** Data of form component */
@@ -79,4 +102,7 @@ export declare class ElForm extends ElementUIComponent {
 
   /** clear validation message for certain fields */
   clearValidate (props?: string | string[]): void
+
+  /** 获取表单值 */
+  getFormValue(): Record<string, any>
 }

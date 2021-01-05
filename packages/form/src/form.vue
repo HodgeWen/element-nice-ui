@@ -9,10 +9,10 @@
   >
     <template v-if="$slots.default">
       <slot-render
-        :node="node.node"
-        :value="model[node.prop]"
-        @input="onInput(node.prop, $event)"
-        v-for="(node, i) of transSlots($slots.default)"
+        :node="item.node"
+        :value="getValue(item.prop)"
+        @input="onInput(item.prop, $event)"
+        v-for="(item, i) of transSlots($slots.default)"
         :key="i"
       />
     </template>
@@ -43,9 +43,10 @@ export default {
   },
 
   props: {
-    // form: Object,
-    model: Object,
-    rules: Object,
+    form: {
+      type: Object,
+      required: true
+    },
     trigger: String,
     labelPosition: String,
     labelWidth: String,
@@ -100,67 +101,132 @@ export default {
       return max ? `${max}px` : ''
     },
 
-    // model() {
-    //   let ret = {}
-    //   let { form } = this
-    //   return Object.keys(form).forEach((key) => {
-    //     if (typeof form[key] === 'object' && form[key] !== null) {
-    //       ret[key] = form[key].value
-    //     } else {
-    //       ret[key] = form[key]
-    //     }
-    //   })
-    // },
+    rules() {
+      let ret = {}
 
-    // rules() {
-    //   let ret = {}
-    //   let { form, trigger } = this
-    //   let ruleMap = {
-    //     required: (required) => ({
-    //       required: true,
-    //       message: typeof required === 'string' ? required : '该项是必填项'
-    //     }),
-    //     min: (min) => {
-    //       let isArr = Array.isArray(min)
-    //       let minVal = isArr ? min[0] : min
-    //       return {
-    //         min: minVal,
-    //         message: isArr && min[1] ? min[1] : `该项最小值为 ${minVal}`
-    //       }
-    //     },
-    //     max: (max) => {
-    //       let isArr = Array.isArray(max)
-    //       let maxVal = isArr ? max[0] : max
-    //       return {
-    //         max: maxVal,
-    //         message: isArr && max[1] ? max[1] : `该项最大值为 ${maxVal}`
-    //       }
-    //     },
-    //   }
-    //   Object.keys(form).forEach((key) => {
-    //     let value = form[key]
-    //     if (typeof value !== 'object' || value === null) return
-    //     let trigger = value.trigger || trigger
+      let ruleMap = {
+        required: (required) => ({
+          required: true,
+          message: typeof required === 'string' ? required : '该项是必填项'
+        }),
 
-    //     Object.keys(value).forEach((vk) => {
-    //       if (vk === 'value' || vk === 'trigger') return
+        len: (len) => {
+          let isArr = Array.isArray(len)
+          let lenVal = isArr ? len[0] : len
 
-    //       if (ret[key]) {
-    //         ret[key].push({ ...ruleMap[vk](value[vk]), trigger })
-    //       } else {
-    //         ret[key] = [{ ...ruleMap[vk](value[vk]), trigger }]
-    //       }
-    //     })
-    //   })
-    // }
+          return {
+            len: lenVal,
+            message: isArr && len[1] ? len[1] : `字符长度应为 ${lenVal}`
+          }
+        },
+
+        min: (min, type) => {
+          let isArr = Array.isArray(min)
+          let minVal = isArr ? min[0] : min
+          let message = type === 'number' ? `值不能小于 ${minVal}` : `字符长度不能小于 ${minVal}`
+          return {
+            min: minVal,
+            message: isArr && min[1] ? min[1] : message
+          }
+        },
+        max: (max, type) => {
+          let isArr = Array.isArray(max)
+          let maxVal = isArr ? max[0] : max
+          let message = type === 'number' ? `值不能大于 ${maxVal}` : `字符长度不能大于 ${maxVal}`
+          return {
+            max: maxVal,
+            message: isArr && max[1] ? max[1] : message
+          }
+        },
+
+        range: (range, type) => {
+          let message =
+            type === 'number'
+              ? `值的范围在 ${range[0]} ~ ${range[1]} 之间`
+              : `字符长度应在 ${range[0]} ~ ${range[1]} 之间`
+          return {
+            min: range[0],
+            max: range[1],
+            message: range[2] || message
+          }
+        },
+
+        match: (match) => {
+          let isArr = Array.isArray(match)
+          let matcher = isArr ? match[0] : match
+          let message
+
+          if (typeof matcher === 'string') {
+            let preset = {
+              phone: [/^1\d{10}$/, '手机号格式不正确'],
+              id: [/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/, '身份证格式不正确'],
+              email: [/^([\w\_\-]+)@([\w\-]+[\.]?)*[\w]+\.[a-zA-Z]{2,10}$/, '电子邮件格式不正确']
+            }
+            let presetMatcher = preset[matcher]
+            if (presetMatcher) {
+              matcher = presetMatcher[0]
+              message = presetMatcher[1]
+            } else {
+              console.error('match格式错误')
+            }
+          }
+
+          if (isArr && match[1]) {
+            message = match[1]
+          }
+
+          return {
+            pattern: matcher,
+            message
+          }
+        },
+
+        validator: (validator) => {
+          return { validator }
+        }
+      }
+      let { form, trigger } = this
+
+      Object.keys(form).forEach((key) => {
+        let valueModel = form[key]
+
+        if (!valueModel) return
+
+        let trigger = valueModel.trigger || trigger || 'blur'
+        let type = valueModel.type || 'string'
+
+        Object.keys(valueModel).forEach((vk) => {
+          // 如果key为这两种直接跳过
+          if (vk === 'value' || vk === 'trigger' || vk === 'type') return
+
+          // 规则工厂
+          let ruleFactory = ruleMap[vk]
+          if (!ruleFactory) return
+
+          // 生成具体规则
+          let rule = { ...ruleFactory(valueModel[vk], type), trigger, type }
+
+          if (ret[key]) {
+            ret[key].push(rule)
+          } else {
+            ret[key] = [rule]
+          }
+        })
+      })
+
+      return ret
+    }
   },
   data() {
     return {
       fields: [],
+      model: {},
       potentialLabelWidthArr: [] // use this array to calculate auto width
     }
   },
   created() {
+    this.initModel()
+
     this.$on('el.form.addField', (field) => {
       if (field) {
         this.fields.push(field)
@@ -176,19 +242,42 @@ export default {
     this.notifyParent()
   },
   methods: {
+    getFormValue() {
+      return this.model
+    },
+
     onInput(prop, val) {
+      if (!prop) return
       this.model[prop] = val
     },
+
+    getValue(prop) {
+      if (!prop) return
+      return this.model[prop]
+    },
+
     transSlots(slots) {
       return slots.map((node) => {
         let { componentOptions: opts, data } = node
         let { attrs } = data
         return {
-          tag: opts.tag,
           prop: attrs['t-prop'],
           node
         }
       })
+    },
+
+    initModel() {
+      let ret = {}
+      let { form } = this
+      Object.keys(form).forEach((key) => {
+        if (Object.prototype.toString.call(form[key]) === '[object Object]') {
+          ret[key] = form[key].value
+        } else {
+          ret[key] = form[key]
+        }
+      })
+      this.model = ret
     },
 
     notifyParent() {

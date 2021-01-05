@@ -31,7 +31,7 @@
 
       <template #outer>
         <el-dialog v-model="visible">
-          <el-form :colspan="24" :model="form" size="small" label-width="60px">
+          <el-form :colspan="24" :form="form" size="small" label-width="60px">
             <el-input t-prop="name" t-label="名字" />
             <el-input t-prop="height" t-label="身高" />
           </el-form>
@@ -70,18 +70,10 @@ export default {
       form: {
         name: {
           value: '',
-          required: true,
-          minLength: [10, '你在干什么'],
-          validator(e) {
-
-          }
+          match: ['phone', '格式错误']
         },
 
         height: null
-      },
-
-      formRules: {
-        name: [{ required: true, message: '不能为空' }]
       }
     }
   },

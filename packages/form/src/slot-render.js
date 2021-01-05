@@ -7,20 +7,15 @@ export default {
       required: true
     },
 
-    value: {},
-
-    // model: {
-    //   type: Object,
-    //   required: true
-    // }
+    value: {}
   },
 
-  render(h) {
+  inheritAttrs: false,
 
-    let { model, node } = this
+  render(h) {
+    let { componentOptions: opts, data } = this.node
     let self = this
-    let { componentOptions: opts } = node
-    const { attrs } = node.data
+    const { attrs } = data
     if (opts && opts.tag !== 'el-form-item') {
       let label = attrs['t-label'],
         prop = attrs['t-prop'],
@@ -30,59 +25,30 @@ export default {
         props: { label, prop, span }
       }
 
-      console.log(prop)
+      let props = {
+        ...opts.propsData,
+        value: this.value
+      }
 
-      // if (prop) {
-      //   let on = opts.listeners || {}
-      //   let props = opts.propsData
-
-      //   let cb
-
-      //   if (typeof model[prop] === 'object' && model[prop] !== null) {
-      //     props.value = model[prop].value
-
-      //     cb = function(value) {
-      //       model[prop].value = value
-      //     }
-      //   } else {
-      //     props.value = model[prop]
-
-      //     cb = function(value) {
-      //       model[prop] = value
-      //     }
-      //   }
-
-      //   if (on.input) {
-      //     if (Array.isArray(on.input)) {
-      //       on.input.push(cb)
-      //     } else {
-      //       on.input = [on.input, cb]
-      //     }
-      //   } else {
-      //     on.input = cb
-      //   }
-
-      //   node = h(opts.tag, {
-      //     props,
-      //     on
-      //   })
-      // }
-
-      node = h(opts.tag, {
-        props: {
-          ...opts.propsData,
-          value: this.value
-        },
-        on: {
-          input(v) {
-            self.$emit('input', v)
-          }
+      let on = opts.listeners || {}
+      let cb = function(v) {
+        self.$emit('input', v)
+      }
+      if (on.input) {
+        if (Array.isArray(on.input)) {
+          on.input.push(cb)
+        } else {
+          on.input = [on.input, cb]
         }
-      })
+      } else {
+        on.input = cb
+      }
 
-      return <FormItem {...formItemObj}>{node}</FormItem>
+
+
+      return <FormItem {...formItemObj}>{h(opts.tag, { props, on })}</FormItem>
     } else {
-      return node
+      return this.node
     }
   }
 }
