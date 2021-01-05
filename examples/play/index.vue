@@ -32,10 +32,7 @@
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
           <el-form :colspan="24" :form="form" size="small" label-width="60px">
-            <el-form-item label="名字">
-              <el-input t-prop="name" t-label="名字" />
-            </el-form-item>
-
+            <el-input t-prop="name" t-label="名字" />
             <el-input t-prop="height" t-label="身高" />
           </el-form>
         </el-dialog>
@@ -45,7 +42,12 @@
 </template>
 
 <script>
+import Element from 'main/index.js'
+
 export default {
+  components: {
+    ElInput: Element.Input
+  },
   data() {
     return {
       selected: null,

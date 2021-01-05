@@ -248,7 +248,9 @@ export default {
 
     setValue(values) {
       Object.keys(this.model).forEach(key => {
-        this.model[key] = values[key]
+        if (values[key] !== undefined) {
+          this.model[key] = values[key]
+        }
       })
     },
 

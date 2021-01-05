@@ -21,9 +21,9 @@ Vue.use(Element.Dialog)
 Vue.use(Element.Form)
 Vue.use(Element.FormItem)
 Vue.use(Element.Loading)
-Vue.use(Element.Input)
 Vue.use(Element.Popconfirm)
 Vue.use(Element.Select)
+// Vue.use(Element.Input)
 Vue.prototype.$confirm = Element.MessageBox.confirm
 
 Vue.prototype.$log = console.log

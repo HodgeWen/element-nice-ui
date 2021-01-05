@@ -12,42 +12,56 @@ export default {
 
   inheritAttrs: false,
 
-  render(h) {
-    let { componentOptions: opts, data } = this.node
+  methods: {
+    init() {
+      let { componentOptions: opts } = this.node
+      let self = this
 
-    let self = this
-    const { attrs } = data
-    if (opts && opts.tag !== 'el-form-item') {
-      let label = attrs['t-label'],
-        prop = attrs['t-prop'],
-        span = attrs['t-span']
+      if (!opts || opts.tag === 'el-form-item') return
 
-      let formItemObj = {
-        props: { label, prop, span }
+      // 初始化input事件
+      if (!opts.listeners) {
+        opts.listeners = {}
       }
-
-      let props = {
-        ...opts.propsData,
-        value: this.value
-      }
-
-      let on = opts.listeners || {}
+      let { listeners } = opts
       let cb = function(v) {
         self.$emit('input', v)
       }
-      if (on.input) {
-        if (Array.isArray(on.input)) {
-          on.input.push(cb)
+      if (listeners.input) {
+        if (Array.isArray(listeners.input)) {
+          listeners.input.push(cb)
         } else {
-          on.input = [on.input, cb]
+          listeners.input = [listeners.input, cb]
         }
       } else {
-        on.input = cb
+        listeners.input = cb
+      }
+    }
+  },
+
+  created() {
+    this.init()
+  },
+
+  render(h) {
+    let { componentOptions: opts } = this.node
+    if (opts && opts.tag !== 'el-form-item') {
+      if (opts.propsData) {
+        opts.propsData.value = this.value
       }
 
+      let node = h(opts.tag, { on: opts.listeners })
+      node.isRootInsert = this.node.isRootInsert
+      node.data = this.node.data
+      node.componentOptions = opts
 
+      let formItemProps = {  }
+      let { attrs } = this.node.data
+      ~['t-prop', 't-label', 't-span'].forEach(prop => {
+        formItemProps[prop.slice(2)] = attrs[prop]
+      })
 
-      return <FormItem {...formItemObj}>{h(opts.tag, { props, on })}</FormItem>
+      return <FormItem {...{ props: formItemProps }}>{node}</FormItem>
     } else {
       return this.node
     }
