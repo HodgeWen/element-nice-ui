@@ -104,7 +104,6 @@
         if (elForm.inline) return
 
         let cols = +(span || elForm.colspan)
-        console.log(cols)
         return isNaN(cols) ? 12 : cols
       },
       labelStyle() {
