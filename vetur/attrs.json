@@ -11,6 +11,10 @@
     "type": "string|number",
     "description": "表单栅格长度"
   },
+  "t-modifier": {
+    "options": ["number", "trim"],
+    "description": "修饰符, 和v-model的修饰符类似, 但是不支持lazy修饰符"
+  },
   "el-action-item/need-to-confirm": {
     "type": "boolean", "description": "是否需要确认"
   },

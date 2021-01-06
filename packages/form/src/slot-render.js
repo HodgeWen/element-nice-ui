@@ -1,5 +1,5 @@
 import FormItem from './form-item.vue'
-
+import { modifierMethod } from './utils'
 export default {
   props: {
     node: {
@@ -21,7 +21,7 @@ export default {
   methods: {
     init() {
       this.cachedNode = this.node
-      let { componentOptions: opts } = this.cachedNode
+      let { componentOptions: opts, data } = this.cachedNode
       let self = this
 
       if (!opts || opts.tag === 'el-form-item') return
@@ -31,14 +31,23 @@ export default {
         opts.listeners = {}
       }
       let { listeners } = opts
-      let cb = function(v) {
-        self.$emit('input', v)
+      let modifier = data.attrs['t-modifier']
+      let cb
+      if (modifier && modifierMethod[modifier]) {
+        cb = function(v) {
+          self.$emit('input', modifierMethod[modifier](v))
+        }
+      } else {
+        cb = function(v) {
+          self.$emit('input', v)
+        }
       }
+
       if (listeners.input) {
         if (Array.isArray(listeners.input)) {
-          listeners.input.push(cb)
+          listeners.input.unshift(cb)
         } else {
-          listeners.input = [listeners.input, cb]
+          listeners.input = [cb, listeners.input]
         }
       } else {
         listeners.input = cb

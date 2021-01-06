@@ -266,6 +266,7 @@ export default {
     onInput(prop, val) {
       if (!prop) return
       this.model[prop] = val
+      this.$emit('change', this.model)
     },
 
     getItemValue(prop) {
@@ -277,8 +278,9 @@ export default {
       return slots.map((node) => {
         let { componentOptions: opts, data } = node
         let { attrs = {} } = data
+        let prop = attrs['t-prop']
         return {
-          prop: attrs['t-prop'],
+          prop,
           node
         }
       })
