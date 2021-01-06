@@ -33,9 +33,16 @@
 
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
-          <el-form :colspan="24" :form="form" size="small" label-width="60px">
-            <el-input t-prop="name" t-label="名字" />
-            <el-input t-prop="height" t-label="身高" />
+          <el-form :colspan="24" :form="form" ref="form" size="small" label-width="60px">
+            <template #default="model">
+              <div t-label="显示" v-show="model.type === '1'">hello</div>
+              <el-input t-prop="name" t-label="名字" />
+              <el-input t-prop="height" t-label="身高" />
+              <el-radio-group t-prop="type" t-label="类型">
+                <el-radio-button label="1">显示</el-radio-button>
+                <el-radio-button label="2">隐藏</el-radio-button>
+              </el-radio-group>
+            </template>
           </el-form>
         </el-dialog>
       </template>
@@ -81,6 +88,10 @@ export default {
           required: '必须的'
         },
 
+        type: {
+          value: '1'
+        },
+
         height: null
       }
     }
@@ -90,7 +101,8 @@ export default {
     onConfirm() {
       return new Promise((res) => {
         setTimeout(() => {
-          console.log(11)
+          let v = this.$refs.form.getValue()
+          console.log(v)
           res(true)
         }, 2000)
       })

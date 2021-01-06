@@ -12,9 +12,16 @@ export default {
 
   inheritAttrs: false,
 
+  data() {
+    return {
+      cachedNode: null
+    }
+  },
+
   methods: {
     init() {
-      let { componentOptions: opts } = this.node
+      this.cachedNode = this.node
+      let { componentOptions: opts } = this.cachedNode
       let self = this
 
       if (!opts || opts.tag === 'el-form-item') return
@@ -44,7 +51,9 @@ export default {
   },
 
   render(h) {
-    let { componentOptions: opts } = this.node
+    let { componentOptions: opts } = this.cachedNode
+    let { attrs } = this.cachedNode.data
+
     if (opts && opts.tag !== 'el-form-item') {
       if (opts.propsData) {
         opts.propsData.value = this.value
@@ -56,13 +65,13 @@ export default {
       node.componentOptions = opts
 
       let formItemProps = {  }
-      let { attrs } = this.node.data
+
       ~['t-prop', 't-label', 't-span'].forEach(prop => {
         formItemProps[prop.slice(2)] = attrs[prop]
       })
-
       return <FormItem {...{ props: formItemProps }}>{node}</FormItem>
     } else {
+
       return this.node
     }
   }

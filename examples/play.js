@@ -12,6 +12,9 @@ import 'theme/src/loading.scss'
 import 'theme/src/input.scss'
 import 'theme/src/popconfirm.scss'
 import 'theme/src/select.scss'
+import 'theme/src/radio.scss'
+import 'theme/src/radio-group.scss'
+import 'theme/src/radio-button.scss'
 // import 'theme/src/.scss'
 
 Vue.use(Element.Table)
@@ -23,6 +26,8 @@ Vue.use(Element.FormItem)
 Vue.use(Element.Loading)
 Vue.use(Element.Popconfirm)
 Vue.use(Element.Select)
+Vue.use(Element.RadioGroup)
+Vue.use(Element.RadioButton)
 // Vue.use(Element.Input)
 Vue.prototype.$confirm = Element.MessageBox.confirm
 

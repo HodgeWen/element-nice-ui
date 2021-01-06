@@ -170,8 +170,10 @@ export default {
         }
       } else {
         if (this.formInstances) {
-          this.formInstances.forEach((instance) => {
-            instance.resetFields()
+          this.$nextTick(() => {
+            this.formInstances.forEach((instance) => {
+              instance.resetFields()
+            })
           })
         }
         this.$el.removeEventListener('scroll', this.updatePopper)
