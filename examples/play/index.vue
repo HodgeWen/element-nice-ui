@@ -33,9 +33,9 @@
 
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
-          <el-form :colspan="24" :form="form" ref="form" size="small" label-width="60px" @change="$log">
+          <el-form  :form="form" ref="form" colspan="24"  size="small" label-width="60px">
             <template #default="model">
-              <div t-label="显示" v-show="model.type === '1'">hello</div>
+              <!-- <div t-label="显示" v-show="model.type === '1'">hello</div> -->
               <el-input t-prop="name" t-label="名字" />
               <el-input t-prop="height" t-label="身高" t-modifier="number" />
               <el-radio-group t-prop="type" t-label="类型">

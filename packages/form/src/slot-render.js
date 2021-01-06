@@ -80,7 +80,6 @@ export default {
       })
       return <FormItem {...{ props: formItemProps }}>{node}</FormItem>
     } else {
-
       return this.node
     }
   }

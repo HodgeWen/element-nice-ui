@@ -12,11 +12,11 @@
         :node="item.node"
         :value="getItemValue(item.prop)"
         @input="onInput(item.prop, $event)"
-        v-for="(item, i) of transSlots($slots.default(model))"
+        v-for="(item, i) of transSlots($slots.default)"
         :key="item.prop || i"
       />
     </template>
-    <template v-if="$scopedSlots.default">
+    <template v-else-if="$scopedSlots.default">
       <slot-render
         :node="item.node"
         :value="getItemValue(item.prop)"
