@@ -35,6 +35,9 @@ export default Vue.extend({
         // 渲染的数据来源，是对 table 中的 data 过滤排序后的结果
         data: [],
 
+        // 值为空时的默认占位置
+        placeholder: null,
+
         // 是否包含固定列
         isComplex: false,
 

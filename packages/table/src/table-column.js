@@ -143,7 +143,7 @@ export default {
       return column
     },
 
-    setColumnRenders(column) {
+    setColumnRenders(column, placeholder) {
       // renderHeader 属性不推荐使用。
       if (this.renderHeader) {
         console.warn(
@@ -173,7 +173,7 @@ export default {
           if (this.$scopedSlots.default) {
             children = this.$scopedSlots.default(data)
           } else {
-            children = originRenderCell(h, data)
+            children = originRenderCell(h, data, placeholder)
           }
           const prefix = treeCellPrefix(h, data)
 
@@ -317,12 +317,9 @@ export default {
     column = mergeOptions(defaults, column)
 
     // 注意 compose 中函数执行的顺序是从右到左
-    const chains = compose(
-      this.setColumnRenders,
-      this.setColumnWidth,
-      this.setColumnForcedProps
-    )
-    column = chains(column)
+    const chains = compose(this.setColumnRenders, this.setColumnWidth, this.setColumnForcedProps)
+
+    column = chains(column, this.owner.store.states.placeholder)
 
     this.columnConfig = column
 

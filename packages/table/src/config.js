@@ -102,13 +102,13 @@ export const cellForced = {
   }
 }
 
-export function defaultRenderCell(h, { row, column, $index }) {
+export function defaultRenderCell(h, { row, column, $index }, defaultVal) {
   const property = column.property
   const value = property && getPropByPath(row, property).v
   if (column && column.formatter) {
-    return column.formatter(row, column, value, $index)
+    return column.formatter(row, column, value, $index) || defaultVal
   }
-  return value
+  return value || defaultVal
 }
 
 export function treeCellPrefix(h, { row, treeNode, store }) {

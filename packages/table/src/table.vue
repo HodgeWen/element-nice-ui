@@ -289,6 +289,10 @@ export default {
       }
     },
 
+    placeholder: {
+      type: String
+    },
+
     size: String,
 
     width: [String, Number],
@@ -712,6 +716,7 @@ export default {
 
     this.store = createStore(this, {
       rowKey: this.rowKey,
+      placeholder: this.placeholder,
       defaultExpandAll: this.defaultExpandAll,
       selectOnIndeterminate: this.selectOnIndeterminate,
       // TreeTable 的相关配置

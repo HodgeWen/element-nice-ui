@@ -197,7 +197,9 @@ export function compose(...funcs) {
   if (funcs.length === 1) {
     return funcs[0]
   }
-  return funcs.reduce((a, b) => (...args) => a(b(...args)))
+  return funcs.reduce((a, b) => {
+    return (...args) => a(b(...args), args[1])
+  })
 }
 
 export function toggleRowStatus(statusArr, row, newVal) {

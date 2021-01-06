@@ -192,6 +192,7 @@ export default {
       },
 
       render(h) {
+        let options = this.pageSizes.map(size => ({ value: size, label: size + this.t('el.pagination.pagesize') }))
         return (
           <span class='el-pagination__sizes'>
             <el-select
@@ -201,11 +202,8 @@ export default {
               clearable={false}
               on-input={this.handleChange}
               disabled={this.$parent.disabled}
-            >
-              {this.pageSizes.map((item) => (
-                <el-option value={item} label={item + this.t('el.pagination.pagesize')} />
-              ))}
-            </el-select>
+              options={options}
+            />
           </span>
         )
       },

@@ -8,6 +8,8 @@
       stripe
       row-key="id"
       border
+      pagination
+      ref="table"
       query-label-width="60"
     >
       <template #tools>
@@ -19,8 +21,8 @@
         <el-btn :disabled="selected && selected.length">删除</el-btn>
       </template>
 
-      <template #column.action>
-        <el-action-item>操作</el-action-item>
+      <template #column.action="{ row, index }">
+        <el-action-item @click="onTest(index)">测试</el-action-item>
       </template>
 
       <template #searcher>
@@ -52,14 +54,14 @@ export default {
     return {
       selected: null,
       headers: [
-        { label: '名称', prop: 'name' },
+        { label: '名称', prop: 'name', align: 'left' },
         { label: '图标', prop: 'icon' },
         { label: '排序', prop: 'sort' },
         { label: '路由地址', prop: 'path' },
         { label: '类型', prop: 'type' },
         { label: '类型', prop: 'type' },
-        { label: '权限表示', prop: 'permission' }
-        // { label: '操作', type: 'action', fixed: 'right', width: 150, slotName: 'action' }
+        { label: '权限表示', prop: 'permission' },
+        { label: '操作', type: 'action', fixed: 'right', width: 150, slotName: 'action' }
       ],
 
       query: {
@@ -94,7 +96,11 @@ export default {
       })
     },
 
-    onInput(e) {}
+    onInput(e) {},
+
+    onTest(i) {
+      this.$refs.table.update(i, { icon: '11' })
+    }
   },
 
   mounted() {}

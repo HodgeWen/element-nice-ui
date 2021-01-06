@@ -48,6 +48,7 @@
       :showHeader="headers && !!headers.length"
       :data="computedData"
       v-loading="loading"
+      :placeholder="placeholder"
       @selection-change="$emit('input', $event)"
       :highlight-current-row="isSingle"
       @current-change="$emit('input', $event)"
@@ -121,6 +122,11 @@ export default {
 
   props: {
     api: String,
+
+    placeholder: {
+      type: String,
+      default: '——'
+    },
 
     pagination: {
       type: Boolean
@@ -291,11 +297,12 @@ export default {
 
     update(i, newRecord) {
       if (newRecord instanceof Function) {
-        let record = this.find(i)
-        newRecord(record)
-        this.splice(i, 1, record)
+        let data = this.find(i)
+        newRecord(data)
+        this.find().splice(i, 1, data)
+        return
       }
-      this.splice(i, 1, newRecord)
+      this.find().splice(i, 1, newRecord)
     },
 
     delete(i) {
@@ -314,7 +321,7 @@ export default {
           console.warn('find 方法 应该传入一个 > 0的参数')
         }
         return data[i]
-      } else if (typeof o === 'object' && i !== null) {
+      } else if (typeof i === 'object' && i !== null) {
         return data.find((item) => {
           return Object.keys(i).every((key) => item[key] === i[key])
         })
