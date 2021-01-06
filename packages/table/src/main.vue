@@ -355,10 +355,14 @@ export default {
 
     // 查询
     fetch() {
-      const { page, list, total } = this.$EL_TABLE_PROP_CONFIG
+      const { page, list, total, currentField = 'current', sizeField = 'size' } = this.$EL_TABLE_PROP_CONFIG
       const { params } = this
 
-      return this.$http.get(this.api, { params }).then((res) => {
+      let { page: p, size, ...commonParams } = this.params
+      commonParams[currentField] = p
+      commonParams[sizeField] = size
+
+      return this.$http.get(this.api, { params: commonParams }).then((res) => {
         if (res.code !== 200) return
         if (this.pagination) {
           if (!page || !total) {
@@ -375,11 +379,11 @@ export default {
 
     // 获取表格数据
     fetchData(keepPage) {
+      if (!this.api || !this.$http || !this.$EL_TABLE_PROP_CONFIG) return
+
       if (keepPage !== true) {
         this.pager.page = 1
       }
-
-      if (!this.api || !this.$http || !this.$EL_TABLE_PROP_CONFIG) return
 
       this.queryReplace()
 

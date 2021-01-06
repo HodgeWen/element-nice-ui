@@ -16,7 +16,7 @@
         :key="item.prop || i"
       />
     </template>
-    <template v-else-if="$scopedSlots.default">
+    <template v-if="$scopedSlots.default">
       <slot-render
         :node="item.node"
         :value="getItemValue(item.prop)"
@@ -256,7 +256,7 @@ export default {
     },
 
     setValue(values) {
-      Object.keys(this.model).forEach(key => {
+      Object.keys(this.model).forEach((key) => {
         if (values[key] !== undefined) {
           this.model[key] = values[key]
         }

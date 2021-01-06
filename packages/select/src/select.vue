@@ -210,7 +210,7 @@ export default {
           return this.options.map(mapper)
         }
 
-        return Object.keys(options).map((key) => ({ value: key, label: options[key] }))
+        return Object.keys(this.options).map((key) => ({ value: key, label: this.options[key] }))
       }
 
       return this.remoteOptions.map(mapper)
