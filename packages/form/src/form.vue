@@ -9,19 +9,20 @@
   >
     <template v-if="$slots.default">
       <slot-render
+        v-for="(item, i) of transSlots($slots.default)"
         :node="item.node"
         :value="getItemValue(item.prop)"
         @input="onInput(item.prop, $event)"
-        v-for="(item, i) of transSlots($slots.default)"
         :key="item.prop || i"
       />
+
     </template>
-    <template v-if="$scopedSlots.default">
+    <template v-if="$scopedSlots.data">
       <slot-render
+        v-for="(item, i) of transSlots($scopedSlots.data(model))"
         :node="item.node"
         :value="getItemValue(item.prop)"
         @input="onInput(item.prop, $event)"
-        v-for="(item, i) of transSlots($scopedSlots.default(model))"
         :key="item.prop || i"
       />
     </template>

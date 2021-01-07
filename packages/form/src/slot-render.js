@@ -69,8 +69,8 @@ export default {
       }
 
       let node = h(opts.tag, { on: opts.listeners })
-      node.isRootInsert = this.node.isRootInsert
-      node.data = this.node.data
+      node.isRootInsert = this.cachedNode.isRootInsert
+      node.data = this.cachedNode.data
       node.componentOptions = opts
 
       let formItemProps = {  }
