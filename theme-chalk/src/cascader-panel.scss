@@ -29,7 +29,9 @@
   }
 
   @include e(wrap) {
-    height: 204px;
+    &.el-scrollbar__wrap {
+      height: 204px;
+    }
   }
 
   @include e(list) {
