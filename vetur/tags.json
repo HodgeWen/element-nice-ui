@@ -43,7 +43,7 @@
     "defaults": ["label"]
   },
   "el-input": {
-    "attributes": ["type", "value", "maxlength", "minlength", "placeholder", "disabled", "size", "icon", "prefix-icon", "suffix-icon", "rows", "autosize", "auto-complete", "name", "readonly", "max", "min", "step", "resize", "autofocus", "form", "label", "tabindex", "clearable", "on-icon-click", "click", "blur", "focus", "change", "clear"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "type", "value", "maxlength", "minlength", "placeholder", "disabled", "size", "icon", "prefix-icon", "suffix-icon", "rows", "autosize", "auto-complete", "name", "readonly", "max", "min", "step", "resize", "autofocus", "form", "label", "tabindex", "clearable", "on-icon-click", "click", "blur", "focus", "change", "clear"],
     "defaults": ["v-model", "placeholder"],
     "description": "Input data using mouse or keyboard."
   },
@@ -52,11 +52,11 @@
     "defaults": ["v-model", "placeholder"]
   },
   "el-input-number": {
-    "attributes": ["value", "min", "max", "step", "size", "disabled", "controls-position", "controls", "debounce", "change"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "value", "min", "max", "step", "size", "disabled", "controls-position", "controls", "debounce", "change"],
     "defaults": ["v-model", "placeholder"]
   },
   "el-select": {
-    "attributes": ["multiple", "disabled", "options", "api", "option-label", "option-value", "value-key", "size", "clearable", "collapse-tags", "multiple-limit", "name", "auto-complete", "placeholder", "filterable", "allow-create", "filter-method", "remote", "remote-method", "loading", "loading-text", "no-match-text", "no-data-text", "popper-class", "reserve-keyword", "default-first-option", "popper-append-to-body", "change", "visible-change", "remote-tag", "clear", "blur", "focus"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "multiple", "disabled", "options", "api", "option-label", "option-value", "value-key", "size", "clearable", "collapse-tags", "multiple-limit", "name", "auto-complete", "placeholder", "filterable", "allow-create", "filter-method", "remote", "remote-method", "loading", "loading-text", "no-match-text", "no-data-text", "popper-class", "reserve-keyword", "default-first-option", "popper-append-to-body", "change", "visible-change", "remote-tag", "clear", "blur", "focus"],
     "defaults": ["v-model", "placeholder"],
     "subtags": ["el-option"],
     "description": "When there are plenty of options, use a drop-down menu to display and select desired ones."
@@ -76,25 +76,25 @@
     "description": "If the options have a clear hierarchical structure, Cascader can be used to view and select them."
   },
   "el-switch": {
-    "attributes": ["disabled", "width", "active-icon-class", "inactive-icon-class", "active-text", "inactive-text", "active-value", "inactive-value", "active-color", "inactive-color", "on-icon-class", "off-icon-class", "on-text", "off-text", "on-value", "off-value", "on-color", "off-color", "name", "change"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "disabled", "width", "active-icon-class", "inactive-icon-class", "active-text", "inactive-text", "active-value", "inactive-value", "active-color", "inactive-color", "on-icon-class", "off-icon-class", "on-text", "off-text", "on-value", "off-value", "on-color", "off-color", "name", "change"],
     "defaults": ["v-model"],
     "description": "Switch is used for switching between two opposing states."
   },
   "el-slider": {
-    "attributes": ["min", "max", "disabled", "step", "show-input", "show-input-controls", "input-size", "show-stops", "show-tooltip", "format-tooltip", "range", "vertical", "height", "debounce", "tooltip-class", "change"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "min", "max", "disabled", "step", "show-input", "show-input-controls", "input-size", "show-stops", "show-tooltip", "format-tooltip", "range", "vertical", "height", "debounce", "tooltip-class", "change"],
     "defaults": ["v-model"],
     "description": "Drag the slider within a fixed range."
   },
   "el-time-select": {
-    "attributes": ["readonly", "editable", "disabled", "clearable", "size", "placeholder", "value", "align", "popper-class", "picker-options", "vertical", "height", "change"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "readonly", "editable", "disabled", "clearable", "size", "placeholder", "value", "align", "popper-class", "picker-options", "vertical", "height", "change"],
     "defaults": ["v-model", "placeholder"]
   },
   "el-time-picker": {
-    "attributes": ["readonly", "editable", "disabled", "clearable", "size", "placeholder", "start-placeholde", "end-placeholde", "value", "align", "picker-options", "range-separator", "popper-class", "is-range", "arrow-control", "value-format", "default-value", "change", "blur", "focus"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "readonly", "editable", "disabled", "clearable", "size", "placeholder", "start-placeholde", "end-placeholde", "value", "align", "picker-options", "range-separator", "popper-class", "is-range", "arrow-control", "value-format", "default-value", "change", "blur", "focus"],
     "defaults": ["v-model", "placeholder"]
   },
   "el-date-picker": {
-    "attributes": ["readonly", "editable", "disabled", "clearable", "size", "placeholder", "start-placeholde", "end-placeholde", "time-arrow-control", "type", "format", "align", "popper-class", "picker-options", "range-separator", "default-value", "default-time", "value-format", "name", "unlink-panels", "prefix-icon", "clear-icon", "change"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "readonly", "editable", "disabled", "clearable", "size", "placeholder", "start-placeholde", "end-placeholde", "time-arrow-control", "type", "format", "align", "popper-class", "picker-options", "range-separator", "default-value", "default-time", "value-format", "name", "unlink-panels", "prefix-icon", "clear-icon", "change"],
     "defaults": ["v-model", "placeholder"]
   },
   "el-upload": {
@@ -109,11 +109,11 @@
     "description": "Used for rating"
   },
   "el-color-picker": {
-    "attributes": ["disabled", "size", "show-alpha", "color-format", "popper-class", "predefine", "change", "active-change"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "disabled", "size", "show-alpha", "color-format", "popper-class", "predefine", "change", "active-change"],
     "defaults": ["v-model"]
   },
   "el-transfer": {
-    "attributes": ["data", "filterable", "filter-placeholder", "filter-method", "target-order", "titles", "button-texts", "render-content", "format", "props", "left-default-checked", "right-default-checked", "change", "left-check-change", "right-check-change"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "data", "filterable", "filter-placeholder", "filter-method", "target-order", "titles", "button-texts", "render-content", "format", "props", "left-default-checked", "right-default-checked", "change", "left-check-change", "right-check-change"],
     "defaults": ["v-model", ":data"]
   },
   "el-form": {

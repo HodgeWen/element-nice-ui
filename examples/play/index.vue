@@ -29,19 +29,14 @@
         <el-input v-model="query.name" t-label="名称" />
         <el-input v-model="query.age" t-label="年龄" />
         <el-select v-model="query.test" option-label="label1" t-label="测试" api="select" />
+        <el-select v-model="disabled" :options="{ true: '开', false: '关' }" />
       </template>
 
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
-          <el-form :form="form" ref="form" size="small" label-width="60px">
-
-            <!-- 这里表示 -->
-            <div slot="data" slot-scope="{ type }"  t-label="显示" v-show="type === '1'">
-              hello
-            </div>
-
+          <el-form :form="form"  ref="form" size="small" label-width="60px">
             <el-select t-label="测试" t-prop="select" :options="{ 0: '0', 1: '1' }" />
-            <el-input t-prop="name" t-label="名字" />
+            <el-input :disabled="disabled === 'true'" t-prop="name" t-label="名字" />
             <el-input t-prop="height" t-label="身高" t-modifier="number" />
             <el-radio-group t-prop="type" t-label="类型">
               <el-radio-button label="1">显示</el-radio-button>
@@ -85,10 +80,11 @@ export default {
 
       visible: false,
 
+      type: 'view',
+
       form: {
         name: {
           value: '',
-          match: ['phone', '格式错误'],
           required: '必须的'
         },
 
@@ -99,7 +95,9 @@ export default {
         height: null,
 
         select: ''
-      }
+      },
+
+      disabled: 'false'
     }
   },
 

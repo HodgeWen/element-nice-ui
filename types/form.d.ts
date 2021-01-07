@@ -39,7 +39,7 @@ export interface ElFormRule {
   /** 值匹配的正则, 可以是正则表达式和预设的正则表达式别名 */
   match?: MacherType | RegExp | [RegExp | MacherType, string?];
   /** 自定义验证器 */
-  validator?: (rule: any, value: any, callback: (msg: string) => void) => void;
+  validator?: (rule: any, value: any, callback: (msg: string) => void, model: Record<string, any>) => void;
   /** 字符长度 */
   len?: number | [number, string?];
 }

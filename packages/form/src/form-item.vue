@@ -208,11 +208,8 @@
           });
         }
         descriptor[this.prop] = rules;
-
         const validator = new AsyncValidator(descriptor);
-        const model = {};
-
-        model[this.prop] = this.fieldValue;
+        const model = this.elForm.model || {[this.prop]: this.fieldValue}
 
         validator.validate(model, { firstFields: true }, (errors, invalidFields) => {
           this.validateState = !errors ? 'success' : 'error';

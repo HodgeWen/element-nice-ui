@@ -62,15 +62,15 @@ export default {
   render(h) {
     let { componentOptions: opts } = this.cachedNode
     let { attrs } = this.cachedNode.data
-
     if (opts && opts.tag !== 'el-form-item') {
       if (opts.propsData) {
+        opts.propsData = this.node.componentOptions.propsData
         opts.propsData.value = this.value
       }
 
       let node = h(opts.tag, { on: opts.listeners })
-      node.isRootInsert = this.cachedNode.isRootInsert
-      node.data = this.cachedNode.data
+      node.isRootInsert = this.node.isRootInsert
+      node.data = this.node.data
       node.componentOptions = opts
 
       let formItemProps = {  }
