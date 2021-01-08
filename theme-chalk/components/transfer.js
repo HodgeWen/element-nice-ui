@@ -1,0 +1,5 @@
+import '../src/input.scss'
+import '../src/btn.scss'
+import '../src/checkbox.scss'
+import '../src/checkbox-group.scss'
+import '../src/transfer.scss'

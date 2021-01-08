@@ -1,13 +1,13 @@
 @import 'mixins/mixins';
-@import 'checkbox';
-@import 'tag';
-@import 'tooltip';
+// @import 'checkbox';
+// @import 'tag';
+// @import 'tooltip';
 @import 'common/var';
-@import 'table-column';
-@import 'scrollbar';
-@import 'pagination';
-@import 'btn';
-@import './action.scss';
+// @import 'table-column';
+// @import 'scrollbar';
+// @import 'pagination';
+// @import 'btn';
+// @import './action.scss';
 
 @include b(table) {
   position: relative;
