@@ -253,7 +253,7 @@ export default {
   },
   methods: {
     getValue() {
-      return this.model
+      return { ...this.model }
     },
 
     setValue(values) {
