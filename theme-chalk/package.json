@@ -6,7 +6,8 @@
   "style": "lib/index.css",
   "files": [
     "lib",
-    "src"
+    "src",
+    "components"
   ],
   "scripts": {
     "build": "gulp build"

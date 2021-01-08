@@ -575,9 +575,9 @@ export default {
       this.$nextTick(() => this.scrollToOption(this.selected))
     },
 
-    emitChange(val) {
+    emitChange(val, label) {
       if (!valueEquals(this.value, val)) {
-        this.$emit('change', val)
+        this.$emit('change', val, label)
       }
     },
 
@@ -772,7 +772,7 @@ export default {
         if (this.filterable) this.$refs.input.focus()
       } else {
         this.$emit('input', option.value)
-        this.emitChange(option.value)
+        this.emitChange(option.value, option.label)
         this.visible = false
       }
       this.isSilentBlur = byClick
@@ -836,7 +836,7 @@ export default {
       event.stopPropagation()
       const value = this.multiple ? [] : ''
       this.$emit('input', value)
-      this.emitChange(value)
+      this.emitChange(value, '')
       this.visible = false
       this.$emit('clear')
     },
