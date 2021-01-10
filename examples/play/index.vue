@@ -37,17 +37,23 @@
           <el-form :form="form" ref="form" size="small" label-width="60px">
             <el-select t-label="测试" t-prop="select" :options="{ 0: '0', 1: '1' }" />
             <el-input :disabled="disabled === 'true'" t-prop="name" t-label="名字" />
-            <el-input t-prop="height" t-label="身高" t-modifier="number" />
+            <el-input
+              slot="data"
+              slot-scope="{ type }"
+              v-if="type === '1'"
+              t-prop="height"
+              t-label="身高"
+              t-modifier="number"
+            />
             <el-radio-group t-prop="type" t-label="类型">
               <el-radio-button label="1">显示</el-radio-button>
               <el-radio-button label="2">隐藏</el-radio-button>
             </el-radio-group>
-            <el-cascader
-            @change="$log"
-              t-label="级联"
-              :props="{ checkStrictly: true }"
-              :show-all-levels="false"
+            <el-select
+              @change="$log"
+              t-label="树形选择器"
               :options="options"
+              tree
               t-prop="cas"
             />
           </el-form>

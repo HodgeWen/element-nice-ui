@@ -276,7 +276,8 @@ export default {
     },
 
     transSlots(slots) {
-      return slots.map((node) => {
+      if (!slots) return []
+      return slots.filter(vnode => vnode.tag).map((node) => {
         let { componentOptions: opts, data } = node
         let { attrs = {} } = data
         let prop = attrs['t-prop']

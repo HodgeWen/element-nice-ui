@@ -124,24 +124,42 @@
         :append-to-body="popperAppendToBody"
         v-show="visible && emptyText !== false"
       >
-        <el-scrollbar
-          tag="ul"
-          wrap-class="el-select-dropdown__wrap"
-          view-class="el-select-dropdown__list"
-          ref="scrollbar"
-          :class="{ 'is-empty': !allowCreate && query && filteredOptionsCount === 0 }"
-          v-show="internalOptions.length > 0 && !loading"
-        >
-          <el-option :value="query" created v-if="showNewOption"> </el-option>
-          <el-option
-            v-for="(option, index) of computedOptions"
-            :key="option.value"
-            :value="option.value"
-            :label="option.label"
+        <template v-if="!tree">
+          <el-scrollbar
+            tag="ul"
+            wrap-class="el-select-dropdown__wrap"
+            view-class="el-select-dropdown__list"
+            ref="scrollbar"
+            :class="{ 'is-empty': !allowCreate && query && filteredOptionsCount === 0 }"
+            v-show="internalOptions.length > 0 && !loading"
           >
-            <slot v-bind="{ option, index }" />
-          </el-option>
-        </el-scrollbar>
+            <el-option :value="query" created v-if="showNewOption"> </el-option>
+            <el-option
+              v-for="(option, index) of computedOptions"
+              :key="option.value"
+              :value="option.value"
+              :label="option.label"
+            >
+              <slot v-bind="{ option, index }" />
+            </el-option>
+          </el-scrollbar>
+        </template>
+
+        <template v-else>
+          <el-scrollbar
+            tag="ul"
+            wrap-class="el-select-dropdown__wrap"
+            view-class="el-select-dropdown__list"
+            ref="scrollbar"
+            :class="{ 'is-empty': !allowCreate && query && filteredOptionsCount === 0 }"
+            v-show="internalOptions.length > 0 && !loading"
+          >
+            <el-tree show-checkbox :data="data">
+
+            </el-tree>
+          </el-scrollbar>
+        </template>
+
         <template
           v-if="
             emptyText && (!allowCreate || loading || (allowCreate && internalOptions.length === 0))
@@ -162,6 +180,7 @@ import Emitter from 'element-nice-ui/src/mixins/emitter'
 import Focus from 'element-nice-ui/src/mixins/focus'
 import Locale from 'element-nice-ui/src/mixins/locale'
 import ElInput from 'element-nice-ui/packages/input'
+import ElTree from 'element-nice-ui/packages/tree'
 import ElSelectMenu from './select-dropdown.vue'
 import ElOption from './option.vue'
 import ElTag from 'element-nice-ui/packages/tag'
@@ -174,6 +193,7 @@ import scrollIntoView from 'element-nice-ui/src/utils/scroll-into-view'
 import { getValueByPath, valueEquals, isIE, isEdge } from 'element-nice-ui/src/utils/util'
 import NavigationMixin from './navigation-mixin'
 import { isKorean } from 'element-nice-ui/src/utils/shared'
+
 
 export default {
   mixins: [Emitter, Locale, Focus('reference'), NavigationMixin],
@@ -212,6 +232,7 @@ export default {
 
         return Object.keys(this.options).map((key) => ({ value: key, label: this.options[key] }))
       }
+
 
       return this.remoteOptions.map(mapper)
     },
@@ -285,7 +306,8 @@ export default {
     ElSelectMenu,
     ElOption,
     ElTag,
-    ElScrollbar
+    ElScrollbar,
+    ElTree
   },
 
   directives: { Clickoutside },
@@ -296,6 +318,10 @@ export default {
 
     api: {
       type: String
+    },
+
+    tree: {
+      type: Boolean
     },
 
     value: {
