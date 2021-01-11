@@ -59,13 +59,17 @@
             <slot
               :name="'column.' + header.slotName"
               v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
-            />
+            >
+              {{ placeholder }}
+            </slot>
           </el-action>
           <slot
             v-else
             :name="'column.' + header.slotName"
             v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
-          />
+          >
+            {{ placeholder }}
+          </slot>
         </template>
       </table-column>
     </main-table>
@@ -355,7 +359,13 @@ export default {
 
     // 查询
     fetch() {
-      const { page, list, total, currentField = 'current', sizeField = 'size' } = this.$EL_TABLE_PROP_CONFIG
+      const {
+        page,
+        list,
+        total,
+        currentField = 'current',
+        sizeField = 'size'
+      } = this.$EL_TABLE_PROP_CONFIG
       const { params } = this
 
       let { page: p, size, ...commonParams } = this.params

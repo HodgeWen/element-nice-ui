@@ -18,12 +18,16 @@ export default {
 
   render(h) {
     let children = this.$slots.default
-    children.forEach(({ componentOptions: opts }) => {
-      if (opts) {
-        opts.propsData = { ...opts.propsData, ...this.ctx }
-      }
-    })
-    let childrenLength = children.length
+    let childrenLength = 0
+    if (children && children.length) {
+      children.forEach(({ componentOptions: opts }) => {
+        if (opts) {
+          opts.propsData = { ...opts.propsData, ...this.ctx }
+        }
+      })
+      childrenLength = children.length
+    }
+
     let max = this.max <= 0 ? 1 : this.max
 
     let dropdownList = []

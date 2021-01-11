@@ -96,6 +96,9 @@
   }
 
   @include e(label) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     text-align: right;
     vertical-align: middle;
     float: left;

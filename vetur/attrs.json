@@ -16,10 +16,12 @@
     "description": "修饰符, 和v-model的修饰符类似, 但是不支持lazy修饰符"
   },
   "el-action-item/need-to-confirm": {
-    "type": "boolean", "description": "是否需要确认"
+    "type": "boolean",
+    "description": "是否需要确认"
   },
   "el-action-item/confirm-text": {
-    "type": "string", "description": "确认的内荣"
+    "type": "string",
+    "description": "确认的内荣"
   },
   "gutter": { "type": "boolean", "description": "grid spacing" },
   "justify": {
@@ -533,6 +535,10 @@
   },
   "el-input/step": { "description": "same as step in native input" },
   "el-input-number/step": { "description": "incremental step" },
+  "el-input-number/controls-right": {
+    "type": "boolean",
+    "description": "步进器的位置, 设为false则两边显示"
+  },
   "el-switch/step": { "description": "step size, default: 1" },
   "el-carousel/type": { "options": ["card"], "description": "type of the Carousel" },
   "el-dropdown/type": {
@@ -974,13 +980,13 @@
     "type": "method",
     "description": "triggers when the leaving transition ends"
   },
-  "readonly": { "type": "flag" },
-  "multiple": { "type": "flag" },
-  "clearable": { "type": "flag" },
-  "filterable": { "type": "flag" },
-  "editable": { "type": "flag" },
+  "readonly": { "type": "boolean" },
+  "multiple": { "type": "boolean" },
+  "clearable": { "type": "boolean" },
+  "filterable": { "type": "boolean" },
+  "editable": { "type": "boolean" },
   "allow-create": { "type": "flag" },
-  "required": { "type": "flag" },
+  "required": { "type": "boolean" },
   "show-text": { "type": "flag" },
   "stripe": { "type": "flag" },
   "border": { "type": "flag" },

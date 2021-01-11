@@ -151,18 +151,31 @@
             wrap-class="el-select-dropdown__wrap"
             view-class="el-select-dropdown__list"
             ref="scrollbar"
-            :class="{ 'is-empty': !allowCreate && query && filteredOptionsCount === 0 }"
-            v-show="internalOptions.length > 0 && !loading"
+            :class="{ 'is-empty': !allowCreate && query && !tree && filteredOptionsCount === 0 }"
+            v-show="computedOptions.length > 0 && !loading"
           >
-            <el-tree show-checkbox :data="data">
-
+            <el-tree
+              ref="tree"
+              :expand-on-click-node="false"
+              :highlight-current="!multiple"
+              :show-checkbox="multiple"
+              :data="computedOptions"
+              node-key="value"
+              :filter-node-method="treeNodeFilter"
+              @current-change="onCurrentTreeNodeChange"
+              @check="onTreeCheck"
+            >
             </el-tree>
           </el-scrollbar>
         </template>
 
         <template
           v-if="
-            emptyText && (!allowCreate || loading || (allowCreate && internalOptions.length === 0))
+            emptyText &&
+              ((!tree && !allowCreate) ||
+                (tree && computedOptions.length === 0) ||
+                loading ||
+                (allowCreate && internalOptions.length === 0))
           "
         >
           <slot name="empty" v-if="$slots.empty"></slot>
@@ -194,7 +207,6 @@ import { getValueByPath, valueEquals, isIE, isEdge } from 'element-nice-ui/src/u
 import NavigationMixin from './navigation-mixin'
 import { isKorean } from 'element-nice-ui/src/utils/shared'
 
-
 export default {
   mixins: [Emitter, Locale, Focus('reference'), NavigationMixin],
 
@@ -220,20 +232,39 @@ export default {
 
   computed: {
     computedOptions() {
-      let mapper = (option) => {
-        let value = option[this.optionValue]
-        let label = option[this.optionLabel]
-        return { ...option, value, label }
+      let mapper
+
+      if (this.tree) {
+        mapper = (option) => {
+          let value = option[this.optionValue]
+          let label = option[this.optionLabel]
+          let children = option[this.childrenKey]
+
+          let item = { ...option, value, label }
+          if (children && children.length) {
+            item.children = children.map(mapper)
+          }
+
+          if (this.childrenKey !== 'children') {
+            delete item[this.childrenKey]
+          }
+          return item
+        }
+      } else {
+        mapper = (option) => {
+          let value = option[this.optionValue]
+          let label = option[this.optionLabel]
+          return { ...option, value, label }
+        }
       }
+
       if (this.options) {
         if (Array.isArray(this.options)) {
           return this.options.map(mapper)
+        } else if (!this.tree) {
+          return Object.keys(this.options).map((key) => ({ value: key, label: this.options[key] }))
         }
-
-        return Object.keys(this.options).map((key) => ({ value: key, label: this.options[key] }))
       }
-
-
       return this.remoteOptions.map(mapper)
     },
 
@@ -338,7 +369,13 @@ export default {
     },
 
     optionValue: {
+      type: String,
       default: 'value'
+    },
+
+    childrenKey: {
+      type: String,
+      default: 'children'
     },
 
     autocomplete: {
@@ -438,6 +475,15 @@ export default {
     },
 
     value(val, oldVal) {
+      if (this.tree) {
+        if (!this.multiple) {
+          this.$refs.tree.setCurrentKey(val ? val : null)
+        } else {
+
+          this.$refs.tree.setCheckedKeys(val)
+        }
+      }
+
       if (this.multiple) {
         this.resetInputHeight()
         if ((val && val.length > 0) || (this.$refs.input && this.query !== '')) {
@@ -513,8 +559,22 @@ export default {
       this.$emit('visible-change', val)
     },
 
-    internalOptions() {
-      if (this.$isServer) return
+    // option更新后应当设置选择的值
+    computedOptions() {
+      this.$nextTick(() => {
+        if (this.tree) {
+          if (!this.multiple) {
+            this.$refs.tree.setCurrentKey(this.value)
+          } else {
+            this.$refs.tree.setCheckedKeys(this.value)
+          }
+        }
+        this.setSelected()
+      })
+    },
+
+    internalOptions(v) {
+      if (this.$isServer || this.tree) return
       this.$nextTick(() => {
         this.broadcast('ElSelectDropdown', 'updatePopper')
       })
@@ -522,7 +582,7 @@ export default {
         this.resetInputHeight()
       }
       let inputs = this.$el.querySelectorAll('input')
-      if ([].indexOf.call(inputs, document.activeElement) === -1) {
+      if (Array.prototype.indexOf.call(inputs, document.activeElement) === -1) {
         this.setSelected()
       }
       if (
@@ -536,6 +596,25 @@ export default {
   },
 
   methods: {
+    // 节点单选选择
+    onCurrentTreeNodeChange(data, node) {
+      if (this.multiple) return
+      this.$emit('input', data.value)
+      this.emitChange(data.value, data.label)
+      this.visible = false
+    },
+
+    // 节点多选选择
+    onTreeCheck(data, {  mergedCheckedKeys }) {
+      this.$emit('input', mergedCheckedKeys)
+      this.emitChange(data.value, data.label)
+    },
+
+    treeNodeFilter(value, data) {
+      if (!value) return true
+      return data.label.includes(value)
+    },
+
     handleComposition(event) {
       const text = event.target.value
       if (event.type === 'compositionend') {
@@ -555,11 +634,27 @@ export default {
         this.previousQuery = val
         return
       }
+
+      // 如果这是一个树形选择器
+      if (this.tree) {
+        if (this.previousQuery !== null) {
+          this.$refs.tree.filter(val)
+        }
+
+        this.previousQuery = val
+        this.$nextTick(() => {
+          if (this.visible) this.broadcast('ElSelectDropdown', 'updatePopper')
+        })
+        this.hoverIndex = -1
+        return
+      }
+
       this.previousQuery = val
       this.$nextTick(() => {
         if (this.visible) this.broadcast('ElSelectDropdown', 'updatePopper')
       })
       this.hoverIndex = -1
+
       if (this.multiple && this.filterable) {
         this.$nextTick(() => {
           const length = this.$refs.input.value.length * 15 + 20
@@ -614,17 +709,26 @@ export default {
       const isUndefined =
         Object.prototype.toString.call(value).toLowerCase() === '[object undefined]'
 
-      for (let i = this.cachedOptions.length - 1; i >= 0; i--) {
-        const cachedOption = this.cachedOptions[i]
-        const isEqual = isObject
-          ? getValueByPath(cachedOption.value, this.valueKey) ===
-            getValueByPath(value, this.valueKey)
-          : cachedOption.value === value
-        if (isEqual) {
-          option = cachedOption
-          break
+      if (this.tree) {
+        // 在此处获取node, 列表刚渲染的时候需要先设置值
+        let node = this.$refs.tree.getCurrentNode()
+        if (node) {
+          return { value: node.value, currentLabel: node.label }
+        }
+      } else {
+        for (let i = this.cachedOptions.length - 1; i >= 0; i--) {
+          const cachedOption = this.cachedOptions[i]
+          const isEqual = isObject
+            ? getValueByPath(cachedOption.value, this.valueKey) ===
+              getValueByPath(value, this.valueKey)
+            : cachedOption.value === value
+          if (isEqual) {
+            option = cachedOption
+            break
+          }
         }
       }
+
       if (option) return option
       const label = !isObject && !isNull && !isUndefined ? value : ''
       let newOption = {
@@ -640,6 +744,7 @@ export default {
     setSelected() {
       if (!this.multiple) {
         let option = this.getOption(this.value)
+
         if (option.created) {
           this.createdLabel = option.currentLabel
           this.createdSelected = true
@@ -649,6 +754,20 @@ export default {
         this.selectedLabel = option.currentLabel
         this.selected = option
         if (this.filterable) this.query = this.selectedLabel
+        return
+      }
+
+      if (this.tree) {
+        let checkedNodes = this.$refs.tree.getCheckedNodes(false, false, true)
+
+        this.selected = checkedNodes.map((item) => ({
+          value: item.value,
+          currentLabel: item.label,
+          hitState: false
+        }))
+        this.$nextTick(() => {
+          this.resetInputHeight()
+        })
         return
       }
       let result = []
@@ -996,7 +1115,6 @@ export default {
         this.inputWidth = reference.$el.getBoundingClientRect().width
       }
     })
-    this.setSelected()
   },
 
   beforeDestroy() {

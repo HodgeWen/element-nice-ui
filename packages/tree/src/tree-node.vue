@@ -208,6 +208,8 @@
           const store = this.tree.store;
           this.tree.$emit('check', this.node.data, {
             checkedNodes: store.getCheckedNodes(),
+            mergedCheckedNodes: store.getCheckedNodes(false, false, true),
+            mergedCheckedKeys: store.getCheckedKeys(false, true),
             checkedKeys: store.getCheckedKeys(),
             halfCheckedNodes: store.getHalfCheckedNodes(),
             halfCheckedKeys: store.getHalfCheckedKeys(),

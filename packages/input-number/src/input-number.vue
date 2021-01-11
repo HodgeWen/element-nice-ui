@@ -91,9 +91,9 @@
         type: Boolean,
         default: true
       },
-      controlsPosition: {
-        type: String,
-        default: ''
+      controlsRight: {
+        type: Boolean,
+        default: true
       },
       name: String,
       label: String,
@@ -159,7 +159,7 @@
         }
       },
       controlsAtRight() {
-        return this.controls && this.controlsPosition === 'right';
+        return this.controls && this.controlsRight;
       },
       _elFormItemSize() {
         return (this.elFormItem || {}).elFormItemSize;
