@@ -41,13 +41,12 @@
               :options="{ 0: '0', 1: '1' }"
             />
             <el-input :disabled="disabled === 'true'" t-prop="name" t-label="名字" />
-            <el-input
+            <el-input-number
               slot="data"
               slot-scope="{ type }"
               v-if="type === '1'"
               t-prop="height"
               t-label="身高"
-              t-modifier="number"
             />
             <el-radio-group t-prop="type" t-label="类型">
               <el-radio-button label="1">显示</el-radio-button>

@@ -320,7 +320,7 @@ export default {
         let formVal = this.form[key]
         let initialVal
         if (Object.prototype.toString.call(formVal) === '[object Object]') {
-          if (formVal.value) {
+          if ('value' in formVal) {
             initialVal = formVal.value
           } else if (!formVal.type || formVal.type === 'string') {
             initialVal = ''

@@ -10,6 +10,7 @@ import 'theme/components/dialog'
 import 'theme/components/form'
 import 'theme/components/loading'
 import 'theme/components/input'
+import 'theme/components/input-number'
 import 'theme/components/popconfirm'
 import 'theme/components/select'
 import 'theme/components/radio'
@@ -31,6 +32,7 @@ Vue.use(Element.Select)
 Vue.use(Element.RadioGroup)
 Vue.use(Element.RadioButton)
 Vue.use(Element.Cascader)
+Vue.use(Element.InputNumber)
 // Vue.use(Element.Input)
 Vue.prototype.$confirm = Element.MessageBox.confirm
 
