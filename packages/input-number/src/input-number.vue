@@ -198,7 +198,7 @@
         return parseFloat(Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision));
       },
       getPrecision(value) {
-        if (value === undefined) return 0;
+        if (value === undefined || value === null) return 0;
         const valueString = value.toString();
         const dotPosition = valueString.indexOf('.');
         let precision = 0;

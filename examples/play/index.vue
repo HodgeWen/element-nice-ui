@@ -110,7 +110,7 @@ export default {
           value: '1'
         },
 
-        height: { required: true, type: 'number' },
+        height: { value: null, required: true, type: 'number' },
 
         select: [],
 
