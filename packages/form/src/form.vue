@@ -313,12 +313,28 @@ export default {
 
     resetFields() {
       if (!this.model) {
-        console.warn('[warn] 你需要往form中传入一个model方可清除验证')
+        console.warn('[warn] 你需要传入form方可清除验证')
         return
       }
-      this.fields.forEach((field) => {
-        field.resetField()
-      })
+      for (const key in this.model) {
+        let formVal = this.form[key]
+        let initialVal
+        if (Object.prototype.toString.call(formVal) === '[object Object]') {
+          if (formVal.value) {
+            initialVal = formVal.value
+          } else if (!formVal.type || formVal.type === 'string') {
+            initialVal = ''
+          } else if (formVal.type === 'array') {
+            initialVal = []
+          } else {
+            initialVal = null
+          }
+        } else {
+          initialVal = formVal
+        }
+        this.model[key] = initialVal
+      }
+      this.clearValidate()
     },
     clearValidate(props = []) {
       const fields = props.length
@@ -332,7 +348,7 @@ export default {
     },
     validate(callback) {
       if (!this.model) {
-        console.warn('[warn] 你需要往form中传入一个model方可验证')
+        console.warn('[warn] 你需要传入form方可验证')
         return
       }
 
