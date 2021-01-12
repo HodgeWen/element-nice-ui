@@ -31,7 +31,13 @@
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
           <el-form :form="form" ref="form" size="small" label-width="60px">
-            <el-select multiple filterable t-label="测试" t-prop="select" :options="{ 0: '0', 1: '1' }" />
+            <el-select
+              multiple
+              filterable
+              t-label="测试"
+              t-prop="select"
+              :options="{ 0: '0', 1: '1' }"
+            />
             <el-input :disabled="disabled === 'true'" t-prop="name" t-label="名字" />
             <el-input
               slot="data"
@@ -47,9 +53,8 @@
             </el-radio-group>
             <el-select
               t-label="树形选择器"
-              api='/select/tree'
+              api="/select/tree"
               tree
-              multiple
               filterable
               t-prop="cas"
             />
@@ -108,7 +113,7 @@ export default {
 
         select: [],
 
-        cas: { value: ['zhinan'] }
+        cas: { value: 'zhinan' }
       },
 
       disabled: 'false'

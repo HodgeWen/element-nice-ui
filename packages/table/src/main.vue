@@ -280,6 +280,10 @@ export default {
       } else {
         v === null && this.$refs.table.clearSelection()
       }
+    },
+
+    api() {
+      this.fetchData()
     }
   },
 
@@ -388,7 +392,7 @@ export default {
     },
 
     // 获取表格数据
-    fetchData(keepPage) {
+    fetchData(keepPage = false) {
       if (!this.api || !this.$http || !this.$EL_TABLE_PROP_CONFIG) return
 
       if (keepPage !== true) {

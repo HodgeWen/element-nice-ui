@@ -479,7 +479,6 @@ export default {
         if (!this.multiple) {
           this.$refs.tree.setCurrentKey(val ? val : null)
         } else {
-
           this.$refs.tree.setCheckedKeys(val)
         }
       }
@@ -605,8 +604,8 @@ export default {
     },
 
     // 节点多选选择
-    onTreeCheck(data, {  mergedCheckedKeys }) {
-      this.$emit('input', mergedCheckedKeys)
+    onTreeCheck(data, { checkedKeys }) {
+      this.$emit('input', checkedKeys)
       this.emitChange(data.value, data.label)
     },
 
@@ -988,13 +987,26 @@ export default {
 
     deleteTag(event, tag) {
       let index = this.selected.indexOf(tag)
+
       if (index > -1 && !this.selectDisabled) {
-        const value = this.value.slice()
-        value.splice(index, 1)
-        this.$emit('input', value)
-        this.emitChange(value)
+        // TODO 性能是和否可以优化
+        if (this.tree) {
+          let restTags = this.selected.slice()
+          restTags.splice(index, 1)
+          let { tree } = this.$refs
+          tree.setCheckedKeys(restTags.map(tag => tag.value))
+          let newVal = tree.getCheckedKeys()
+          this.$emit('input', newVal)
+          this.emitChange(newVal)
+        } else {
+          const value = this.value.slice()
+          value.splice(index, 1)
+          this.$emit('input', value)
+          this.emitChange(value)
+        }
         this.$emit('remove-tag', tag.value)
       }
+
       event.stopPropagation()
     },
 

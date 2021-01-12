@@ -196,7 +196,7 @@ Vue.prototype.$http = {
                         label: 'Rate 评分'
                       },
                       {
-                        value: 'form',
+                        value: 'form1',
                         label: 'Form 表单'
                       }
                     ]
