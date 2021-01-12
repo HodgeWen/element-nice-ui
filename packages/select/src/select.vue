@@ -93,6 +93,7 @@
       :tabindex="multiple && filterable ? '-1' : null"
       @focus="handleFocus"
       @blur="handleBlur"
+      :clearable="false"
       @keyup.native="debouncedOnInputChange"
       @keydown.native.down.stop.prevent="navigateOptions('next')"
       @keydown.native.up.stop.prevent="navigateOptions('prev')"
@@ -108,14 +109,12 @@
       </template>
       <template #suffix>
         <i
-          v-show="!showClose"
-          :class="['el-select__caret', 'el-input__icon', 'el-icon-' + iconClass]"
-        ></i>
-        <i
           v-if="showClose"
           class="el-select__caret el-input__icon el-icon-circle-close"
           @click="handleClearClick"
         ></i>
+
+        <i v-else :class="['el-select__caret', 'el-input__icon', 'el-icon-' + iconClass]"></i>
       </template>
     </el-input>
     <transition name="el-zoom-in-top" @before-enter="handleMenuEnter" @after-leave="doDestroy">
@@ -510,6 +509,7 @@ export default {
         if (this.$refs.input) {
           this.$refs.input.blur()
         }
+
         this.query = ''
         this.previousQuery = null
         this.selectedLabel = ''
@@ -539,6 +539,10 @@ export default {
         this.broadcast('ElSelectDropdown', 'updatePopper')
         if (this.filterable) {
           this.query = this.remote ? '' : this.selectedLabel
+          // 重新过滤
+          if (this.tree && this.selectedLabel) {
+            this.$refs.tree.filter('')
+          }
           this.handleQueryChange(this.query)
           if (this.multiple) {
             this.$refs.input.focus()
@@ -994,7 +998,7 @@ export default {
           let restTags = this.selected.slice()
           restTags.splice(index, 1)
           let { tree } = this.$refs
-          tree.setCheckedKeys(restTags.map(tag => tag.value))
+          tree.setCheckedKeys(restTags.map((tag) => tag.value))
           let newVal = tree.getCheckedKeys()
           this.$emit('input', newVal)
           this.emitChange(newVal)

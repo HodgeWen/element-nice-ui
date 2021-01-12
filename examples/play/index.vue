@@ -9,6 +9,8 @@
       row-key="id"
       border
       pagination
+      no-searcher
+      no-cache
       ref="table"
       query-label-width="60"
     >

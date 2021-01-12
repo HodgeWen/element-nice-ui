@@ -514,6 +514,14 @@
   "el-table/empty-text": {
     "description": "Displayed text when data is empty. You can customize this area with slot='empty'"
   },
+  "el-table/no-cache": {
+    "type": "boolean",
+    "description": "表示表格不使用url的缓存"
+  },
+  "el-table/no-searcher": {
+    "type": "boolean",
+    "description": "表示表格不显示searcher栏"
+  },
   "el-tree/empty-text": { "description": "text displayed when data is void" },
   "el-form-item/prop": {
     "description": "a key of model. In the use of validate and resetFields method, the attribute is required"

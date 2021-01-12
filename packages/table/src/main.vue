@@ -26,7 +26,7 @@
       </el-context>
 
       <el-context depth="2" :ctx="ctx" class="el-happy-table__tools-right" tag="section">
-        <el-tooltip v-if="api && !data" content="显示/隐藏 搜索栏">
+        <el-tooltip v-if="api && !data && !this.noSearcher" content="显示/隐藏 搜索栏">
           <el-btn v-model="searchable" @input="onToggleSearcher" icon="set-up" circle />
         </el-tooltip>
 
@@ -183,6 +183,14 @@ export default {
 
     value: {
       type: [Array, Object]
+    },
+
+    noCache: {
+      type: Boolean
+    },
+
+    noSearcher: {
+      type: Boolean
     }
   },
 
@@ -248,7 +256,7 @@ export default {
 
     // 显示搜索
     showSearcher() {
-      return this.searchable && this.api && !this.data
+      return this.searchable && this.api && !this.data && !this.noSearcher
     },
 
     params() {
@@ -341,11 +349,13 @@ export default {
 
     // query 替换
     queryReplace() {
+      if (this.noCache) return
       historyReplace({ ...this.params, sa: this.searchable })
     },
 
     // 从url中获取query值, 改变query
     readQuery() {
+      if (this.noCache) return
       let queryObj = getUrlSearchObj()
       extendQuery(this.query, queryObj)
 
