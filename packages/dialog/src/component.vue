@@ -226,8 +226,8 @@ export default {
           this.loading = true
           this.confirm()
             .then((res) => {
+              this.loading = false
               if (res !== false) {
-                this.loading = false
                 this.$emit('change', false)
               }
             })

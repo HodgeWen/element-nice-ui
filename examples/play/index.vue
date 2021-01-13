@@ -41,7 +41,7 @@
               t-prop="select"
               :options="{ 0: '0', 1: '1' }"
             />
-            <el-input :disabled="disabled === 'true'" t-prop="name" t-label="名字" />
+            <el-input :disabled="disabled === 'true'" t-prop="name" t-label="名字" append="测试" />
             <el-input-number
               slot="data"
               slot-scope="{ type }"

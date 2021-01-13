@@ -6,9 +6,9 @@
       {
         'is-disabled': inputDisabled,
         'is-exceed': inputExceed,
-        'el-input-group': $slots.prepend || $slots.append,
-        'el-input-group--append': $slots.append,
-        'el-input-group--prepend': $slots.prepend,
+        'el-input-group': $slots.prepend || prepend || $slots.append || append,
+        'el-input-group--append': $slots.append || append,
+        'el-input-group--prepend': $slots.prepend || prepend,
         'el-input--prefix': $slots.prefix || prefixIcon,
         'el-input--suffix': $slots.suffix || suffixIcon || clearable || showPassword
       }
