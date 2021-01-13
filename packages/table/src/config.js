@@ -38,7 +38,6 @@ export const cellForced = {
         },
         nativeOn: {}
       }
-
       if (!disabled) {
         vueData.nativeOn.click = this.toggleAllSelection
       }

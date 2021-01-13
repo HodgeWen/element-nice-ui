@@ -160,6 +160,7 @@ export default Vue.extend({
 
     toggleRowSelection(row, selected, emitChange = true) {
       const changed = toggleRowStatus(this.states.selection, row, selected);
+
       if (changed) {
         const newSelection = (this.states.selection || []).slice();
         // 调用 API 修改选中值，不触发 select 事件
@@ -168,6 +169,10 @@ export default Vue.extend({
         }
         this.table.$emit('selection-change', newSelection);
       }
+    },
+
+    setSelection(rows) {
+      this.states.selection = rows
     },
 
     _toggleAllSelection() {

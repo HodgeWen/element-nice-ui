@@ -404,6 +404,11 @@ export default {
       this.store.updateAllSelected()
     },
 
+    setSelection(rows) {
+      this.store.setSelection(rows)
+      this.store.updateAllSelected()
+    },
+
     toggleRowExpansion(row, expanded) {
       this.store.toggleRowExpansionAdapter(row, expanded)
     },

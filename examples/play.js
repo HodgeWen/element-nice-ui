@@ -49,6 +49,27 @@ Vue.prototype.$EL_SELECT_PROP_CONFIG = {
 
 Vue.prototype.$http = {
   get(url = '') {
+    if (url === 'arr') {
+      return Promise.resolve({
+        code: 200,
+        data: {
+          records: Array(200).fill().map((_, i) => ({
+            id: i,
+            icon: null,
+            name: '用户新增',
+            spread: false,
+            path: null,
+            keepAlive: '0',
+            permission: 'sys_user_add',
+            type: '1',
+            label: '用户新增',
+            sort: null
+          })),
+
+          total: 100
+        }
+      })
+    }
     if (url === 'select') {
       return new Promise((res) => {
         setTimeout(() => {

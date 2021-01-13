@@ -3,7 +3,7 @@
     <!-- query-label-width: 所有的query元素的label宽度, 默认50 -->
     <el-table
       :headers="headers"
-      api="aa"
+      api="arr"
       :query="query"
       stripe
       row-key="id"
@@ -13,10 +13,11 @@
       no-cache
       ref="table"
       query-label-width="60"
+      v-model="selected"
     >
       <template #tools>
         <el-btn type="primary" @click="visible = true">新增</el-btn>
-        <el-btn :disabled="selected && selected.length">删除</el-btn>
+        <el-btn :disabled="selected && !!selected.length">删除</el-btn>
       </template>
 
       <template #column.action="{ row, index }">
@@ -75,7 +76,7 @@ export default {
   },
   data() {
     return {
-      selected: null,
+      selected: [],
       headers: [
         { label: '名称', prop: 'name', align: 'left' },
         { label: '图标', prop: 'icon' },

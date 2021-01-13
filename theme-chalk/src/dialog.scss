@@ -1,7 +1,7 @@
-@import "mixins/mixins";
-@import "mixins/utils";
-@import "common/var";
-@import "common/popup";
+@import 'mixins/mixins';
+@import 'mixins/utils';
+@import 'common/var';
+@import 'common/popup';
 // @import "perfect-scrollbar";
 
 @include b(dialog) {
@@ -13,7 +13,6 @@
   box-sizing: border-box;
   width: 720px;
   max-height: 70vh;
-
 
   @include when(fullscreen) {
     width: 100%;
@@ -41,24 +40,31 @@
 
   @include e(header) {
     padding: $--dialog-padding-primary;
-    padding-bottom: 9px;
     border-bottom: 1px solid #eee;
     box-sizing: border-box;
+    background-color: $--color-primary;
   }
 
   @include e(headerbtn) {
     position: absolute;
-    top: $--dialog-padding-primary;
+    line-height: 1;
+    top: (
+      ($--dialog-font-line-height + ($--dialog-padding-primary * 2) - $--message-close-size) / 2
+    );
     padding: 0;
     background: transparent;
     border: none;
     outline: none;
     cursor: pointer;
     font-size: $--message-close-size;
-    color: $--color-info;
+    color: $--color-primary-light-9;
+
+    i {
+      vertical-align: top;
+    }
 
     &:hover {
-      color: $--color-primary;
+      color: $--color-primary-light-5;
     }
 
     &-full {
@@ -72,7 +78,7 @@
   @include e(title) {
     line-height: $--dialog-font-line-height;
     font-size: $--dialog-title-font-size;
-    color: $--color-text-primary;
+    color: $--color-primary-light-9;
   }
 
   @include e(body) {
@@ -108,11 +114,11 @@
 }
 
 .dialog-fade-enter-active {
-  animation: dialog-fade-in .3s;
+  animation: dialog-fade-in 0.3s;
 }
 
 .dialog-fade-leave-active {
-  animation: dialog-fade-out .3s;
+  animation: dialog-fade-out 0.3s;
 }
 
 @keyframes dialog-fade-in {

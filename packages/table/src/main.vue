@@ -49,9 +49,9 @@
       :data="computedData"
       v-loading="loading"
       :placeholder="placeholder"
-      @selection-change="$emit('input', $event)"
+      @selection-change="onSelectionChange"
       :highlight-current-row="isSingle"
-      @current-change="$emit('input', $event)"
+      @current-change="onSelectionChange"
     >
       <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
         <template v-if="header.slotName" #default="{ row, column, $index }">
@@ -284,9 +284,9 @@ export default {
 
     value(v) {
       if (Array.isArray(v)) {
-        !v.length && this.$refs.table.clearSelection()
+        !v.length ? this.clearSelection() : this.$refs.table.setSelection(v)
       } else {
-        v === null && this.$refs.table.clearSelection()
+        v === null && this.clearSelection()
       }
     },
 
@@ -297,6 +297,10 @@ export default {
 
   methods: {
     getValueByPath,
+
+    onSelectionChange(val) {
+      this.$emit('input', val)
+    },
 
     clearSelection() {
       this.$refs.table.clearSelection()
