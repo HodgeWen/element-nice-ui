@@ -48,8 +48,9 @@
             @click="onConfirm"
             size="small"
             type="primary"
-            >{{ confirmText }}</el-btn
           >
+            {{ confirmText }}
+          </el-btn>
         </el-context>
       </div>
     </div>

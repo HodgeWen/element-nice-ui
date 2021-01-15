@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Element from 'main/index.js'
+
+// import App from './play/table.vue'
 import App from './play/index.vue'
 
 import 'theme/components/base'
@@ -18,8 +20,10 @@ import 'theme/components/radio-group'
 import 'theme/components/radio-button'
 import 'theme/components/cascader'
 import 'theme/components/tree'
+import 'theme/components/menu'
 // import 'theme/src/.scss'
 
+// Vue.use(Element.NewTable)
 Vue.use(Element.Table)
 Vue.use(Element.ActionItem)
 Vue.use(Element.Btn)
@@ -33,7 +37,10 @@ Vue.use(Element.RadioGroup)
 Vue.use(Element.RadioButton)
 Vue.use(Element.Cascader)
 Vue.use(Element.InputNumber)
-// Vue.use(Element.Input)
+Vue.use(Element.Input)
+Vue.use(Element.Menu)
+Vue.use(Element.MenuItem)
+Vue.use(Element.Submenu)
 Vue.prototype.$confirm = Element.MessageBox.confirm
 
 Vue.prototype.$log = console.log
@@ -53,7 +60,7 @@ Vue.prototype.$http = {
       return Promise.resolve({
         code: 200,
         data: {
-          records: Array(200).fill().map((_, i) => ({
+          records: Array(20).fill().map((_, i) => ({
             id: i,
             icon: null,
             name: '用户新增',

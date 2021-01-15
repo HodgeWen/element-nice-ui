@@ -20,6 +20,14 @@
   font-size: 14px;
   color: $--table-font-color;
 
+  th.el-table-column--selection {
+    .el-checkbox__inner {
+      // border-radius: 2px;
+      // padding: 1px;
+      border-color: #fff;
+    }
+  }
+
   // 数据为空
   @include e(empty-block) {
     min-height: 60px;
@@ -136,7 +144,7 @@
 
     &.is-group {
       th {
-        background: $--background-color-base;
+        background: $--color-primary;
       }
     }
   }

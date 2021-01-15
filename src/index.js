@@ -27,6 +27,7 @@ import Btn from '../packages/btn/index.js';
 import BtnGroup from '../packages/btn-group/index.js';
 import Action from '../packages/action/index.js';
 import ActionItem from '../packages/action-item/index.js';
+import NewTable from '../packages/new-table/index.js';
 import Table from '../packages/table/index.js';
 import TableColumn from '../packages/table-column/index.js';
 import DatePicker from '../packages/date-picker/index.js';
@@ -117,6 +118,7 @@ const components = [
   BtnGroup,
   Action,
   ActionItem,
+  NewTable,
   Table,
   TableColumn,
   DatePicker,
@@ -206,7 +208,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '2.15.38',
+  version: '2.15.41',
   locale: locale.use,
   i18n: locale.i18n,
   install,
@@ -239,6 +241,7 @@ export default {
   BtnGroup,
   Action,
   ActionItem,
+  NewTable,
   Table,
   TableColumn,
   DatePicker,

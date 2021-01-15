@@ -23,7 +23,7 @@
     height: $--checkbox-bordered-height;
 
     &.is-checked {
-      border-color: $--color-primary;
+      border-color: $--color-white;
     }
 
     &.is-disabled {
@@ -191,6 +191,7 @@
   }
   @include e(inner) {
     display: inline-block;
+    vertical-align: top;
     position: relative;
     border: $--checkbox-input-border;
     border-radius: $--checkbox-border-radius;

@@ -12,6 +12,9 @@ export default {
       type: String,
       default: 'default'
     },
+    children: {
+      type: Array
+    },
     label: String,
     className: String,
     labelClassName: String,
@@ -354,6 +357,16 @@ export default {
 
   render(h) {
     // slots 也要渲染，需要计算合并表头
-    return h('div', this.$slots.default)
+    let children
+    if (this.children && this.children.length) {
+      children = this.children.map(child => {
+        return <el-table-column {...{ props: child }} />
+      })
+    } else {
+      children = this.$slots.default
+    }
+    return (
+      <div>{ children }</div>
+    )
   }
 }

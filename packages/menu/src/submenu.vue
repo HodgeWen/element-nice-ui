@@ -136,8 +136,10 @@
       isFirstLevel() {
         let isFirstLevel = true;
         let parent = this.$parent;
+        let { recursiveMenuProp } = this.rootMenu
         while (parent && parent !== this.rootMenu) {
-          if (['ElSubmenu', 'ElMenuItemGroup'].indexOf(parent.$options.componentName) > -1) {
+          let menuData = parent[recursiveMenuProp]
+          if (['ElSubmenu', 'ElMenuItemGroup'].indexOf(parent.$options.componentName) > -1 || (menuData && menuData.children && menuData.children.length)) {
             isFirstLevel = false;
             break;
           } else {
@@ -258,6 +260,7 @@
       this.rootMenu.addSubmenu(this);
       this.initPopper();
     },
+    inject: ['rootMenu'],
     beforeDestroy() {
       this.parentMenu.removeSubmenu(this);
       this.rootMenu.removeSubmenu(this);

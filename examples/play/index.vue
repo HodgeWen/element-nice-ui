@@ -17,6 +17,12 @@
     >
       <template #tools>
         <el-btn type="primary" @click="visible = true">新增</el-btn>
+        <el-btn type="primary" @click=";(visible = true), (type = 'update')">编辑(有选择)</el-btn>
+        <el-btn type="primary" @click=";(visible = true), (type = 'view')">查看(无选择)</el-btn>
+        <el-btn type="primary" @click="onToggle">{{
+          selected && selected.length !== undefined ? '多选' : '单选'
+        }}</el-btn>
+
         <el-btn :disabled="selected && !!selected.length">删除</el-btn>
       </template>
 
@@ -33,7 +39,7 @@
 
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
-          <el-form :form="form" ref="form" size="small" label-width="60px">
+          <!-- <el-form :form="form" ref="form" size="small" label-width="60px">
             <el-select
               multiple
               filterable
@@ -60,7 +66,15 @@
               filterable
               t-prop="cas"
             />
-          </el-form>
+          </el-form> -->
+
+          <el-table
+            :headers="headers"
+            api="arr"
+            v-if="visible"
+            v-model="type === 'update' ? tableSelected : undefined"
+          >
+          </el-table>
         </el-dialog>
       </template>
     </el-table>
@@ -77,8 +91,12 @@ export default {
   data() {
     return {
       selected: [],
+      tableSelected: [],
       headers: [
-        { label: '名称', prop: 'name', align: 'left' },
+        { label: '名称', prop: 'name', align: 'left', children: [
+          {label: '名称', prop: 'name'},
+          {label: '排序', prop: 'sort'},
+        ] },
         { label: '图标', prop: 'icon' },
         { label: '排序', prop: 'sort' },
         { label: '路由地址', prop: 'path' },
@@ -134,6 +152,14 @@ export default {
 
     onTest(i) {
       this.$refs.table.update(i, { icon: '11' })
+    },
+
+    onToggle() {
+      if (Array.isArray(this.selected)) {
+        this.selected = undefined
+      } else {
+        this.selected = []
+      }
     }
   },
 

@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: 'el-table__cell'
+  name: 'ElTableCell'
 }
 </script>

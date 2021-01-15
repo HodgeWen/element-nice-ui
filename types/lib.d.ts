@@ -34,5 +34,6 @@ export interface TableHeaderItem<Prop extends string = string> {
   /** 仅对type=selection的列有效 */
   selectable?: (row: any, index: number) => boolean;
   /** 该列的插槽名称, 列作为一个插槽传入 */
-  slotName?: string
+  slotName?: string;
+  children?: Array<TableHeaderItem<Prop>>
 }

@@ -18,7 +18,6 @@
       </el-context>
     </div>
     <!-- 搜索栏 end -->
-
     <!-- 工具栏 start -->
     <div class="el-happy-table__tools" v-if="showTools" ref="tools">
       <el-context :ctx="ctx" :depth="2" class="el-happy-table__tools-left" tag="section">
@@ -237,13 +236,21 @@ export default {
     // 表格的头部属性
     computedHeaders() {
       if (!this.headers) return []
-      let headers = this.headers.map((header) => {
-        let ret = { ...header, _id: this.headerId++ }
-        if (!ret.align) {
-          ret.align = this.align
-        }
-        return ret
-      })
+
+      let mapper = (arr) =>
+        arr.map((header) => {
+          let ret = { ...header, _id: this.headerId++ }
+          if (!ret.align) {
+            ret.align = this.align
+          }
+
+          if (ret.children) {
+            ret.children = mapper(ret.children)
+          }
+          return ret
+        })
+
+      let headers = mapper(this.headers)
 
       if (this.isMultiple) {
         headers.unshift({
@@ -284,7 +291,7 @@ export default {
 
     value(v) {
       if (Array.isArray(v)) {
-        !v.length ? this.clearSelection() : this.$refs.table.setSelection(v)
+        v.length ? this.$refs.table.setSelection(v) : this.clearSelection()
       } else {
         v === null && this.clearSelection()
       }
@@ -483,6 +490,8 @@ export default {
     },
 
     init() {
+      this.isMultiple = false
+      this.isSingle = false
       if (Array.isArray(this.value)) {
         this.isMultiple = true
       } else if (this.value !== undefined) {

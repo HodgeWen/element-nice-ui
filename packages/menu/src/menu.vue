@@ -94,6 +94,10 @@ export default {
   },
 
   props: {
+    recursiveMenuProp: {
+      type: String,
+      default: 'menu'
+    },
     mode: {
       type: String,
       default: 'vertical'
