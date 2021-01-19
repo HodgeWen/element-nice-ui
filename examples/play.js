@@ -21,6 +21,7 @@ import 'theme/components/radio-button'
 import 'theme/components/cascader'
 import 'theme/components/tree'
 import 'theme/components/menu'
+import 'theme/components/perfect-scrollbar'
 // import 'theme/src/.scss'
 
 Vue.use(Element.NewTable)
@@ -41,6 +42,7 @@ Vue.use(Element.Input)
 Vue.use(Element.Menu)
 Vue.use(Element.MenuItem)
 Vue.use(Element.Submenu)
+Vue.use(Element.PerfectScrollbar)
 Vue.prototype.$confirm = Element.MessageBox.confirm
 
 Vue.prototype.$log = console.log

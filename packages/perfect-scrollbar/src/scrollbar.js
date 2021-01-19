@@ -1,4 +1,6 @@
 import PerfectScrollbar from 'perfect-scrollbar'
+import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
+
 export default {
   name: 'ElPerfectScrollbar',
 
@@ -17,7 +19,7 @@ export default {
     wheelPropagation: {
       type: Boolean,
       default: true
-    }
+    },
   },
 
   methods: {
@@ -30,6 +32,17 @@ export default {
       if (typeof y === 'number') {
         container.scrollTop = y
       }
+    },
+
+    update() {
+      this.ps && this.$nextTick(() => this.ps.update())
+    },
+
+    destroy() {
+      if (this.ps) {
+        this.ps.destroy()
+        this.ps = null
+      }
     }
   },
 
@@ -38,6 +51,7 @@ export default {
       this.tag,
       {
         ref: 'container',
+        class: 'ps',
         on: this.$listeners
       },
       this.$slots.default
@@ -50,18 +64,14 @@ export default {
       wheelSpeed,
       wheelPropagation
     })
-  },
 
-  updated() {
-    if (this.ps) {
-      this.$nextTick(this.ps.update)
-    }
+    let children = this.$children[0]
+    children && addResizeListener(children.$el, this.update)
   },
 
   beforeDestroy() {
-    if (this.ps) {
-      this.ps.destroy()
-      this.ps = null
-    }
+    let children = this.$children[0]
+    children && removeResizeListener(children.$el, this.update)
+    this.destroy()
   }
 }

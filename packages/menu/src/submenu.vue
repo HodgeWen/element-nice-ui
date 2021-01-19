@@ -46,7 +46,7 @@
       disabled: Boolean,
       popperAppendToBody: {
         type: Boolean,
-        default: undefined
+        default: true
       }
     },
 
@@ -200,7 +200,9 @@
         }, showTimeout);
 
         if (this.appendToBody) {
-          this.$parent.$el.dispatchEvent(new MouseEvent('mouseenter'));
+          // TODO蜜汁栈溢出bug
+          console.log(this.$parent.$el)
+          // this.$parent.$el.dispatchEvent(new MouseEvent('mouseenter'));
         }
       },
       handleMouseleave(deepDispatch = false) {
