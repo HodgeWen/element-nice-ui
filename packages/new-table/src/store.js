@@ -8,10 +8,6 @@ class TableStore {
       this.$vm = new Vue({
         data: {
           state: options.state || {}
-        },
-
-        beforeDestroy() {
-          console.log('destroyed')
         }
       })
 
@@ -26,6 +22,7 @@ class TableStore {
   commit(type, payload) {
     let mutation = this._mutations[type]
     mutation && mutation(this.$vm.state, payload)
+    return this
   }
 
   /** 销毁实例 */
@@ -38,12 +35,17 @@ class TableStore {
 export function createStore() {
   return new TableStore({
     state: {
-      count: Date.now()
+      data: [],
+      headers: []
     },
 
     mutations: {
-      setCount(state, payload) {
-        state.count = payload
+      setData(state, payload) {
+        state.data = payload
+      },
+
+      setHeaders(state, payload) {
+        state.headers = payload
       }
     }
   })

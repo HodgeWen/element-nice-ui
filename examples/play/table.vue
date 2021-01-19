@@ -1,25 +1,33 @@
 <template>
   <div>
-    <el-table :headers="headers" v-if="show"></el-table>
+    <el-new-table :headers="headers" :data="data" v-if="show"></el-new-table>
   </div>
 </template>
 
 <script>
-import MenuItem from './menu-item.vue'
 export default {
-  components: {
-    MenuItem
-  },
+
   data: () => ({
-    headers: [{ label: '你好' }],
+    headers: [{ label: '名称', prop: 'name' }, { label: '年龄', prop: 'age' }],
+
+    data: [
+      { name: '张三', age: 20 },
+      { name: '李四', age: 21 },
+      { name: '李四', age: 21 },
+      { name: '李四', age: 21 },
+      { name: '李四', age: 21 },
+      { name: '李四', age: 21 },
+      { name: '李四', age: 21 },
+      { name: '李四', age: 21 },
+      { name: '李四', age: 21 },
+      { name: '李四', age: 21 },
+    ],
 
     show: true
   }),
 
   mounted() {
-    setTimeout(() => {
-      this.show = false
-    }, 3000)
+
   }
 }
 </script>

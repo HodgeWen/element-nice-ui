@@ -1,0 +1,43 @@
+@import '../../../theme-chalk/src/mixins/mixins.scss';
+
+@include b(table) {
+  width: 100%;
+
+  @include e(wrap) {
+    width: 100%;
+    overflow: auto;
+    max-height: 200px;
+    position: relative;
+  }
+
+  @include e(main) {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  @include e(header) {
+    th {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1;
+      background: #ccc;
+    }
+  }
+
+  @include e(row) {
+    border-bottom: 1px solid #dee2e6;
+    td {
+      text-align: center;
+    }
+  }
+
+  @include e(loading) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #fff;
+  }
+}

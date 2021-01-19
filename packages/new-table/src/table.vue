@@ -8,15 +8,17 @@
       <slot name="tools" />
     </el-table-tools>
 
-    <el-table-body />
+    <el-table-wrap />
   </div>
 </template>
 
 <script>
 import ElTableSearcher from './table-searcher.vue'
 import ElTableTools from './table-tools.vue'
-import ElTableBody from './table-body.vue'
+import ElTableWrap from './table-wrap.vue'
 import { createStore } from './store'
+import { treeMap } from './util'
+import './table.scss'
 export default {
   name: 'ElNewTable',
 
@@ -25,11 +27,14 @@ export default {
   components: {
     ElTableSearcher,
     ElTableTools,
-    ElTableBody
+    ElTableWrap
   },
 
   provide() {
     this.store = createStore.call(this)
+    this.store
+      .commit('setData', this.computedData)
+      .commit('setHeaders', this.computedHeaders)
     return {
       store: this.store
     }
@@ -106,16 +111,67 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      internalData: [],
+
+      hasCheckbox: false,
+
+      hasRadio: false
+    }
   },
 
-  computed: {},
+  computed: {
+    computedHeaders() {
+      let id = 0
+      let ret = treeMap(this.headers, (header) => {
+        header._id = id++
+      })
+
+      // if (this.hasCheckbox) {
+      //   ret.push()
+      // } else if (this.hasRadio) {
+      //   ret.push()
+      // }
+
+      return ret
+    },
+
+    computedData() {
+      return this.data ? this.data : this.internalData
+    }
+  },
 
   methods: {
-    fetch() {}
+    /** 查询 */
+    fetch() {
+      // const {}
+    },
+
+    /** 初始化 */
+    init() {
+      if (Array.isArray(this.value)) {
+        this.hasCheckbox = true
+      } else if (this.value !== undefined) {
+        this.hasRadio = true
+      }
+    },
+
+    /**  */
   },
 
-  mounted() {},
+  watch: {
+    computedData(data) {
+      this.store.commit('setData', data)
+    },
+
+    computedHeaders(headers) {
+      this.store.commit('setHeaders', headers)
+    }
+  },
+
+  created() {
+    this.init()
+  },
 
   beforeDestroy() {
     this.store && this.store.destroy()
