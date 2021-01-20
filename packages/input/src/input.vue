@@ -367,8 +367,7 @@ export default {
       // hack for https://github.com/ElemeFE/element/issues/8548
       // should remove the following line when we don't support IE
       if (event.target.value === this.nativeInputValue) return
-
-      this.$emit('input', event.target.value)
+      this.$emit('input', event.target.value, event)
 
       // ensure native input value is controlled
       // see: https://github.com/ElemeFE/element/issues/12850

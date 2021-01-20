@@ -1,5 +1,16 @@
 <template>
   <el-page :submit="() => {}">
+    <el-input-number money :precision="1"></el-input-number>
+    <h3>锚点1</h3>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <h3>锚点2</h3>
     <p>1</p>
     <p>1</p>
     <p>1</p>
@@ -9,14 +20,7 @@
     <p>1</p>
     <p>1</p>
     <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
+    <h3>锚点3</h3>
     <p>1</p>
     <p>1</p>
     <p>1</p>
