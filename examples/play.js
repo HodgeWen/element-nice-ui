@@ -22,11 +22,13 @@ import 'theme/components/cascader'
 import 'theme/components/tree'
 import 'theme/components/menu'
 import 'theme/components/perfect-scrollbar'
+import 'theme/components/page'
 // import 'theme/src/.scss'
 
 Vue.use(Element.NewTable)
 // Vue.use(Element.Table)
 Vue.use(Element.ActionItem)
+Vue.use(Element.Page)
 Vue.use(Element.Btn)
 Vue.use(Element.Dialog)
 Vue.use(Element.Form)

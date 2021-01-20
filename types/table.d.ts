@@ -209,7 +209,7 @@ export declare class ElTable extends ElementUIComponent {
 
   /**
    * 刷新表格数据
-   * @param keepPage 是否保持当前分页请求
+   * @param keepPage 是否保持当前分页请求, 默认false, 主动查询表示从头查找
    */
-  fetchData(keepPage): void
+  fetchData(keepPage = false): void
 }

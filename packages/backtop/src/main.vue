@@ -2,6 +2,7 @@
   <transition name="el-fade-in">
     <div
       v-if="visible"
+      ref="back"
       @click.stop="handleClick"
       :style="{
         'right': styleRight,
@@ -9,7 +10,7 @@
       }"
       class="el-backtop">
       <slot>
-        <el-icon name="caret-top"></el-icon>
+        <i class="el-icon-caret-top"></i>
       </slot>
     </div>
   </transition>
@@ -17,7 +18,6 @@
 
 <script>
 import throttle from 'throttle-debounce/throttle';
-
 const cubic = value => Math.pow(value, 3);
 const easeInOutCubic = value => value < 0.5
   ? cubic(value * 2) / 2
@@ -34,11 +34,11 @@ export default {
     target: [String],
     right: {
       type: Number,
-      default: 40
+      default: 20
     },
     bottom: {
       type: Number,
-      default: 40
+      default: 20
     }
   },
 
@@ -46,16 +46,18 @@ export default {
     return {
       el: null,
       container: null,
-      visible: false
+      visible: false,
+      targetBottom: 0,
+      targetRight: 0
     };
   },
 
   computed: {
     styleBottom() {
-      return `${this.bottom}px`;
+      return `${this.bottom + this.targetBottom}px`;
     },
     styleRight() {
-      return `${this.right}px`;
+      return `${this.right + this.targetRight}px`;
     }
   },
 
@@ -63,6 +65,7 @@ export default {
     this.init();
     this.throttledScrollHandler = throttle(300, this.onScroll);
     this.container.addEventListener('scroll', this.throttledScrollHandler);
+
   },
 
   methods: {
@@ -76,6 +79,10 @@ export default {
         }
         this.container = this.el;
       }
+      let { innerHeight, innerWidth } = window
+      let { clientHeight, clientWidth } = this.el
+      this.targetBottom = innerHeight - this.el.clientHeight
+      this.targetRight = innerWidth - this.el.clientWidth
     },
     onScroll() {
       const scrollTop = this.el.scrollTop;

@@ -1,4 +1,12 @@
 {
+  "el-page/no-backtop": {
+    "type": "boolean",
+    "description": "是否显示回到顶部"
+  },
+  "el-page/submit": {
+    "type": "function",
+    "description": "提交函数, 和form的confir类似"
+  },
   "t-label": {
     "type": "string",
     "description": "标签"

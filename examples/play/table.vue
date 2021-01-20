@@ -1,6 +1,37 @@
 <template>
-  <div>
-    <el-btn @click="collapse = !collapse">折叠</el-btn>
+  <el-page :submit="() => {}">
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+
+
+  </el-page>
+    <!-- <el-btn @click="collapse = !collapse">折叠</el-btn>
     <el-perfect-scrollbar
       tag="aside"
       style="height: 400px"
@@ -9,12 +40,12 @@
       class="layout__aside"
       :class="{ 'layout__aside--collapsed': collapse }"
     >
-      <el-menu size="large" :collapse="collapse" :collapse-transition="false">
+      <el-menu :collapse="collapse" :collapse-transition="false">
         <layout-aside-menu-item :key="i" :menu="menu" v-for="(menu, i) of menus" />
       </el-menu>
-    </el-perfect-scrollbar>
+    </el-perfect-scrollbar> -->
+
     <!-- <el-new-table :headers="headers" :data="data" v-if="show"></el-new-table> -->
-  </div>
 </template>
 
 <script>
@@ -431,3 +462,11 @@ export default {
   mounted() {}
 }
 </script>
+
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+</style>

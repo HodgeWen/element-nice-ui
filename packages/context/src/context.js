@@ -25,12 +25,14 @@ export default {
     if (children) {
       ~(function assign(arr, i = 0) {
         while (i++ < props.depth) {
-          arr.forEach(({ componentOptions: opts }) => {
+          arr.forEach(({ componentOptions: opts, children }) => {
             if (opts) {
               opts.propsData = { ...props.ctx, ...opts.propsData }
               if (opts.children) {
                 assign(opts.children, i)
               }
+            } else if (children) {
+              assign(children, i)
             }
           })
         }

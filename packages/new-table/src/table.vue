@@ -18,7 +18,7 @@ import ElTableTools from './table-tools.vue'
 import ElTableWrap from './table-wrap.vue'
 import { createStore } from './store'
 import { treeMap } from './util'
-import './table.scss'
+// import './table.scss'
 export default {
   name: 'ElNewTable',
 
