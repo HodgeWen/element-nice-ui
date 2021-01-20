@@ -1,5 +1,5 @@
 <template>
-  <div class="el-happy-table">
+  <div class="el-happy-table" :class="{ 'el-happy-table--auto-height': autoHeight }">
     <!-- 搜索栏 start -->
     <div class="el-happy-table__searcher" v-if="showSearcher" ref="searcher">
       <section>
@@ -171,6 +171,10 @@ export default {
       default: true
     },
 
+    height: {
+      type: [Number, String]
+    },
+
     autoHeight: {
       type: Boolean
     },
@@ -205,7 +209,7 @@ export default {
       size: 20
     },
 
-    height: 0,
+    accHeight: 0,
 
     headerId: 0,
 
@@ -277,10 +281,13 @@ export default {
     },
 
     bodyHeight() {
-      if (!this.height || this.autoHeight) {
-        return null
+      if (this.height) {
+        return this.height
       }
-      return `calc(100% - ${this.height}px)`
+      if (this.autoHeight || !this.accHeight) {
+        return
+      }
+      return `calc(100% - ${this.accHeight}px)`
     }
   },
 
@@ -450,18 +457,18 @@ export default {
     },
 
     updateHeight() {
-      let height = 0
+      let acc = 0
       let margin = 8
       if (this.showSearcher && this.$refs.searcher) {
-        height += this.$refs.searcher.clientHeight + margin
+        acc += this.$refs.searcher.clientHeight + margin
       }
       if (this.showTools && this.$refs.tools) {
-        height += this.$refs.tools.clientHeight + margin
+        acc += this.$refs.tools.clientHeight + margin
       }
       if (this.pagination) {
-        height += 36 + margin
+        acc += 36 + margin
       }
-      this.height = height
+      this.accHeight = acc
     },
 
     // 重置

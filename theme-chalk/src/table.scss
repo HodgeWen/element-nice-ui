@@ -612,6 +612,10 @@
 @include b(happy-table) {
   height: 100%;
 
+  @include m(auto-height) {
+    height: auto;
+  }
+
   @include e(searcher) {
     @include flex;
     background: #fff;

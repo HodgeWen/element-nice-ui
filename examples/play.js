@@ -5,7 +5,7 @@ import App from './play/table.vue'
 // import App from './play/index.vue'
 
 import 'theme/components/base'
-// import 'theme/components/table'
+import 'theme/components/table'
 import 'theme/components/action'
 import 'theme/components/btn'
 import 'theme/components/dialog'
@@ -26,7 +26,7 @@ import 'theme/components/page'
 // import 'theme/src/.scss'
 
 Vue.use(Element.NewTable)
-// Vue.use(Element.Table)
+Vue.use(Element.Table)
 Vue.use(Element.ActionItem)
 Vue.use(Element.Page)
 Vue.use(Element.Btn)

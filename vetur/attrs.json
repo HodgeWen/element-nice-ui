@@ -526,6 +526,10 @@
     "type": "boolean",
     "description": "表示表格不使用url的缓存"
   },
+  "el-table/height": {
+    "type": "string",
+    "description": "指定表格的高度, 优先级高于autoHeight"
+  },
   "el-table/no-searcher": {
     "type": "boolean",
     "description": "表示表格不显示searcher栏"

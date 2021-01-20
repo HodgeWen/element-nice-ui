@@ -5,10 +5,11 @@
       ref="back"
       @click.stop="handleClick"
       :style="{
-        'right': styleRight,
-        'bottom': styleBottom
+        right: styleRight,
+        bottom: styleBottom
       }"
-      class="el-backtop">
+      class="el-backtop"
+    >
       <slot>
         <i class="el-icon-caret-top"></i>
       </slot>
@@ -17,11 +18,10 @@
 </template>
 
 <script>
-import throttle from 'throttle-debounce/throttle';
-const cubic = value => Math.pow(value, 3);
-const easeInOutCubic = value => value < 0.5
-  ? cubic(value * 2) / 2
-  : 1 - cubic((1 - value) * 2) / 2;
+import throttle from 'throttle-debounce/throttle'
+const cubic = (value) => Math.pow(value, 3)
+const easeInOutCubic = (value) =>
+  value < 0.5 ? cubic(value * 2) / 2 : 1 - cubic((1 - value) * 2) / 2
 
 export default {
   name: 'ElBacktop',
@@ -49,69 +49,75 @@ export default {
       visible: false,
       targetBottom: 0,
       targetRight: 0
-    };
+    }
   },
 
   computed: {
     styleBottom() {
-      return `${this.bottom + this.targetBottom}px`;
+      return `${this.bottom + this.targetBottom}px`
     },
     styleRight() {
-      return `${this.right + this.targetRight}px`;
+      return `${this.right + this.targetRight}px`
+    }
+  },
+
+  watch: {
+    visible(v) {
+      v && this.init()
     }
   },
 
   mounted() {
-    this.init();
-    this.throttledScrollHandler = throttle(300, this.onScroll);
-    this.container.addEventListener('scroll', this.throttledScrollHandler);
-
+    this.init()
+    this.throttledScrollHandler = throttle(300, this.onScroll)
+    this.container.addEventListener('scroll', this.throttledScrollHandler)
   },
 
   methods: {
     init() {
-      this.container = document;
-      this.el = document.documentElement;
+      this.container = document
+      this.el = document.documentElement
       if (this.target) {
-        this.el = document.querySelector(this.target);
+        this.el = document.querySelector(this.target)
         if (!this.el) {
-          throw new Error(`target is not existed: ${this.target}`);
+          throw new Error(`target is not existed: ${this.target}`)
         }
-        this.container = this.el;
+        this.container = this.el
       }
       let { innerHeight, innerWidth } = window
-      let { clientHeight, clientWidth } = this.el
-      this.targetBottom = innerHeight - this.el.clientHeight
-      this.targetRight = innerWidth - this.el.clientWidth
+      let { right, bottom } = this.el.getBoundingClientRect()
+
+      this.targetBottom = innerHeight - bottom
+      this.targetRight = innerWidth - right
     },
     onScroll() {
-      const scrollTop = this.el.scrollTop;
-      this.visible = scrollTop >= this.visibilityHeight;
+      const scrollTop = this.el.scrollTop
+      this.visible = scrollTop >= this.visibilityHeight
     },
     handleClick(e) {
-      this.scrollToTop();
-      this.$emit('click', e);
+      this.scrollToTop()
+      this.$emit('click', e)
     },
     scrollToTop() {
-      const el = this.el;
-      const beginTime = Date.now();
-      const beginValue = el.scrollTop;
-      const rAF = window.requestAnimationFrame || (func => setTimeout(func, 16));
+      const el = this.el
+      const beginTime = Date.now()
+      const beginValue = el.scrollTop
+      const rAF = window.requestAnimationFrame || ((func) => setTimeout(func, 16))
       const frameFunc = () => {
-        const progress = (Date.now() - beginTime) / 500;
+        const progress = (Date.now() - beginTime) / 500
         if (progress < 1) {
-          el.scrollTop = beginValue * (1 - easeInOutCubic(progress));
-          rAF(frameFunc);
+          el.scrollTop = beginValue * (1 - easeInOutCubic(progress))
+          rAF(frameFunc)
         } else {
-          el.scrollTop = 0;
+          el.scrollTop = 0
         }
-      };
-      rAF(frameFunc);
+      }
+      rAF(frameFunc)
     }
   },
 
   beforeDestroy() {
-    this.container.removeEventListener('scroll', this.throttledScrollHandler);
+    this.container.removeEventListener('scroll', this.throttledScrollHandler)
   }
-};
+}
 </script>
