@@ -17,11 +17,9 @@
     </el-context>
 
     <el-perfect-scrollbar class="el-page__anchor-list" tag="ul">
-      <ul>
-        <li v-for="(anchor, key) of anchorList" :key="key" @click="onAnchorClick(anchor)">
-          {{ anchor.title }}
-        </li>
-      </ul>
+      <li v-for="(anchor, key) of anchorList" :key="key" @click="onAnchorClick(anchor)">
+        {{ anchor.title }}
+      </li>
     </el-perfect-scrollbar>
 
     <el-backtop v-if="!noBacktop" target=".el-page__body" />
