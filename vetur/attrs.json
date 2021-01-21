@@ -5,7 +5,7 @@
   },
   "el-page/submit": {
     "type": "function",
-    "description": "提交函数, 和form的confir类似"
+    "description": "提交函数, 和form的confirm类似"
   },
   "t-label": {
     "type": "string",
@@ -553,8 +553,13 @@
     "options": ["none", "both", "horizontal", "vertical"],
     "description": "control the resizability"
   },
-  "el-input/step": { "description": "same as step in native input" },
+  "el-input/step": { "description": "步进长度, 默认为1" },
   "el-input-number/step": { "description": "incremental step" },
+  "el-input-number/money": {
+    "type": "boolean|number",
+    "description": "以货币格式显示, 可以传入一个转化数值作为输出的实际值的相乘系数, 默认为100"
+  },
+  "el-input-number/precision": { "type": "number", "description": "小数点精确的位数" },
   "el-input-number/controls-right": {
     "type": "boolean",
     "description": "步进器的位置, 设为false则两边显示"
@@ -602,7 +607,7 @@
     "description": "component type"
   },
   "el-checkbox-group/min": { "description": "minimum number of checkbox checked" },
-  "el-input-number/min": { "description": "the minimum allowed value" },
+  "el-input-number/min": { "description": "可以输入的最小值" },
   "el-slider/min": { "description": "minimum value, defalult: 0" },
   "el-slider/max": { "description": "maximum value, defalult: 100" },
   "el-slider/debounce": {
@@ -617,7 +622,7 @@
     "description": "maximum value, shows '{max}+' when exceeded. Only works if 'value' is a Number"
   },
   "el-checkbox-group/max": { "description": "maximum number of checkbox checked" },
-  "el-input-number/max": { "description": "the maximum allowed value" },
+  "el-input-number/max": { "description": "可以输入的最大值" },
   "el-slider/height": { "description": "Slider height, required in vertical mode" },
   "el-table/pagination": {
     "type": "boolean",

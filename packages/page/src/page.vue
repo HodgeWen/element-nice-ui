@@ -1,8 +1,9 @@
 <template>
   <div class="el-page" :class="{ 'el-page--without-footer': !showFooter() }">
-    <el-perfect-scrollbar class="el-page__body">
+    <el-perfect-scrollbar ref="pageBody" class="el-page__body">
       <slot />
     </el-perfect-scrollbar>
+
     <el-context v-if="showFooter()" class="el-page__footer" :ctx="ctx" :depth="2">
       <section class="el-page__footer-left">
         <el-btn v-if="showBack" @click="goBack">返回</el-btn>
@@ -14,6 +15,14 @@
         <el-btn v-if="submit" type="primary" :loading="loading" @click="onSubmit">提交</el-btn>
       </section>
     </el-context>
+
+    <el-perfect-scrollbar class="el-page__anchor-list" tag="ul">
+      <ul>
+        <li v-for="(anchor, key) of anchorList" :key="key" @click="onAnchorClick(anchor)">
+          {{ anchor.title }}
+        </li>
+      </ul>
+    </el-perfect-scrollbar>
 
     <el-backtop v-if="!noBacktop" target=".el-page__body" />
   </div>
@@ -36,6 +45,12 @@ export default {
 
   inheritAttrs: false,
 
+  provide() {
+    return {
+      elPage: this
+    }
+  },
+
   props: {
     size: {
       type: String,
@@ -50,7 +65,9 @@ export default {
   },
 
   data: () => ({
-    loading: false
+    loading: false,
+
+    anchorList: []
   }),
 
   computed: {
@@ -66,6 +83,10 @@ export default {
   },
 
   methods: {
+    addAnchor(anchor) {
+      this.anchorList.push(anchor)
+    },
+
     showFooter() {
       return (
         this.$slots['footer-left'] || this.$slots['footer-right'] || this.submit || this.showBack
@@ -80,18 +101,24 @@ export default {
       this.loading = false
     },
 
+    onAnchorClick(anchor) {
+      this.$refs.pageBody.scrollY(anchor.top)
+      // console.log(anchor)
+    },
+
     onSubmit() {
       this.loading = true
       if (this.submit) {
         let ret = this.submit()
         if (ret && ret.then) {
-          ret.then((res) => {
-            if (res === false) return
-            this.loading = false
-          })
-          .catch(() => {
-            this.loading = false
-          })
+          ret
+            .then(res => {
+              if (res === false) return
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
         } else {
           if (ret === false) return
           this.loading = false

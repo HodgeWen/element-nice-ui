@@ -48,7 +48,7 @@
       :data="computedData"
       v-loading="loading"
       :placeholder="placeholder"
-      @selection-change="onSelectionChange"
+      @selection-change="onSelectionChange('multiple')"
       :highlight-current-row="isSingle"
       @current-change="onSelectionChange"
     >
@@ -312,8 +312,10 @@ export default {
   methods: {
     getValueByPath,
 
-    onSelectionChange(val) {
-      this.$emit('input', val)
+    onSelectionChange(val, type = 'single') {
+      if ((type === 'multiple' && this.isMultiple) || (type === 'single' && this.isSingle)) {
+        this.$emit('input', val)
+      }
     },
 
     clearSelection() {

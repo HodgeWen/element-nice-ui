@@ -73,9 +73,8 @@ export default {
   },
   props: {
     money: {
-      type: Boolean
+      type: [Boolean, Number]
     },
-    // TODO加一个单位
     step: {
       type: Number,
       default: 1
@@ -136,12 +135,27 @@ export default {
               (Math.round(newVal / this.step) * precisionFactor * this.step) / precisionFactor
           }
 
+          // money标记
+          if (this.money) {
+          }
+
           if (this.precision !== undefined) {
             newVal = this.toPrecision(newVal, this.precision)
           }
         }
-        if (newVal >= this.max) newVal = this.max
-        if (newVal <= this.min) newVal = this.min
+
+        // money标记
+        if (this.money) {
+          let max = this.multiply(this.max)
+          let min = this.multiply(this.min)
+
+          if (newVal >= max) newVal = max
+          if (newVal <= min) newVal = min
+        } else {
+          if (newVal >= this.max) newVal = this.max
+          if (newVal <= this.min) newVal = this.min
+        }
+
         this.currentValue = newVal
         this.userInput = null
         this.$emit('input', newVal)
@@ -150,10 +164,14 @@ export default {
   },
   computed: {
     minDisabled() {
-      return this._decrease(this.value, this.step) < this.min
+      // money标记
+      let v = this.money ? this.multiply(this.value, true) : this.value
+      return this._decrease(v, this.step) < this.min
     },
     maxDisabled() {
-      return this._increase(this.value, this.step) > this.max
+      // money标记
+       let v = this.money ? this.multiply(this.value, true) : this.value
+      return this._increase(v, this.step) > this.max
     },
     numPrecision() {
       const { value, step, getPrecision, precision } = this
@@ -197,7 +215,9 @@ export default {
         }
 
         if (this.money) {
-          currentValue = this.formatter.format(currentValue)
+          currentValue = this.formatter.format(
+            currentValue / (typeof this.money === 'number' ? this.money : 100)
+          )
         } else if (this.precision !== undefined) {
           currentValue = currentValue.toFixed(this.precision)
         }
@@ -207,6 +227,11 @@ export default {
     }
   },
   methods: {
+    multiply(v, reciprocal = false) {
+      let mul = typeof this.money === 'number' ? this.money : 100
+      return reciprocal ? v / mul : v * mul
+    },
+
     toPrecision(num, precision) {
       if (precision === undefined) precision = this.numPrecision
       return parseFloat(Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision))
@@ -237,13 +262,15 @@ export default {
     },
     increase() {
       if (this.inputNumberDisabled || this.maxDisabled) return
-      const value = this.value || 0
+      // money标记
+      const value = this.money ? this.multiply(this.value || 0, true) : (this.value || 0)
       const newVal = this._increase(value, this.step)
       this.setCurrentValue(newVal)
     },
     decrease() {
       if (this.inputNumberDisabled || this.minDisabled) return
-      const value = this.value || 0
+      // money标记
+      const value = this.money ? this.multiply(this.value || 0, true) : (this.value || 0)
       const newVal = this._decrease(value, this.step)
       this.setCurrentValue(newVal)
     },
@@ -255,13 +282,25 @@ export default {
     },
     setCurrentValue(newVal) {
       const oldVal = this.currentValue
-      if (typeof newVal === 'number' && this.precision !== undefined) {
-        newVal = this.toPrecision(newVal, this.precision)
+
+      if (typeof newVal === 'number') {
+        if (this.precision !== undefined) {
+          newVal = this.toPrecision(newVal, this.precision)
+        }
       }
+
       if (newVal >= this.max) newVal = this.max
       if (newVal <= this.min) newVal = this.min
+
+      // money标记
+      if (this.money) {
+        newVal = this.multiply(newVal)
+      }
+
       if (oldVal === newVal) return
+
       this.userInput = null
+
       this.$emit('input', newVal)
       this.$emit('change', newVal, oldVal)
       this.currentValue = newVal
@@ -282,6 +321,7 @@ export default {
     }
   },
   created() {
+    // money标记
     if (this.money) {
       this.formatter = new Intl.NumberFormat(undefined, {
         maximumFractionDigits: this.precision,

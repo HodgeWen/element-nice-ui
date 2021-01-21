@@ -23,6 +23,7 @@
   bottom: 0px;
   /* please don't change 'position' */
   position: absolute;
+  z-index: 1;
 }
 
 .ps__rail-y {
@@ -35,6 +36,7 @@
   right: 0;
   /* please don't change 'position' */
   position: absolute;
+  z-index: 1;
 }
 
 .ps--active-x > .ps__rail-x,

@@ -1,9 +1,9 @@
 import PerfectScrollbar from 'perfect-scrollbar'
 import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
+import { scrollTo } from './utils'
 
 export default {
   name: 'ElPerfectScrollbar',
-
   props: {
     tag: {
       type: String,
@@ -19,23 +19,34 @@ export default {
     wheelPropagation: {
       type: Boolean,
       default: true
-    },
+    }
   },
 
+  data: () => ({
+    animationFinished: true
+  }),
+
   methods: {
-    scroll(x, y) {
-      let { container } = this.$refs
-      if (!container) return
-      if (typeof x === 'number') {
-        container.scrollLeft = x
+    scrollX(x) {
+      if (this.animationFinished) {
+        this.animationFinished = false
+        scrollTo(this.$refs.container, x, 600, 'x', 'easeInOut').then(() => {
+          this.animationFinished = true
+        })
       }
-      if (typeof y === 'number') {
-        container.scrollTop = y
+    },
+
+    scrollY(y) {
+      if (this.animationFinished) {
+        this.animationFinished = false
+        scrollTo(this.$refs.container, y, 600, 'y', 'easeInOut').then(() => {
+          this.animationFinished = true
+        })
       }
     },
 
     update() {
-      this.ps && this.$nextTick(() => this.ps.update())
+      this.ps && this.$nextTick(this.ps.update())
     },
 
     destroy() {

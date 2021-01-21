@@ -538,7 +538,6 @@ export default {
   },
 
   computed: {
-
     // 分割线---------------上边的为自定义扩展
     tableSize() {
       return this.size || (this.$ELEMENT || {}).size
@@ -699,7 +698,7 @@ export default {
     }
 
     // init filters
-    this.store.states.columns.forEach((column) => {
+    this.store.states.columns.forEach(column => {
       if (column.filteredValue && column.filteredValue.length) {
         this.store.commit('filterChange', {
           column,
@@ -749,7 +748,6 @@ export default {
       // 是否拥有多级表头
       isGroup: false,
       scrollPosition: 'left'
-
     }
   }
 }

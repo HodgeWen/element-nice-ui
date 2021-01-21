@@ -56,7 +56,7 @@
     "defaults": ["v-model", "placeholder"]
   },
   "el-input-number": {
-    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "value", "min", "max", "step", "size", "disabled", "controls-right", "controls", "debounce", "change"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "value", "precision", "money", "min", "max", "step", "size", "disabled", "controls-right", "controls", "debounce", "change"],
     "defaults": ["v-model", "placeholder"]
   },
   "el-select": {
