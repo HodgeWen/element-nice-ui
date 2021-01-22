@@ -1,2 +1,2 @@
-import '../src/checkbox.scss'
+import './checkbox.js'
 import '../src/tree.scss'

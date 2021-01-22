@@ -1,2 +1,2 @@
-import '../src/progress.scss'
+import './progress.js'
 import '../src/upload.scss'

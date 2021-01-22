@@ -13,23 +13,6 @@ function fileExists(filePath) {
   }
 }
 
-// let whiteImportSet = new Set([
-//   '@import "common/var";',
-//   "@import 'common/var';",
-//   '@import "common/popup";',
-//   "@import 'common/popup';",
-//   '@import "common/transition";',
-//   "@import 'common/transition';",
-//   '@import "mixins/mixins";',
-//   "@import 'mixins/mixins';",
-//   "@import 'mixins/utils';",
-//   '@import "mixins/utils";',
-//   "@import 'mixins/button';",
-//   '@import "mixins/button";',
-//   "@import 'mixins/function';",
-//   '@import "mixins/function";',
-// ])
-
 themes.forEach((theme) => {
   var isSCSS = theme !== 'theme-default'
   var indexContent = isSCSS ? '@import "./base.scss";\n' : '@import "./base.css";\n'
@@ -63,10 +46,17 @@ themes.forEach((theme) => {
       if (matched) {
         matched.forEach((item) => {
           if (/(common|mixins)/.test(item)) return
+          if (/date-picker/.test(item)) {
+            content += `import '${path.join(
+              '../src',
+              item.replace(/(@import|'|"|;)/g, '').trim()
+            )}.scss'\n`
+            return
+          }
           content += `import '${path.join(
-            '../src',
+            './',
             item.replace(/(@import|'|"|;)/g, '').trim()
-          )}.scss'\n`
+          )}.js'\n`
         })
       }
       content += `import '../src/${fileName}'`

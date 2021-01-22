@@ -408,13 +408,19 @@ export default {
         currentField = 'current',
         sizeField = 'size'
       } = this.$EL_TABLE_PROP_CONFIG
-      const { params } = this
 
       let { page: p, size, ...commonParams } = this.params
       commonParams[currentField] = p
       commonParams[sizeField] = size
 
-      return this.$http.get(this.api, { params: commonParams }).then((res) => {
+      let method = 'get'
+      let api = this.api
+      let apiStruct = api.split(':')
+      if (apiStruct.length === 2) {
+        [method, api] = apiStruct
+      }
+
+      return this.$http[method](api, { params: commonParams }).then((res) => {
         if (res.code !== 200) return
         if (this.pagination) {
           if (!page || !total) {

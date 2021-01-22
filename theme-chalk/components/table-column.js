@@ -1,3 +1,3 @@
-import '../src/checkbox.scss'
-import '../src/tag.scss'
+import './checkbox.js'
+import './tag.js'
 import '../src/table-column.scss'

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Element from 'main/index.js'
 
-// import App from './play/table.vue'
-import App from './play/index.vue'
+import App from './play/table.vue'
+// import App from './play/index.vue'
 
 import 'theme/components/base'
 import 'theme/components/table'

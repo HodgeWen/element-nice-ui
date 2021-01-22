@@ -1,3 +1,3 @@
-import '../src/input-number.scss'
-import '../src/tooltip.scss'
+import './input-number.js'
+import './tooltip.js'
 import '../src/slider.scss'

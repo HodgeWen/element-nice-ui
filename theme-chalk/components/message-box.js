@@ -1,3 +1,3 @@
-import '../src/btn.scss'
-import '../src/input.scss'
+import './btn.js'
+import './input.js'
 import '../src/message-box.scss'

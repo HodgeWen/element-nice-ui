@@ -1,2 +1,2 @@
-import '../src/popover.scss'
+import './popover.js'
 import '../src/popconfirm.scss'

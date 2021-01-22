@@ -1,4 +1,4 @@
-import '../src/checkbox.scss'
-import '../src/radio.scss'
-import '../src/scrollbar.scss'
+import './checkbox.js'
+import './radio.js'
+import './scrollbar.js'
 import '../src/cascader-panel.scss'

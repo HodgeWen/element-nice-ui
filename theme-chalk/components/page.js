@@ -1,3 +1,2 @@
-import '../src/perfect-scrollbar.scss'
-import '../src/backtop.scss'
+import './backtop.js'
 import '../src/page.scss'

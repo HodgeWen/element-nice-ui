@@ -1,2 +1,2 @@
-import '../src/input.scss'
+import './input.js'
 import '../src/input-number.scss'

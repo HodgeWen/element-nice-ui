@@ -1,2 +1,2 @@
-import '../src/perfect-scrollbar.scss'
+import './perfect-scrollbar.js'
 import '../src/dialog.scss'

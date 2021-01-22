@@ -1,3 +1,3 @@
-import '../src/btn.scss'
-import '../src/btn-group.scss'
+import 'btn.js'
+import 'btn-group.js'
 import '../src/calendar.scss'

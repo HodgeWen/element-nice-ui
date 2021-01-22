@@ -1,2 +1,2 @@
-import '../src/dropdown.scss'
+import './dropdown.js'
 import '../src/action.scss'

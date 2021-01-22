@@ -1,2 +1,2 @@
-import '../src/popper.scss'
+import './popper.js'
 import '../src/popover.scss'

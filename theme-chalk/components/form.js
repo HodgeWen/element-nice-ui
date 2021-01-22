@@ -1,3 +1,3 @@
-import '../src/row.scss'
-import '../src/col.scss'
+import './row.js'
+import './col.js'
 import '../src/form.scss'

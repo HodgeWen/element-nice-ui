@@ -1,2 +1,2 @@
-import '../src/select.scss'
+import './select.js'
 import '../src/pagination.scss'

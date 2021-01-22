@@ -1,3 +1,3 @@
-import '../src/btn.scss'
-import '../src/popper.scss'
+import './btn.js'
+import './popper.js'
 import '../src/dropdown.scss'
