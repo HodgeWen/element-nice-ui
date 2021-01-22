@@ -14,9 +14,11 @@
       no-cache
       ref="table"
       query-label-width="60"
-      v-model="selected"
+      @input="$log"
+      v-model="aa"
     >
       <template #tools>
+        {{aa}}
         <el-btn type="primary" @click="visible = true">新增</el-btn>
         <el-btn type="primary" @click=";(visible = true), (type = 'update')">编辑(有选择)</el-btn>
         <el-btn type="primary" @click=";(visible = true), (type = 'view')">查看(无选择)</el-btn>
@@ -73,7 +75,10 @@
             :headers="headers"
             api="arr"
             v-if="visible"
-            v-model="type === 'update' ? tableSelected : undefined"
+            height="400"
+            :show-tools="false"
+            v-model="aa"
+            @input="$log"
           >
           </el-table>
         </el-dialog>
@@ -92,6 +97,7 @@ export default {
   data() {
     return {
       selected: [],
+      aa: {},
       tableSelected: [],
       headers: [
         {

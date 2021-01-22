@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "ElPageAnchor",
+  name: 'ElPageAnchor',
 
   props: {
     tag: {
@@ -8,28 +8,35 @@ export default {
       default: 'div'
     },
 
-    title: String
+    title: {
+      type: String,
+      default: ''
+    }
   },
 
   inject: ['elPage'],
 
-  data: () => ({
+  computed: {
+    rerender() {
+      return this.elPage.rerender
+    }
+  },
 
-  }),
+  watch: {
+    rerender(v) {
+      v && this.$destroy()
+    }
+  },
 
   render(h) {
     return h(this.tag, [this.title].concat(this.$slots.default))
   },
 
   mounted() {
-    this.elPage.addAnchor({
-      title: this.title || '锚点',
-      top: this.$el.getBoundingClientRect().top
-    })
-  },
-
-  beforeDestroy() {
-
+    // 开始显示
+    if (this.elPage) {
+      this.elPage.addAnchor(this.title, this.$el)
+    }
   }
 }
 </script>

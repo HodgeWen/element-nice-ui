@@ -1,9 +1,7 @@
 <template>
-  <el-page>
+  <el-page :anchors="anchors">
     <el-input-number money :precision="2" v-model="n" />
-
     <el-page-anchor title="锚点1" />
-
     <p>1</p>
     <p>1</p>
     <p>1</p>
@@ -23,90 +21,6 @@
     <p>1</p>
     <p>1</p>
     <el-page-anchor title="锚点3" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点4" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点4" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点4" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点4" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点4" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点4" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点4" />
     <p>1</p>
     <p>1</p>
     <p>1</p>
@@ -160,6 +74,10 @@ export default {
     headers: [
       { label: '名称', prop: 'name' },
       { label: '年龄', prop: 'age' }
+    ],
+
+    anchors: [
+      { title: '锚点1', id: 'a' }
     ],
 
     n: null,
@@ -559,7 +477,7 @@ export default {
       { name: '李四', age: 21 }
     ],
 
-    show: true
+    show: false
   }),
 
   mounted() {}

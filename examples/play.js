@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Element from 'main/index.js'
 
-import App from './play/table.vue'
-// import App from './play/index.vue'
+// import App from './play/table.vue'
+import App from './play/index.vue'
 
 import 'theme/components/base'
 import 'theme/components/table'
@@ -62,24 +62,28 @@ Vue.prototype.$EL_SELECT_PROP_CONFIG = {
 Vue.prototype.$http = {
   get(url = '') {
     if (url === 'arr') {
-      return Promise.resolve({
-        code: 200,
-        data: {
-          records: Array(20).fill().map((_, i) => ({
-            id: i,
-            icon: null,
-            name: '用户新增',
-            spread: false,
-            path: null,
-            keepAlive: '0',
-            permission: 'sys_user_add',
-            type: '1',
-            label: '用户新增',
-            sort: null
-          })),
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            code: 200,
+            data: {
+              records: Array(20).fill().map((_, i) => ({
+                id: i,
+                icon: null,
+                name: '用户新增',
+                spread: false,
+                path: null,
+                keepAlive: '0',
+                permission: 'sys_user_add',
+                type: '1',
+                label: '用户新增',
+                sort: null
+              })),
 
-          total: 100
-        }
+              total: 100
+            }
+          })
+        }, 2000)
       })
     }
     if (url === 'select') {

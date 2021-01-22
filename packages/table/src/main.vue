@@ -48,9 +48,9 @@
       :data="computedData"
       v-loading="loading"
       :placeholder="placeholder"
-      @selection-change="onSelectionChange('multiple')"
+      @selection-change="onSelectionChange($event, 'multiple')"
       :highlight-current-row="isSingle"
-      @current-change="onSelectionChange"
+      @current-change="onSelectionChange($event, 'single')"
     >
       <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
         <template v-if="header.slotName" #default="{ row, column, $index }">
@@ -194,6 +194,10 @@ export default {
 
     noSearcher: {
       type: Boolean
+    },
+
+    filter: {
+      type: Function
     }
   },
 
@@ -234,7 +238,11 @@ export default {
 
     // 根据传入的属性控制使用哪个作为表格的数据
     computedData() {
-      return Array.isArray(this.data) ? this.data : this.internalData
+      let ret =  Array.isArray(this.data) ? this.data : this.internalData
+      if (this.filter) {
+        ret = ret.filter(this.filter)
+      }
+      return ret
     },
 
     // 表格的头部属性

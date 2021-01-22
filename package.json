@@ -1,6 +1,6 @@
 {
   "name": "element-nice-ui",
-  "version": "2.15.45",
+  "version": "2.15.48",
   "description": "A Component Library for Vue.js.",
   "main": "lib/element-nice-ui.common.js",
   "files": [

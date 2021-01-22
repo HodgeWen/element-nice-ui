@@ -1,4 +1,4 @@
-import Page from './src/page.vue';
+import Page from './src/page.js';
 
 /* istanbul ignore next */
 Page.install = function(Vue) {
