@@ -1,5 +1,5 @@
 import '../src/date-picker/picker.scss'
 import '../src/date-picker/date-picker.scss'
-import 'scrollbar.js'
-import 'popper.js'
+import './scrollbar.js'
+import './popper.js'
 import '../src/time-select.scss'

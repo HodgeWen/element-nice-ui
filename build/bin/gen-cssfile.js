@@ -55,7 +55,7 @@ themes.forEach((theme) => {
           }
           content += `import '${path.join(
             './',
-            item.replace(/(@import|'|"|;)/g, '').trim()
+            item.replace(/(@import|'|"|;|\.scss)/g, '').trim()
           )}.js'\n`
         })
       }
