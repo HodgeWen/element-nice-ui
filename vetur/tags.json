@@ -60,7 +60,7 @@
     "defaults": ["v-model", "placeholder"]
   },
   "el-select": {
-    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "tree", "multiple", "disabled", "options", "api", "option-label", "option-value", "value-key", "size", "clearable", "collapse-tags", "multiple-limit", "name", "auto-complete", "placeholder", "filterable", "allow-create", "filter-method", "remote", "remote-method", "loading", "loading-text", "no-match-text", "no-data-text", "popper-class", "reserve-keyword", "default-first-option", "popper-append-to-body", "change", "visible-change", "remote-tag", "clear", "blur", "focus"],
+    "attributes": ["t-label", "t-prop", "t-span", "t-modifier", "tree", "inline", "multiple", "disabled", "options", "api", "option-label", "option-value", "value-key", "size", "clearable", "collapse-tags", "multiple-limit", "name", "auto-complete", "placeholder", "filterable", "allow-create", "filter-method", "remote", "remote-method", "loading", "loading-text", "no-match-text", "no-data-text", "popper-class", "reserve-keyword", "default-first-option", "popper-append-to-body", "change", "visible-change", "remote-tag", "clear", "blur", "focus"],
     "defaults": ["v-model", "placeholder"],
     "subtags": ["el-option"],
     "description": "When there are plenty of options, use a drop-down menu to display and select desired ones."
@@ -121,7 +121,7 @@
     "defaults": ["v-model", ":data"]
   },
   "el-form": {
-    "attributes": ["form", "inline", "label-position", "label-width", "label-suffix", "show-message", "inline-message", "status-icon", "validate-on-rule-change", "size", "disabled", "validate", "gutter", "justify", "align"],
+    "attributes": ["form", "inline", "label-position", "label-width", "label-suffix", "show-message", "colspan", "inline-message", "status-icon", "validate-on-rule-change", "size", "disabled", "validate", "gutter", "justify", "align"],
     "defaults": [":model"],
     "subtags": ["el-form-item"],
     "description": "Form consists of `input`, `radio`, `select`, `checkbox` and so on. With form, you can collect, verify and submit data."

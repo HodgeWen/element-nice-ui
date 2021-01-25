@@ -104,6 +104,9 @@
       @mouseenter.native="inputHovering = true"
       @mouseleave.native="inputHovering = false"
     >
+    <template #prepend>
+      <slot name="prepend" />
+    </template>
       <template #prefix v-if="$slots.prefix">
         <slot name="prefix"></slot>
       </template>
@@ -120,6 +123,7 @@
     <transition name="el-zoom-in-top" @before-enter="handleMenuEnter" @after-leave="doDestroy">
       <el-select-menu
         ref="popper"
+        :class="[inline ? 'el-select--inline' : '']"
         :append-to-body="popperAppendToBody"
         v-show="visible && emptyText !== false"
       >
@@ -234,7 +238,7 @@ export default {
       let mapper
 
       if (this.tree) {
-        mapper = (option) => {
+        mapper = option => {
           let value = option[this.optionValue]
           let label = option[this.optionLabel]
           let children = option[this.childrenKey]
@@ -250,7 +254,7 @@ export default {
           return item
         }
       } else {
-        mapper = (option) => {
+        mapper = option => {
           let value = option[this.optionValue]
           let label = option[this.optionLabel]
           return { ...option, value, label }
@@ -261,7 +265,7 @@ export default {
         if (Array.isArray(this.options)) {
           return this.options.map(mapper)
         } else if (!this.tree) {
-          return Object.keys(this.options).map((key) => ({ value: key, label: this.options[key] }))
+          return Object.keys(this.options).map(key => ({ value: key, label: this.options[key] }))
         }
       }
       return this.remoteOptions.map(mapper)
@@ -313,8 +317,8 @@ export default {
 
     showNewOption() {
       let hasExistingOption = this.internalOptions
-        .filter((option) => !option.created)
-        .some((option) => option.currentLabel === this.query)
+        .filter(option => !option.created)
+        .some(option => option.currentLabel === this.query)
       return this.filterable && this.allowCreate && this.query !== '' && !hasExistingOption
     },
 
@@ -344,8 +348,13 @@ export default {
 
   props: {
     name: String,
+
     id: String,
 
+    /** 行内 */
+    inline: Boolean,
+
+    /** 自动请求 */
     api: {
       type: String
     },
@@ -622,7 +631,7 @@ export default {
       const text = event.target.value
       if (event.type === 'compositionend') {
         this.isOnComposition = false
-        this.$nextTick((_) => this.handleQueryChange(text))
+        this.$nextTick(_ => this.handleQueryChange(text))
       } else {
         const lastCharacter = text[text.length - 1] || ''
         this.isOnComposition = !isKorean(lastCharacter)
@@ -763,7 +772,7 @@ export default {
       if (this.tree) {
         let checkedNodes = this.$refs.tree.getCheckedNodes(false, false, true)
 
-        this.selected = checkedNodes.map((item) => ({
+        this.selected = checkedNodes.map(item => ({
           value: item.value,
           currentLabel: item.label,
           hitState: false
@@ -775,7 +784,7 @@ export default {
       }
       let result = []
       if (Array.isArray(this.value)) {
-        this.value.forEach((value) => {
+        this.value.forEach(value => {
           result.push(this.getOption(value))
         })
       }
@@ -867,7 +876,7 @@ export default {
       this.$nextTick(() => {
         if (!this.$refs.reference) return
         let inputChildNodes = this.$refs.reference.$el.childNodes
-        let input = [].filter.call(inputChildNodes, (item) => item.tagName === 'INPUT')[0]
+        let input = [].filter.call(inputChildNodes, item => item.tagName === 'INPUT')[0]
         const tags = this.$refs.tags
         const sizeInMap = this.initialInputHeight || 40
         input.style.height =
@@ -891,7 +900,7 @@ export default {
           if (this.selected.length > 0) {
             this.hoverIndex = Math.min.apply(
               null,
-              this.selected.map((item) => this.internalOptions.indexOf(item))
+              this.selected.map(item => this.internalOptions.indexOf(item))
             )
           } else {
             this.hoverIndex = -1
@@ -998,7 +1007,7 @@ export default {
           let restTags = this.selected.slice()
           restTags.splice(index, 1)
           let { tree } = this.$refs
-          tree.setCheckedKeys(restTags.map((tag) => tag.value))
+          tree.setCheckedKeys(restTags.map(tag => tag.value))
           let newVal = tree.getCheckedKeys()
           this.$emit('input', newVal)
           this.emitChange(newVal)
@@ -1090,7 +1099,7 @@ export default {
       this.onInputChange()
     })
 
-    this.debouncedQueryChange = debounce(this.debounce, (e) => {
+    this.debouncedQueryChange = debounce(this.debounce, e => {
       this.handleQueryChange(e.target.value)
     })
 
@@ -1103,7 +1112,7 @@ export default {
     !this.options &&
       this.api &&
       this.$http &&
-      this.$http.get(baseUrl + this.api).then((res) => {
+      this.$http.get(baseUrl + this.api).then(res => {
         if (res.code !== 200) return
         this.remoteOptions = getValueByPath(res, option)
       })

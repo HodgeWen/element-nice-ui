@@ -1,6 +1,6 @@
 @import "mixins/mixins";
 @import "common/var";
-@import "backtop";
+// @import "backtop";
 
 $footer-height: 48px;
 
@@ -37,7 +37,7 @@ $footer-height: 48px;
 
   @include e(anchor-list) {
     box-sizing: border-box;
-    position: fixed;
+    position: fixed!important;
     top: 30px;
     right: 30px;
     margin:  0;

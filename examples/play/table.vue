@@ -1,6 +1,16 @@
 <template>
   <el-page :anchors="anchors">
-    <el-input-number money :precision="2" v-model="n" />
+    <el-select style="width: 200px" v-model="selected"  :options="options">
+      <template #prepend><i class="el-icon-setting"></i></template>
+    </el-select>
+
+    <el-input style="width: 200px">
+      <template #prepend>
+        <i class="el-icon-setting"></i>
+      </template>
+
+      <template #suffix>aa</template>
+    </el-input>
     <el-page-anchor title="锚点1" />
     <p>1</p>
     <p>1</p>
@@ -71,6 +81,8 @@ export default {
   },
 
   data: () => ({
+    selected: '',
+
     headers: [
       { label: '名称', prop: 'name' },
       { label: '年龄', prop: 'age' }
@@ -80,6 +92,7 @@ export default {
       { title: '锚点1', id: 'a' }
     ],
 
+    options: Array(20).fill().map((v, i) => ({ label: '测试' + i, value: i })),
     n: null,
 
     collapse: false,

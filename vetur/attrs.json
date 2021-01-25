@@ -979,6 +979,10 @@
     "type": "method",
     "description": "triggers when the clear icon is clicked in a clearable Select"
   },
+  "el-select/inline": {
+    "type": "boolean",
+    "description": "列表项行内显示, tree模式下该属性无效"
+  },
   "el-select/tree": {
     "type": "boolean",
     "description": "作为一个树形选择组件"

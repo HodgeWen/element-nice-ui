@@ -7,11 +7,19 @@
 // @import "option";
 // @import "option-group";
 // @import "scrollbar";
+// @import "tree";
 
 @include b(select) {
   display: inline-block;
   position: relative;
   width: 100%;
+
+  @include m(inline) {
+    .el-select-dropdown__item {
+      display: inline-block;
+      padding: 0 8px;
+    }
+  }
 
   .el-select__tags
     >span {
@@ -74,9 +82,9 @@
     }
   }
 
-  > .el-input {
-    display: block;
-  }
+  // > .el-input {
+  //   display: block;
+  // }
 
   @include e(input) {
     border: none;

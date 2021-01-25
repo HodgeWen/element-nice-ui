@@ -84,14 +84,12 @@ export default {
         if (ret && ret.then) {
           ret
             .then(res => {
-              if (res === false) return
               this.loading = false
             })
             .catch(() => {
               this.loading = false
             })
         } else {
-          if (ret === false) return
           this.loading = false
         }
       }

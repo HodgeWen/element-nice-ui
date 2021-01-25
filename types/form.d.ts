@@ -27,7 +27,9 @@ export interface ElFormRule {
   /** 值 */
   value?: any;
   /** 值类型, 默认为字符串 */
-  type?: 'string' | 'number' | 'boolean' | 'method' | 'integer' | 'float' | 'array' | 'object' | 'enum' | 'date' | 'url' | 'email' | 'any'
+  type?: 'string' | 'number' | 'boolean' | 'method' | 'integer' | 'float' | 'array' | 'object' | 'enum' | 'date' | 'url' | 'email' | 'any';
+  /** 验证触发的方式, 默认是在控件失去焦点时验证 */
+  trigger?: 'change' | 'blur';
   /** 表示必填, 如果指定为字符串, 则应用于消息的提示 */
   required?: boolean | string;
   /** 值的范围 */
