@@ -110,11 +110,11 @@ export default {
           <el-context class='el-page__footer' ctx={this.ctx} depth={2}>
             <section class='el-page__footer-left'>
               {this.showBack ? <el-btn onClick={this.goBack}>返回</el-btn> : null}
-              <slot name='footer-left' />
+              {this.$slots['footer-left']}
             </section>
 
             <section class='el-page__footer-right'>
-              <slot name='footer-right' />
+              {this.$slots['footer-right']}
               {this.submit ? (
                 <el-btn type='primary' loading={this.loading} onClick={this.onSubmit}>
                   提交

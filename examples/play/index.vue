@@ -11,7 +11,6 @@
       pagination
       auto-height
       no-searcher
-      no-cache
       ref="table"
       query-label-width="60"
       @input="$log"
@@ -42,7 +41,7 @@
 
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
-          <!-- <el-form :form="form" ref="form" size="small" label-width="60px">
+          <el-form :form="form" ref="form" size="small" label-width="60px">
             <el-select
               multiple
               filterable
@@ -69,9 +68,9 @@
               filterable
               t-prop="cas"
             />
-          </el-form> -->
+          </el-form>
 
-          <el-table
+          <!-- <el-table
             :headers="headers"
             api="arr"
             v-if="visible"
@@ -80,7 +79,7 @@
             v-model="aa"
             @input="$log"
           >
-          </el-table>
+          </el-table> -->
         </el-dialog>
       </template>
     </el-table>
@@ -145,7 +144,7 @@ export default {
 
         select: [],
 
-        cas: { value: 'zhinan' }
+        cas: { value: '', required: true, trigger: 'change' }
       },
 
       disabled: 'false'

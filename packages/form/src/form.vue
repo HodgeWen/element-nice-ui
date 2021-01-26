@@ -34,6 +34,7 @@
 import objectAssign from 'element-nice-ui/src/utils/merge'
 import ElRow from '../../row/src/row'
 import SlotRender from './slot-render'
+import fi from 'element-nice-ui/src/locale/lang/fi'
 export default {
   name: 'ElForm',
 

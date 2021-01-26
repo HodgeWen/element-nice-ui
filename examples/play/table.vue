@@ -1,5 +1,5 @@
 <template>
-  <el-page :anchors="anchors">
+  <el-page>
     <el-select style="width: 200px" v-model="selected"  :options="options">
       <template #prepend><i class="el-icon-setting"></i></template>
     </el-select>
@@ -54,6 +54,9 @@
     <p>1</p>
     <p>1</p>
     <p>1</p>
+    <template #footer-right>
+      <el-btn>aaa</el-btn>
+    </template>
   </el-page>
   <!-- <el-btn @click="collapse = !collapse">折叠</el-btn>
     <el-perfect-scrollbar

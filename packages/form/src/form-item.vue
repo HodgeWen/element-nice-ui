@@ -235,7 +235,11 @@ export default {
     clearValidate() {
       this.validateState = ''
       this.validateMessage = ''
-      this.validateDisabled = false
+      this.validateDisabled = true
+
+      this.$nextTick(() => {
+        this.validateDisabled = false
+      })
     },
     resetField() {
       this.validateState = ''
