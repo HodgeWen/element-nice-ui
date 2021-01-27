@@ -4,6 +4,7 @@
 @include b(badge) {
   vertical-align: middle;
   display: inline-block;
+  position: relative;
 
   @include e(content) {
     background-color: $--badge-background-color;
@@ -19,10 +20,9 @@
     border: 1px solid $--color-white;
 
     @include when(fixed) {
-      transform: translateY(-50%) translateX(-10px);
 
       @include when(dot) {
-        right: 5px;
+        right: 0;
       }
     }
 
@@ -32,6 +32,7 @@
       padding: 0;
       right: 0;
       border-radius: 50%;
+      position: absolute;
     }
 
     @each $type in (primary, success, warning, info, danger) {

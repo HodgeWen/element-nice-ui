@@ -1,21 +1,14 @@
 <template>
   <div class="el-happy-table" :class="{ 'el-happy-table--auto-height': autoHeight }">
     <!-- 搜索栏 start -->
-    <div class="el-happy-table__searcher" v-if="showSearcher" ref="searcher">
-      <section>
-        <searcher-render
-          :ctx="ctx"
-          :label-width="queryLabelWidth"
-          v-for="(node, i) of $slots.searcher"
-          :key="i"
-          :node="node"
-        />
-      </section>
-
-      <el-context :ctx="ctx" tag="section">
-        <el-btn :loading="loading" icon="search" type="primary" @click="fetchData">查询</el-btn>
-        <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset">重置</el-btn>
-      </el-context>
+    <div class="el-happy-table__searcher" v-if="showSearcher && $slots.searcher" ref="searcher">
+      <searcher-render
+        :ctx="ctx"
+        :label-width="queryLabelWidth"
+        v-for="(node, i) of $slots.searcher"
+        :key="i"
+        :node="node"
+      />
     </div>
     <!-- 搜索栏 end -->
     <!-- 工具栏 start -->
@@ -25,6 +18,14 @@
       </el-context>
 
       <el-context depth="2" :ctx="ctx" class="el-happy-table__tools-right" tag="section">
+        <el-tooltip content="查询">
+          <el-btn :loading="loading" icon="search" type="primary" @click="fetchData" circle />
+        </el-tooltip>
+
+        <el-tooltip content="重置">
+          <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset" circle />
+        </el-tooltip>
+
         <el-tooltip v-if="api && !data && !this.noSearcher" content="显示/隐藏 搜索栏">
           <el-btn v-model="searchable" @input="onToggleSearcher" icon="set-up" circle />
         </el-tooltip>
@@ -238,7 +239,7 @@ export default {
 
     // 根据传入的属性控制使用哪个作为表格的数据
     computedData() {
-      let ret =  Array.isArray(this.data) ? this.data : this.internalData
+      let ret = Array.isArray(this.data) ? this.data : this.internalData
       if (this.filter) {
         ret = ret.filter(this.filter)
       }
@@ -249,8 +250,8 @@ export default {
     computedHeaders() {
       if (!this.headers) return []
 
-      let mapper = (arr) =>
-        arr.map((header) => {
+      let mapper = arr =>
+        arr.map(header => {
           let ret = { ...header, _id: this.headerId++ }
           if (!ret.align) {
             ret.align = this.align
@@ -366,8 +367,8 @@ export default {
         }
         return data[i]
       } else if (typeof i === 'object' && i !== null) {
-        return data.find((item) => {
-          return Object.keys(i).every((key) => item[key] === i[key])
+        return data.find(item => {
+          return Object.keys(i).every(key => item[key] === i[key])
         })
       } else if (i === undefined) {
         return data
@@ -417,10 +418,10 @@ export default {
       let api = this.api
       let apiStruct = api.split(':')
       if (apiStruct.length === 2) {
-        [method, api] = apiStruct
+        ;[method, api] = apiStruct
       }
 
-      return this.$http[method](api, { params: commonParams }).then((res) => {
+      return this.$http[method](api, { params: commonParams }).then(res => {
         if (res.code !== 200) return
         if (this.pagination) {
           if (!page || !total) {
@@ -455,16 +456,16 @@ export default {
     // 自动查询的字段 监听
     autoQueryWatch() {
       if (!Array.isArray(this.autoQueried)) return
-      let handler = (v) => {
+      let handler = v => {
         if (this.canAutoQuery) {
           this.willSearch = true
         }
       }
-      this.autoQueried.forEach((field) => {
+      this.autoQueried.forEach(field => {
         this.$watch(`params.${field}`, handler)
       })
 
-      this.$watch('willSearch', (v) => {
+      this.$watch('willSearch', v => {
         if (v) {
           this.willSearch = false
           this.fetchData()
@@ -491,7 +492,7 @@ export default {
     onReset() {
       this.canAutoQuery = false
 
-      Object.keys(this.query).forEach((key) => {
+      Object.keys(this.query).forEach(key => {
         this.query[key] = this.defaultQuery[key]
       })
 

@@ -220,7 +220,7 @@
     "defaults": ["title"]
   },
   "el-dialog": {
-    "attributes": ["title", "top", "visible", "width", "fullscreen", "modal", "modal-append-to-body", "append-to-body", "lock-scroll", "custom-class", "close-on-click-modal", "show-close", "before-close", "center", "close", "open"],
+    "attributes": ["title", "top", "visible", "confirm-text", "cancel-text", "width", "fullscreen", "modal", "modal-append-to-body", "append-to-body", "lock-scroll", "custom-class", "close-on-click-modal", "show-close", "before-close", "center", "close", "open"],
     "defaults": ["title"],
     "description": "Informs users while preserving the current page state."
   },

@@ -39,11 +39,10 @@
         <el-perfect-scrollbar class="el-dialog__body" v-if="rendered">
           <slot />
         </el-perfect-scrollbar>
-        <el-context v-if="!hideFooter" :ctx="{ size: 'small' }" class="el-dialog__footer">
-          <el-btn :loading="loading" @click="handleClose">取消</el-btn>
+        <el-context v-if="!hideFooter" :ctx="footerCtx" class="el-dialog__footer">
+          <el-btn @click="handleClose">{{cancelText}}</el-btn>
           <slot name="footer" v-if="$slots.footer" />
           <el-btn
-            :loading="loading"
             v-if="confirm"
             @click="onConfirm"
             size="small"
@@ -81,7 +80,11 @@ export default {
     },
     confirmText: {
       type: String,
-      default: '确认'
+      default: '提交'
+    },
+    cancelText: {
+      type: String,
+      default: '取消'
     },
 
     hideFooter: {
@@ -203,6 +206,10 @@ export default {
         }
       }
       return style
+    },
+
+    footerCtx() {
+      return { size: 'small', loading: this.loading }
     }
   },
 
@@ -224,9 +231,11 @@ export default {
 
       Promise.all(this.formInstances.map((item) => item.validate())).then((res) => {
         if (res.every((v) => v)) {
-          this.loading = true
-          this.confirm()
-            .then((res) => {
+
+          let p = this.confirm()
+          if (p instanceof Promise) {
+            this.loading = true
+            p.then((res) => {
               this.loading = false
               if (res !== false) {
                 this.$emit('change', false)
@@ -235,6 +244,9 @@ export default {
             .catch(() => {
               this.loading = false
             })
+          } else {
+            p !== false && this.$emit('change', false)
+          }
         }
       })
     },

@@ -34,7 +34,6 @@
 import objectAssign from 'element-nice-ui/src/utils/merge'
 import ElRow from '../../row/src/row'
 import SlotRender from './slot-render'
-import fi from 'element-nice-ui/src/locale/lang/fi'
 export default {
   name: 'ElForm',
 
@@ -312,12 +311,15 @@ export default {
       }
     },
 
-    resetFields() {
+    resetFields(excludes = []) {
       if (!this.model) {
         console.warn('[warn] 你需要传入form方可清除验证')
         return
       }
+
       for (const key in this.model) {
+        if (excludes.includes(key)) continue
+
         let formVal = this.form[key]
         let initialVal
         if (Object.prototype.toString.call(formVal) === '[object Object]') {

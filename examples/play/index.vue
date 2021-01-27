@@ -10,14 +10,13 @@
       border
       pagination
       auto-height
-      no-searcher
       ref="table"
       query-label-width="60"
       @input="$log"
       v-model="aa"
     >
       <template #tools>
-        {{aa}}
+        <el-color-picker value="#f00" size="mini" />
         <el-btn type="primary" @click="visible = true">新增</el-btn>
         <el-btn type="primary" @click=";(visible = true), (type = 'update')">编辑(有选择)</el-btn>
         <el-btn type="primary" @click=";(visible = true), (type = 'view')">查看(无选择)</el-btn>
@@ -33,10 +32,10 @@
       </template>
 
       <template #searcher>
-        <el-input v-model="query.name" t-label="名称" />
+        <!-- <el-input v-model="query.name" t-label="名称" />
         <el-input v-model="query.age" t-label="年龄" />
         <el-select v-model="query.test" option-label="label1" t-label="测试" api="select" />
-        <el-select v-model="disabled" :options="{ true: '开', false: '关' }" />
+        <el-select v-model="disabled" :options="{ true: '开', false: '关' }" /> -->
       </template>
 
       <template #outer>
@@ -61,13 +60,7 @@
               <el-radio-button label="1">显示</el-radio-button>
               <el-radio-button label="2">隐藏</el-radio-button>
             </el-radio-group>
-            <el-select
-              t-label="树形选择器"
-              api="/select/tree"
-              tree
-              filterable
-              t-prop="cas"
-            />
+            <el-select t-label="树形选择器" api="/select/tree" tree filterable t-prop="cas" />
           </el-form>
 
           <!-- <el-table
@@ -153,7 +146,7 @@ export default {
 
   methods: {
     onConfirm() {
-      return new Promise((res) => {
+      return new Promise(res => {
         setTimeout(() => {
           let v = this.$refs.form.getValue()
           res(true)

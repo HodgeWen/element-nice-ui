@@ -25,25 +25,43 @@ type MacherType = 'email' | 'phone' | 'id'
 
 export interface ElFormRule {
   /** 值 */
-  value?: any;
+  value?: any
   /** 值类型, 默认为字符串 */
-  type?: 'string' | 'number' | 'boolean' | 'method' | 'integer' | 'float' | 'array' | 'object' | 'enum' | 'date' | 'url' | 'email' | 'any';
+  type?:
+    | 'string'
+    | 'number'
+    | 'boolean'
+    | 'method'
+    | 'integer'
+    | 'float'
+    | 'array'
+    | 'object'
+    | 'enum'
+    | 'date'
+    | 'url'
+    | 'email'
+    | 'any'
   /** 验证触发的方式, 默认是在控件失去焦点时验证 */
-  trigger?: 'change' | 'blur';
+  trigger?: 'change' | 'blur'
   /** 表示必填, 如果指定为字符串, 则应用于消息的提示 */
-  required?: boolean | string;
+  required?: boolean | string
   /** 值的范围 */
-  range?: [number, number, string?];
+  range?: [number, number, string?]
   /** 值的最小值, 如果为数组则 第一个值表示最小值, 第二个表示错误提示消息 */
-  min?: number | [number, string];
+  min?: number | [number, string]
   /** 值的最大值, 如果为数组则 第一个值表示最大值, 第二个表示错误提示消息 */
-  max?: number;
+  max?: number
   /** 值匹配的正则, 可以是正则表达式和预设的正则表达式别名 */
-  match?: MacherType | RegExp | [RegExp | MacherType, string?];
+  match?: MacherType | RegExp | [RegExp | MacherType, string?]
   /** 自定义验证器 */
-  validator?: (rule: any, value: any, callback: (msg: string) => void, model: Record<string, any>) => void;
+  validator?: (
+    rule: any,
+    value: any,
+    callback: (msg?: string) => void,
+    model: Record<string, any>
+  ) => void
   /** 字符长度 */
-  len?: number | [number, string?];
+  len?: number | [number, string?]
 }
 
 export type ElFormModel = Record<string, string | number | Array<any> | null | ElFormRule>
@@ -91,25 +109,31 @@ export declare class ElForm extends ElementUIComponent {
    *
    * @param callback A callback to tell the validation result
    */
-  validate (callback: ValidateCallback): void
-  validate (): Promise<boolean>
+  validate(callback: ValidateCallback): void
+  validate(): Promise<boolean>
   /**
    * Validate certain form items
    *
    * @param props The property of `model` or array of prop which is going to validate
    * @param callback A callback to tell the field validation result
    */
-  validateField (props: string | string[], callback?: ValidateFieldCallback): void
+  validateField(props: string | string[], callback?: ValidateFieldCallback): void
 
-  /** reset all the fields and remove validation result */
-  resetFields (): void
+  /**
+   * 重置表单字段, 你可以传入一个需要排除的字段的集合, 在某些时候这很有用
+   * @param excludes 排除的字段集合
+   */
+  resetFields(excludes?: string[]): void
 
   /** clear validation message for certain fields */
-  clearValidate (props?: string | string[]): void
+  clearValidate(props?: string | string[]): void
 
   /** 获取表单值 */
   getValue<T extends Record<string, any> = Record<string, any>>(): T
 
-  /** 设置表单值 */
+  /**
+   * 设置表单值, 通常情况下作为表单设置值的唯一接口, 这是故意为之的
+   * @param value 表单继承的值
+   */
   setValue<T extends Record<string, any> = Record<string, any>>(value: T): void
 }

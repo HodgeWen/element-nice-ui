@@ -242,7 +242,7 @@
   display: inline-block;
   position: relative;
   line-height: normal;
-  height: 40px;
+  height: 32px;
 
   @include when(disabled) {
     .el-color-picker__trigger {
@@ -251,11 +251,11 @@
   }
 
   @include m(medium) {
-    height: 36px;
+    height: 28px;
 
     .el-color-picker__trigger {
-      height: 36px;
-      width: 36px;
+      height: 28px;
+      width: 28px;
     }
 
     .el-color-picker__mask {
@@ -265,11 +265,11 @@
   }
 
   @include m(small) {
-    height: 32px;
+    height: 24px;
 
     .el-color-picker__trigger {
-      height: 32px;
-      width: 32px;
+      height: 24px;
+      width: 24px;
     }
 
     .el-color-picker__mask {
@@ -284,11 +284,11 @@
   }
 
   @include m(mini) {
-    height: 28px;
+    height: 20px;
 
     .el-color-picker__trigger {
-      height: 28px;
-      width: 28px;
+      height: 20px;
+      width: 20px;
     }
 
     .el-color-picker__mask {
@@ -317,10 +317,8 @@
   @include e(trigger) {
     display: inline-block;
     box-sizing: border-box;
-    height: 40px;
-    width: 40px;
-    padding: 4px;
-    border: 1px solid #e6e6e6;
+    height: 32px;
+    width: 32px;
     border-radius: 4px;
     font-size: 0;
     position: relative;
@@ -332,7 +330,8 @@
     display: block;
     box-sizing: border-box;
     border: 1px solid #999;
-    border-radius: $--border-radius-small;
+    border-radius: 4px;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     text-align: center;
