@@ -1,0 +1,87 @@
+
+@import 'mixins/mixins';
+@import 'common/var';
+// @import 'tooltip';
+// @import 'pagination';
+// @import 'btn';
+// @import "perfect-scrollbar";
+
+@mixin flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+@include b(data) {
+  height: 100%;
+
+  @include m(auto-height) {
+    height: auto;
+  }
+
+  @include e(searcher) {
+
+    background: #fff;
+    margin-bottom: $--tabel-vertical-margin;
+    padding: 8px;
+    border-radius: 4px;
+    padding-top: $--tabel-vertical-margin / 2 + 8px;
+    & > * {
+      width: 220px;
+      margin-right: 10px;
+      margin-bottom: $--tabel-vertical-margin / 2;
+      vertical-align: middle;
+    }
+  }
+
+  @include e(tools) {
+    @include flex;
+    padding: 6px 8px;
+    background: #fff;
+    margin-bottom: $--tabel-vertical-margin;
+    border-radius: 4px;
+
+    &-left {
+      flex-grow: 1;
+
+      & > * {
+        margin-left: 0 !important;
+        &:not(:last-child) {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    &-right {
+      width: 150px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+  }
+
+  @include e(query-item) {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    vertical-align: middle;
+  }
+
+  @include e(query-label) {
+    font-size: 14px;
+    color: #999;
+    flex-shrink: 0;
+    text-align: center;
+    padding-right: 4px;
+    box-sizing: border-box;
+  }
+
+  @include e(wrap) {
+    background: #fff;
+  }
+
+  @include m(with-footer) {
+    margin-bottom: $--tabel-vertical-margin;
+  }
+}

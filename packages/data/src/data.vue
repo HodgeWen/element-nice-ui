@@ -1,7 +1,7 @@
 <template>
-  <div class="el-happy-table" :class="{ 'el-happy-table--auto-height': autoHeight }">
+  <div class="el-data" :class="{ 'el-data--auto-height': autoHeight }">
     <!-- 搜索栏 start -->
-    <div class="el-happy-table__searcher" v-if="showSearcher && $slots.searcher" ref="searcher">
+    <div class="el-data__searcher" v-if="showSearcher && $slots.searcher" ref="searcher">
       <searcher-render
         :ctx="ctx"
         :label-width="queryLabelWidth"
@@ -11,13 +11,14 @@
       />
     </div>
     <!-- 搜索栏 end -->
+
     <!-- 工具栏 start -->
-    <div class="el-happy-table__tools" v-if="showTools" ref="tools">
-      <el-context :ctx="ctx" :depth="2" class="el-happy-table__tools-left" tag="section">
+    <div class="el-data__tools" v-if="showTools" ref="tools">
+      <el-context :ctx="ctx" :depth="2" class="el-data__tools-left" tag="section">
         <slot name="tools" />
       </el-context>
 
-      <el-context depth="2" :ctx="ctx" class="el-happy-table__tools-right" tag="section">
+      <el-context depth="2" :ctx="ctx" class="el-data__tools-right" tag="section">
         <el-tooltip content="查询">
           <el-btn :loading="loading" icon="search" type="primary" @click="fetchData" circle />
         </el-tooltip>
@@ -26,54 +27,26 @@
           <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset" circle />
         </el-tooltip>
 
-        <el-tooltip v-if="$slots.searcher && api && !data && !this.noSearcher" content="显示/隐藏 搜索栏">
+        <el-tooltip
+          v-if="$slots.searcher && api && !data && !this.noSearcher"
+          content="显示/隐藏 搜索栏"
+        >
           <el-btn v-model="searchable" @input="onToggleSearcher" icon="set-up" circle />
-        </el-tooltip>
-
-        <el-tooltip content="配置列">
-          <el-btn icon="s-operation" circle />
         </el-tooltip>
       </el-context>
     </div>
     <!-- 工具栏 end -->
 
-    <!-- 表格主体 strart -->
-    <main-table
-      :class="{ 'el-happy-table--with-footer': pagination }"
-      ref="table"
-      v-bind="$attrs"
-      :size="size"
-      :height="bodyHeight"
-      v-on="$listeners"
-      :showHeader="headers && !!headers.length"
-      :data="computedData"
-      v-loading="loading"
-      :placeholder="placeholder"
-      @selection-change="onSelectionChange($event, 'multiple')"
-      :highlight-current-row="isSingle"
-      @current-change="onSelectionChange($event, 'single')"
+    <!-- 数据主体 strart -->
+    <el-perfect-scrollbar
+      :class="{ 'el-data--with-footer': pagination }"
+      :tag="wrapTag"
+      :style="{ height: bodyHeight }"
     >
-      <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
-        <template v-if="header.slotName" #default="{ row, column, $index }">
-          <el-action v-if="header.type === 'action'" :ctx="ctx">
-            <slot
-              :name="'column.' + header.slotName"
-              v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
-            >
-              {{ placeholder }}
-            </slot>
-          </el-action>
-          <slot
-            v-else
-            :name="'column.' + header.slotName"
-            v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
-          >
-            {{ placeholder }}
-          </slot>
-        </template>
-      </table-column>
-    </main-table>
-    <!-- 表格主体 end -->
+      <slot v-bind="computedData" />
+    </el-perfect-scrollbar>
+
+    <!-- 数据主体 end -->
 
     <!-- 分页 start -->
     <el-pagination
@@ -96,51 +69,43 @@
 </template>
 
 <script>
-import MainTable from './table'
 import ElContext from 'element-nice-ui/packages/context'
 import ElPagination from 'element-nice-ui/packages/pagination'
+import ElPerfectScrollbar from 'element-nice-ui/packages/perfect-scrollbar'
 import ElBtn from 'element-nice-ui/packages/btn'
 import ElTooltip from 'element-nice-ui/packages/tooltip'
 import SearcherRender from './searcher-render'
-import TableColumn from './table-column'
 import { debounce } from 'throttle-debounce'
 import { getValueByPath } from 'element-nice-ui/src/utils/util'
 import { extendQuery, getUrlSearchObj, historyReplace } from 'element-nice-ui/src/utils/shared'
-import ElAction from 'element-nice-ui/packages/action'
 
 export default {
-  name: 'ElTable',
+  name: 'ElData',
 
   inheritAttrs: false,
 
   components: {
-    MainTable,
     ElContext,
     ElPagination,
     ElBtn,
     ElTooltip,
     SearcherRender,
-    TableColumn,
-    ElAction
+    ElPerfectScrollbar
   },
 
   props: {
     api: String,
 
-    placeholder: {
-      type: String,
-      default: '——'
-    },
-
     pagination: {
       type: Boolean
     },
 
-    data: {
-      type: Array
+    wrapTag: {
+      type: String,
+      default: 'div'
     },
 
-    headers: {
+    data: {
       type: Array
     },
 
@@ -180,11 +145,6 @@ export default {
       type: Boolean
     },
 
-    align: {
-      type: String,
-      default: 'center'
-    },
-
     value: {
       type: [Array, Object]
     },
@@ -216,8 +176,6 @@ export default {
 
     accHeight: 0,
 
-    headerId: 0,
-
     searchable: true,
 
     willSearch: false,
@@ -244,34 +202,6 @@ export default {
         ret = ret.filter(this.filter)
       }
       return ret
-    },
-
-    // 表格的头部属性
-    computedHeaders() {
-      if (!this.headers) return []
-
-      let mapper = arr =>
-        arr.map(header => {
-          let ret = { ...header, _id: this.headerId++ }
-          if (!ret.align) {
-            ret.align = this.align
-          }
-
-          if (ret.children) {
-            ret.children = mapper(ret.children)
-          }
-          return ret
-        })
-
-      let headers = mapper(this.headers)
-
-      if (this.isMultiple) {
-        headers.unshift({
-          type: 'selection',
-          align: this.align
-        })
-      }
-      return headers
     },
 
     // 显示搜索
@@ -478,6 +408,7 @@ export default {
       let margin = 8
       if (this.showSearcher && this.$refs.searcher) {
         acc += this.$refs.searcher.clientHeight + margin
+        console.log(acc)
       }
       if (this.showTools && this.$refs.tools) {
         acc += this.$refs.tools.clientHeight + margin

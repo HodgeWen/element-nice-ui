@@ -1,0 +1,5 @@
+import './tooltip.js'
+import './pagination.js'
+import './btn.js'
+import './perfect-scrollbar.js'
+import '../src/data.scss'

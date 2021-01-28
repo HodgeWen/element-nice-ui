@@ -1,5 +1,5 @@
 <template>
-  <el-page>
+  <!-- <el-page>
     <el-select style="width: 200px" v-model="selected"  :options="options">
       <template #prepend><i class="el-icon-setting"></i></template>
     </el-select>
@@ -57,20 +57,15 @@
     <template #footer-right>
       <el-btn>aaa</el-btn>
     </template>
-  </el-page>
-  <!-- <el-btn @click="collapse = !collapse">折叠</el-btn>
-    <el-perfect-scrollbar
-      tag="aside"
-      style="height: 400px"
-      :style="{ width: collapse ? '64px' : '230px' }"
-      ref="scrollbar"
-      class="layout__aside"
-      :class="{ 'layout__aside--collapsed': collapse }"
-    >
-      <el-menu :collapse="collapse" :collapse-transition="false">
-        <layout-aside-menu-item :key="i" :menu="menu" v-for="(menu, i) of menus" />
-      </el-menu>
-    </el-perfect-scrollbar> -->
+  </el-page> -->
+
+  <el-data api="arr" pagination>
+    <template #default="data">
+      <div v-for="(item, index) of data" :key="index" style="">
+        {{ item }}
+      </div>
+    </template>
+  </el-data>
 
   <!-- <el-new-table :headers="headers" :data="data" v-if="show"></el-new-table> -->
 </template>

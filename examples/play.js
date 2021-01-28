@@ -27,6 +27,7 @@ import 'theme/components'
 
 Vue.use(Element.NewTable)
 Vue.use(Element.Table)
+Vue.use(Element.Data)
 Vue.use(Element.ActionItem)
 Vue.use(Element.Page)
 Vue.use(Element.PageAnchor)

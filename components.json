@@ -1,4 +1,5 @@
 {
+  "data": "./packages/data/index.js",
   "page": "./packages/page/index.js",
   "page-anchor": "./packages/page-anchor/index.js",
   "pagination": "./packages/pagination/index.js",

@@ -37,6 +37,8 @@ themes.forEach((theme) => {
         'utf-8'
       )
     }
+
+    /** 最好改到下面去 */
     if (!fileExists(fileJsPath)) {
       let matched = fs
         .readFileSync(filePath)
@@ -53,7 +55,7 @@ themes.forEach((theme) => {
             )}.scss'\n`
             return
           }
-          content += `import '${path.join(
+          content += `import './${path.join(
             './',
             item.replace(/(@import|'|"|;|\.scss)/g, '').trim()
           )}.js'\n`
@@ -67,5 +69,9 @@ themes.forEach((theme) => {
   fs.writeFileSync(
     path.resolve(basepath, theme, 'src', isSCSS ? 'index.scss' : 'index.css'),
     indexContent
+  )
+  fs.writeFileSync(
+    path.resolve(basepath, theme, 'components', 'index.js'),
+    indexContent.replace(/@/g, '').replace(/scss/g, 'js')
   )
 })

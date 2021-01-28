@@ -27,6 +27,10 @@
         <el-btn :disabled="selected && !!selected.length">删除</el-btn>
       </template>
 
+      <template #column.expand="{ row }">
+        {{ row.id }}
+      </template>
+
       <template #column.action="{ row, index }">
         <el-action-item @click="onTest(index)">测试</el-action-item>
       </template>

@@ -534,6 +534,18 @@
     "type": "boolean",
     "description": "表示表格不显示searcher栏"
   },
+  "el-data/no-cache": {
+    "type": "boolean",
+    "description": "表示数据容器不使用url的缓存"
+  },
+  "el-data/height": {
+    "type": "string",
+    "description": "指定数据容器的高度, 优先级高于autoHeight"
+  },
+  "el-data/no-searcher": {
+    "type": "boolean",
+    "description": "表示数据容器不显示searcher栏"
+  },
   "el-tree/empty-text": { "description": "text displayed when data is void" },
   "el-form-item/prop": {
     "description": "a key of model. In the use of validate and resetFields method, the attribute is required"
@@ -630,7 +642,7 @@
   },
   "el-table/auto-height": {
     "type": "boolean",
-    "description": "表示改表格高度是自适应的而非固定"
+    "description": "表示该表格高度是自适应的而非固定"
   },
   "el-table/auto-queried": {
     "type": "array",
@@ -645,6 +657,31 @@
     "description": "显示工具栏"
   },
   "el-table/api": {
+    "type": "string",
+    "description": "发起查询的远程接口的地址"
+  },
+
+  "el-data/pagination": {
+    "type": "boolean",
+    "description": "这是一个分页数据容器, 会去渲染分页"
+  },
+  "el-data/auto-height": {
+    "type": "boolean",
+    "description": "表示该数据容器高度是自适应的而非固定"
+  },
+  "el-data/auto-queried": {
+    "type": "array",
+    "description": "改数据容器在值改变时自动检索的字段有哪些"
+  },
+  "el-data/query-label-width": {
+    "type": "number",
+    "description": "所有query项的label宽度"
+  },
+  "el-data/show-tools": {
+    "type": "boolean",
+    "description": "显示工具栏"
+  },
+  "el-data/api": {
     "type": "string",
     "description": "发起查询的远程接口的地址"
   },
