@@ -36,10 +36,17 @@
       </template>
 
       <template #searcher>
-        <!-- <el-input v-model="query.name" t-label="名称" />
+        <el-input v-model="query.name" t-label="名称" />
         <el-input v-model="query.age" t-label="年龄" />
-        <el-select v-model="query.test" option-label="label1" t-label="测试" api="select" />
-        <el-select v-model="disabled" :options="{ true: '开', false: '关' }" /> -->
+        <el-select
+          v-model="query.test"
+          t-label="测试"
+          tree
+          option-value="value"
+          option-label="label"
+          api="/select/tree"
+        />
+        <el-select v-model="disabled" :options="{ true: '开', false: '关' }" />
       </template>
 
       <template #outer>

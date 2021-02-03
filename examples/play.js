@@ -3,6 +3,7 @@ import Element from 'main/index.js'
 
 // import App from './play/table.vue'
 import App from './play/index.vue'
+// import App from './play/tree.vue'
 
 // import 'theme/components/base'
 // import 'theme/components/table'
@@ -48,6 +49,7 @@ Vue.use(Element.MenuItem)
 Vue.use(Element.Badge)
 Vue.use(Element.ColorPicker)
 Vue.use(Element.Submenu)
+Vue.use(Element.Tree)
 Vue.use(Element.PerfectScrollbar)
 Vue.prototype.$confirm = Element.MessageBox.confirm
 
