@@ -17,7 +17,7 @@ export default {
   inheritAttrs: false,
 
   render(h) {
-    let children = this.$slots.default
+    let children = this.$slots.default && this.$slots.default.filter(child => child.tag)
     let childrenLength = 0
     if (children && children.length) {
       children.forEach(({ componentOptions: opts }) => {

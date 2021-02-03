@@ -12,7 +12,6 @@
       auto-height
       ref="table"
       query-label-width="60"
-      @input="$log"
       v-model="aa"
     >
       <template #tools>
@@ -32,7 +31,12 @@
       </template>
 
       <template #column.action="{ row, index }">
-        <el-action-item @click="onTest(index)">测试</el-action-item>
+        <el-action-item v-if="false" @click="onTest(index)">测试1</el-action-item>
+        <el-action-item @click="onTest(index)">测试2</el-action-item>
+        <el-action-item v-if="false" @click="onTest(index)">测试3</el-action-item>
+        <el-action-item  @click="onTest(index)">测4</el-action-item>
+        <el-action-item  @click="onTest(index)">测试5</el-action-item>
+        <el-action-item  @click="onTest(index)">测试6</el-action-item>
       </template>
 
       <template #searcher>
