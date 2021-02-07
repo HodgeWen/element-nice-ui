@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Element from 'main/index.js'
 
 // import App from './play/table.vue'
-import App from './play/index.vue'
+import App from './play/form.vue'
+// import App from './play/index.vue'
 // import App from './play/tree.vue'
 
 // import 'theme/components/base'
@@ -25,33 +26,35 @@ import App from './play/index.vue'
 // import 'theme/components/perfect-scrollbar'
 // import 'theme/components/page'
 import 'theme/components'
-
-Vue.use(Element.NewTable)
-Vue.use(Element.Table)
-Vue.use(Element.Data)
-Vue.use(Element.ActionItem)
-Vue.use(Element.Page)
-Vue.use(Element.PageAnchor)
-Vue.use(Element.Btn)
-Vue.use(Element.Dialog)
-Vue.use(Element.Form)
-Vue.use(Element.FormItem)
-Vue.use(Element.Loading)
-Vue.use(Element.Popconfirm)
-Vue.use(Element.Select)
-Vue.use(Element.RadioGroup)
-Vue.use(Element.RadioButton)
-Vue.use(Element.Cascader)
-Vue.use(Element.InputNumber)
-Vue.use(Element.Input)
-Vue.use(Element.Menu)
-Vue.use(Element.MenuItem)
-Vue.use(Element.Badge)
-Vue.use(Element.ColorPicker)
-Vue.use(Element.Submenu)
-Vue.use(Element.Tree)
-Vue.use(Element.PerfectScrollbar)
+Vue.use(Element)
+// Vue.use(Element.NewTable)
+// Vue.use(Element.Table)
+// Vue.use(Element.Data)
+// Vue.use(Element.ActionItem)
+// Vue.use(Element.Page)
+// Vue.use(Element.PageAnchor)
+// Vue.use(Element.Btn)
+// Vue.use(Element.Dialog)
+// Vue.use(Element.Form)
+// Vue.use(Element.FormItem)
+// Vue.use(Element.Loading)
+// Vue.use(Element.Popconfirm)
+// Vue.use(Element.Select)
+// Vue.use(Element.RadioGroup)
+// Vue.use(Element.RadioButton)
+// Vue.use(Element.Radio)
+// Vue.use(Element.Cascader)
+// Vue.use(Element.InputNumber)
+// Vue.use(Element.Input)
+// Vue.use(Element.Menu)
+// Vue.use(Element.MenuItem)
+// Vue.use(Element.Badge)
+// Vue.use(Element.ColorPicker)
+// Vue.use(Element.Submenu)
+// Vue.use(Element.Tree)
+// Vue.use(Element.PerfectScrollbar)
 Vue.prototype.$confirm = Element.MessageBox.confirm
+Vue.prototype.$msg = Element.Message
 
 Vue.prototype.$log = console.log
 Vue.prototype.$EL_TABLE_PROP_CONFIG = {

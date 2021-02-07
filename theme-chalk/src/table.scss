@@ -145,7 +145,7 @@
 
     &.is-group {
       th {
-        background: $--color-primary;
+        background: var(--primary-color, $--color-primary);
       }
     }
   }

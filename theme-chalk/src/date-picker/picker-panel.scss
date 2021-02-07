@@ -46,7 +46,7 @@
     cursor: pointer;
 
     &:hover {
-      color: $--datepicker-hover-font-color;
+      color: var(--primary-color, $--color-primary);
     }
 
     &.active {

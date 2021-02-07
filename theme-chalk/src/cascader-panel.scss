@@ -78,7 +78,7 @@
   &.in-active-path,
   &.is-selectable.in-checked-path,
   &.is-active {
-    color: $--cascader-menu-selected-font-color;
+    color: var(--primary-color, $--color-primary);
     font-weight: bold;
   }
 

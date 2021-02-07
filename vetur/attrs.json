@@ -11,6 +11,10 @@
     "type": "string",
     "description": "标签"
   },
+  "t-label-width": {
+    "type": "string",
+    "description": "标签长度"
+  },
   "t-prop": {
     "type": "string",
     "description": "表单键"

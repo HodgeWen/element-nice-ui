@@ -65,7 +65,7 @@
     &.today {
       position: relative;
       span {
-        color: $--color-primary;
+        color: var(--primary-color, $--color-primary);
         font-weight: bold;
       }
       &.start-date span,
@@ -75,7 +75,7 @@
     }
 
     &.available:hover {
-      color: $--datepicker-hover-font-color;
+      color: var(--primary-color, $--color-primary);
     }
 
     &.in-range div {
@@ -87,7 +87,7 @@
 
     &.current:not(.disabled) span {
       color: $--color-white;
-      background-color: $--datepicker-active-color;
+      background-color: var(--primary-color, $--color-primary);
     }
     &.start-date div,
     &.end-date div {
@@ -96,7 +96,7 @@
 
     &.start-date span,
     &.end-date span {
-      background-color: $--datepicker-active-color;
+      background-color: var(--primary-color, $--color-primary);
     }
 
     &.start-date div {

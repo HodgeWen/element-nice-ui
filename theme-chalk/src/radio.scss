@@ -24,7 +24,7 @@
     height: $--radio-bordered-height;
 
     &.is-checked {
-      border-color: $--color-primary;
+      border-color: var(--primary-color, $--color-primary);
     }
 
     &.is-disabled {
@@ -126,8 +126,8 @@
 
     @include when(checked) {
       .el-radio__inner {
-        border-color: $--radio-checked-input-border-color;
-        background: $--radio-checked-icon-color;
+        border-color: var(--primary-color, $--color-primary);
+        background: var(--primary-color, $--color-primary);
 
         &::after {
           transform: translate(-50%, -50%) scale(1);
@@ -135,13 +135,13 @@
       }
 
       & + .el-radio__label {
-        color: $--radio-checked-font-color;
+        color: var(--primary-color, $--color-primary);
       }
     }
 
     @include when(focus) {
       .el-radio__inner {
-        border-color: $--radio-input-border-color-hover;
+        border-color: var(--primary-color, $--color-primary);
       }
     }
   }
@@ -157,7 +157,7 @@
     box-sizing: border-box;
 
     &:hover {
-      border-color: $--radio-input-border-color-hover;
+      border-color: var(--primary-color, $--color-primary);
     }
 
     &::after {

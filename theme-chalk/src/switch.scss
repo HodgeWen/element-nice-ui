@@ -27,7 +27,7 @@
     color: $--color-text-primary;
 
     @include when(active) {
-      color: $--color-primary;
+      color: var(--primary-color, $--color-primary);
     }
 
     @include m(left) {
@@ -81,8 +81,8 @@
 
   @include when(checked) {
     .el-switch__core {
-      border-color: $--switch-on-color;
-      background-color: $--switch-on-color;
+      border-color: var(--primary-color, $--color-primary);
+      background-color: var(--primary-color, $--color-primary);
       &::after {
         left: 100%;
         margin-left: -$--switch-button-size - 1px;

@@ -16,6 +16,12 @@ const Message = function(options) {
       message: options
     };
   }
+
+  if (options.type === 'error') {
+    let errInstance = instances.find(inst => inst.type === 'error')
+    if (errInstance) return errInstance
+  }
+
   let userOnClose = options.onClose;
   let id = 'message_' + seed++;
 

@@ -33,7 +33,7 @@
 
     &:focus {
       outline: none;
-      border-color: $--input-focus-border;
+      border-color: var(--primary-color, $--color-primary);
     }
   }
 
@@ -130,7 +130,7 @@
 
     &:focus {
       outline: none;
-      border-color: $--input-focus-border;
+      border-color: var(--primary-color, $--color-primary);
     }
   }
 

@@ -84,7 +84,7 @@
 
   @include e(bar) {
     height: $--slider-height;
-    background-color: $--slider-main-background-color;
+    background-color: var(--primary-color, $--color-primary);
     border-top-left-radius: $--slider-border-radius;
     border-bottom-left-radius: $--slider-border-radius;
     position: absolute;
@@ -121,7 +121,7 @@
   @include e(button) {
     width: $--slider-button-size;
     height: $--slider-button-size;
-    border: solid 2px $--slider-main-background-color;
+    border: solid 2px var(--primary-color, $--color-primary);
     background-color: $--color-white;
     border-radius: 50%;
     transition: .2s;

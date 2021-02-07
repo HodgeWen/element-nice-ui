@@ -29,7 +29,7 @@
     @include button-size($--button-padding-vertical, $--button-padding-horizontal, $--button-font-size, 0);
 
     &:hover {
-      color: $--color-primary;
+      color: var(--primary-color, $--color-primary);
     }
 
     & [class*="el-icon-"] {
@@ -58,9 +58,9 @@
     &:checked {
       & + .el-radio-button__inner {
         color: $--radio-button-checked-font-color;
-        background-color: $--radio-button-checked-background-color;
-        border-color: $--radio-button-checked-border-color;
-        box-shadow: -1px 0 0 0 $--radio-button-checked-border-color;
+        background-color: var(--primary-color, $--color-primary);
+        border-color: var(--primary-color, $--color-primary);
+        box-shadow: -1px 0 0 0 var(--primary-color, $--color-primary);
       }
     }
 

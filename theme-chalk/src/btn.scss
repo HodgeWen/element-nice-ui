@@ -128,11 +128,39 @@
   }
 
   @include m(primary) {
-    @include button-variant(
-      $--button-primary-font-color,
-      $--button-primary-background-color,
-      $--button-primary-border-color
-    );
+    color: #fff;
+    background-color: var(--primary-color, #409EFF);
+    border-color: var(--primary-color, #409EFF);
+    // &:focus
+    &:hover {
+      background-color: var(--primary-tint-color, #66b1ff);
+      border-color: var(--primary-tint-color, #66b1ff);
+      color: #fff;
+    }
+
+    &:active {
+      background-color: var(--primary-shade-color, #3a8ee6);
+      border-color: var(--primary-shade-color, #3a8ee6);
+      color: #fff;
+      outline: none;
+    }
+
+    &.is-active {
+      background-color: var(--primary-shade-color, #3a8ee6);
+      border-color: var(--primary-shade-color, #3a8ee6);
+      color: #fff;
+    }
+
+    &.is-disabled {
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        color: $--color-white;
+        background-color: var(--primary-disabled-color, #a0cfff);
+        border-color: var(--primary-disabled-color, #a0cfff);
+      }
+    }
   }
   @include m(success) {
     @include button-variant(

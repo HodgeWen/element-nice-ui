@@ -42,7 +42,7 @@
     padding: $--dialog-padding-primary;
     border-bottom: 1px solid #eee;
     box-sizing: border-box;
-    background-color: $--color-primary;
+    background-color: var(--primary-color, $--color-primary);
   }
 
   @include e(headerbtn) {

@@ -37,7 +37,7 @@
     padding-right: 35px;
 
     &:focus {
-      border-color: $--select-input-focus-border-color;
+      border-color: var(--primary-color, $--color-primary);
     }
   }
 
@@ -78,7 +78,7 @@
     }
 
     &.is-focus .el-input__inner {
-      border-color: $--select-input-focus-border-color;
+      border-color: var(--primary-color, $--color-primary);
     }
   }
 
