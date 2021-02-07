@@ -37,7 +37,7 @@
   &:hover,
   &:focus {
     outline: none;
-    background-color: $--menu-item-hover-fill;
+    background-color: var(--primary-tint-color-9, $--color-primary-light-9);
   }
 
   @include when(disabled) {
@@ -242,8 +242,8 @@
     vertical-align: middle;
   }
   @include when(active) {
-    background: $--menu-item-hover-fill;
-    color: $--color-primary;
+    background: var(--primary-tint-color-9, $--color-primary-light-9);
+    color: var(--primary-color, $--color-primary);
     i {
       color: inherit;
     }
@@ -257,7 +257,7 @@
 
   @include e(title) {
     &:hover {
-      background-color: $--menu-item-hover-fill;
+      background-color: var(--primary-tint-color-9, $--color-primary-light-9);
     }
   }
   & .el-menu {

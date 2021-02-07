@@ -225,7 +225,7 @@
   th {
     overflow: hidden;
     user-select: none;
-    background-color: $--color-primary;
+    background-color: var(--primary-color, $--color-primary);
 
     > .cell {
       display: inline-block;

@@ -226,19 +226,19 @@
   }
   @include m(text) {
     border-color: transparent;
-    color: $--color-primary;
+    color: var(--primary-color, $--color-primary);
     background: transparent;
     padding-left: 0;
     padding-right: 0;
 
     &:hover,
     &:focus {
-      color: mix($--color-white, $--color-primary, $--button-hover-tint-percent);
+      color: var(--primary-tint-color, $--color-primary);
       border-color: transparent;
       background-color: transparent;
     }
     &:active {
-      color: mix($--color-black, $--color-primary, $--button-active-shade-percent);
+      color: var(--primary-shade-color, $--color-primary);
       border-color: transparent;
       background-color: transparent;
     }

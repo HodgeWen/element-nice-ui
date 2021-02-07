@@ -28,6 +28,8 @@
 
       <el-time-picker t-prop="date"/>
     </el-form>
+
+    <el-btn type="text">aa</el-btn>
   </div>
 </template>
 
@@ -77,15 +79,14 @@ export default {
         }
         const ft = type => {
           const [start, end] = map[type]
-          return parseInt(first.slice(start, end), '16')
+          return parseInt(first.slice(start, end), 16)
         }
         const st = type => {
           const [start, end] = map[type]
-          return parseInt(second.slice(start, end), '16')
+          return parseInt(second.slice(start, end), 16)
         }
 
-        const c = t => Math.round((ft(t) - st(t)) * percent + st(t)).toString('16')
-
+        const c = t => `0${Math.round((ft(t) - st(t)) * percent + st(t)).toString(16)}`.slice(-2)
         return '#' + [c('r'), c('g'), c('b')].join('')
       }
 
@@ -103,7 +104,7 @@ export default {
   },
 
   created() {
-    this.onColorInput('#760EDD')
+    this.onColorInput(this.color)
   }
 }
 </script>
