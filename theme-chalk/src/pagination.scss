@@ -10,6 +10,7 @@
   background: #fff;
   color: $--pagination-font-color;
   font-weight: bold;
+  border-radius: 4px;
   @include utils-clearfix;
 
   span:not([class*=suffix]),

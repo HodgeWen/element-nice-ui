@@ -8,11 +8,13 @@
   position: relative;
   margin: 0 auto 50px;
   background: $--dialog-background-color;
-  border-radius: $--border-radius-small;
+  border-radius: $--border-radius-base;
+  overflow: hidden;
   box-shadow: $--dialog-box-shadow;
   box-sizing: border-box;
   width: 720px;
   max-height: 70vh;
+
 
   @include when(fullscreen) {
     width: 100%;

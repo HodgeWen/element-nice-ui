@@ -9,6 +9,7 @@ $footer-height: 48px;
   padding-bottom: $footer-height;
   box-sizing: border-box;
   background: #fff;
+  border-radius: 4px;
 
   @include m(without-footer) {
     padding-bottom: 0;
