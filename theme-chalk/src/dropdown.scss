@@ -87,8 +87,8 @@
     outline: none;
     &:not(.is-disabled):hover,
     &:focus {
-      background-color: $--dropdown-menuItem-hover-fill;
-      color: $--dropdown-menuItem-hover-color;
+      background-color: var(--primary-tint-color-9, $--color-primary-light-9);
+      color: var(--primary-color, $--color-primary);
     }
 
     i {

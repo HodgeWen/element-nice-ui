@@ -1,4 +1,4 @@
-import PerfectScrollbar from 'perfect-scrollbar'
+import PerfectScrollbar from './ps'
 import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
 import { scrollTo } from './utils'
 

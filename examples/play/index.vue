@@ -56,6 +56,13 @@
 
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
+          <p>111</p>
+          <p>111</p>
+          <p>111</p>
+          <p>111</p>
+          <p>111</p>
+          <p>111</p>
+          <p>111</p>
           <el-form :form="form" ref="form" size="small" label-width="60px">
             <el-select
               multiple

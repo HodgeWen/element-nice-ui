@@ -1,6 +1,6 @@
 {
   "name": "element-nice-ui",
-  "version": "2.15.65",
+  "version": "2.15.68",
   "description": "A Component Library for Vue.js.",
   "main": "lib/element-nice-ui.common.js",
   "files": [
@@ -51,7 +51,6 @@
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "deepmerge": "^1.2.0",
     "normalize-wheel": "^1.0.1",
-    "perfect-scrollbar": "^1.5.0",
     "resize-observer-polyfill": "^1.5.0",
     "throttle-debounce": "^1.0.1"
   },
