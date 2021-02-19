@@ -56,20 +56,13 @@
 
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
-          <p>111</p>
-          <p>111</p>
-          <p>111</p>
-          <p>111</p>
-          <p>111</p>
-          <p>111</p>
-          <p>111</p>
           <el-form :form="form" ref="form" size="small" label-width="60px">
             <el-select
               multiple
               filterable
               t-label="测试"
               t-prop="select"
-              :options="{ 0: '0', 1: '1' }"
+              api="select"
             />
             <el-input :disabled="disabled === 'true'" t-prop="name" t-label="名字" append="测试" />
             <el-input-number
@@ -87,7 +80,7 @@
             <el-checkbox-group t-prop="checked" t-label="检查">
               <el-checkbox label="1">测试</el-checkbox>
             </el-checkbox-group>
-            <el-select t-label="树形选择器" api="/select/tree" tree filterable t-prop="cas" />
+            <el-select t-label="树形选择器" api="/select/tree" tree multiple filterable t-prop="cas" />
           </el-form>
 
           <!-- <el-table
@@ -205,6 +198,7 @@ export default {
       }
 
       const tintColor = mix('#ffffff', color, 0.2)
+      const tintColor9 = mix('#ffffff', color, 0.9)
       const shadeColor = mix('#000000', color, 0.1)
       const disabledColor = mix('#ffffff', color, 0.5)
 
@@ -212,6 +206,7 @@ export default {
 
       style.setProperty('--primary-color', color)
       style.setProperty('--primary-tint-color', tintColor)
+      style.setProperty('--primary-tint-color-9', tintColor9)
       style.setProperty('--primary-shade-color', shadeColor)
       style.setProperty('--primary-disabled-color', disabledColor)
     },

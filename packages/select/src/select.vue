@@ -104,9 +104,9 @@
       @mouseenter.native="inputHovering = true"
       @mouseleave.native="inputHovering = false"
     >
-    <template #prepend>
-      <slot name="prepend" />
-    </template>
+      <template #prepend>
+        <slot name="prepend" />
+      </template>
       <template #prefix v-if="$slots.prefix">
         <slot name="prefix"></slot>
       </template>
@@ -142,6 +142,7 @@
               :key="option.value"
               :value="option.value"
               :label="option.label"
+              :option="option"
             >
               <slot v-bind="{ option, index }" />
             </el-option>
@@ -359,6 +360,8 @@ export default {
       type: String
     },
 
+    dataPath: String,
+
     tree: {
       type: Boolean
     },
@@ -573,16 +576,17 @@ export default {
 
     // option更新后应当设置选择的值
     computedOptions() {
-      this.$nextTick(() => {
-        if (this.tree) {
+      if (this.tree) {
+        this.$nextTick(() => {
           if (!this.multiple) {
             this.$refs.tree.setCurrentKey(this.value)
           } else {
             this.$refs.tree.setCheckedKeys(this.value)
           }
-        }
+        })
+      } else {
         this.setSelected()
-      })
+      }
     },
 
     internalOptions(v) {
@@ -612,14 +616,14 @@ export default {
     onCurrentTreeNodeChange(data, node) {
       if (this.multiple) return
       this.$emit('input', data.value)
-      this.emitChange(data.value, data.label)
+      this.emitChange(data.value, data.label, data)
       this.visible = false
     },
 
     // 节点多选选择
-    onTreeCheck(data, { checkedKeys }) {
+    onTreeCheck(data, { checkedKeys, checkedNodes }) {
       this.$emit('input', checkedKeys)
-      this.emitChange(data.value, data.label)
+      this.emitChange(checkedKeys, checkedNodes.map(node => node.label), checkedNodes)
     },
 
     treeNodeFilter(value, data) {
@@ -708,9 +712,9 @@ export default {
       this.$nextTick(() => this.scrollToOption(this.selected))
     },
 
-    emitChange(val, label) {
+    emitChange(val, label, obj) {
       if (!valueEquals(this.value, val)) {
-        this.$emit('change', val, label)
+        this.$emit('change', val, label, obj)
       }
     },
 
@@ -754,6 +758,7 @@ export default {
     },
 
     setSelected() {
+      // 单选
       if (!this.multiple) {
         let option = this.getOption(this.value)
 
@@ -769,6 +774,7 @@ export default {
         return
       }
 
+      // 树形选择
       if (this.tree) {
         let checkedNodes = this.$refs.tree.getCheckedNodes(false, false, true)
 
@@ -782,6 +788,8 @@ export default {
         })
         return
       }
+
+      // 多选
       let result = []
       if (Array.isArray(this.value)) {
         this.value.forEach(value => {
@@ -853,9 +861,15 @@ export default {
     deletePrevTag(e) {
       if (e.target.value.length <= 0 && !this.toggleLastOptionHitState()) {
         const value = this.value.slice()
+        const selected = this.selected.slice()
         value.pop()
+        selected.pop()
         this.$emit('input', value)
-        this.emitChange(value)
+        this.emitChange(
+          value,
+          selected.map(o => o.label),
+          selected.map(o => o.option)
+        )
       }
     },
 
@@ -909,6 +923,7 @@ export default {
       }, 300)
     },
 
+    /** 选项开始选择时 */
     handleOptionSelect(option, byClick) {
       this.$emit('select', option)
       if (this.multiple) {
@@ -920,7 +935,13 @@ export default {
           value.push(option.value)
         }
         this.$emit('input', value)
-        this.emitChange(value)
+
+        // 延迟触发
+        this.$nextTick(() => {
+          this.$emit('change', value, this.selected.map(o => o.label),
+          this.selected.map(o => o.option))
+        })
+
         if (option.created) {
           this.query = ''
           this.handleQueryChange('')
@@ -929,7 +950,7 @@ export default {
         if (this.filterable) this.$refs.input.focus()
       } else {
         this.$emit('input', option.value)
-        this.emitChange(option.value, option.label)
+        this.emitChange(option.value, option.label, option.option)
         this.visible = false
       }
       this.isSilentBlur = byClick
@@ -991,9 +1012,14 @@ export default {
 
     deleteSelected(event) {
       event.stopPropagation()
-      const value = this.multiple ? [] : ''
-      this.$emit('input', value)
-      this.emitChange(value, '')
+      if (this.multiple) {
+        const v = []
+        this.$emit('input', v)
+        this.emitChange(v, [], [])
+      } else {
+        this.$emit('input', '')
+        this.emitChange('', '', null)
+      }
       this.visible = false
       this.$emit('clear')
     },
@@ -1002,20 +1028,26 @@ export default {
       let index = this.selected.indexOf(tag)
 
       if (index > -1 && !this.selectDisabled) {
-        // TODO 性能是和否可以优化
         if (this.tree) {
           let restTags = this.selected.slice()
           restTags.splice(index, 1)
           let { tree } = this.$refs
           tree.setCheckedKeys(restTags.map(tag => tag.value))
-          let newVal = tree.getCheckedKeys()
+          let newNodes = tree.getCheckedNodes()
+          let newVal = newNodes.map(node => node.value)
           this.$emit('input', newVal)
-          this.emitChange(newVal)
+          this.emitChange(newVal, newNodes.map(node => node.label), newNodes)
         } else {
           const value = this.value.slice()
+          const selected = this.selected.slice()
           value.splice(index, 1)
+          selected.splice(index, 1)
           this.$emit('input', value)
-          this.emitChange(value)
+          this.emitChange(
+            value,
+            selected.map(o => o.label),
+            selected.map(o => o.option)
+          )
         }
         this.$emit('remove-tag', tag.value)
       }
@@ -1083,6 +1115,17 @@ export default {
       } else {
         return getValueByPath(item.value, this.valueKey)
       }
+    },
+
+    getRemoteData() {
+      const { baseUrl = '', option = 'data' } = this.$EL_SELECT_PROP_CONFIG || {}
+      !this.options &&
+        this.api &&
+        this.$http &&
+        this.$http.get(baseUrl + this.api).then(res => {
+          if (res.code !== 200) return
+          this.remoteOptions = getValueByPath(res, this.dataPath || option)
+        })
     }
   },
 
@@ -1108,14 +1151,7 @@ export default {
   },
 
   mounted() {
-    const { baseUrl = '', option = 'data' } = this.$EL_SELECT_PROP_CONFIG || {}
-    !this.options &&
-      this.api &&
-      this.$http &&
-      this.$http.get(baseUrl + this.api).then(res => {
-        if (res.code !== 200) return
-        this.remoteOptions = getValueByPath(res, option)
-      })
+    this.getRemoteData()
 
     if (this.multiple && Array.isArray(this.value) && this.value.length > 0) {
       this.currentPlaceholder = ''

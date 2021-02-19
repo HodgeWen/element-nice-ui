@@ -37,7 +37,8 @@
       disabled: {
         type: Boolean,
         default: false
-      }
+      },
+      option: Object
     },
 
     data() {

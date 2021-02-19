@@ -14,11 +14,11 @@
 
   @include when(multiple) {
     & .el-select-dropdown__item.selected {
-      color: $--select-option-selected-font-color;
+      color: var(--primary-color, $--color-primary);
       background-color: $--select-dropdown-background;
 
       &.hover {
-        background-color: $--select-option-hover-background;
+        background-color: var(--primary-tint-color-9, $--color-primary-light-9);
       }
 
       &::after {

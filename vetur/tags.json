@@ -157,6 +157,7 @@
       "t-span",
       "t-modifier",
       "tree",
+      "data-path",
       "inline",
       "multiple",
       "disabled",
