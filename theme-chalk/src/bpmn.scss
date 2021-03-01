@@ -1,0 +1,33 @@
+@import 'mixins/mixins';
+// @import './bpmn/diagram-js.css';
+// @import './bpmn/css/bpmn.css';
+// @import './bpmn/css/bpmn-codes.css';
+// @import './bpmn/css/bpmn-embedded.css';
+
+@include b(bpmn) {
+  height: 100%;
+  position: relative;
+
+  $tools-height: 40px;
+
+  @include e(tools) {
+    height: $tools-height;
+    line-height: $tools-height;
+    left: 100px;
+    top: 6px;
+    position: absolute;
+    z-index: 100;
+  }
+
+  @include e(btn-group) {
+    margin-right: 6px;
+  }
+
+  @include e(canvas) {
+    height: 100%;
+  }
+
+  @include e(prop-panel) {
+
+  }
+}

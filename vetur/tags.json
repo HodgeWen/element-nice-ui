@@ -914,6 +914,14 @@
   },
   "el-action-item": {
     "attributes": ["need-to-confirm", "confirm-text"],
+    "description": "操作组件项"
+  },
+  "el-wang-editor": {
+    "attributes": ["config"],
+    "description": "配置, 详情查看 https://doc.wangeditor.com/"
+  },
+  "el-bpmn": {
+    "attributes": ["need-to-confirm", "confirm-text"],
     "description": "操作组件容项"
   }
 }

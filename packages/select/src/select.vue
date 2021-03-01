@@ -127,6 +127,7 @@
         :append-to-body="popperAppendToBody"
         v-show="visible && emptyText !== false"
       >
+        <slot name="tools" />
         <template v-if="!tree">
           <el-scrollbar
             tag="ul"
@@ -169,6 +170,9 @@
               @current-change="onCurrentTreeNodeChange"
               @check="onTreeCheck"
             >
+              <template v-if="$scopedSlots['tree-item']" #default="scope">
+                <slot name="tree-item" v-bind="scope" />
+              </template>
             </el-tree>
           </el-scrollbar>
         </template>

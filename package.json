@@ -1,6 +1,6 @@
 {
   "name": "element-nice-ui",
-  "version": "2.15.69",
+  "version": "2.15.70",
   "description": "A Component Library for Vue.js.",
   "main": "lib/element-nice-ui.common.js",
   "files": [
@@ -49,10 +49,12 @@
   "dependencies": {
     "async-validator": "~1.8.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
+    "bpmn-js": "^8.2.0",
     "deepmerge": "^1.2.0",
     "normalize-wheel": "^1.0.1",
     "resize-observer-polyfill": "^1.5.0",
-    "throttle-debounce": "^1.0.1"
+    "throttle-debounce": "^1.0.1",
+    "wangeditor": "^4.6.7"
   },
   "peerDependencies": {
     "vue": "^2.6.12"

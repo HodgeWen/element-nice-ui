@@ -1,5 +1,7 @@
 import "./base.js";
 import "./data.js";
+import "./wang-editor.js";
+import "./bpmn.js";
 import "./page.js";
 import "./page-anchor.js";
 import "./pagination.js";
