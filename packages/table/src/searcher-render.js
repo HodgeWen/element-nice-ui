@@ -18,6 +18,7 @@ export default {
   },
 
   render(h, { props }) {
+
     let { componentOptions: opts, data } = props.node
     if (opts) {
       opts.propsData = { ...props.ctx, ...opts.propsData }
@@ -31,7 +32,7 @@ export default {
         }
 
         if (attrs['t-label-width']) {
-          labelStyle.width = attrs['t-label-width'] + 'px'
+          labelStyle.width = (attrs['t-label-width'] + 'px').replace('pxpx', 'px')
           delete attrs['t-label-width']
         }
 
@@ -48,7 +49,7 @@ export default {
 
         let itemStyle = {}
         if (attrs['t-width']) {
-          itemStyle.width = attrs['t-width'] + 'px'
+          itemStyle.width = (attrs['t-width'] + 'px').replace('pxpx', 'px')
           delete attrs['t-width']
         }
 

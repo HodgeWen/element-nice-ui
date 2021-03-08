@@ -24,6 +24,7 @@
                 :placeholder="t('el.datepicker.selectDate')"
                 :value="visibleDate"
                 size="small"
+                :clearable="false"
                 @input="val => userInputDate = val"
                 @change="handleVisibleDateChange" />
             </span>
@@ -34,6 +35,7 @@
                 :placeholder="t('el.datepicker.selectTime')"
                 :value="visibleTime"
                 size="small"
+                :clearable="false"
                 @input="val => userInputTime = val"
                 @change="handleVisibleTimeChange" />
               <time-picker

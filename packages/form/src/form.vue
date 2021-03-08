@@ -15,7 +15,6 @@
         @input="onInput(item.prop, $event)"
         :key="item.prop || i"
       />
-
     </template>
     <template v-if="$scopedSlots.data">
       <slot-render
@@ -278,7 +277,7 @@ export default {
     transSlots(slots) {
       if (!slots) return []
       return slots.filter(vnode => vnode.tag).map((node) => {
-        let { componentOptions: opts, data } = node
+        let { data = {} } = node
         let { attrs = {} } = data
         let prop = attrs['t-prop']
         return {

@@ -1,17 +1,15 @@
 <template>
   <div>
-    <el-color-picker v-model="color" @input="onColorInput" value="#f00" size="mini" />
     <el-form :form="form" ref="form" size="small" label-width="60px">
-      <el-select multiple filterable t-label="测试" t-prop="select" :options="{ 0: '0', 1: '1' }" />
-      <el-input t-prop="name" t-label="名字" append="测试" />
+
+      <!-- <el-select multiple filterable t-label="测试" t-prop="select" :options="{ 0: '0', 1: '1' }" />
+      <el-input t-prop="name" t-label="名字" append="测试" /> -->
       <el-input-number
-        slot="data"
-        slot-scope="{ type }"
-        v-if="type === '1'"
         t-prop="height"
         t-label="身高"
+        @change="$log(222)"
       />
-      <el-radio-group t-prop="type" t-label="类型">
+      <!-- <el-radio-group t-prop="type" t-label="类型">
         <el-radio label="1">显示</el-radio>
         <el-radio label="2">隐藏</el-radio>
       </el-radio-group>
@@ -26,10 +24,8 @@
       <el-cascader t-prop="cas" clearable :options="options"></el-cascader>
       <el-slider t-prop="slider" />
 
-      <el-time-picker t-prop="date"/>
+      <el-time-picker t-prop="date"/> -->
     </el-form>
-
-    <el-btn type="text">aa</el-btn>
   </div>
 </template>
 

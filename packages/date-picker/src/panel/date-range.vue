@@ -28,6 +28,7 @@
                   :placeholder="t('el.datepicker.startDate')"
                   class="el-date-range-picker__editor"
                   :value="minVisibleDate"
+                  :clearable="false"
                   @input="val => handleDateInput(val, 'min')"
                   @change="val => handleDateChange(val, 'min')" />
               </span>
@@ -39,6 +40,7 @@
                   :placeholder="t('el.datepicker.startTime')"
                   :value="minVisibleTime"
                   @focus="minTimePickerVisible = true"
+                  :clearable="false"
                   @input="val => handleTimeInput(val, 'min')"
                   @change="val => handleTimeChange(val, 'min')" />
                 <time-picker
@@ -60,6 +62,7 @@
                   :placeholder="t('el.datepicker.endDate')"
                   :value="maxVisibleDate"
                   :readonly="!minDate"
+                  :clearable="false"
                   @input="val => handleDateInput(val, 'max')"
                   @change="val => handleDateChange(val, 'max')" />
               </span>
@@ -72,6 +75,7 @@
                   :value="maxVisibleTime"
                   :readonly="!minDate"
                   @focus="minDate && (maxTimePickerVisible = true)"
+                  :clearable="false"
                   @input="val => handleTimeInput(val, 'max')"
                   @change="val => handleTimeChange(val, 'max')" />
                 <time-picker

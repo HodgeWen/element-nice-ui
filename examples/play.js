@@ -2,11 +2,10 @@ import Vue from 'vue'
 import Element from 'main/index.js'
 
 // import App from './play/table.vue'
-// import App from './play/form.vue'
+import App from './play/form.vue'
 // import App from './play/index.vue'
 // import App from './play/tree.vue'
-import App from './play/bpmn.vue'
-// import App from './play/exp.vue'
+// import App from './play/bpmn.vue'
 
 // import 'theme/components/base'
 // import 'theme/components/table'
