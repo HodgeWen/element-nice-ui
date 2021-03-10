@@ -15,6 +15,23 @@
       v-model="aa"
       :data-map="dataMap"
     >
+
+      <!-- 搜索栏插槽 -->
+      <template #searcher>
+        <el-input v-model="query.name" t-label="名称" />
+        <el-input v-model="query.age" t-label="年龄" />
+        <el-select
+          v-model="query.test"
+          t-label="测试"
+          tree
+          option-value="value"
+          option-label="label"
+          api="/select/tree"
+        />
+        <el-select v-model="disabled" :options="{ true: '开', false: '关' }" />
+      </template>
+
+      <!-- 工具栏插槽 -->
       <template #tools>
         <el-color-picker @input="onColorInput" value="#f00" size="mini" />
         <el-context :ctx="{ type: 'primary', size: 'small' }" :depth="2">
@@ -33,31 +50,21 @@
         <el-btn :disabled="selected && !!selected.length">删除</el-btn>
       </template>
 
+      <!-- column.开头的为动态插槽 start -->
       <template #column.expand="{ row }">
         {{ row.id }}
       </template>
 
+      <!-- 默认的action插槽类型 -->
       <template #column.action="{ row, index }">
         <el-action-item v-if="index % 2 === 0" @click="onTest(index)">测试2</el-action-item>
-        <el-action-item @click="onTest(index)">测4</el-action-item>
+        <el-action-item @click="onTest(index)" need-to-confirm>测4</el-action-item>
         <el-action-item @click="onTest(index)">测试5</el-action-item>
         <el-action-item @click="onTest(index)">测试6</el-action-item>
       </template>
+      <!-- column.开头的为动态插槽 end -->
 
-      <template #searcher>
-        <el-input v-model="query.name" t-label="名称" />
-        <el-input v-model="query.age" t-label="年龄" />
-        <el-select
-          v-model="query.test"
-          t-label="测试"
-          tree
-          option-value="value"
-          option-label="label"
-          api="/select/tree"
-        />
-        <el-select v-model="disabled" :options="{ true: '开', false: '关' }" />
-      </template>
-
+      <!-- 这里存放一些表单弹框啥的 -->
       <template #outer>
         <el-dialog v-model="visible" :confirm="onConfirm">
           <el-form :form="form" ref="form" size="small" label-width="60px">
@@ -96,17 +103,6 @@
               t-prop="cas"
             />
           </el-form>
-
-          <!-- <el-table
-            :headers="headers"
-            api="arr"
-            v-if="visible"
-            height="400"
-            :show-tools="false"
-            v-model="aa"
-            @input="$log"
-          >
-          </el-table> -->
         </el-dialog>
       </template>
     </el-table>
@@ -160,21 +156,22 @@ export default {
       form: {
         name: {
           required: true,
-          range: [2, 5]
+          range: [2, 5] // 表示2-5个字符
         },
 
         number: {
-          range: [2, 5],
-          type: 'number'
+          range: [2, 5], //表示2-5值范围
+          type: 'number' // 字符串以外的值需要指定值的类型
         },
 
         checked: [],
 
+        // 通常没有验证的话不这样写, 直接type: '1' 省事
         type: {
           value: '1'
         },
 
-        height: { value: null, required: true, type: 'number' },
+        height: { required: true, type: 'number' },
 
         select: [],
 
@@ -196,44 +193,8 @@ export default {
     },
 
     dataMap(item, index) {
-      console.log(item)
-      item.permission = index
+      item.permission += '-' + index
       return item
-    },
-
-    onColorInput(color) {
-      const mix = (first, second, percent = 0.2) => {
-        let map = {
-          r: [1, 3],
-          g: [3, 5],
-          b: [5, 7]
-        }
-        const ft = type => {
-          const [start, end] = map[type]
-          return parseInt(first.slice(start, end), '16')
-        }
-        const st = type => {
-          const [start, end] = map[type]
-          return parseInt(second.slice(start, end), '16')
-        }
-
-        const c = t => Math.round((ft(t) - st(t)) * percent + st(t)).toString('16')
-
-        return '#' + [c('r'), c('g'), c('b')].join('')
-      }
-
-      const tintColor = mix('#ffffff', color, 0.2)
-      const tintColor9 = mix('#ffffff', color, 0.9)
-      const shadeColor = mix('#000000', color, 0.1)
-      const disabledColor = mix('#ffffff', color, 0.5)
-
-      const { style } = document.documentElement
-
-      style.setProperty('--primary-color', color)
-      style.setProperty('--primary-tint-color', tintColor)
-      style.setProperty('--primary-tint-color-9', tintColor9)
-      style.setProperty('--primary-shade-color', shadeColor)
-      style.setProperty('--primary-disabled-color', disabledColor)
     },
 
     onTest(i) {
@@ -247,10 +208,6 @@ export default {
         this.selected = []
       }
     }
-  },
-
-  created() {
-    this.onColorInput('#ff0000')
   }
 }
 </script>

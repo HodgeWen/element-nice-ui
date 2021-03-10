@@ -1,3 +1,4 @@
+<!-- 递归菜单组件 -->
 <template>
   <el-submenu :index="menu.path" v-if="menu.children && menu.children.length">
     <template #title>

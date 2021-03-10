@@ -1,59 +1,18 @@
 import Vue from 'vue'
 import Element from 'main/index.js'
 
+
+// 切换不同的示例
 // import App from './play/table.vue'
 // import App from './play/form.vue'
 import App from './play/index.vue'
 // import App from './play/tree.vue'
 // import App from './play/bpmn.vue'
 
-// import 'theme/components/base'
-// import 'theme/components/table'
-// import 'theme/components/action'
-// import 'theme/components/btn'
-// import 'theme/components/dialog'
-// import 'theme/components/form'
-// import 'theme/components/loading'
-// import 'theme/components/input'
-// import 'theme/components/input-number'
-// import 'theme/components/popconfirm'
-// import 'theme/components/select'
-// import 'theme/components/radio'
-// import 'theme/components/radio-group'
-// import 'theme/components/radio-button'
-// import 'theme/components/cascader'
-// import 'theme/components/tree'
-// import 'theme/components/menu'
-// import 'theme/components/perfect-scrollbar'
-// import 'theme/components/page'
+
 import 'theme/components'
 Vue.use(Element)
-// Vue.use(Element.NewTable)
-// Vue.use(Element.Table)
-// Vue.use(Element.Data)
-// Vue.use(Element.ActionItem)
-// Vue.use(Element.Page)
-// Vue.use(Element.PageAnchor)
-// Vue.use(Element.Btn)
-// Vue.use(Element.Dialog)
-// Vue.use(Element.Form)
-// Vue.use(Element.FormItem)
-// Vue.use(Element.Loading)
-// Vue.use(Element.Popconfirm)
-// Vue.use(Element.Select)
-// Vue.use(Element.RadioGroup)
-// Vue.use(Element.RadioButton)
-// Vue.use(Element.Radio)
-// Vue.use(Element.Cascader)
-// Vue.use(Element.InputNumber)
-// Vue.use(Element.Input)
-// Vue.use(Element.Menu)
-// Vue.use(Element.MenuItem)
-// Vue.use(Element.Badge)
-// Vue.use(Element.ColorPicker)
-// Vue.use(Element.Submenu)
-// Vue.use(Element.Tree)
-// Vue.use(Element.PerfectScrollbar)
+
 Vue.prototype.$confirm = Element.MessageBox.confirm
 Vue.prototype.$msg = Element.Message
 
@@ -69,6 +28,7 @@ Vue.prototype.$EL_SELECT_PROP_CONFIG = {
 }
 
 Vue.prototype.$http = {
+  // 模拟接口请求
   get(url = '') {
     if (url === 'arr') {
       return new Promise((resolve) => {

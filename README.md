@@ -6,7 +6,13 @@ Element will stay with Vue 2.x
 
 本项目基于element-ui改造而来
 
-For Vue 3.0, we recommend using [Element Plus](https://github.com/element-plus/element-plus) from the same team
+运行示例, 示例代码入口为 examples/play.js
+
+```
+yarn
+
+yarn dev:play
+```
 
 ## Links
 - Homepage and documentation
