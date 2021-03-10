@@ -13,6 +13,7 @@
       ref="table"
       query-label-width="60"
       v-model="aa"
+      :data-map="dataMap"
     >
       <template #tools>
         <el-color-picker @input="onColorInput" value="#f00" size="mini" />
@@ -192,6 +193,12 @@ export default {
           res(true)
         }, 2000)
       })
+    },
+
+    dataMap(item, index) {
+      console.log(item)
+      item.permission = index
+      return item
     },
 
     onColorInput(color) {

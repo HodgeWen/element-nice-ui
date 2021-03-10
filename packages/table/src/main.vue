@@ -199,6 +199,10 @@ export default {
 
     filter: {
       type: Function
+    },
+
+    dataMap: {
+      type: Function
     }
   },
 
@@ -242,6 +246,9 @@ export default {
       let ret = Array.isArray(this.data) ? this.data : this.internalData
       if (this.filter) {
         ret = ret.filter(this.filter)
+      }
+      if (this.dataMap) {
+        ret = ret.map(this.dataMap)
       }
       return ret
     },
