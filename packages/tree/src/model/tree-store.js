@@ -154,6 +154,7 @@ export default class TreeStore {
 
   getCheckedNodes(leafOnly = false, includeHalfChecked = false, merge = false) {
     const checkedNodes = []
+
     const traverse = function(node) {
       const childNodes = node.root ? node.root.childNodes : node.childNodes
 

@@ -1,14 +1,12 @@
 import Vue from 'vue'
 import Element from 'main/index.js'
 
-
 // 切换不同的示例
 // import App from './play/table.vue'
 // import App from './play/form.vue'
 import App from './play/index.vue'
 // import App from './play/tree.vue'
 // import App from './play/bpmn.vue'
-
 
 import 'theme/components'
 Vue.use(Element)
@@ -31,32 +29,79 @@ Vue.prototype.$http = {
   // 模拟接口请求
   get(url = '') {
     if (url === 'arr') {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         setTimeout(() => {
           resolve({
             code: 200,
             data: {
-              records: Array(20).fill().map((_, i) => ({
-                id: i,
-                icon: null,
-                name: '用户新增',
-                spread: false,
-                path: null,
-                keepAlive: '0',
-                permission: 'sys_user_add',
-                type: '1',
-                label: '用户新增',
-                sort: null
-              })),
+              records: Array(1)
+                .fill()
+                .map((_, i) => ({
+                  id: i,
+                  icon: null,
+                  name: '用户新增',
+                  spread: false,
+                  path: null,
+                  keepAlive: '0',
+                  permission: 'sys_user_add',
+                  type: '1',
+                  label: '用户新增',
+                  sort: null,
+
+                  details: [
+                    {
+                      detailName: '大叔叔1',
+                      classificationId: '1369553872922370050',
+                      detailId: '1369564751667683330',
+                      type: null,
+                      detailSerial: '1112',
+                      selected: true,
+                      parentId: null,
+                      children: [
+                        {
+                          detailName: '大叔1',
+                          classificationId: '1369553872922370050',
+                          detailId: '1369571064502050818',
+                          type: null,
+                          detailSerial: '1112112',
+                          selected: false,
+                          parentId: '1369564751667683330',
+                          children: [
+                            {
+                              detailName: '大叔11',
+                              classificationId: '1369553872922370050',
+                              detailId: '1369571503171723266',
+                              type: null,
+                              detailSerial: '1112112112',
+                              selected: false,
+                              parentId: '1369571064502050818',
+                              children: null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      detailName: '12',
+                      classificationId: '1369553872922370050',
+                      detailId: '1370302402301550594',
+                      type: null,
+                      detailSerial: '12323',
+                      selected: false,
+                      parentId: '1369553872922370050',
+                      children: null
+                    }
+                  ]
+                })),
 
               total: 100
             }
           })
-        }, 2000)
+        }, 300)
       })
     }
     if (url === 'select') {
-      return new Promise((res) => {
+      return new Promise(res => {
         setTimeout(() => {
           res({
             code: 200,
@@ -70,14 +115,12 @@ Vue.prototype.$http = {
       })
     }
     if (url === '/select/tree') {
-      return new Promise((res) => {
+      return new Promise(res => {
         setTimeout(() => {
           res({
             code: 200,
             data1: {
-              records: [
-                { value: 'aaa', label: '阿实践活动' }
-              ]
+              records: [{ value: 'aaa', label: '阿实践活动' }]
             },
             data: [
               {
@@ -1190,5 +1233,5 @@ Vue.prototype.$http = {
 
 new Vue({
   // eslint-disable-line
-  render: (h) => h(App)
+  render: h => h(App)
 }).$mount('#app')

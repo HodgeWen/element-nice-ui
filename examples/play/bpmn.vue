@@ -1,16 +1,6 @@
 <template>
   <div>
-    <el-select tree multiple v-model="checked" :options="options" option-value="value">
-      <template #tools>
-        <div>
-          <el-btn type="text" size="mini">新增</el-btn>
-        </div>
-      </template>
 
-      <template #tree-item="{ data }">
-        <span>{{ data }}</span>
-      </template>
-    </el-select>
     <el-wang-editor></el-wang-editor>
     <el-bpmn :xml="xml"></el-bpmn>
   </div>

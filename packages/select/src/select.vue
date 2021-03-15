@@ -241,7 +241,6 @@ export default {
   computed: {
     computedOptions() {
       let mapper
-
       if (this.tree) {
         mapper = option => {
           let value = option[this.optionValue]
@@ -491,9 +490,11 @@ export default {
 
     value(val, oldVal) {
       if (this.tree) {
+        // 单选
         if (!this.multiple) {
           this.$refs.tree.setCurrentKey(val ? val : null)
         } else {
+          // 多选
           this.$refs.tree.setCheckedKeys(val)
         }
       }
@@ -510,7 +511,7 @@ export default {
           this.handleQueryChange(this.query)
         }
       }
-      this.setSelected()
+      this.computedOptions.length && this.setSelected()
       if (this.filterable && !this.multiple) {
         this.inputLength = 20
       }
@@ -579,18 +580,23 @@ export default {
     },
 
     // option更新后应当设置选择的值
-    computedOptions() {
-      if (this.tree) {
-        this.$nextTick(() => {
-          if (!this.multiple) {
-            this.$refs.tree.setCurrentKey(this.value)
-          } else {
-            this.$refs.tree.setCheckedKeys(this.value)
-          }
-        })
-      } else {
-        this.setSelected()
-      }
+    computedOptions: {
+      handler() {
+        if (this.tree) {
+          this.$nextTick(() => {
+            if (this.multiple) {
+              this.$refs.tree.setCheckedKeys(this.value)
+            } else {
+              this.$refs.tree.setCurrentKey(this.value)
+            }
+
+            this.setSelected()
+          })
+        } else {
+          this.setSelected()
+        }
+      },
+      immediate: true
     },
 
     internalOptions(v) {
@@ -627,7 +633,11 @@ export default {
     // 节点多选选择
     onTreeCheck(data, { checkedKeys, checkedNodes }) {
       this.$emit('input', checkedKeys)
-      this.emitChange(checkedKeys, checkedNodes.map(node => node.label), checkedNodes)
+      this.emitChange(
+        checkedKeys,
+        checkedNodes.map(node => node.label),
+        checkedNodes
+      )
     },
 
     treeNodeFilter(value, data) {
@@ -787,6 +797,7 @@ export default {
           currentLabel: item.label,
           hitState: false
         }))
+
         this.$nextTick(() => {
           this.resetInputHeight()
         })
@@ -942,8 +953,12 @@ export default {
 
         // 延迟触发
         this.$nextTick(() => {
-          this.$emit('change', value, this.selected.map(o => o.label),
-          this.selected.map(o => o.option))
+          this.$emit(
+            'change',
+            value,
+            this.selected.map(o => o.label),
+            this.selected.map(o => o.option)
+          )
         })
 
         if (option.created) {
@@ -1040,7 +1055,11 @@ export default {
           let newNodes = tree.getCheckedNodes()
           let newVal = newNodes.map(node => node.value)
           this.$emit('input', newVal)
-          this.emitChange(newVal, newNodes.map(node => node.label), newNodes)
+          this.emitChange(
+            newVal,
+            newNodes.map(node => node.label),
+            newNodes
+          )
         } else {
           const value = this.value.slice()
           const selected = this.selected.slice()
