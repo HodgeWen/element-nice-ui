@@ -1,9 +1,5 @@
 <template>
-  <div>
-
-    <el-wang-editor></el-wang-editor>
-    <el-bpmn :xml="xml"></el-bpmn>
-  </div>
+  <el-bpmn :xml="xml"></el-bpmn>
 </template>
 
 <script>

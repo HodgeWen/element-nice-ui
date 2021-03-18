@@ -1,5 +1,9 @@
 <template>
   <div class="el-bpmn">
+    <!-- bpmn画布 start -->
+    <section class="el-bpmn__canvas" ref="canvas"></section>
+    <!-- bpmn画布 end -->
+
     <!-- 顶部工具 start -->
     <section class="el-bpmn__tools">
       <el-context :ctx="{ size: 'mini' }" :depth="2">
@@ -37,25 +41,33 @@
     <!-- 顶部工具 end -->
 
     <!-- 属性面板 start -->
-    <section class="el-bpmn__prop-panel">
-
-    </section>
+    <ElBpmnPropPanel ref="propPanel" />
     <!-- 属性面板 end -->
 
-    <section class="el-bpmn__canvas" ref="canvas"></section>
-
+    <svg
+      version="1.1"
+      baseProfile="full"
+      width="200"
+      height="200"
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="50" width="100" height="100" />
+    </svg>
     <el-dialog title="使用教程" v-model="tipDialogVisible"></el-dialog>
   </div>
 </template>
 
 <script>
-import BpmnModeler from './bpmn-modeler.development'
+import BpmnModeler from './bpmn-js/Modeler'
 import customTranslate from './translate'
-import customPalette from './customPalette'
 import ElBtn from 'element-nice-ui/packages/btn'
 import ElBtnGroup from 'element-nice-ui/packages/btn-group'
 import ElContext from 'element-nice-ui/packages/context'
 import ElDialog from 'element-nice-ui/packages/dialog'
+import ElBpmnPropPanel from './prop-panel.vue'
+import CustomRender from './customRender'
+import ca from 'element-nice-ui/src/locale/lang/ca'
 
 export default {
   name: 'ElBpmn',
@@ -64,7 +76,8 @@ export default {
     ElBtn,
     ElContext,
     ElBtnGroup,
-    ElDialog
+    ElDialog,
+    ElBpmnPropPanel
   },
 
   props: {
@@ -74,16 +87,27 @@ export default {
   data: () => ({
     modeler: null,
 
-    tipDialogVisible: false,
-
-    history: 0, // 历史记录总条数
-
-    historyPoint: 0 // 历史记录指针
+    tipDialogVisible: false
   }),
 
   methods: {
-    addHistory() {},
+    /** 初始化 */
+    init() {
+      const container = this.$refs.canvas
+      if (!container) return
 
+      this.modeler = new BpmnModeler({
+        container,
+        additionalModules: [customTranslate, CustomRender]
+      })
+
+      this.addModelerListener()
+      this.addElementListener()
+
+      this.xml && this.draw(this.xml)
+    },
+
+    /** 添加模型事件 */
     addModelerListener() {
       const { modeler } = this
       if (!modeler) return
@@ -96,59 +120,48 @@ export default {
 
       modeler.on('shape.added', e => {
         const shape = getShape(e)
-        console.log(modeler.get('commandStack'), 11)
+        // console.log('shape.added')
       })
 
       modeler.on('shape.move.end', e => {
         const shape = getShape(e)
+        // console.log('shape.move.end')
       })
 
       modeler.on('shape.removed', e => {
         const shape = getShape(e)
+        // console.log('shape.removed')
       })
     },
 
+    /** 添加元素事件 */
     addElementListener() {
       const { modeler } = this
       if (!modeler) return
 
       const eventBus = modeler.get('eventBus')
 
+      // 元素被点击时发生改变
       eventBus.on('element.click', e => {})
 
+      // 发生改变的节点
       eventBus.on('element.changed', e => {})
 
-      eventBus.on('selection.changed', e => {})
-    },
-
-    init() {
-      const container = this.$refs.canvas
-      if (!container) return
-
-      this.modeler = new BpmnModeler({
-        container,
-        additionalModules: [
-          {
-            translate: ['value', customTranslate],
-            customPalette: ['type', customPalette],
-            __init__: ['customPalette']
-          }
-        ]
+      // 选择的节点发生改变
+      eventBus.on('selection.changed', e => {
+        const [shape] = e.newSelection
+        // TODO 此处 应当获取所有的
+        if (!shape) return
+        this.$refs.propPanel.render(shape)
       })
-
-      this.addModelerListener()
-      this.addElementListener()
-
-      // this.adjustPalette()
-
-      this.xml && this.draw(this.xml)
     },
 
+    /** 绘制 */
     draw(xml) {
       this.modeler && this.modeler.importXML(xml)
     },
 
-    // 保存为BPMN文件
+    /** 保存为xml文件 */
     saveAsXML() {
       if (this.modeler) {
         return this.modeler
@@ -162,7 +175,7 @@ export default {
       }
     },
 
-    // 保存为SVG文件
+    /** 保存为SVG图片 */
     saveAsSVG() {
       if (!this.modeler) return
       this.modeler
@@ -175,6 +188,7 @@ export default {
         })
     },
 
+    /** 下载文件 */
     downloadFile(name, data, type) {
       var a = document.createElement('a')
       var url = URL.createObjectURL(new Blob([data], { type }))
@@ -188,23 +202,25 @@ export default {
     /** 校验错误 */
     onValidate() {},
 
+    /** 保存回调 */
+    save(callback) {
+      this.modeler &&
+        this.modeler
+          .saveXML({ format: true })
+          .then(callback)
+          .catch(err => {
+            console.error(err)
+          })
+    },
+
     /** 数据保存 */
     onSave() {
-      this.modeler && this.modeler.saveXML({ format: true }).then(res => {
-        this.$emit('save', res.xml)
-      }).catch(err => {
-        console.error(err)
-      })
-
+      this.save(res => this.$emit('save', res.xml))
     },
 
     /** 保存并发布 */
-    async onSaveAndPublish() {
-      this.modeler && this.modeler.saveXML({ format: true }).then(res => {
-        this.$emit('save-and-publish', res.xml)
-      }).catch(err => {
-        console.error(err)
-      })
+    onSaveAndPublish() {
+      this.save(res => this.$emit('save-and-publish', res.xml))
     },
 
     /** in 放大 /  out 缩小 / reset 还原 */
@@ -235,8 +251,7 @@ export default {
     },
 
     /** 导入 */
-    onImport() {},
-
+    onImport() {}
   },
 
   mounted() {

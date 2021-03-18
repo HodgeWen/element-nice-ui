@@ -4,9 +4,9 @@ import Element from 'main/index.js'
 // 切换不同的示例
 // import App from './play/table.vue'
 // import App from './play/form.vue'
-import App from './play/index.vue'
+// import App from './play/index.vue'
 // import App from './play/tree.vue'
-// import App from './play/bpmn.vue'
+import App from './play/bpmn.vue'
 
 import 'theme/components'
 Vue.use(Element)

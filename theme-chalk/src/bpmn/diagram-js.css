@@ -40,7 +40,7 @@
   --lasso-fill-color: var(--color-000000-opacity-05);
   --lasso-stroke-color: var(--color-000000);
 
-  --palette-entry-color: var(--color-333333);
+  --palette-entry-color: #666;
   --palette-entry-hover-color: var(--blue-darken-48);
   --palette-entry-selected-color: var(--blue-base-65);
   --palette-separator-color: var(--color-aaaaaa);
@@ -392,9 +392,6 @@ marker.djs-dragger tspan {
   clear: both;
 }
 
-.djs-palette .entry:before {
-  vertical-align: middle;
-}
 
 .djs-palette .djs-palette-toggle {
   cursor: pointer;
@@ -405,10 +402,6 @@ marker.djs-dragger tspan {
   color: var(--palette-entry-color);
   font-size: 20px;
   text-align: center;
-}
-
-.djs-palette .entry {
-  float: left;
 }
 
 .djs-palette .entry img {
@@ -447,7 +440,7 @@ marker.djs-dragger tspan {
  * changed life-cycle are available in addition.
  */
 .djs-palette.two-column.open {
-  width: 94px;
+  width: 36px;
 }
 
 .djs-palette:not(.open) .djs-palette-entries {
@@ -482,6 +475,7 @@ marker.djs-dragger tspan {
   display: inline-block;
   font-size: 22px;
   margin: 0 2px 2px 0;
+
 
   border-radius: 3px;
 

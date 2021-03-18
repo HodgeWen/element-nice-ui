@@ -245,7 +245,6 @@ const translations = {
 }
 
 
-
 export const NodeName = {
   'bpmn:Process': '流程',
   'bpmn:StartEvent': '开始事件',
@@ -267,7 +266,7 @@ export const NodeName = {
   'bpmn:EventBasedGateway': '事件网关'
 }
 
-export default function customTranslate(template, replacements) {
+function customTranslate(template, replacements) {
   replacements = replacements || {}
 
   if (!translations[template]) {
@@ -282,3 +281,5 @@ export default function customTranslate(template, replacements) {
     return replacements[key] || '{' + key + '}'
   })
 }
+
+export default { translate: ['value', customTranslate] }

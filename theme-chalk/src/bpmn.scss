@@ -28,6 +28,11 @@
   }
 
   @include e(prop-panel) {
-
+    width: 100px;
+    height: 500px;
+    border: 1px solid #ccc;
+    position: absolute;
+    right: 30px;
+    top: 30px;
   }
 }

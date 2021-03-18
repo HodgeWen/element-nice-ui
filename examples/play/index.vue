@@ -79,6 +79,7 @@ export default {
 
   methods: {
     dataMap(item, index) {
+      if (item.$selected) return item
       item.$selected = item.details.filter(details => details.selected).map(item => item.detailId)
       return item
     },
