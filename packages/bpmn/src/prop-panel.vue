@@ -1,7 +1,7 @@
 <template>
- <section class="el-bpmn__prop-panel">
-
- </section>
+  <transition name="el-bpmn__transform">
+    <section v-if="visible" class="el-bpmn__prop-panel"></section>
+  </transition>
 </template>
 
 <script>
@@ -9,14 +9,26 @@
 // 流程设置
 
 // 当前节点信息
-//
+
 export default {
   name: 'ElBpmnPropPanel',
 
+  data: () => ({
+    visible: false
+  }),
+
   methods: {
     render(shape) {
+      this.show()
       const { type, businessObject } = shape
-      console.log(type)
+    },
+
+    show() {
+      this.visible = true
+    },
+
+    hide() {
+      this.visible = false
     }
   }
 }

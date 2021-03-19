@@ -2,10 +2,10 @@
  * color definitions
  */
  .djs-container {
-  --blue-base-65: #4d90ff;
+  --blue-base-65: #7cc594;
   --blue-base-65-opacity-30: rgba(77, 144, 255, 0.3);
-  --blue-darken-48: #005df7;
-  --blue-darken-55: #1a70ff;
+  --blue-darken-48: #7cc594;
+  --blue-darken-55: #56a370;
   --blue-lighten-82: #a2c5ff;
 
   --red-base-62: #ff3d3d;
@@ -375,9 +375,9 @@ marker.djs-dragger tspan {
 
 .djs-palette {
   position: absolute;
-  left: 20px;
-  top: 20px;
-
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   box-sizing: border-box;
   width: 36px;
 }

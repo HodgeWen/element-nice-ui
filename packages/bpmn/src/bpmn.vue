@@ -18,12 +18,6 @@
         </el-btn-group>
 
         <el-btn-group class="el-bpmn__btn-group">
-          <el-btn @click="onZoom('out')">缩小</el-btn>
-          <el-btn @click="onZoom('in')">放大</el-btn>
-          <el-btn @click="onZoom('reset')">还原</el-btn>
-        </el-btn-group>
-
-        <el-btn-group class="el-bpmn__btn-group">
           <el-btn @click="onImport">导入流程文件</el-btn>
           <el-btn @click="saveAsSVG">保存为图片</el-btn>
           <el-btn @click="saveAsXML">下载流程文件</el-btn>
@@ -40,34 +34,31 @@
     </section>
     <!-- 顶部工具 end -->
 
+    <!-- 缩放工具 start -->
+    <section class="el-bpmn__scale-tools">
+      <el-btn size="mini" circle icon="aim" @click="onZoom('reset')"></el-btn>
+      <el-btn size="mini" circle icon="minus" @click="onZoom('out')"></el-btn>
+      <el-btn size="mini" circle icon="plus" @click="onZoom('in')"></el-btn>
+    </section>
+    <!-- 缩放工具 end -->
+
     <!-- 属性面板 start -->
     <ElBpmnPropPanel ref="propPanel" />
     <!-- 属性面板 end -->
 
-    <svg
-      version="1.1"
-      baseProfile="full"
-      width="200"
-      height="200"
-      viewBox="0 0 100 100"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="50" width="100" height="100" />
-    </svg>
     <el-dialog title="使用教程" v-model="tipDialogVisible"></el-dialog>
   </div>
 </template>
 
 <script>
-import BpmnModeler from './bpmn-js/Modeler'
+import BpmnModeler from './custom/customModeler'
 import customTranslate from './translate'
 import ElBtn from 'element-nice-ui/packages/btn'
 import ElBtnGroup from 'element-nice-ui/packages/btn-group'
 import ElContext from 'element-nice-ui/packages/context'
 import ElDialog from 'element-nice-ui/packages/dialog'
 import ElBpmnPropPanel from './prop-panel.vue'
-import CustomRender from './customRender'
-import ca from 'element-nice-ui/src/locale/lang/ca'
+import CustomRender from './custom/customRender'
 
 export default {
   name: 'ElBpmn',
@@ -142,7 +133,11 @@ export default {
       const eventBus = modeler.get('eventBus')
 
       // 元素被点击时发生改变
-      eventBus.on('element.click', e => {})
+      eventBus.on('element.click', e => {
+        if (e.element.type === "bpmn:Process") {
+          this.$refs.propPanel.hide()
+        }
+      })
 
       // 发生改变的节点
       eventBus.on('element.changed', e => {})
@@ -150,7 +145,7 @@ export default {
       // 选择的节点发生改变
       eventBus.on('selection.changed', e => {
         const [shape] = e.newSelection
-        // TODO 此处 应当获取所有的
+        // TODO 此处 应当获取所有的shape
         if (!shape) return
         this.$refs.propPanel.render(shape)
       })

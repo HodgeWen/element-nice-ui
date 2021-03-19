@@ -7,6 +7,7 @@
 @include b(bpmn) {
   height: 100%;
   position: relative;
+  overflow: hidden;
 
   $tools-height: 40px;
 
@@ -28,11 +29,31 @@
   }
 
   @include e(prop-panel) {
-    width: 100px;
-    height: 500px;
-    border: 1px solid #ccc;
+    width: 200px;
+    min-height: 200px;
+    max-height: 500px;
+    height: 70%;
+    background: #f2f2f2;
     position: absolute;
-    right: 30px;
-    top: 30px;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @include e(scale-tools) {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  @include e(transform) {
+    &-enter-active, &-leave-active {
+      transition: transform .3s, opacity .3s;
+    }
+
+    &-enter, &-leave-to {
+      transform: translate(200px, -50%);
+      opacity: 0;
+    }
   }
 }
