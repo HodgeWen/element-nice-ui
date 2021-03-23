@@ -1,0 +1,14 @@
+@import "mixins/mixins";
+
+@include b(dnd) {
+  border: 1px solid #ccc;
+}
+
+
+@include b(dnd-item) {
+
+
+  &.dragging {
+    box-shadow: 0 0 2px 10px #ccc;
+  }
+}

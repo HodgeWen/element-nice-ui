@@ -370,7 +370,7 @@ export default {
       let data = Array.isArray(this.data) ? this.data : this.internalData
       if (typeof i === 'number') {
         if (i < 0) {
-          console.warn('find 方法 应该传入一个 > 0的参数')
+          console.warn('find 方法 只能传入一个 >= 0的参数')
         }
         return data[i]
       } else if (typeof i === 'object' && i !== null) {
@@ -542,8 +542,6 @@ export default {
 
     // 自动检索字段 监听
     this.autoQueryWatch()
-
-    this.$watch('api', () => this.fetchData())
   },
 
   beforeMount() {

@@ -1,4 +1,6 @@
 {
+  "dnd": "./packages/dnd/index.js",
+  "dnd-item": "./packages/dnd-item/index.js",
   "data": "./packages/data/index.js",
   "wang-editor": "./packages/wang-editor/index.js",
   "bpmn": "./packages/bpmn/index.js",
