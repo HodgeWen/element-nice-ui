@@ -6,6 +6,15 @@ export default {
     tag: {
       type: String,
       default: 'div'
+    },
+
+    id: {
+      type: [String, Number],
+      required: true
+    },
+    index: {
+      type: Number,
+      required: true
     }
   },
 
@@ -13,29 +22,27 @@ export default {
     return h(
       this.tag,
       {
-        domProps: {
-          draggable: true
+        class: 'el-dnd-item',
+        attrs: {
+          draggable: true,
+          'data-index': this.index
         },
 
         on: {
-          drag: e => {},
-
-          dragend: e => {
-            // console.log(e)
-          },
           /**
-           * 开始事件
            * @param {DragEvent} e
            */
-          dragstart: e => {
-            // e.target.style.visible = false
-            // console.log(e)
-            // e.dataTransfer.setData('text/plain')
-            // e.dataTransfer.effectAllowed = "move"
+          drop: e => {
 
+            // this.$emit('change', {
+            //   from: e.dataTransfer.getData('from'),
+            //   to: this.id
+            // })
           },
 
-
+          dragenter: e => {
+            console.log(e)
+          }
         }
       },
       this.$slots.default

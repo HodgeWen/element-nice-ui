@@ -161,6 +161,7 @@
           >
             <el-tree
               ref="tree"
+              v-bind="$attrs"
               :expand-on-click-node="false"
               :highlight-current="!multiple"
               :show-checkbox="multiple"

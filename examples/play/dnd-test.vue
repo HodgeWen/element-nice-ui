@@ -1,35 +1,89 @@
 <template>
-  <el-dnd class="container">
-    <el-dnd-item v-for="item of items" :id="item.id" :key="item.id" class="item">
-      {{item.label}}
-    </el-dnd-item>
+  <el-form :grid="false" ref="container" class="container" :form="form" label-width="80px">
+    <el-form-item
+      v-for="(item, index) of items"
+      draggable
+      :prop="item.field"
+      :label="item.label"
+    >
+      <el-input />
+    </el-form-item>
 
-  </el-dnd>
+    <el-form-item>
+      <el-btn @click="onAdd">+</el-btn>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script>
+import { Draggor } from './drag'
+import Sortable from 'sortablejs'
 export default {
   data: () => ({
-    items: [
-      { id: 1, label: '测试1' },
-      { id: 2, label: '测试2' },
-      { id: 3, label: '测试3' }
-    ]
-  })
+    items: [],
+    form: {}
+  }),
+
+  methods: {
+    change(a) {
+      // console.log(a)
+    },
+
+    onAdd() {
+      this.form[`a${this.items.length + 1}`] = `a${this.items.length + 1}`
+      this.items.push({
+        id: this.items.length,
+        field: `a${this.items.length + 1}`,
+        label: `字段${this.items.length + 1}`
+      })
+    }
+  },
+
+  created() {
+    this.items = Array(12)
+      .fill()
+      .map((v, i) => {
+        this.form[`a${i + 1}`] = `a${i + 1}`
+        return { id: i, field: `a${i + 1}`, label: `字段${i + 1}` }
+      })
+  },
+
+  mounted() {
+    new Sortable(this.$refs.container.$el, {
+      animation: 150,
+      ghostClass: 'ghost',
+      dragClass: "drag",
+
+
+
+      onEnd(e) {
+
+        console.log(e)
+      }
+    })
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .item {
-  width: 100px;
-  height: 100px;
-  display: inline-block;
-  background: #f2f2f2;
-  margin-left: 10px;
+  background: #fff;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-radius: 4px;
 }
 
 .container {
   width: 100%;
-  height: 400px;
+  min-height: 400px;
+  padding: 20px;
+  background: #f2f2f2;
+  box-sizing: border-box;
 }
+
+.ghost {
+  visibility: hidden;
+}
+
 </style>

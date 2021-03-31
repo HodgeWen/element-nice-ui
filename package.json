@@ -1,6 +1,6 @@
 {
   "name": "element-nice-ui",
-  "version": "2.15.76",
+  "version": "2.16.0",
   "description": "A Component Library for Vue.js.",
   "main": "lib/element-nice-ui.common.js",
   "files": [
@@ -14,6 +14,7 @@
   "typings": "types/index.d.ts",
   "scripts": {
     "bootstrap": "yarn || npm i",
+    "build:module": "node build/bin/build-module-declare.js",
     "build:file": "node build/bin/iconInit.js & node build/bin/build-entry.js & node build/bin/i18n.js & node build/bin/version.js",
     "build:theme": "node build/bin/gen-cssfile && gulp build --gulpfile theme-chalk/gulpfile.js && cp-cli theme-chalk/lib lib/theme-chalk",
     "build:utils": "cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/index.js",
@@ -53,6 +54,7 @@
     "deepmerge": "^1.2.0",
     "normalize-wheel": "^1.0.1",
     "resize-observer-polyfill": "^1.5.0",
+    "sortablejs": "^1.13.0",
     "throttle-debounce": "^1.0.1",
     "wangeditor": "^4.6.7"
   },

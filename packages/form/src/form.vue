@@ -1,34 +1,3 @@
-<template>
-  <el-row
-    v-bind="$attrs"
-    :gutter="+gutter"
-    tag="form"
-    type="flex"
-    class="el-form"
-    :class="[labelPosition ? 'el-form--label-' + labelPosition : '', { 'el-form--inline': inline }]"
-  >
-    <template v-if="$slots.default">
-      <slot-render
-        v-for="(item, i) of transSlots($slots.default)"
-        :node="item.node"
-        :value="getItemValue(item.prop)"
-        @input="onInput(item.prop, $event)"
-        :key="item.prop || i"
-      />
-    </template>
-    <template v-if="$scopedSlots.data">
-      <slot-render
-        v-for="(item, i) of transSlots($scopedSlots.data(model))"
-        :node="item.node"
-        :value="getItemValue(item.prop)"
-        @input="onInput(item.prop, $event)"
-        :key="item.prop || i"
-      />
-    </template>
-    <!-- <slot /> -->
-  </el-row>
-</template>
-
 <script>
 import objectAssign from 'element-nice-ui/src/utils/merge'
 import ElRow from '../../row/src/row'
@@ -52,6 +21,10 @@ export default {
   },
 
   props: {
+    grid: {
+      type: Boolean,
+      default: true
+    },
     form: {
       type: Object,
       required: true
@@ -93,7 +66,7 @@ export default {
   watch: {
     rules() {
       // remove then add event listeners on form-item after form rules change
-      this.fields.forEach((field) => {
+      this.fields.forEach(field => {
         field.removeValidateEvents()
         field.addValidateEvents()
       })
@@ -114,12 +87,12 @@ export default {
       let ret = {}
 
       let ruleMap = {
-        required: (required) => ({
+        required: required => ({
           required: true,
           message: typeof required === 'string' ? required : '该项是必填项'
         }),
 
-        len: (len) => {
+        len: len => {
           let isArr = Array.isArray(len)
           let lenVal = isArr ? len[0] : len
 
@@ -160,7 +133,7 @@ export default {
           }
         },
 
-        match: (match) => {
+        match: match => {
           let isArr = Array.isArray(match)
           let matcher = isArr ? match[0] : match
           let message
@@ -190,13 +163,13 @@ export default {
           }
         },
 
-        validator: (validator) => {
+        validator: validator => {
           return { validator }
         }
       }
       let { form, trigger } = this
 
-      Object.keys(form).forEach((key) => {
+      Object.keys(form).forEach(key => {
         let valueModel = form[key]
 
         if (!valueModel) return
@@ -204,7 +177,7 @@ export default {
         let trigger = valueModel.trigger || trigger || 'blur'
         let type = valueModel.type || 'string'
 
-        Object.keys(valueModel).forEach((vk) => {
+        Object.keys(valueModel).forEach(vk => {
           // 如果key为这两种直接跳过
           if (vk === 'value' || vk === 'trigger' || vk === 'type') return
 
@@ -233,16 +206,54 @@ export default {
       potentialLabelWidthArr: [] // use this array to calculate auto width
     }
   },
+
+  render(h) {
+    let customSlots = []
+
+    if (this.$slots.default) {
+      customSlots = this.transSlots(this.$slots.default)
+    } else if (this.$scopedSlots.data) {
+      customSlots = this.transSlots(this.$scopedSlots.data(this.model))
+    }
+
+    const children = customSlots.map(({ node, prop }, i) => {
+      return (
+        <slot-render
+          node={node}
+          value={this.getItemValue(prop)}
+          onInput={event => this.onInput(prop, event)}
+          key={prop || i}
+        />
+      )
+    })
+
+    const props = {
+      attrs: this.$attrs,
+      class: [
+        'el-form',
+        this.labelPosition ? 'el-form--label-' + this.labelPosition : '',
+        { 'el-form--inline': this.inline }
+      ]
+    }
+
+    return this.grid ? (
+      <el-row {...props} gutter={+this.gutter} tag='form' type='flex'>
+        {children}
+      </el-row>
+    ) : (
+      <form {...props}>{children}</form>
+    )
+  },
   created() {
     this.initModel()
 
-    this.$on('el.form.addField', (field) => {
+    this.$on('el.form.addField', field => {
       if (field) {
         this.fields.push(field)
       }
     })
     /* istanbul ignore next */
-    this.$on('el.form.removeField', (field) => {
+    this.$on('el.form.removeField', field => {
       if (field.prop) {
         this.fields.splice(this.fields.indexOf(field), 1)
       }
@@ -256,7 +267,7 @@ export default {
     },
 
     setValue(values) {
-      Object.keys(this.model).forEach((key) => {
+      Object.keys(this.model).forEach(key => {
         if (values[key] !== undefined) {
           this.model[key] = values[key]
         }
@@ -276,21 +287,23 @@ export default {
 
     transSlots(slots) {
       if (!slots) return []
-      return slots.filter(vnode => vnode.tag).map((node) => {
-        let { data = {} } = node
-        let { attrs = {} } = data
-        let prop = attrs['t-prop']
-        return {
-          prop,
-          node
-        }
-      })
+      return slots
+        .filter(vnode => vnode.tag)
+        .map(node => {
+          let { data = {} } = node
+          let { attrs = {} } = data
+          let prop = attrs['t-prop']
+          return {
+            prop,
+            node
+          }
+        })
     },
 
     initModel() {
       let ret = {}
       let { form } = this
-      Object.keys(form).forEach((key) => {
+      Object.keys(form).forEach(key => {
         if (Object.prototype.toString.call(form[key]) === '[object Object]') {
           ret[key] = form[key].value
         } else {
@@ -341,10 +354,10 @@ export default {
     clearValidate(props = []) {
       const fields = props.length
         ? typeof props === 'string'
-          ? this.fields.filter((field) => props === field.prop)
-          : this.fields.filter((field) => props.indexOf(field.prop) > -1)
+          ? this.fields.filter(field => props === field.prop)
+          : this.fields.filter(field => props.indexOf(field.prop) > -1)
         : this.fields
-      fields.forEach((field) => {
+      fields.forEach(field => {
         field.clearValidate()
       })
     },
@@ -357,7 +370,7 @@ export default {
       let promise
       // if no callback, return promise
       if (typeof callback !== 'function' && window.Promise) {
-        promise = new window.Promise((resolve) => {
+        promise = new window.Promise(resolve => {
           callback = function(valid) {
             resolve(valid)
           }
@@ -371,7 +384,7 @@ export default {
         callback(true)
       }
       let invalidFields = {}
-      this.fields.forEach((field) => {
+      this.fields.forEach(field => {
         field.validate('', (message, field) => {
           if (message) {
             valid = false
@@ -389,13 +402,13 @@ export default {
     },
     validateField(props, cb) {
       props = [].concat(props)
-      const fields = this.fields.filter((field) => props.indexOf(field.prop) !== -1)
+      const fields = this.fields.filter(field => props.indexOf(field.prop) !== -1)
       if (!fields.length) {
         console.warn('[Element Warn]please pass correct props!')
         return
       }
 
-      fields.forEach((field) => {
+      fields.forEach(field => {
         field.validate('', cb)
       })
     },

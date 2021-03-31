@@ -1,49 +1,3 @@
-<template>
-  <el-col
-    :span="computedSpan"
-    class="el-form-item"
-    :class="[
-      {
-        'el-form-item--feedback': elForm && elForm.statusIcon,
-        'is-error': validateState === 'error',
-        'is-validating': validateState === 'validating',
-        'is-success': validateState === 'success',
-        'is-required': isRequired || required,
-        'is-no-asterisk': elForm && elForm.hideRequiredAsterisk
-      },
-      sizeClass ? 'el-form-item--' + sizeClass : ''
-    ]"
-  >
-    <label-wrap
-      :is-auto-width="labelStyle && labelStyle.width === 'auto'"
-      :update-all="form.labelWidth === 'auto'"
-    >
-      <label
-        :for="labelFor"
-        class="el-form-item__label"
-        :title="label"
-        :style="labelStyle"
-        v-if="label || $slots.label"
-      >
-        <slot name="label">{{ label + form.labelSuffix }}</slot>
-      </label>
-    </label-wrap>
-    <div class="el-form-item__content" :style="contentStyle">
-      <slot></slot>
-      <transition name="el-zoom-in-top">
-        <slot
-          v-if="validateState === 'error' && showMessage && form.showMessage"
-          name="error"
-          :error="validateMessage"
-        >
-          <div class="el-form-item__error">
-            {{ validateMessage }}
-          </div>
-        </slot>
-      </transition>
-    </div>
-  </el-col>
-</template>
 <script>
 import AsyncValidator from 'async-validator'
 import emitter from 'element-nice-ui/src/mixins/emitter'
@@ -172,7 +126,7 @@ export default {
       let isRequired = false
 
       if (rules && rules.length) {
-        rules.every((rule) => {
+        rules.every(rule => {
           if (rule.required) {
             isRequired = true
             return false
@@ -202,6 +156,52 @@ export default {
       computedLabelWidth: ''
     }
   },
+
+  render(h) {
+    const formItemClass = ['el-form-item']
+
+    this.validateState && formItemClass.push(`is-${this.validateState}`)
+    this.isRequired || (this.required && formItemClass.push('is-required'))
+    this.elForm && this.elForm.hideRequiredAsterisk && formItemClass.push('is-no-asterisk')
+    this.elForm && this.elForm.statusIcon && formItemClass.push('el-form-item--feedback')
+    this.sizeClass && formItemClass.push('el-form-item--' + sizeClass)
+
+    const children = [
+      <label-wrap
+        is-auto-width={this.labelStyle && this.labelStyle.width === 'auto'}
+        update-all={this.form.labelWidth === 'auto'}
+      >
+        {this.label || this.$slots.label ? (
+          <label
+            for={this.labelFor}
+            class='el-form-item__label'
+            title={this.label}
+            style={this.labelStyle}
+          >
+            {this.$slots.label || this.label + this.form.labelSuffix}
+          </label>
+        ) : null}
+      </label-wrap>,
+      <div class='el-form-item__content' style={this.contentStyle}>
+        {this.$slots.default}
+        <transition name='el-zoom-in-top'>
+          {this.validateState === 'error' && this.showMessage && this.form.showMessage ? (
+            this.$scopedSlots.error ? (
+              this.$scopedSlots.error({ error: this.validateMessage })
+            ) : (
+              <div class='el-form-item__error'>{this.validateMessage}</div>
+            )
+          ) : null}
+        </transition>
+      </div>
+    ]
+
+    return (
+      this.elForm.grid ? <el-col span={this.computedSpan} class={formItemClass}>
+        {children}
+      </el-col> : <div class={formItemClass}>{children}</div>
+    )
+  },
   methods: {
     validate(trigger, callback = noop) {
       this.validateDisabled = false
@@ -215,7 +215,7 @@ export default {
 
       const descriptor = {}
       if (rules && rules.length > 0) {
-        rules.forEach((rule) => {
+        rules.forEach(rule => {
           delete rule.trigger
         })
       }
@@ -282,7 +282,7 @@ export default {
       const rules = this.getRules()
 
       return rules
-        .filter((rule) => {
+        .filter(rule => {
           if (!rule.trigger || trigger === '') return true
           if (Array.isArray(rule.trigger)) {
             return rule.trigger.indexOf(trigger) > -1
@@ -290,7 +290,7 @@ export default {
             return rule.trigger === trigger
           }
         })
-        .map((rule) => objectAssign({}, rule))
+        .map(rule => objectAssign({}, rule))
     },
     onFieldBlur() {
       this.validate('blur')

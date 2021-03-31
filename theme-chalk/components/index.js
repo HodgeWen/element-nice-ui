@@ -1,6 +1,4 @@
 import "./base.js";
-import "./dnd.js";
-import "./dnd-item.js";
 import "./data.js";
 import "./wang-editor.js";
 import "./bpmn.js";

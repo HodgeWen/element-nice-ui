@@ -7,7 +7,7 @@ export type ButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info' |
 export type ButtonNativeType = 'button' | 'submit' | 'reset' | 'menu'
 
 /** Button Component */
-export declare class ElButton extends ElementUIComponent {
+export declare class ElBtn extends ElementUIComponent {
   /** Button size */
   size: ElementUIComponentSize
 
