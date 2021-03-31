@@ -164,7 +164,7 @@ export default {
     this.isRequired || (this.required && formItemClass.push('is-required'))
     this.elForm && this.elForm.hideRequiredAsterisk && formItemClass.push('is-no-asterisk')
     this.elForm && this.elForm.statusIcon && formItemClass.push('el-form-item--feedback')
-    this.sizeClass && formItemClass.push('el-form-item--' + sizeClass)
+    this.sizeClass && formItemClass.push('el-form-item--' + this.sizeClass)
 
     const children = [
       <label-wrap

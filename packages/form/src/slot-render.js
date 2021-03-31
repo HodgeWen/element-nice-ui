@@ -1,5 +1,5 @@
 import FormItem from './form-item.vue'
-import { modifierMethod } from './utils'
+import { modifierMethod, components } from './utils'
 export default {
   props: {
     node: {
@@ -22,10 +22,10 @@ export default {
     init() {
       this.cachedNode = this.node
       let { componentOptions: opts, data } = this.cachedNode
+
+      if (!opts || !components.has(opts.tag)) return
+
       let self = this
-
-      if (!opts || opts.tag === 'el-form-item') return
-
       // 初始化input事件
       if (!opts.listeners) {
         opts.listeners = {}
@@ -61,8 +61,8 @@ export default {
 
   render(h) {
     let { componentOptions: opts } = this.cachedNode
-    if (opts && opts.tag !== 'el-form-item') {
-      let { attrs } = this.cachedNode.data
+    if (opts && components.has(opts.tag)) {
+      let { attrs = {} } = this.cachedNode.data
       if (opts.propsData) {
         opts.propsData = this.node.componentOptions.propsData
         opts.propsData.value = this.value

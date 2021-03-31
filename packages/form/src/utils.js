@@ -7,3 +7,19 @@ export const modifierMethod = {
     return v.trim()
   }
 }
+
+export const components = new Set([
+  'el-input',
+  'el-input-number',
+  'el-date-picker',
+  'el-select',
+  'el-switch',
+  'el-radio-group',
+  'el-radio',
+  'el-checkbox',
+  'el-checkbox-group',
+  'el-slider',
+  'el-cascader',
+  'el-time-picker',
+  'el-date-time-picker'
+])
