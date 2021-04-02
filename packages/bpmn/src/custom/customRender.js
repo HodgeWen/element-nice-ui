@@ -7,7 +7,7 @@ const shapeConfig = {
     stroke: '#12c2e9'
   },
   'bpmn:UserTask': {
-    stroke: '#c471ed',
+    stroke: '#12c2e9',
     strokeWidth: 2
   },
   'bpmn:EndEvent': {
@@ -15,7 +15,7 @@ const shapeConfig = {
     fill: '#f64f59'
   },
   'bpmn:ExclusiveGateway': {
-    stroke: '#c471ed',
+    stroke: '#12c2e9',
     strokeWidth: 2
   }
 }
@@ -42,7 +42,7 @@ class CustomRenderer extends BaseRenderer {
     Array.prototype.forEach.call(parentNode.childNodes, node => {
       if (node.tagName === 'polygon') return
       // node.style.fill = 'red'
-      node.style.stroke = 'red'
+      node.style.stroke = '#12c2e9'
     })
     const config = shapeConfig[type]
     if (config) {
@@ -50,7 +50,7 @@ class CustomRenderer extends BaseRenderer {
         shapeDom.style[prop] = config[prop]
       })
     } else {
-      shapeDom.style.stroke = '#c471ed'
+      shapeDom.style.stroke = '#12c2e9'
     }
 
     return shapeDom
@@ -59,7 +59,7 @@ class CustomRenderer extends BaseRenderer {
   drawConnection(parentNode, connection) {
     let connectionDom = this.bpmnRenderer.drawConnection(parentNode, connection)
     // console.log(visuals, connection)
-    connectionDom.style.stroke = '#c471ed'
+    connectionDom.style.stroke = '#12c2e9'
     // this.bpmnRenderer.drawConnection()
     // Array.prototype.forEach.call(visuals.childNodes, node => {
     //   node.style.stroke = '#f64f59'

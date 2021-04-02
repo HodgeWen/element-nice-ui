@@ -58,7 +58,8 @@ import ElBtnGroup from 'element-nice-ui/packages/btn-group'
 import ElContext from 'element-nice-ui/packages/context'
 import ElDialog from 'element-nice-ui/packages/dialog'
 import ElBpmnPropPanel from './prop-panel.vue'
-import CustomRender from './custom/customRender'
+import customColor from './custom/customColor'
+import customRender from './custom/customRender'
 
 export default {
   name: 'ElBpmn',
@@ -78,6 +79,8 @@ export default {
   data: () => ({
     modeler: null,
 
+    modeling: null,
+
     tipDialogVisible: false
   }),
 
@@ -87,13 +90,16 @@ export default {
       const container = this.$refs.canvas
       if (!container) return
 
-      this.modeler = new BpmnModeler({
+      const modeler = new BpmnModeler({
         container,
-        additionalModules: [customTranslate, CustomRender]
+        additionalModules: [customTranslate]
       })
 
+      this.modeler = modeler
+
+      this.modeling = modeler.get('modeling')
+
       this.addModelerListener()
-      this.addElementListener()
 
       this.xml && this.draw(this.xml)
     },
@@ -103,6 +109,13 @@ export default {
       const { modeler } = this
       if (!modeler) return
 
+      const eventBus = modeler.get('eventBus')
+      Object.keys(eventBus._listeners).forEach(key => {
+        if (key.includes('context')) {
+          // console.log(key)
+        }
+      })
+
       // 获取当前图形是啥
       const getShape = e => {
         const elementRegistry = modeler.get('elementRegistry')
@@ -110,8 +123,11 @@ export default {
       }
 
       modeler.on('shape.added', e => {
-        const shape = getShape(e)
-        // console.log('shape.added')
+        this.setColor(e.element)
+      })
+
+      modeler.on('connection.added', e => {
+        this.setColor(e.element)
       })
 
       modeler.on('shape.move.end', e => {
@@ -123,31 +139,38 @@ export default {
         const shape = getShape(e)
         // console.log('shape.removed')
       })
-    },
 
-    /** 添加元素事件 */
-    addElementListener() {
-      const { modeler } = this
-      if (!modeler) return
-
-      const eventBus = modeler.get('eventBus')
+      // 选择的节点发生改变
+      modeler.on('selection.changed', e => {
+        const [shape] = e.newSelection
+        // TODO 此处 应当获取所有的shape
+        if (!shape) return
+        this.$refs.propPanel.render(shape)
+      })
 
       // 元素被点击时发生改变
-      eventBus.on('element.click', e => {
-        if (e.element.type === "bpmn:Process") {
+      modeler.on('element.click', e => {
+        if (e.element.type === 'bpmn:Process') {
           this.$refs.propPanel.hide()
         }
       })
 
       // 发生改变的节点
-      eventBus.on('element.changed', e => {})
+      modeler.on('element.changed', e => {})
+    },
 
-      // 选择的节点发生改变
-      eventBus.on('selection.changed', e => {
-        const [shape] = e.newSelection
-        // TODO 此处 应当获取所有的shape
-        if (!shape) return
-        this.$refs.propPanel.render(shape)
+    /** 获取每个元素的大类别 */
+    getType(type) {
+      if (['bpmn:StartEvent', 'bpmn:EndEvent'].includes(type)) return type
+      return ['Event', 'Gateway', 'Task'].find(_type => {
+        return !!type.match(_type)
+      })
+    },
+
+    setColor(element) {
+      const type = this.getType(element.type === 'label' ? element.labelTarget.type : element.type)
+      this.$nextTick(() => {
+        this.modeling.setColor(element, customColor[type] || customColor.default)
       })
     },
 

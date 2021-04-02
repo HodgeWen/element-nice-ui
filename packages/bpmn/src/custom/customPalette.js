@@ -49,8 +49,11 @@ class CustomPalette {
     return ret
   }
 
+  /** 生成左侧图形面板 */
   getPaletteEntries(element) {
     const { elementFactory, create, bpmnFactory } = this
+
+    /** 创建子流程 */
     function createSubprocess(event) {
       const subProcess = elementFactory.createShape({
         type: 'bpmn:SubProcess',
@@ -75,6 +78,7 @@ class CustomPalette {
         }
       })
     }
+
     return {
       'lasso-tool': {
         group: 'tools',
@@ -90,6 +94,7 @@ class CustomPalette {
         group: 'tools',
         separator: true
       },
+
       ...this.createGroup('shape', [
         // [类型, 图标, 标题]
         ['Task', 'task', '任务'],
@@ -100,6 +105,7 @@ class CustomPalette {
         ['DataObjectReference', 'data-object', '数据对象'],
         ['DataStoreReference', 'data-store', '数据存储']
       ]),
+
       'tool-separator2': {
         group: 'shape',
         separator: true

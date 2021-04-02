@@ -1,74 +1,67 @@
-import {
-  assign,
-  forEach,
-  isArray
-} from 'min-dash';
+import { assign, forEach, isArray } from 'min-dash'
 
-import {
-  is
-} from '../../util/ModelUtil';
+import { is } from '../../util/ModelUtil'
 
-import {
-  isExpanded,
-  isEventSubProcess
-} from '../../util/DiUtil';
+import { isExpanded, isEventSubProcess } from '../../util/DiUtil'
 
-import {
-  isAny
-} from '../modeling/util/ModelingUtil';
+import { isAny } from '../modeling/util/ModelingUtil'
 
-import {
-  getChildLanes
-} from '../modeling/util/LaneUtil';
+import { getChildLanes } from '../modeling/util/LaneUtil'
 
-import {
-  hasPrimaryModifier
-} from 'diagram-js/lib/util/Mouse';
-
+import { hasPrimaryModifier } from 'diagram-js/lib/util/Mouse'
 
 /**
  * A provider for BPMN 2.0 elements context pad
  */
 export default function ContextPadProvider(
-    config, injector, eventBus,
-    contextPad, modeling, elementFactory,
-    connect, create, popupMenu,
-    canvas, rules, translate) {
+  config,
+  injector,
+  eventBus,
+  contextPad,
+  modeling,
+  elementFactory,
+  connect,
+  create,
+  popupMenu,
+  canvas,
+  rules,
+  translate
+) {
 
-  config = config || {};
+  config = config || {}
 
-  contextPad.registerProvider(this);
+  contextPad.registerProvider(this)
 
-  this._contextPad = contextPad;
+  this._contextPad = contextPad
 
-  this._modeling = modeling;
+  this._modeling = modeling
 
-  this._elementFactory = elementFactory;
-  this._connect = connect;
-  this._create = create;
-  this._popupMenu = popupMenu;
-  this._canvas = canvas;
-  this._rules = rules;
-  this._translate = translate;
+  this._elementFactory = elementFactory
+  this._connect = connect
+  this._create = create
+  this._popupMenu = popupMenu
+  this._canvas = canvas
+  this._rules = rules
+  this._translate = translate
 
   if (config.autoPlace !== false) {
-    this._autoPlace = injector.get('autoPlace', false);
+    this._autoPlace = injector.get('autoPlace', false)
   }
 
   eventBus.on('create.end', 250, function(event) {
     var context = event.context,
-        shape = context.shape;
+      shape = context.shape
 
     if (!hasPrimaryModifier(event) || !contextPad.isOpen(shape)) {
-      return;
+      return
     }
 
-    var entries = contextPad.getEntries(shape);
+    var entries = contextPad.getEntries(shape)
 
     if (entries.replace) {
-      entries.replace.action.click(event, shape);
+      entries.replace.action.click(event, shape)
     }
-  });
+  })
 }
 
 ContextPadProvider.$inject = [
@@ -84,60 +77,54 @@ ContextPadProvider.$inject = [
   'canvas',
   'rules',
   'translate'
-];
-
+]
 
 ContextPadProvider.prototype.getContextPadEntries = function(element) {
 
   var contextPad = this._contextPad,
-      modeling = this._modeling,
-
-      elementFactory = this._elementFactory,
-      connect = this._connect,
-      create = this._create,
-      popupMenu = this._popupMenu,
-      canvas = this._canvas,
-      rules = this._rules,
-      autoPlace = this._autoPlace,
-      translate = this._translate;
-
-  var actions = {};
-
+    modeling = this._modeling,
+    elementFactory = this._elementFactory,
+    connect = this._connect,
+    create = this._create,
+    popupMenu = this._popupMenu,
+    canvas = this._canvas,
+    rules = this._rules,
+    autoPlace = this._autoPlace,
+    translate = this._translate
+  var actions = {}
   if (element.type === 'label') {
-    return actions;
+    return actions
   }
 
-  var businessObject = element.businessObject;
+  var businessObject = element.businessObject
 
   function startConnect(event, element) {
-    connect.start(event, element);
+    connect.start(event, element)
   }
 
   function removeElement(e) {
-    modeling.removeElements([ element ]);
+    modeling.removeElements([element])
   }
 
   function getReplaceMenuPosition(element) {
-
-    var Y_OFFSET = 5;
+    var Y_OFFSET = 5
 
     var diagramContainer = canvas.getContainer(),
-        pad = contextPad.getPad(element).html;
+      pad = contextPad.getPad(element).html
 
     var diagramRect = diagramContainer.getBoundingClientRect(),
-        padRect = pad.getBoundingClientRect();
+      padRect = pad.getBoundingClientRect()
 
-    var top = padRect.top - diagramRect.top;
-    var left = padRect.left - diagramRect.left;
+    var top = padRect.top - diagramRect.top
+    var left = padRect.left - diagramRect.left
 
     var pos = {
       x: left,
       y: top + padRect.height + Y_OFFSET
-    };
+    }
 
-    return pos;
+    return pos
   }
-
 
   /**
    * Create an append action
@@ -152,25 +139,24 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
   function appendAction(type, className, title, options) {
 
     if (typeof title !== 'string') {
-      options = title;
-      title = translate('Append {type}', { type: type.replace(/^bpmn:/, '') });
+      options = title
+      title = translate('Append {type}', { type: type.replace(/^bpmn:/, '') })
     }
 
     function appendStart(event, element) {
-
-      var shape = elementFactory.createShape(assign({ type: type }, options));
+      var shape = elementFactory.createShape(assign({ type: type }, options))
       create.start(event, shape, {
         source: element
-      });
+      })
     }
 
+    var append = autoPlace
+      ? function(event, element) {
+          var shape = elementFactory.createShape(assign({ type: type }, options))
 
-    var append = autoPlace ? function(event, element) {
-      var shape = elementFactory.createShape(assign({ type: type }, options));
-
-      autoPlace.append(element, shape);
-    } : appendStart;
-
+          autoPlace.append(element, shape)
+        }
+      : appendStart
 
     return {
       group: 'model',
@@ -180,26 +166,22 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
         dragstart: appendStart,
         click: append
       }
-    };
+    }
   }
 
   function splitLaneHandler(count) {
-
     return function(event, element) {
-
       // actual split
-      modeling.splitLane(element, count);
+      modeling.splitLane(element, count)
 
       // refresh context pad after split to
       // get rid of split icons
-      contextPad.open(element, true);
-    };
+      contextPad.open(element, true)
+    }
   }
 
-
-  if (isAny(businessObject, [ 'bpmn:Lane', 'bpmn:Participant' ]) && isExpanded(businessObject)) {
-
-    var childLanes = getChildLanes(element);
+  if (isAny(businessObject, ['bpmn:Lane', 'bpmn:Participant']) && isExpanded(businessObject)) {
+    var childLanes = getChildLanes(element)
 
     assign(actions, {
       'lane-insert-above': {
@@ -208,14 +190,13 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
         title: translate('Add Lane above'),
         action: {
           click: function(event, element) {
-            modeling.addLane(element, 'top');
+            modeling.addLane(element, 'top')
           }
         }
       }
-    });
+    })
 
     if (childLanes.length < 2) {
-
       if (element.height >= 120) {
         assign(actions, {
           'lane-divide-two': {
@@ -226,7 +207,7 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
               click: splitLaneHandler(2)
             }
           }
-        });
+        })
       }
 
       if (element.height >= 180) {
@@ -239,7 +220,7 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
               click: splitLaneHandler(3)
             }
           }
-        });
+        })
       }
     }
 
@@ -250,18 +231,15 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
         title: translate('Add Lane below'),
         action: {
           click: function(event, element) {
-            modeling.addLane(element, 'bottom');
+            modeling.addLane(element, 'bottom')
           }
         }
       }
-    });
-
+    })
   }
 
   if (is(businessObject, 'bpmn:FlowNode')) {
-
     if (is(businessObject, 'bpmn:EventBasedGateway')) {
-
       assign(actions, {
         'append.receive-task': appendAction(
           'bpmn:ReceiveTask',
@@ -292,29 +270,26 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
           translate('Append SignalIntermediateCatchEvent'),
           { eventDefinitionType: 'bpmn:SignalEventDefinition' }
         )
-      });
-    } else
-
-    if (isEventType(businessObject, 'bpmn:BoundaryEvent', 'bpmn:CompensateEventDefinition')) {
-
+      })
+    } else if (
+      isEventType(businessObject, 'bpmn:BoundaryEvent', 'bpmn:CompensateEventDefinition')
+    ) {
       assign(actions, {
-        'append.compensation-activity':
-            appendAction(
-              'bpmn:Task',
-              'bpmn-icon-task',
-              translate('Append compensation activity'),
-              {
-                isForCompensation: true
-              }
-            )
-      });
-    } else
-
-    if (!is(businessObject, 'bpmn:EndEvent') &&
-        !businessObject.isForCompensation &&
-        !isEventType(businessObject, 'bpmn:IntermediateThrowEvent', 'bpmn:LinkEventDefinition') &&
-        !isEventSubProcess(businessObject)) {
-
+        'append.compensation-activity': appendAction(
+          'bpmn:Task',
+          'bpmn-icon-task',
+          translate('Append compensation activity'),
+          {
+            isForCompensation: true
+          }
+        )
+      })
+    } else if (
+      !is(businessObject, 'bpmn:EndEvent') &&
+      !businessObject.isForCompensation &&
+      !isEventType(businessObject, 'bpmn:IntermediateThrowEvent', 'bpmn:LinkEventDefinition') &&
+      !isEventSubProcess(businessObject)
+    ) {
       assign(actions, {
         'append.end-event': appendAction(
           'bpmn:EndEvent',
@@ -326,69 +301,66 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
           'bpmn-icon-gateway-none',
           translate('Append Gateway')
         ),
-        'append.append-task': appendAction(
-          'bpmn:Task',
-          'bpmn-icon-task',
-          translate('Append Task')
-        ),
+        'append.append-task': appendAction('bpmn:Task', 'bpmn-icon-task', translate('Append Task')),
         'append.intermediate-event': appendAction(
           'bpmn:IntermediateThrowEvent',
           'bpmn-icon-intermediate-event-none',
           translate('Append Intermediate/Boundary Event')
         )
-      });
+      })
     }
   }
 
   if (!popupMenu.isEmpty(element, 'bpmn-replace')) {
-
     // Replace menu entry
     assign(actions, {
-      'replace': {
+      replace: {
         group: 'edit',
         className: 'bpmn-icon-screw-wrench',
         title: translate('Change type'),
         action: {
           click: function(event, element) {
-
             var position = assign(getReplaceMenuPosition(element), {
               cursor: { x: event.x, y: event.y }
-            });
+            })
 
-            popupMenu.open(element, 'bpmn-replace', position);
+            popupMenu.open(element, 'bpmn-replace', position)
           }
         }
       }
-    });
+    })
   }
 
-  if (isAny(businessObject, [
-    'bpmn:FlowNode',
-    'bpmn:InteractionNode',
-    'bpmn:DataObjectReference',
-    'bpmn:DataStoreReference'
-  ])) {
-
+  if (
+    isAny(businessObject, [
+      'bpmn:FlowNode',
+      'bpmn:InteractionNode',
+      'bpmn:DataObjectReference',
+      'bpmn:DataStoreReference'
+    ])
+  ) {
     assign(actions, {
       'append.text-annotation': appendAction('bpmn:TextAnnotation', 'bpmn-icon-text-annotation'),
 
-      'connect': {
+      connect: {
         group: 'connect',
         className: 'bpmn-icon-connection-multi',
-        title: translate('Connect using ' +
-                  (businessObject.isForCompensation ? '' : 'Sequence/MessageFlow or ') +
-                  'Association'),
+        title: translate(
+          'Connect using ' +
+            (businessObject.isForCompensation ? '' : 'Sequence/MessageFlow or ') +
+            'Association'
+        ),
         action: {
           click: startConnect,
           dragstart: startConnect
         }
       }
-    });
+    })
   }
 
-  if (isAny(businessObject, [ 'bpmn:DataObjectReference', 'bpmn:DataStoreReference' ])) {
+  if (isAny(businessObject, ['bpmn:DataObjectReference', 'bpmn:DataStoreReference'])) {
     assign(actions, {
-      'connect': {
+      connect: {
         group: 'connect',
         className: 'bpmn-icon-connection-multi',
         title: translate('Connect using DataInputAssociation'),
@@ -397,27 +369,26 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
           dragstart: startConnect
         }
       }
-    });
+    })
   }
 
   if (is(businessObject, 'bpmn:Group')) {
     assign(actions, {
       'append.text-annotation': appendAction('bpmn:TextAnnotation', 'bpmn-icon-text-annotation')
-    });
+    })
   }
 
   // delete element entry, only show if allowed by rules
-  var deleteAllowed = rules.allowed('elements.delete', { elements: [ element ] });
+  var deleteAllowed = rules.allowed('elements.delete', { elements: [element] })
 
   if (isArray(deleteAllowed)) {
-
     // was the element returned as a deletion candidate?
-    deleteAllowed = deleteAllowed[0] === element;
+    deleteAllowed = deleteAllowed[0] === element
   }
 
   if (deleteAllowed) {
     assign(actions, {
-      'delete': {
+      delete: {
         group: 'edit',
         className: 'bpmn-icon-trash',
         title: translate('Remove'),
@@ -425,26 +396,25 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
           click: removeElement
         }
       }
-    });
+    })
   }
 
-  return actions;
-};
 
+  return actions
+}
 
 // helpers /////////
 
 function isEventType(eventBo, type, definition) {
+  var isType = eventBo.$instanceOf(type)
+  var isDefinition = false
 
-  var isType = eventBo.$instanceOf(type);
-  var isDefinition = false;
-
-  var definitions = eventBo.eventDefinitions || [];
+  var definitions = eventBo.eventDefinitions || []
   forEach(definitions, function(def) {
     if (def.$type === definition) {
-      isDefinition = true;
+      isDefinition = true
     }
-  });
+  })
 
-  return isType && isDefinition;
+  return isType && isDefinition
 }

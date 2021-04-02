@@ -488,6 +488,7 @@ ReplaceMenuProvider.prototype._getLoopEntries = function(element) {
       }
     }
   ];
+
   return loopEntries;
 };
 
@@ -562,6 +563,7 @@ ReplaceMenuProvider.prototype._getParticipantMultiplicity = function(element) {
       action: toggleParticipantMultiplicity,
     }
   ];
+
   return participantEntries;
 };
 
@@ -600,6 +602,5 @@ ReplaceMenuProvider.prototype._getAdHocEntry = function(element) {
       }
     }
   };
-
   return adHocEntry;
 };
