@@ -160,6 +160,7 @@ export default {
   render(h) {
     const formItemClass = ['el-form-item']
 
+    this.showMessage && this.form.showMessage && formItemClass.push('el-form-item--showerror')
     this.validateState && formItemClass.push(`is-${this.validateState}`)
     this.isRequired || (this.required && formItemClass.push('is-required'))
     this.elForm && this.elForm.hideRequiredAsterisk && formItemClass.push('is-no-asterisk')

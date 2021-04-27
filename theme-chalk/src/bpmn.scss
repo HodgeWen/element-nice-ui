@@ -29,10 +29,12 @@
   }
 
   @include e(prop-panel) {
-    width: 200px;
+    width: 250px;
+    box-sizing: border-box;
+    padding: 0 10px;
     min-height: 200px;
     max-height: 500px;
-    height: 70%;
+    height: 80%;
     background: #f2f2f2;
     position: absolute;
     right: 0px;
@@ -52,7 +54,7 @@
     }
 
     &-enter, &-leave-to {
-      transform: translate(200px, -50%);
+      transform: translate(250px, -50%);
       opacity: 0;
     }
   }

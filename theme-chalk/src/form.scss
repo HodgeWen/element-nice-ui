@@ -38,7 +38,10 @@
   }
 }
 @include b(form-item) {
-  margin-bottom: 22px;
+
+  &.el-form-item--showerror {
+    margin-bottom: 22px;
+  }
   @include utils-clearfix;
 
   & .el-form-item {
@@ -64,7 +67,7 @@
     .el-form-item__content {
       line-height: 32px;
     }
-    &.el-form-item {
+    &.el-form-item--showerror {
       margin-bottom: 18px;
     }
     .el-form-item__error {
@@ -78,7 +81,7 @@
     .el-form-item__content {
       line-height: 28px;
     }
-    &.el-form-item {
+    &.el-form-item--showerror {
       margin-bottom: 18px;
     }
     .el-form-item__error {

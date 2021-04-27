@@ -8,13 +8,13 @@
     <section class="el-bpmn__tools">
       <el-context :ctx="{ size: 'mini' }" :depth="2">
         <el-btn-group class="el-bpmn__btn-group">
-          <el-btn @click="onHistoryChange('back')">
-            撤销
+          <el-btn icon="back" title="上一步" @click="onHistoryChange('back')">
+            <!-- 撤销 -->
           </el-btn>
-          <el-btn @click="onHistoryChange('forward')">
-            恢复
+          <el-btn icon="right" title="下一步" @click="onHistoryChange('forward')">
+            <!-- 恢复 -->
           </el-btn>
-          <el-btn @click="onClear">清空</el-btn>
+          <el-btn icon="delete" title="清空" @click="onClear"></el-btn>
         </el-btn-group>
 
         <el-btn-group class="el-bpmn__btn-group">
@@ -24,12 +24,12 @@
         </el-btn-group>
 
         <el-btn-group class="el-bpmn__btn-group">
-          <el-btn @click="onValidate">错误校验</el-btn>
+          <el-btn @click="onValidate">流程校验</el-btn>
           <el-btn @click="onSave">保存</el-btn>
           <el-btn @click="onSaveAndPublish">保存并发布</el-btn>
         </el-btn-group>
 
-        <el-btn @click="tipDialogVisible = true">提示</el-btn>
+        <el-btn @click="tipDialogVisible = true">教程</el-btn>
       </el-context>
     </section>
     <!-- 顶部工具 end -->
@@ -124,6 +124,7 @@ export default {
 
       modeler.on('shape.added', e => {
         this.setColor(e.element)
+
       })
 
       modeler.on('connection.added', e => {
@@ -156,7 +157,13 @@ export default {
       })
 
       // 发生改变的节点
-      modeler.on('element.changed', e => {})
+      modeler.on('element.changed', e => {
+
+        // 更新属性面板的节点信息
+        if (this.$refs.propPanel.visible && e.element.type === 'label') {
+          this.$refs.propPanel.updateNodeInfo(e.element.businessObject)
+        }
+      })
     },
 
     /** 获取每个元素的大类别 */

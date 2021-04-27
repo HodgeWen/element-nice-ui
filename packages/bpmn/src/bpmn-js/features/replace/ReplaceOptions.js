@@ -1,6 +1,6 @@
 export var START_EVENT = [
   {
-    label: 'Start Event',
+    label: '开始事件',
     actionName: 'replace-with-none-start',
     className: 'bpmn-icon-start-event-none',
     target: {
@@ -8,7 +8,7 @@ export var START_EVENT = [
     }
   },
   {
-    label: 'Intermediate Throw Event',
+    label: '中间抛出事件',
     actionName: 'replace-with-none-intermediate-throwing',
     className: 'bpmn-icon-intermediate-event-none',
     target: {
@@ -16,7 +16,7 @@ export var START_EVENT = [
     }
   },
   {
-    label: 'End Event',
+    label: '结束事件',
     actionName: 'replace-with-none-end',
     className: 'bpmn-icon-end-event-none',
     target: {
@@ -24,7 +24,7 @@ export var START_EVENT = [
     }
   },
   {
-    label: 'Message Start Event',
+    label: '消息开始事件',
     actionName: 'replace-with-message-start',
     className: 'bpmn-icon-start-event-message',
     target: {
@@ -33,7 +33,7 @@ export var START_EVENT = [
     }
   },
   {
-    label: 'Timer Start Event',
+    label: '定时开始事件',
     actionName: 'replace-with-timer-start',
     className: 'bpmn-icon-start-event-timer',
     target: {
@@ -42,7 +42,7 @@ export var START_EVENT = [
     }
   },
   {
-    label: 'Conditional Start Event',
+    label: '条件开始事件',
     actionName: 'replace-with-conditional-start',
     className: 'bpmn-icon-start-event-condition',
     target: {
@@ -51,7 +51,7 @@ export var START_EVENT = [
     }
   },
   {
-    label: 'Signal Start Event',
+    label: '信号开始事件',
     actionName: 'replace-with-signal-start',
     className: 'bpmn-icon-start-event-signal',
     target: {
@@ -63,7 +63,7 @@ export var START_EVENT = [
 
 export var START_EVENT_SUB_PROCESS = [
   {
-    label: 'Start Event',
+    label: '开始事件',
     actionName: 'replace-with-none-start',
     className: 'bpmn-icon-start-event-none',
     target: {
@@ -71,7 +71,7 @@ export var START_EVENT_SUB_PROCESS = [
     }
   },
   {
-    label: 'Intermediate Throw Event',
+    label: '中间抛出事件',
     actionName: 'replace-with-none-intermediate-throwing',
     className: 'bpmn-icon-intermediate-event-none',
     target: {
@@ -79,7 +79,7 @@ export var START_EVENT_SUB_PROCESS = [
     }
   },
   {
-    label: 'End Event',
+    label: '结束事件',
     actionName: 'replace-with-none-end',
     className: 'bpmn-icon-end-event-none',
     target: {
@@ -90,7 +90,7 @@ export var START_EVENT_SUB_PROCESS = [
 
 export var INTERMEDIATE_EVENT = [
   {
-    label: 'Start Event',
+    label: '开始事件',
     actionName: 'replace-with-none-start',
     className: 'bpmn-icon-start-event-none',
     target: {
@@ -98,7 +98,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Intermediate Throw Event',
+    label: '中间抛出事件',
     actionName: 'replace-with-none-intermediate-throw',
     className: 'bpmn-icon-intermediate-event-none',
     target: {
@@ -106,7 +106,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'End Event',
+    label: '结束事件',
     actionName: 'replace-with-none-end',
     className: 'bpmn-icon-end-event-none',
     target: {
@@ -114,7 +114,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Message Intermediate Catch Event',
+    label: '消息中间捕获事件',
     actionName: 'replace-with-message-intermediate-catch',
     className: 'bpmn-icon-intermediate-event-catch-message',
     target: {
@@ -123,7 +123,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Message Intermediate Throw Event',
+    label: '消息中间抛出事件',
     actionName: 'replace-with-message-intermediate-throw',
     className: 'bpmn-icon-intermediate-event-throw-message',
     target: {
@@ -132,7 +132,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Timer Intermediate Catch Event',
+    label: '定时中间捕获事件',
     actionName: 'replace-with-timer-intermediate-catch',
     className: 'bpmn-icon-intermediate-event-catch-timer',
     target: {
@@ -141,7 +141,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Escalation Intermediate Throw Event',
+    label: '升级中间抛出事件',
     actionName: 'replace-with-escalation-intermediate-throw',
     className: 'bpmn-icon-intermediate-event-throw-escalation',
     target: {
@@ -150,7 +150,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Conditional Intermediate Catch Event',
+    label: '条件中间捕获事件',
     actionName: 'replace-with-conditional-intermediate-catch',
     className: 'bpmn-icon-intermediate-event-catch-condition',
     target: {
@@ -159,7 +159,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Link Intermediate Catch Event',
+    label: '链接中间捕获事件',
     actionName: 'replace-with-link-intermediate-catch',
     className: 'bpmn-icon-intermediate-event-catch-link',
     target: {
@@ -171,7 +171,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Link Intermediate Throw Event',
+    label: '链接中间抛出事件',
     actionName: 'replace-with-link-intermediate-throw',
     className: 'bpmn-icon-intermediate-event-throw-link',
     target: {
@@ -183,7 +183,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Compensation Intermediate Throw Event',
+    label: '补偿中间抛出事件',
     actionName: 'replace-with-compensation-intermediate-throw',
     className: 'bpmn-icon-intermediate-event-throw-compensation',
     target: {
@@ -192,7 +192,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Signal Intermediate Catch Event',
+    label: '信号中间捕获事件',
     actionName: 'replace-with-signal-intermediate-catch',
     className: 'bpmn-icon-intermediate-event-catch-signal',
     target: {
@@ -201,7 +201,7 @@ export var INTERMEDIATE_EVENT = [
     }
   },
   {
-    label: 'Signal Intermediate Throw Event',
+    label: '信号中间捕获事件',
     actionName: 'replace-with-signal-intermediate-throw',
     className: 'bpmn-icon-intermediate-event-throw-signal',
     target: {
@@ -326,24 +326,24 @@ export var GATEWAY = [
       type: 'bpmn:InclusiveGateway'
     }
   },
-  {
-    label: 'Complex Gateway',
-    actionName: 'replace-with-complex-gateway',
-    className: 'bpmn-icon-gateway-complex',
-    target: {
-      type: 'bpmn:ComplexGateway'
-    }
-  },
-  {
-    label: 'Event based Gateway',
-    actionName: 'replace-with-event-based-gateway',
-    className: 'bpmn-icon-gateway-eventbased',
-    target: {
-      type: 'bpmn:EventBasedGateway',
-      instantiate: false,
-      eventGatewayType: 'Exclusive'
-    }
-  }
+  // {
+  //   label: 'Complex Gateway',
+  //   actionName: 'replace-with-complex-gateway',
+  //   className: 'bpmn-icon-gateway-complex',
+  //   target: {
+  //     type: 'bpmn:ComplexGateway'
+  //   }
+  // },
+  // {
+  //   label: 'Event based Gateway',
+  //   actionName: 'replace-with-event-based-gateway',
+  //   className: 'bpmn-icon-gateway-eventbased',
+  //   target: {
+  //     type: 'bpmn:EventBasedGateway',
+  //     instantiate: false,
+  //     eventGatewayType: 'Exclusive'
+  //   }
+  // }
 
   // Gateways deactivated until https://github.com/bpmn-io/bpmn-js/issues/194
   // {
@@ -445,22 +445,22 @@ export var EVENT_SUB_PROCESS = [
 ];
 
 export var TASK = [
-  {
-    label: 'Task',
-    actionName: 'replace-with-task',
-    className: 'bpmn-icon-task',
-    target: {
-      type: 'bpmn:Task'
-    }
-  },
-  {
-    label: 'Send Task',
-    actionName: 'replace-with-send-task',
-    className: 'bpmn-icon-send',
-    target: {
-      type: 'bpmn:SendTask'
-    }
-  },
+  // {
+  //   label: 'Task',
+  //   actionName: 'replace-with-task',
+  //   className: 'bpmn-icon-task',
+  //   target: {
+  //     type: 'bpmn:Task'
+  //   }
+  // },
+  // {
+  //   label: 'Send Task',
+  //   actionName: 'replace-with-send-task',
+  //   className: 'bpmn-icon-send',
+  //   target: {
+  //     type: 'bpmn:SendTask'
+  //   }
+  // },
   {
     label: 'Receive Task',
     actionName: 'replace-with-receive-task',
@@ -485,14 +485,14 @@ export var TASK = [
       type: 'bpmn:ManualTask'
     }
   },
-  {
-    label: 'Business Rule Task',
-    actionName: 'replace-with-rule-task',
-    className: 'bpmn-icon-business-rule',
-    target: {
-      type: 'bpmn:BusinessRuleTask'
-    }
-  },
+  // {
+  //   label: 'Business Rule Task',
+  //   actionName: 'replace-with-rule-task',
+  //   className: 'bpmn-icon-business-rule',
+  //   target: {
+  //     type: 'bpmn:BusinessRuleTask'
+  //   }
+  // },
   {
     label: 'Service Task',
     actionName: 'replace-with-service-task',
@@ -802,17 +802,17 @@ export var EVENT_SUB_PROCESS_START_EVENT = [
 
 export var SEQUENCE_FLOW = [
   {
-    label: 'Sequence Flow',
+    label: '顺序流',
     actionName: 'replace-with-sequence-flow',
     className: 'bpmn-icon-connection'
   },
   {
-    label: 'Default Flow',
+    label: '默认流',
     actionName: 'replace-with-default-flow',
     className: 'bpmn-icon-default-flow'
   },
   {
-    label: 'Conditional Flow',
+    label: '条件流',
     actionName: 'replace-with-conditional-flow',
     className: 'bpmn-icon-conditional-flow'
   }

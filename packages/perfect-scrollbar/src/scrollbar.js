@@ -71,6 +71,7 @@ export default {
 
   mounted() {
     const { wheelSpeed, wheelPropagation } = this
+
     this.ps = new PerfectScrollbar(this.$refs.container, {
       wheelSpeed,
       wheelPropagation
