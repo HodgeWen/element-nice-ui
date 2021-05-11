@@ -1,11 +1,21 @@
 <template>
-  <el-bpmn :xml="xml"></el-bpmn>
+<div>
+
+
+  <!-- <el-bpmn :xml="xml"></el-bpmn> -->
+  <el-select style="width: 250px" v-model="selected" tree multiple :options="options" />
+  {{ selected }}
+  </div>
 </template>
 
 <script>
 export default {
   data: () => ({
     checked: [],
+
+    tick: 10,
+
+    selected:  [],
 
     options: [
       {
@@ -63,7 +73,7 @@ export default {
       }
     ],
 
-    emptyTemplate:  `
+    emptyTemplate: `
       <?xml version="1.0" encoding="UTF-8"?>
         <bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
           <bpmn2:process id="" name="">
@@ -180,7 +190,9 @@ export default {
           </bpmndi:BPMNDiagram>
         </bpmn2:definitions>
       `
-  })
+  }),
+
+  mounted() {}
 }
 </script>
 

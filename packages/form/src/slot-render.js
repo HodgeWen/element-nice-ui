@@ -21,10 +21,10 @@ export default {
   methods: {
     init() {
       this.cachedNode = this.node
+
       let { componentOptions: opts, data } = this.cachedNode
 
       if (!opts || !components.has(opts.tag)) return
-
       let self = this
       // 初始化input事件
       if (!opts.listeners) {
@@ -56,6 +56,7 @@ export default {
   },
 
   created() {
+    console.log
     this.init()
   },
 

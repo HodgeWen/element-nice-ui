@@ -43,7 +43,7 @@
     <!-- 缩放工具 end -->
 
     <!-- 属性面板 start -->
-    <ElBpmnPropPanel ref="propPanel" />
+    <el-prop-panel ref="propPanel" />
     <!-- 属性面板 end -->
 
     <el-dialog title="使用教程" v-model="tipDialogVisible"></el-dialog>
@@ -57,7 +57,7 @@ import ElBtn from 'element-nice-ui/packages/btn'
 import ElBtnGroup from 'element-nice-ui/packages/btn-group'
 import ElContext from 'element-nice-ui/packages/context'
 import ElDialog from 'element-nice-ui/packages/dialog'
-import ElBpmnPropPanel from './prop-panel.vue'
+import ElPropPanel from './prop-panel.vue'
 import customColor from './custom/customColor'
 import customRender from './custom/customRender'
 
@@ -69,7 +69,7 @@ export default {
     ElContext,
     ElBtnGroup,
     ElDialog,
-    ElBpmnPropPanel
+    ElPropPanel
   },
 
   props: {

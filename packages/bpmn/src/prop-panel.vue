@@ -12,9 +12,8 @@
       >
         <el-input disabled placeholder="无" t-label="节点ID" t-prop="id" />
         <el-input disabled placeholder="无" t-label="节点名称" t-prop="name" />
+        <el-input disabled placeholder="无" t-label="节点类型" t-prop="type" />
       </el-form>
-
-
     </section>
   </transition>
 </template>
@@ -37,17 +36,20 @@ export default {
 
     nodeForm: {
       id: '',
-      name: ''
+      name: '',
+      type: ''
     }
   }),
 
   methods: {
+    // 渲染
     render(shape) {
       this.show()
       const { type, businessObject } = shape
       this.updateNodeInfo(businessObject)
+      this.nodeForm.type = type
     },
-
+    //
     updateNodeInfo(businessObject) {
       this.$nextTick(() => {
         const { nodeForm } = this.$refs

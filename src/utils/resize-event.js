@@ -4,14 +4,9 @@ const isServer = typeof window === 'undefined'
 
 /* istanbul ignore next */
 const resizeHandler = function(entries) {
-
   for (let entry of entries) {
     const listeners = entry.target.__resizeListeners__ || []
-    if (listeners.length) {
-      listeners.forEach((fn) => {
-        fn()
-      })
-    }
+    listeners.forEach(fn => fn())
   }
 }
 

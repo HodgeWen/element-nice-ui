@@ -33,12 +33,14 @@
       };
     },
 
+    inject: ['rootTabs'],
+
     computed: {
       isClosable() {
-        return this.closable || this.$parent.closable;
+        return this.closable || this.rootTabs.closable;
       },
       active() {
-        const active = this.$parent.currentName === (this.name || this.index);
+        const active = this.rootTabs.currentName === (this.name || this.index);
         if (active) {
           this.loaded = true;
         }
@@ -50,7 +52,7 @@
     },
 
     updated() {
-      this.$parent.$emit('tab-nav-update');
+      this.rootTabs.$emit('tab-nav-update');
     }
   };
 </script>

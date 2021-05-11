@@ -1,7 +1,5 @@
 import PerfectScrollbar from './ps'
-import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
 import { scrollTo } from './utils'
-
 export default {
   name: 'ElPerfectScrollbar',
   props: {
@@ -19,6 +17,11 @@ export default {
     wheelPropagation: {
       type: Boolean,
       default: true
+    },
+
+    /** 监听配置 */
+    observerConfig: {
+      type: Object
     }
   },
 
@@ -71,19 +74,23 @@ export default {
 
   mounted() {
     const { wheelSpeed, wheelPropagation } = this
+    const { container } = this.$refs
 
-    this.ps = new PerfectScrollbar(this.$refs.container, {
+    this.ps = new PerfectScrollbar(container, {
       wheelSpeed,
       wheelPropagation
     })
 
-    let children = this.$children[0]
-    children && addResizeListener(children.$el, this.update)
+    const observer = new MutationObserver(this.update)
+    observer.observe(container, {
+      childList: true,
+      ...this.observerConfig
+    })
+    this.observer = observer
   },
 
   beforeDestroy() {
-    let children = this.$children[0]
-    children && removeResizeListener(children.$el, this.update)
+    this.observer.disconnect()
     this.destroy()
   }
 }

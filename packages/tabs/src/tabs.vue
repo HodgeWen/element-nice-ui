@@ -1,11 +1,12 @@
-<script>
+<script lang="jsx">
   import TabNav from './tab-nav';
-
+  import ElPerfectScrollbar from 'element-nice-ui/packages/perfect-scrollbar'
   export default {
     name: 'ElTabs',
 
     components: {
-      TabNav
+      TabNav,
+      ElPerfectScrollbar
     },
 
     props: {
@@ -20,7 +21,8 @@
         default: 'top'
       },
       beforeLeave: Function,
-      stretch: Boolean
+      stretch: Boolean,
+      height: String
     },
 
     provide() {
@@ -32,7 +34,11 @@
     data() {
       return {
         currentName: this.value || this.activeName,
-        panes: []
+        panes: [],
+        observerConfig: {
+          subtree: true,
+          attributeFilter: ['aria-hidden'],
+        }
       };
     },
 
@@ -120,7 +126,9 @@
         editable,
         addable,
         tabPosition,
-        stretch
+        stretch,
+        height,
+        observerConfig
       } = this;
 
       const newButton = editable || addable
@@ -155,11 +163,10 @@
         </div>
       );
       const panels = (
-        <div class="el-tabs__content">
+        <el-perfect-scrollbar observer-config={observerConfig} style={{ height }} tag="div" class="el-tabs__content">
           {this.$slots.default}
-        </div>
+        </el-perfect-scrollbar>
       );
-
       return (
         <div class={{
           'el-tabs': true,
@@ -171,7 +178,7 @@
         </div>
       );
     },
-  
+
     created() {
       if (!this.currentName) {
         this.setCurrentName('0');

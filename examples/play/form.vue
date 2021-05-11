@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select
+    <!-- <el-select
       multiple
       filterable
       t-label="测试"
@@ -16,10 +16,10 @@
         v-model="form.tree"
         option-value="value"
         option-label="label"
-      />
+      /> -->
     <el-form :form="form" ref="form" size="small" label-width="60px">
       <el-input t-prop="name" t-span="24" t-label="名字" append="测试" />
-      <el-input-number t-prop="height" t-label="身高" money />
+      <!-- <el-input-number t-prop="height" t-label="身高" money />
       <el-radio-group t-prop="type" t-label="类型">
         <el-radio label="1">显示</el-radio>
         <el-radio label="2">隐藏</el-radio>
@@ -36,7 +36,7 @@
 
       <el-slider t-prop="slider" />
 
-      <el-time-picker t-prop="date" />
+      <el-time-picker t-prop="date" /> -->
     </el-form>
   </div>
 </template>
