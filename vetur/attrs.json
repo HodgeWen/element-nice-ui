@@ -1198,6 +1198,11 @@
     "type": "flag",
     "description": "whether to align the header and footer in center"
   },
+  "el-dialog/confirm": {
+    "version": ">=2.0.0",
+    "type": "function",
+    "description": "确认函数, 会自动进行校验"
+  },
   "el-alert/center": { "type": "flag", "description": "whether to center the text" },
   "e;-steps/center": {
     "version": "<2.0.0",

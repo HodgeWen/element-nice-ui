@@ -189,7 +189,7 @@ export default {
       type: [Array, Object]
     },
 
-    noCache: {
+    cache: {
       type: Boolean
     },
 
@@ -385,13 +385,13 @@ export default {
 
     // query 替换
     queryReplace() {
-      if (this.noCache) return
+      if (!this.cache) return
       historyReplace({ ...this.params, sa: this.searchable })
     },
 
     // 从url中获取query值, 改变query
     readQuery() {
-      if (this.noCache) return
+      if (!this.cache) return
       let queryObj = getUrlSearchObj()
       extendQuery(this.query, queryObj)
 
