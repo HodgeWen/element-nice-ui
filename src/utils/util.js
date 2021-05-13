@@ -239,3 +239,16 @@ export function objToArray(obj) {
   }
   return isEmpty(obj) ? [] : [obj];
 }
+
+export function getDefined(...args) {
+  let ret = undefined
+
+  args.some(arg => {
+    if (arg !== undefined) {
+      ret = arg
+      return true
+    }
+  })
+
+  return ret
+}

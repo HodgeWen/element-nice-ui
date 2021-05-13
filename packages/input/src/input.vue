@@ -33,7 +33,7 @@
         :placeholder="placeholder"
         :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
         :disabled="inputDisabled"
-        :readonly="readonly"
+        :readonly="inputReadonly"
         :autocomplete="autocomplete"
         ref="input"
         @compositionstart="handleCompositionStart"
@@ -99,7 +99,7 @@
       v-bind="$attrs"
       :placeholder="placeholder"
       :disabled="inputDisabled"
-      :readonly="readonly"
+      :readonly="inputReadonly"
       :autocomplete="autocomplete"
       :style="textareaStyle"
       @focus="handleFocus"
@@ -119,6 +119,7 @@ import Migrating from 'element-nice-ui/src/mixins/migrating'
 import calcTextareaHeight from './calcTextareaHeight'
 import merge from 'element-nice-ui/src/utils/merge'
 import { isKorean } from 'element-nice-ui/src/utils/shared'
+import { getDefined } from 'element-nice-ui/src/utils/util'
 
 export default {
   name: 'ElInput',
@@ -155,8 +156,14 @@ export default {
     size: String,
     resize: String,
     form: String,
-    disabled: Boolean,
-    readonly: Boolean,
+    disabled: {
+      type: Boolean,
+      default: undefined
+    },
+    readonly: {
+      type: Boolean,
+      default: undefined
+    },
     placeholder: {
       type: String,
       default: '请输入'
@@ -219,7 +226,10 @@ export default {
       return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size
     },
     inputDisabled() {
-      return this.disabled || (this.elForm || {}).disabled
+      return getDefined(this.disabled, (this.elForm || {}).disabled, false)
+    },
+    inputReadonly() {
+      return getDefined(this.readonly, (this.elForm || {}).readonly, false)
     },
     nativeInputValue() {
       return this.value === null || this.value === undefined ? '' : String(this.value)
@@ -228,7 +238,7 @@ export default {
       return (
         this.clearable &&
         !this.inputDisabled &&
-        !this.readonly &&
+        !this.inputReadonly &&
         this.nativeInputValue &&
         (this.focused || this.hovering)
       )
@@ -237,7 +247,7 @@ export default {
       return (
         this.showPassword &&
         !this.inputDisabled &&
-        !this.readonly &&
+        !this.inputReadonly &&
         (!!this.nativeInputValue || this.focused)
       )
     },
@@ -247,7 +257,7 @@ export default {
         this.$attrs.maxlength &&
         (this.type === 'text' || this.type === 'textarea') &&
         !this.inputDisabled &&
-        !this.readonly &&
+        !this.inputReadonly &&
         !this.showPassword
       )
     },

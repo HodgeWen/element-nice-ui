@@ -87,7 +87,7 @@
       :autocomplete="autoComplete || autocomplete"
       :size="selectSize"
       :disabled="selectDisabled"
-      :readonly="readonly"
+      :readonly="selectReadonly"
       :validate-event="false"
       :class="{ 'is-focus': visible }"
       :tabindex="multiple && filterable ? '-1' : null"
@@ -212,7 +212,7 @@ import Clickoutside from 'element-nice-ui/src/utils/clickoutside'
 import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
 import { t } from 'element-nice-ui/src/locale'
 import scrollIntoView from 'element-nice-ui/src/utils/scroll-into-view'
-import { getValueByPath, valueEquals, isIE, isEdge } from 'element-nice-ui/src/utils/util'
+import { getValueByPath, valueEquals, isIE, isEdge, getDefined } from 'element-nice-ui/src/utils/util'
 import NavigationMixin from './navigation-mixin'
 import { isKorean } from 'element-nice-ui/src/utils/shared'
 
@@ -280,8 +280,12 @@ export default {
       return (this.elFormItem || {}).elFormItemSize
     },
 
-    readonly() {
-      return !this.filterable || this.multiple || (!isIE() && !isEdge() && !this.visible)
+    selectReadonly() {
+      return getDefined(
+        this.readonly,
+        (this.elForm || {}).readonly,
+        !this.filterable || this.multiple || (!isIE() && !isEdge() && !this.visible)
+      )
     },
 
     showClose() {
@@ -332,7 +336,7 @@ export default {
     },
 
     selectDisabled() {
-      return this.disabled || (this.elForm || {}).disabled
+      return getDefined(this.disabled, (this.elForm || {}).disabled, false)
     },
 
     collapseTagSize() {
@@ -410,7 +414,14 @@ export default {
     },
     automaticDropdown: Boolean,
     size: String,
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: undefined
+    },
+    readonly: {
+      type: Boolean,
+      default: undefined
+    },
     clearable: {
       type: Boolean,
       default: true

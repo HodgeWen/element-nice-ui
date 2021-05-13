@@ -35,7 +35,10 @@
       size: String,
       fill: String,
       textColor: String,
-      disabled: Boolean
+      disabled: {
+        type: Boolean,
+        default: undefined
+      }
     },
 
     computed: {

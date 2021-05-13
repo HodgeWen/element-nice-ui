@@ -35,6 +35,7 @@
   import PickerDropdown from './components/picker-dropdown.vue';
   import Clickoutside from 'element-nice-ui/src/utils/clickoutside';
   import Emitter from 'element-nice-ui/src/mixins/emitter';
+import { getDefined } from 'element-nice-ui/src/utils/util';
 
   export default {
     name: 'ElColorPicker',
@@ -45,7 +46,10 @@
       value: String,
       showAlpha: Boolean,
       colorFormat: String,
-      disabled: Boolean,
+      disabled: {
+        type: Boolean,
+        default: undefined
+      },
       size: String,
       popperClass: String,
       predefine: Array
@@ -80,7 +84,7 @@
       },
 
       colorDisabled() {
-        return this.disabled || (this.elForm || {}).disabled;
+        return getDefined(this.disabled, (this.elForm || {}).disabled, false)
       }
     },
 

@@ -123,7 +123,7 @@ import ElScrollbar from 'element-nice-ui/packages/scrollbar';
 import ElCascaderPanel from 'element-nice-ui/packages/cascader-panel';
 import AriaUtils from 'element-nice-ui/src/utils/aria-utils';
 import { t } from 'element-nice-ui/src/locale';
-import { isEqual, isEmpty, kebabCase } from 'element-nice-ui/src/utils/util';
+import { isEqual, isEmpty, kebabCase, getDefined } from 'element-nice-ui/src/utils/util';
 import { isUndefined, isFunction } from 'element-nice-ui/src/utils/types';
 import { isDef } from 'element-nice-ui/src/utils/shared';
 import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event';
@@ -204,7 +204,10 @@ export default {
       type: String,
       default: () => t('el.cascader.placeholder')
     },
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: undefined
+    },
     clearable: Boolean,
     filterable: Boolean,
     filterMethod: Function,
@@ -255,7 +258,7 @@ export default {
         : 'small';
     },
     isDisabled() {
-      return this.disabled || (this.elForm || {}).disabled;
+      return getDefined(this.disabled, (this.elForm || {}).disabled, false)
     },
     config() {
       const config = this.props || {};

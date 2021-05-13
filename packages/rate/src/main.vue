@@ -36,6 +36,7 @@
   import { hasClass } from 'element-nice-ui/src/utils/dom';
   import { isObject } from 'element-nice-ui/src/utils/types';
   import Migrating from 'element-nice-ui/src/mixins/migrating';
+import { getDefined } from 'element-nice-ui/src/utils/util';
 
   export default {
     name: 'ElRate',
@@ -103,7 +104,7 @@
       },
       disabled: {
         type: Boolean,
-        default: false
+        default: undefined
       },
       allowHalf: {
         type: Boolean,
@@ -214,7 +215,7 @@
       },
 
       rateDisabled() {
-        return this.disabled || (this.elForm || {}).disabled;
+        return getDefined(this.disabled, (this.elForm || {}).disabled, false)
       }
     },
 

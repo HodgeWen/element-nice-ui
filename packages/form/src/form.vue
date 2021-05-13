@@ -44,7 +44,10 @@ export default {
       type: [String, Number],
       default: 12
     },
-
+    readonly: {
+      type: Boolean,
+      default: undefined
+    },
     inline: Boolean,
     inlineMessage: Boolean,
     statusIcon: Boolean,
@@ -53,7 +56,10 @@ export default {
       default: true
     },
     size: String,
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: undefined
+    },
     validateOnRuleChange: {
       type: Boolean,
       default: true

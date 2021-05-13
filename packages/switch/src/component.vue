@@ -39,6 +39,7 @@
   import emitter from 'element-nice-ui/src/mixins/emitter';
   import Focus from 'element-nice-ui/src/mixins/focus';
   import Migrating from 'element-nice-ui/src/mixins/migrating';
+import { getDefined } from 'element-nice-ui/src/utils/util';
 
   export default {
     name: 'ElSwitch',
@@ -55,7 +56,7 @@
       },
       disabled: {
         type: Boolean,
-        default: false
+        default: undefined
       },
       width: {
         type: Number,
@@ -112,7 +113,7 @@
         return this.value === this.activeValue;
       },
       switchDisabled() {
-        return this.disabled || (this.elForm || {}).disabled;
+        return getDefined(this.disabled, (this.elForm || {}).disabled, false)
       }
     },
     watch: {

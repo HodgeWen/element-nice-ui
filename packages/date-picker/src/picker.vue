@@ -2,7 +2,7 @@
   <el-input
     class="el-date-editor"
     :class="'el-date-editor--' + type"
-    :readonly="!editable || readonly || type === 'dates' || type === 'week'"
+    :readonly="!editable || pickerReadonly || type === 'dates' || type === 'week'"
     :disabled="pickerDisabled"
     :size="pickerSize"
     :name="name"
@@ -54,7 +54,7 @@
       :value="displayValue && displayValue[0]"
       :disabled="pickerDisabled"
       v-bind="firstInputId"
-      :readonly="!editable || readonly"
+      :readonly="!editable || pickerReadonly"
       :name="name && name[0]"
       @input="handleStartInput"
       @change="handleStartChange"
@@ -70,7 +70,7 @@
       :value="displayValue && displayValue[1]"
       :disabled="pickerDisabled"
       v-bind="secondInputId"
-      :readonly="!editable || readonly"
+      :readonly="!editable || pickerReadonly"
       :name="name && name[1]"
       @input="handleEndInput"
       @change="handleEndChange"
@@ -100,6 +100,7 @@ import Popper from 'element-nice-ui/src/utils/vue-popper'
 import Emitter from 'element-nice-ui/src/mixins/emitter'
 import ElInput from 'element-nice-ui/packages/input'
 import merge from 'element-nice-ui/src/utils/merge'
+import { getDefined } from 'element-nice-ui/src/utils/util'
 
 const NewPopper = {
   props: {
@@ -350,7 +351,10 @@ export default {
     size: String,
     format: String,
     valueFormat: String,
-    readonly: Boolean,
+    readonly: {
+      type: Boolean,
+      default: undefined
+    },
     placeholder: {
       type: String,
       default: '请选择日期'
@@ -372,7 +376,10 @@ export default {
       default: '',
       validator
     },
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: undefined
+    },
     clearable: {
       type: Boolean,
       default: true
@@ -420,7 +427,7 @@ export default {
 
   watch: {
     pickerVisible(val) {
-      if (this.readonly || this.pickerDisabled) return
+      if (this.pickerReadonly || this.pickerDisabled) return
       if (val) {
         this.showPicker()
         this.valueOnOpen = Array.isArray(this.value) ? [...this.value] : this.value
@@ -566,7 +573,10 @@ export default {
     },
 
     pickerDisabled() {
-      return this.disabled || (this.elForm || {}).disabled
+      return getDefined(this.disabled, (this.elForm || {}).disabled, false)
+    },
+    pickerReadonly() {
+      return getDefined(this.readonly, (this.elForm || {}).readonly, false)
     },
 
     firstInputId() {
@@ -649,7 +659,7 @@ export default {
     },
 
     handleMouseEnter() {
-      if (this.readonly || this.pickerDisabled) return
+      if (this.pickerReadonly || this.pickerDisabled) return
       if (!this.valueIsEmpty && this.clearable) {
         this.showClose = true
       }
@@ -716,7 +726,7 @@ export default {
     },
 
     handleClickIcon(event) {
-      if (this.readonly || this.pickerDisabled) return
+      if (this.pickerReadonly || this.pickerDisabled) return
       if (this.showClose) {
         this.valueOnOpen = this.value
         event.stopPropagation()

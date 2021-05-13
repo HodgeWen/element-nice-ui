@@ -78,6 +78,7 @@
   import SliderButton from './button.vue';
   import SliderMarker from './marker';
   import Emitter from 'element-nice-ui/src/mixins/emitter';
+import { getDefined } from 'element-nice-ui/src/utils/util';
 
   export default {
     name: 'ElSlider',
@@ -130,7 +131,7 @@
       formatTooltip: Function,
       disabled: {
         type: Boolean,
-        default: false
+        default: undefined
       },
       range: {
         type: Boolean,
@@ -386,7 +387,7 @@
       },
 
       sliderDisabled() {
-        return this.disabled || (this.elForm || {}).disabled;
+        return getDefined(this.disabled, (this.elForm || {}).disabled, false)
       }
     },
 

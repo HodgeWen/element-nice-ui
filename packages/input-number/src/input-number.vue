@@ -53,6 +53,7 @@
 import ElInput from 'element-nice-ui/packages/input'
 import Focus from 'element-nice-ui/src/mixins/focus'
 import RepeatClick from 'element-nice-ui/src/directives/repeat-click'
+import { getDefined } from 'element-nice-ui/src/utils/util'
 
 export default {
   name: 'ElInputNumber',
@@ -92,7 +93,10 @@ export default {
       default: -Infinity
     },
     value: {},
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: undefined
+    },
     size: String,
     controls: {
       type: Boolean,
@@ -170,7 +174,7 @@ export default {
     },
     maxDisabled() {
       // money标记
-       let v = this.money ? this.multiply(this.value, true) : this.value
+      let v = this.money ? this.multiply(this.value, true) : this.value
       return this._increase(v, this.step) > this.max
     },
     numPrecision() {
@@ -197,7 +201,7 @@ export default {
       return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size
     },
     inputNumberDisabled() {
-      return this.disabled || !!(this.elForm || {}).disabled
+      return getDefined(this.disabled, (this.elForm || {}).disabled, false)
     },
     displayValue() {
       if (this.userInput !== null) {
@@ -263,14 +267,14 @@ export default {
     increase() {
       if (this.inputNumberDisabled || this.maxDisabled) return
       // money标记
-      const value = this.money ? this.multiply(this.value || 0, true) : (this.value || 0)
+      const value = this.money ? this.multiply(this.value || 0, true) : this.value || 0
       const newVal = this._increase(value, this.step)
       this.setCurrentValue(newVal)
     },
     decrease() {
       if (this.inputNumberDisabled || this.minDisabled) return
       // money标记
-      const value = this.money ? this.multiply(this.value || 0, true) : (this.value || 0)
+      const value = this.money ? this.multiply(this.value || 0, true) : this.value || 0
       const newVal = this._decrease(value, this.step)
       this.setCurrentValue(newVal)
     },

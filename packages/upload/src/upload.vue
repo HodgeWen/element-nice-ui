@@ -1,4 +1,5 @@
 <script>
+import { getDefined } from 'element-nice-ui/src/utils/util';
 import ajax from './ajax';
 import UploadDragger from './upload-dragger.vue';
 
@@ -43,7 +44,10 @@ export default {
       type: Function,
       default: ajax
     },
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: undefined
+    },
     limit: Number,
     onExceed: Function
   },
@@ -53,6 +57,12 @@ export default {
       mouseover: false,
       reqs: {}
     };
+  },
+
+  computed: {
+    uploadDisabled() {
+      return getDefined(this.disabled, (this.elForm || {}).disabled, false)
+    }
   },
 
   methods: {
@@ -160,7 +170,7 @@ export default {
       }
     },
     handleClick() {
-      if (!this.disabled) {
+      if (!this.uploadDisabled) {
         this.$refs.input.value = null;
         this.$refs.input.click();
       }
@@ -183,7 +193,7 @@ export default {
       accept,
       listType,
       uploadFiles,
-      disabled,
+      uploadDisabled,
       handleKeydown
     } = this;
     const data = {
@@ -200,7 +210,7 @@ export default {
       <div {...data} tabindex="0" >
         {
           drag
-            ? <upload-dragger disabled={disabled} on-file={uploadFiles}>{this.$slots.default}</upload-dragger>
+            ? <upload-dragger disabled={uploadDisabled} on-file={uploadFiles}>{this.$slots.default}</upload-dragger>
             : this.$slots.default
         }
         <input class="el-upload__input" type="file" ref="input" name={name} on-change={handleChange} multiple={multiple} accept={accept}></input>
