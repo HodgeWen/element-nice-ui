@@ -526,9 +526,9 @@
   "el-table/empty-text": {
     "description": "Displayed text when data is empty. You can customize this area with slot='empty'"
   },
-  "el-table/no-cache": {
+  "el-table/cache": {
     "type": "boolean",
-    "description": "表示表格不使用url的缓存"
+    "description": "表示表格使用url的缓存"
   },
   "el-table/height": {
     "type": "string",

@@ -539,7 +539,7 @@
       "height",
       "filter",
       "no-searcher",
-      "no-cache",
+      "cache",
       "api",
       "pagination",
       "query",
