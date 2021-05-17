@@ -17,6 +17,12 @@ declare module 'element-nice-ui/lib/autocomplete' {
   export default Autocomplete
 }
 
+declare module 'element-nice-ui/lib/context' {
+  import { ElContext } from 'element-nice-ui/types/context'
+  const Context: ElContext
+  export default Context
+}
+
 declare module 'element-nice-ui/lib/dropdown' {
   import { ElDropdown } from 'element-nice-ui/types/dropdown'
   const Dropdown: ElDropdown
@@ -243,6 +249,12 @@ declare module 'element-nice-ui/lib/tag' {
   import { ElTag } from 'element-nice-ui/types/tag'
   const Tag: ElTag
   export default Tag
+}
+
+declare module 'element-nice-ui/lib/tree' {
+  import { ElTree } from 'element-nice-ui/types/tree'
+  const Tree: ElTree
+  export default Tree
 }
 
 declare module 'element-nice-ui/lib/alert' {
