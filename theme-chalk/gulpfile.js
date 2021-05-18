@@ -5,7 +5,7 @@ const sass = require('gulp-sass');
 const cssmin = require('gulp-cssmin');
 
 function compile() {
-  return src('./src/*.scss')
+  return src(['./src/*.scss', './src/*.css'])
     .pipe(sass.sync())
     .pipe(cssmin())
     .pipe(dest('./lib'));

@@ -162,7 +162,7 @@ export default {
 
     this.showMessage && this.form.showMessage && formItemClass.push('el-form-item--showerror')
     this.validateState && formItemClass.push(`is-${this.validateState}`)
-    this.isRequired || (this.required && formItemClass.push('is-required'))
+    ;(this.isRequired || this.required) && formItemClass.push('is-required')
     this.elForm && this.elForm.hideRequiredAsterisk && formItemClass.push('is-no-asterisk')
     this.elForm && this.elForm.statusIcon && formItemClass.push('el-form-item--feedback')
     this.sizeClass && formItemClass.push('el-form-item--' + this.sizeClass)

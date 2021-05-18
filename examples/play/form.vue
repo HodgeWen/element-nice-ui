@@ -17,10 +17,10 @@
         option-value="value"
         option-label="label"
       /> -->
-    <el-form :form="form" ref="form" size="small" disabled label-width="60px">
-      <el-input t-prop="name" t-span="24" t-label="名字"  append="测试" />
+    <el-form :form="form" ref="form" size="small" label-width="60px">
+      <el-input t-prop="name" t-span="24" t-label="名字" append="测试" />
       <el-input-number t-prop="height" t-label="身高" money />
-      <el-radio-group t-prop="type" t-label="类型" :disabled="false">
+      <el-radio-group t-prop="type" t-label="类型">
         <el-radio label="1">显示</el-radio>
         <el-radio label="2">隐藏</el-radio>
       </el-radio-group>
@@ -29,10 +29,9 @@
         <el-checkbox-button label="1">测试</el-checkbox-button>
       </el-checkbox-group>
 
-      <el-switch t-prop="swt" active-text="ac" inactive-text="iac" :disabled="false"></el-switch>
+      <el-switch t-prop="swt" active-text="ac" inactive-text="iac"></el-switch>
 
-
-      <el-cascader t-prop="cas" clearable :options="options" />
+      <el-cascader t-label="aa" t-prop="cas" clearable :options="options" />
 
       <el-slider t-prop="slider" />
 
@@ -74,16 +73,11 @@ export default {
   }),
 
   methods: {
-    submit() {
-      this.$refs.form.validate().then(valid => {
-        if (!valid) return
-        this.$msg.success('成功')
-      })
-    }
+
   },
 
   mounted() {
-    this.form.tree = ['cexiangdaohang']
+
   }
 }
 </script>
