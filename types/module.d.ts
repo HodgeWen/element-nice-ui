@@ -1,4 +1,10 @@
 
+declare module 'element-nice-ui/lib/page' {
+  import { ElPage } from 'element-nice-ui/types/page'
+  const Page: ElPage
+  export default Page
+}
+
 declare module 'element-nice-ui/lib/pagination' {
   import { ElPagination } from 'element-nice-ui/types/pagination'
   const Pagination: ElPagination
