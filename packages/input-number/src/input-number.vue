@@ -162,7 +162,7 @@ export default {
 
         this.currentValue = newVal
         this.userInput = null
-        this.$emit('input', newVal)
+        // BUGFIX this.$emit('input', newVal)
       }
     }
   },

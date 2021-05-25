@@ -10,6 +10,7 @@ export const modifierMethod = {
 
 export const components = new Set([
   'el-input',
+  'el-upload',
   'el-input-number',
   'el-date-picker',
   'el-select',

@@ -31,8 +31,7 @@ export default {
 
   props: {
     action: {
-      type: String,
-      required: true
+      type: String
     },
     headers: {
       type: Object,
@@ -98,6 +97,7 @@ export default {
       default: 'text' // text,picture,picture-card
     },
     httpRequest: Function,
+    batchRequest: Function,
     disabled: Boolean,
     limit: Number,
     onExceed: {
@@ -313,7 +313,8 @@ export default {
         'on-error': this.handleError,
         'on-preview': this.onPreview,
         'on-remove': this.handleRemove,
-        'http-request': this.httpRequest
+        'http-request': this.httpRequest,
+        'batch-request': this.batchRequest
       },
       ref: 'upload-inner'
     };

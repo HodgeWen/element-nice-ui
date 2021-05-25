@@ -563,6 +563,7 @@ export default {
 
     bodyHeight() {
       const { headerHeight = 0, bodyHeight, footerHeight = 0 } = this.layout
+
       if (this.height) {
         return {
           height: bodyHeight ? bodyHeight + 'px' : ''

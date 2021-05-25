@@ -1,7 +1,8 @@
 <script>
 import objectAssign from 'element-nice-ui/src/utils/merge'
 import ElRow from '../../row/src/row'
-import SlotRender from './slot-render'
+import { modifierMethod, components } from './utils'
+import ElFormItem from './form-item.vue'
 export default {
   name: 'ElForm',
 
@@ -11,7 +12,7 @@ export default {
 
   components: {
     ElRow,
-    SlotRender
+    ElFormItem
   },
 
   provide() {
@@ -223,14 +224,43 @@ export default {
     }
 
     const children = customSlots.map(({ node, prop }, i) => {
-      return (
-        <slot-render
-          node={node}
-          value={this.getItemValue(prop)}
-          onInput={event => this.onInput(prop, event)}
-          key={prop || i}
-        />
-      )
+      let { componentOptions: opts } = node
+      let { attrs = {} } = node.data
+      if (opts && components.has(opts.tag)) {
+        let formProps = ['prop', 'label', 'span'].reduce((acc, cur) => {
+          acc[cur] = attrs[`t-${cur}`]
+          return acc
+        }, {})
+        let on = opts.listeners || {}
+
+        let modifier = attrs['t-modifier']
+        let cb =
+          modifier && modifierMethod[modifier]
+            ? e => {
+                this.model[prop] = modifierMethod[modifier](e)
+                this.$emit('change', this.model)
+              }
+            : e => {
+                this.model[prop] = e
+                this.$emit('change', this.model)
+              }
+        on.input = on.input ? (Array.isArray(on.input) ? on.input.unshift(cb) : [cb, on.input]) : cb
+
+        return (
+          <el-form-item {...{ props: formProps }}>
+            {h(
+              opts.tag,
+              {
+                attrs: { ...opts.propsData, value: this.getItemValue(prop) },
+                on
+              },
+              opts.children
+            )}
+          </el-form-item>
+        )
+      } else {
+        return node
+      }
     })
 
     const props = {

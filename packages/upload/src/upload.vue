@@ -11,8 +11,7 @@ export default {
   props: {
     type: String,
     action: {
-      type: String,
-      required: true
+      type: String
     },
     name: {
       type: String,
@@ -43,6 +42,10 @@ export default {
     httpRequest: {
       type: Function,
       default: ajax
+    },
+    // 文件批量上传, 临时做法
+    batchRequest: {
+      type: Function
     },
     disabled: {
       type: Boolean,
@@ -85,6 +88,10 @@ export default {
       if (!this.multiple) { postFiles = postFiles.slice(0, 1); }
 
       if (postFiles.length === 0) { return; }
+
+      if (this.batchRequest) {
+        return this.batchRequest(postFiles)
+      }
 
       postFiles.forEach(rawFile => {
         this.onStart(rawFile);
@@ -143,6 +150,8 @@ export default {
       }
     },
     post(rawFile) {
+      if (!this.action) return
+
       const { uid } = rawFile;
       const options = {
         headers: this.headers,

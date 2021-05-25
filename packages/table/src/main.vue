@@ -26,13 +26,27 @@
           <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset" circle />
         </el-tooltip>
 
-        <el-tooltip v-if="$slots.searcher && api && !data && !this.noSearcher" content="显示/隐藏 搜索栏">
+        <el-tooltip
+          v-if="$slots.searcher && api && !data && !this.noSearcher"
+          content="显示/隐藏 搜索栏"
+        >
           <el-btn v-model="searchable" @input="onToggleSearcher" icon="set-up" circle />
         </el-tooltip>
 
-        <el-tooltip content="配置列">
-          <el-btn icon="s-operation" circle />
-        </el-tooltip>
+        <!-- <el-popover placement="bottom" trigger="click">
+          <el-checkbox-group v-model="visibleHeaderIds">
+            <el-checkbox
+              v-for="item in computedHeaders"
+              :label="item._id"
+              :key="item._id"
+            >
+              {{ item.label }}
+            </el-checkbox>
+          </el-checkbox-group>
+          <template #reference>
+            <el-btn style="margin-left: 10px" v-bind="ctx" icon="s-operation" circle />
+          </template>
+        </el-popover> -->
       </el-context>
     </div>
     <!-- 工具栏 end -->
@@ -107,7 +121,8 @@ import { debounce } from 'throttle-debounce'
 import { getValueByPath } from 'element-nice-ui/src/utils/util'
 import { extendQuery, getUrlSearchObj, historyReplace } from 'element-nice-ui/src/utils/shared'
 import ElAction from 'element-nice-ui/packages/action'
-
+import ElPopover from 'element-nice-ui/packages/popover'
+import ElCheckbox from 'element-nice-ui/packages/checkbox'
 export default {
   name: 'ElTable',
 
@@ -121,7 +136,9 @@ export default {
     ElTooltip,
     SearcherRender,
     TableColumn,
-    ElAction
+    ElAction,
+    ElPopover,
+    ElCheckbox
   },
 
   props: {
@@ -209,6 +226,9 @@ export default {
   data: () => ({
     internalData: [],
 
+    // 可见的表头的id的集合
+    visibleHeaderIds: [],
+
     pageSizes: [20, 40, 80, 150, 200],
 
     total: 0,
@@ -220,7 +240,7 @@ export default {
 
     accHeight: 0,
 
-    headerId: 0,
+    _headerId: 0,
 
     searchable: true,
 
@@ -259,7 +279,7 @@ export default {
 
       let mapper = arr =>
         arr.map(header => {
-          let ret = { ...header, _id: this.headerId++ }
+          let ret = { ...header, _id: this.$data._headerId++ }
           if (!ret.align) {
             ret.align = this.align
           }
@@ -271,7 +291,6 @@ export default {
         })
 
       let headers = mapper(this.headers)
-
       if (this.isMultiple) {
         headers.unshift({
           type: 'selection',
@@ -279,6 +298,25 @@ export default {
         })
       }
       return headers
+      // TODO
+      this.visibleHeaderIds = headers.map(item => item._id)
+      return headers.reduce((pre, cur) => {
+        pre[cur._id] = cur
+        return pre
+      }, {})
+    },
+
+    // 可见的表头
+    visibleHeaders() {
+      // TODO
+      // let headers  = this.visibleHeaderIds.map(id => this.computedHeaders[id])
+      // if (this.isMultiple) {
+      //   headers.unshift({
+      //     type: 'selection',
+      //     align: this.align
+      //   })
+      // }
+      // return headers
     },
 
     // 显示搜索

@@ -1,75 +1,7 @@
 <!-- 新表格, 未完全实现, 考虑用vue3之后再实现会更好 -->
 
 <template>
-  <!-- <el-page>
-    <el-select style="width: 200px" v-model="selected"  :options="options">
-      <template #prepend><i class="el-icon-setting"></i></template>
-    </el-select>
-
-    <el-input style="width: 200px">
-      <template #prepend>
-        <i class="el-icon-setting"></i>
-      </template>
-
-      <template #suffix>aa</template>
-    </el-input>
-    <el-page-anchor title="锚点1" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点2" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点3" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <el-page-anchor title="锚点4" />
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <p>1</p>
-    <template #footer-right>
-      <el-btn>aaa</el-btn>
-    </template>
-  </el-page> -->
-
-  <el-data api="arr" pagination>
-    <template #default="data">
-      <div v-for="(item, index) of data" :key="index" style="">
-        {{ item }}
-      </div>
-    </template>
-  </el-data>
-
-  <!-- <el-new-table :headers="headers" :data="data" v-if="show"></el-new-table> -->
+  <el-table :headers="headers" height="200px" :data="data"></el-table>
 </template>
 
 <script>
@@ -85,7 +17,9 @@ export default {
 
     headers: [
       { label: '名称', prop: 'name' },
-      { label: '年龄', prop: 'age' }
+      { label: '名称', prop: 'name' },
+      { label: '年龄', prop: 'age' },
+      { label: '年龄', prop: 'age' },
     ],
 
     anchors: [

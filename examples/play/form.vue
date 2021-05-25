@@ -17,7 +17,7 @@
         option-value="value"
         option-label="label"
       /> -->
-    <el-form :form="form" ref="form" size="small" label-width="60px">
+    <el-form :form="form" @change="$log" ref="form" size="small" label-width="60px">
       <el-input t-prop="name" t-span="24" t-label="名字" append="测试" />
       <el-input-number t-prop="height" t-label="身高" money />
       <el-radio-group t-prop="type" t-label="类型">
@@ -36,7 +36,11 @@
       <el-slider t-prop="slider" />
 
       <el-time-picker t-prop="date" />
+
+      <el-select t-prop="select" :options="{ a: '选择1', b: '选择2' }" />
     </el-form>
+
+    <el-btn @click="onSetValue">设置值</el-btn>
   </div>
 </template>
 
@@ -58,7 +62,6 @@ export default {
 
       height: { required: true, type: 'number' },
 
-      select: [],
 
       tree: {},
 
@@ -66,14 +69,26 @@ export default {
 
       slider: {},
 
-      date: {}
+      date: {},
+
+      select: ''
     },
 
     options: [{ value: '1', label: 'aa', children: [{ value: '2', label: 'bb' }] }]
   }),
 
   methods: {
-
+    onSetValue() {
+      this.$refs.form.setValue({
+        name: '' + Date.now(),
+        type: '2',
+        swt: true,
+        date: Date.now(),
+        slider: Math.ceil(Math.random() * 10),
+        height: Math.ceil(Math.random() * 1000),
+        select: 'a'
+      })
+    }
   },
 
   mounted() {

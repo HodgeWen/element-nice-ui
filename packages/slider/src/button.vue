@@ -38,9 +38,8 @@
     },
 
     props: {
-      value: {
-        type: Number,
-        default: 0
+      buttonValue: {
+        type: Number
       },
       vertical: {
         type: Boolean,
@@ -51,6 +50,7 @@
 
     data() {
       return {
+        value: 0,
         hovering: false,
         dragging: false,
         isClick: false,
@@ -60,7 +60,7 @@
         currentY: 0,
         startPosition: 0,
         newPosition: null,
-        oldValue: this.value
+        oldValue: 0
       };
     },
 
@@ -109,6 +109,14 @@
     watch: {
       dragging(val) {
         this.$parent.dragging = val;
+      },
+
+      buttonValue: {
+        immediate: true,
+        handler(v) {
+          if (v === null || v === undefined) return
+          this.value = v
+        }
       }
     },
 
@@ -187,7 +195,7 @@
             diff = (this.currentX - this.startX) / this.$parent.sliderSize * 100;
           }
           this.newPosition = this.startPosition + diff;
-          this.setPosition(this.newPosition);
+          this.setPosition(this.newPosition, false);
         }
       },
 
@@ -213,7 +221,7 @@
         }
       },
 
-      setPosition(newPosition) {
+      setPosition(newPosition, emit = true) {
         if (newPosition === null || isNaN(newPosition)) return;
         if (newPosition < 0) {
           newPosition = 0;
@@ -224,7 +232,8 @@
         const steps = Math.round(newPosition / lengthPerStep);
         let value = steps * lengthPerStep * (this.max - this.min) * 0.01 + this.min;
         value = parseFloat(value.toFixed(this.precision));
-        this.$emit('input', value);
+        this.value = value
+        emit && this.$emit('input', value);
         this.$nextTick(() => {
           this.displayTooltip();
           this.$refs.tooltip && this.$refs.tooltip.updatePopper();
