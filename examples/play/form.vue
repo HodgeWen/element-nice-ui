@@ -1,22 +1,5 @@
 <template>
   <div>
-    <!-- <el-select
-      multiple
-      filterable
-      t-label="测试"
-      v-model="form.select"
-      :options="{ 0: '0', 1: '1' }"
-    />
-    <el-select
-        t-label="树形选择器"
-        api="/select/tree"
-        tree
-        filterable
-        multiple
-        v-model="form.tree"
-        option-value="value"
-        option-label="label"
-      /> -->
     <el-form :form="form" @change="$log" ref="form" size="small" label-width="60px">
       <el-input t-prop="name" t-span="24" t-label="名字" append="测试" />
       <el-input-number t-prop="height" t-label="身高" money />
@@ -45,7 +28,23 @@
 </template>
 
 <script>
+import E from 'main/index.js'
 export default {
+  components: {
+    ElForm: E.Form,
+    ElInput: E.Input,
+    ElInputNumber: E.InputNumber,
+    ElBtn: E.Btn,
+    ElTimePicker: E.TimePicker,
+    ElSlider: E.Slider,
+    ElCascader: E.Cascader,
+    ElCheckboxGroup: E.CheckboxGroup,
+    ElRadioGroup: E.RadioGroup,
+    ElCheckboxButton: E.CheckboxButton,
+    ElRadio: E.Radio,
+    ElSwitch: E.Switch,
+    ElSelect: E.Select,
+  },
   data: () => ({
     form: {
       swt: false,
@@ -61,7 +60,6 @@ export default {
       },
 
       height: { required: true, type: 'number' },
-
 
       tree: {},
 
@@ -89,10 +87,6 @@ export default {
         select: 'a'
       })
     }
-  },
-
-  mounted() {
-
   }
 }
 </script>

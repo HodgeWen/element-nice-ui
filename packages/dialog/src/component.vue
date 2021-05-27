@@ -40,14 +40,9 @@
           <slot />
         </el-perfect-scrollbar>
         <el-context v-if="!hideFooter" :ctx="footerCtx" class="el-dialog__footer">
-          <el-btn @click="handleClose">{{cancelText}}</el-btn>
+          <el-btn @click="handleClose">{{ cancelText }}</el-btn>
           <slot name="footer" v-if="$slots.footer" />
-          <el-btn
-            v-if="confirm"
-            @click="onConfirm"
-            size="small"
-            type="primary"
-          >
+          <el-btn v-if="confirm" @click="onConfirm" size="small" type="primary">
             {{ confirmText }}
           </el-btn>
         </el-context>
@@ -175,7 +170,7 @@ export default {
       } else {
         if (this.formInstances) {
           this.$nextTick(() => {
-            this.formInstances.forEach((instance) => {
+            this.formInstances.forEach(instance => {
               instance.resetFields()
             })
           })
@@ -227,26 +222,32 @@ export default {
     },
 
     onConfirm() {
-      if (!this.confirm || !this.formInstances) return
+      if (!this.confirm) return
 
-      Promise.all(this.formInstances.map((item) => item.validate())).then((res) => {
-        if (res.every((v) => v)) {
+      const excute = () => {
+        let p = this.confirm()
+        if (p instanceof Promise) {
+          this.loading = true
+          p.then(res => {
+            this.loading = false
+            if (res !== false) {
+              this.$emit('change', false)
+            }
+          }).catch(() => {
+            this.loading = false
+          })
+        } else {
+          p !== false && this.$emit('change', false)
+        }
+      }
 
-          let p = this.confirm()
-          if (p instanceof Promise) {
-            this.loading = true
-            p.then((res) => {
-              this.loading = false
-              if (res !== false) {
-                this.$emit('change', false)
-              }
-            })
-            .catch(() => {
-              this.loading = false
-            })
-          } else {
-            p !== false && this.$emit('change', false)
-          }
+      if (!this.formInstances) {
+        return excute()
+      }
+
+      Promise.all(this.formInstances.map(item => item.validate())).then(res => {
+        if (res.every(v => v)) {
+          excute()
         }
       })
     },

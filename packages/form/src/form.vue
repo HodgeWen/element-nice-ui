@@ -223,45 +223,7 @@ export default {
       customSlots = this.transSlots(this.$scopedSlots.data(this.model))
     }
 
-    const children = customSlots.map(({ node, prop }, i) => {
-      let { componentOptions: opts } = node
-      let { attrs = {} } = node.data
-      if (opts && components.has(opts.tag)) {
-        let formProps = ['prop', 'label', 'span'].reduce((acc, cur) => {
-          acc[cur] = attrs[`t-${cur}`]
-          return acc
-        }, {})
-        let on = opts.listeners || {}
-
-        let modifier = attrs['t-modifier']
-        let cb =
-          modifier && modifierMethod[modifier]
-            ? e => {
-                this.model[prop] = modifierMethod[modifier](e)
-                this.$emit('change', this.model)
-              }
-            : e => {
-                this.model[prop] = e
-                this.$emit('change', this.model)
-              }
-        on.input = on.input ? (Array.isArray(on.input) ? on.input.unshift(cb) : [cb, on.input]) : cb
-
-        return (
-          <el-form-item {...{ props: formProps }}>
-            {h(
-              opts.tag,
-              {
-                attrs: { ...opts.propsData, value: this.getItemValue(prop) },
-                on
-              },
-              opts.children
-            )}
-          </el-form-item>
-        )
-      } else {
-        return node
-      }
-    })
+    const children = customSlots.map(this.getFormNode)
 
     const props = {
       attrs: this.$attrs,
@@ -298,6 +260,61 @@ export default {
     this.notifyParent()
   },
   methods: {
+    getFormNode({ node, prop }, i) {
+      let { componentOptions: opts, data } = node
+      if (!opts || !components.has(opts.tag)) return node
+
+      let { attrs = {} } = data
+
+      // 所有表单属性
+      let formProps = ['prop', 'label', 'span'].reduce((acc, cur) => {
+        acc[cur] = attrs[`t-${cur}`]
+        return acc
+      }, {})
+
+      // 事件定义
+      let on = opts.listeners || {}
+      let input
+      let modifier = attrs['t-modifier']
+      if (modifier && modifierMethod[modifier]) {
+        input = (v) => {
+          this.model[prop] = modifierMethod[modifier](v)
+          this.$emit('change', this.model)
+        }
+      } else {
+        input = (v) => {
+          this.model[prop] = v
+          this.$emit('change', this.model)
+        }
+      }
+
+      if (on.input) {
+        if (Array.isArray(on.input)) {
+          on.input.unshift(input)
+        } else {
+          on.input = [input, on.input]
+        }
+      } else {
+        on.input = input
+      }
+
+      opts.listeners = on
+
+      // 生成一个新的节点
+      let newNode = this.$createElement(opts.tag)
+
+      // 新的属性
+      if (opts.propsData) {
+        opts.propsData.value = this.model[prop]
+      }
+
+      newNode.isRootInsert = node.isRootInsert
+      newNode.data = node.data
+      newNode.componentOptions = opts
+
+      return <el-form-item {...{ props: formProps }}>{newNode}</el-form-item>
+    },
+
     getValue() {
       return { ...this.model }
     },

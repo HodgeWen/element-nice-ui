@@ -804,6 +804,7 @@
       "title",
       "top",
       "visible",
+      "confirm",
       "confirm-text",
       "cancel-text",
       "width",

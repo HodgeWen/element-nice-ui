@@ -5,7 +5,7 @@ import Element from 'main/index.js'
 // 切换不同的示例
 import App from './play/form.vue'
 import 'theme/components'
-Vue.use(Element)
+// Vue.use(Element)
 
 Vue.prototype.$confirm = Element.MessageBox.confirm
 Vue.prototype.$msg = Element.Message
