@@ -471,6 +471,8 @@
     "attributes": [
       "form",
       "inline",
+      "origin-model",
+      "origin-rules",
       "label-position",
       "label-width",
       "label-suffix",

@@ -1,6 +1,6 @@
-@import "mixins/mixins";
-@import "common/var";
-@import "common/transition";
+@import 'mixins/mixins';
+@import 'common/var';
+@import 'common/transition';
 // @import "checkbox";
 
 @include b(tree) {
@@ -38,7 +38,8 @@
 @include b(tree-node) {
   white-space: nowrap;
   outline: none;
-  &:focus { /* focus */
+  &:focus {
+    /* focus */
     > .el-tree-node__content {
       background-color: $--tree-node-hover-background-color;
     }
@@ -64,7 +65,7 @@
       margin-right: 8px;
     }
     &:hover {
-      background-color: $--tree-node-hover-background-color;
+      background-color: var(--primary-tint-color-9, $--color-primary-light-9);
     }
 
     .el-tree.is-dragging & {
@@ -119,5 +120,5 @@
 }
 
 .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
-  background-color: mix($--color-white, $--color-primary, 92%);
+  background-color: var(--primary-tint-color-9, $--color-primary-light-9);
 }

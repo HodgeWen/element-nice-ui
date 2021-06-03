@@ -1214,6 +1214,16 @@
     "type": "flag",
     "description": "whether to display the error message inline with the form item"
   },
+  "el-form/origin-model": {
+    "version": ">=2.0.0",
+    "type": "object",
+    "description": "和原版的model一致"
+  },
+  "el-form/origin-rules": {
+    "version": ">=2.0.0",
+    "type": "object",
+    "description": "和原版的rules属性一致"
+  },
   "el-form-item/inline-message": {
     "version": ">=2.0.0",
     "type": "flag",

@@ -3,6 +3,7 @@ import objectAssign from 'element-nice-ui/src/utils/merge'
 import ElRow from '../../row/src/row'
 import { modifierMethod, components } from './utils'
 import ElFormItem from './form-item.vue'
+import { kebabCase } from 'element-nice-ui/src/utils/util'
 export default {
   name: 'ElForm',
 
@@ -26,9 +27,17 @@ export default {
       type: Boolean,
       default: true
     },
+
+    originModel: {
+      type: Object
+    },
+
+    originRules: {
+      type: Object
+    },
+
     form: {
-      type: Object,
-      required: true
+      type: Object
     },
     trigger: String,
     labelPosition: String,
@@ -91,11 +100,13 @@ export default {
     },
 
     rules() {
+      if (this.originRules && this.originModel) return this.originRules
+
       let ret = {}
 
       let ruleMap = {
         required: required => ({
-          required: true,
+          required: required !== false,
           message: typeof required === 'string' ? required : '该项是必填项'
         }),
 
@@ -261,8 +272,9 @@ export default {
   },
   methods: {
     getFormNode({ node, prop }, i) {
-      let { componentOptions: opts, data } = node
-      if (!opts || !components.has(opts.tag)) return node
+      let { componentOptions: opts, data, tag } = node
+      let rawTag = kebabCase(tag.replace(/vue-component-\d+-/, ''))
+      if (!opts || !components.has(rawTag)) return node
 
       let { attrs = {} } = data
 
@@ -301,7 +313,7 @@ export default {
       opts.listeners = on
 
       // 生成一个新的节点
-      let newNode = this.$createElement(opts.tag)
+      let newNode = this.$createElement(rawTag)
 
       // 新的属性
       if (opts.propsData) {
@@ -354,6 +366,14 @@ export default {
     },
 
     initModel() {
+      // 使用element原始的model
+      if (this.originRules && this.originModel) {
+        this.model = this.originModel
+        return
+      }
+
+      if (!this.form) return
+
       let ret = {}
       let { form } = this
       Object.keys(form).forEach(key => {

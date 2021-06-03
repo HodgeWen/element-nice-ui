@@ -18,13 +18,15 @@
       </el-context>
 
       <el-context depth="2" :ctx="ctx" class="el-happy-table__tools-right" tag="section">
-        <el-tooltip content="查询">
-          <el-btn :loading="loading" icon="search" type="primary" @click="fetchData" circle />
-        </el-tooltip>
+        <template v-if="api">
+          <el-tooltip content="查询">
+            <el-btn :loading="loading" icon="search" type="primary" @click="fetchData" circle />
+          </el-tooltip>
 
-        <el-tooltip content="重置">
-          <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset" circle />
-        </el-tooltip>
+          <el-tooltip content="重置">
+            <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset" circle />
+          </el-tooltip>
+        </template>
 
         <el-tooltip
           v-if="$slots.searcher && api && !data && !this.noSearcher"

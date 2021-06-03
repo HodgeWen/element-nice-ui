@@ -1,26 +1,42 @@
 <template>
   <div>
-    <el-form :form="form" @change="$log" ref="form" size="small" label-width="60px">
-      <el-input t-prop="name" t-span="24" t-label="名字" append="测试" />
-      <el-input-number t-prop="height" t-label="身高" money />
-      <el-radio-group t-prop="type" t-label="类型">
-        <el-radio label="1">显示</el-radio>
-        <el-radio label="2">隐藏</el-radio>
-      </el-radio-group>
+    <span>
+      {{form}}
+    </span>
+    <!-- :origin-model="form" :origin-rules="rules" -->
+    <el-form :form="form"  ref="form" size="small" label-width="60px">
+      <el-form-item prop="name" span="24" label="名字">
+        <el-input v-model="form.name" append="测试" />
+      </el-form-item>
+      <el-form-item prop="height" label="身高">
+        <el-input-number v-model="form.height" money />
+      </el-form-item>
+      <el-form-item prop="type" label="类型">
+        <el-radio-group v-model="form.type">
+          <el-radio label="1">显示</el-radio>
+          <el-radio label="2">隐藏</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="日期" prop="date">
+         <el-date-picker value-format="yyyy-MM-dd" type="date" v-model="form.date" />
+      </el-form-item>
 
-      <el-checkbox-group t-prop="checked" t-label="检查">
+      <el-form-item label="级联选择器">
+        <el-cascader :props="{ multiple: true }" :show-all-levels="false" :options="options" v-model="form.cas" />
+      </el-form-item>
+
+       <el-switch t-prop="swt" active-text="ac" inactive-text="iac"></el-switch>
+      <!-- <el-checkbox-group t-prop="checked" t-label="检查">
         <el-checkbox-button label="1">测试</el-checkbox-button>
       </el-checkbox-group>
 
-      <el-switch t-prop="swt" active-text="ac" inactive-text="iac"></el-switch>
 
-      <el-cascader t-label="aa" t-prop="cas" clearable :options="options" />
 
       <el-slider t-prop="slider" />
 
-      <el-time-picker t-prop="date" />
 
-      <el-select t-prop="select" :options="{ a: '选择1', b: '选择2' }" />
+
+      <el-select t-prop="selectArr" tree multiple :options="options" check-strictly  /> -->
     </el-form>
 
     <el-btn @click="onSetValue">设置值</el-btn>
@@ -36,6 +52,7 @@ export default {
     ElInputNumber: E.InputNumber,
     ElBtn: E.Btn,
     ElTimePicker: E.TimePicker,
+    ElDatePicker: E.DatePicker,
     ElSlider: E.Slider,
     ElCascader: E.Cascader,
     ElCheckboxGroup: E.CheckboxGroup,
@@ -44,35 +61,51 @@ export default {
     ElRadio: E.Radio,
     ElSwitch: E.Switch,
     ElSelect: E.Select,
+    ElFormItem: E.FormItem,
+    PS: E.PerfectScrollbar
   },
   data: () => ({
     form: {
       swt: false,
-      name: {
-        value: '',
-        required: '必须的'
-      },
+      name: '',
 
       checked: [],
 
-      type: {
-        value: '1'
-      },
+      type: '',
 
-      height: { required: true, type: 'number' },
+      height: 10,
 
       tree: {},
 
-      cas: { required: true, trigger: 'change' },
+      cas: [],
 
       slider: {},
 
-      date: {},
+      date: '',
 
-      select: ''
+      select: '',
+
+      selectArr: []
     },
 
-    options: [{ value: '1', label: 'aa', children: [{ value: '2', label: 'bb' }] }]
+    rules: {
+      name: [{ required: true, message: '必填' },  { max: 10, message: '100' }],
+      type: [{ required: true, message: '必填' }],
+      date: [
+        { max: 100, message: '100' }
+      ]
+    },
+
+    options: [
+      {
+        value: '1',
+        label: 'aa',
+        children: [
+          { value: '2', label: 'bb' },
+          { value: '3', label: 'cc' }
+        ]
+      }
+    ]
   }),
 
   methods: {

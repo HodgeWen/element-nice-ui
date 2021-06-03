@@ -119,7 +119,7 @@ export default {
       if (isGroup) {
         return getDefined(_radioGroup.disabled, disabled, elForm.disabled, false)
       } else {
-        return getDefined(disabled, elform.disabled, false)
+        return getDefined(disabled, elForm.disabled, false)
       }
     },
     tabIndex() {
