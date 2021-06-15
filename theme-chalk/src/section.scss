@@ -1,0 +1,42 @@
+.el-section {
+  background-color: #fff;
+  border-radius: 4px;
+
+  & > * {
+    box-sizing: border-box;
+  }
+
+  &__header, &__body {
+    padding: 10px;
+  }
+
+  &__header {
+    height: 48px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+
+  .el-icon-arrow-down {
+    transition: transform .2s ease-in-out;
+  }
+
+  &--expanded {
+    .el-icon-arrow-down {
+      transform: rotate(-90deg);
+    }
+  }
+
+
+  &-enter-active, &-leave-active {
+    transition: transform .2s;
+    transform-origin: top;
+  }
+  &-enter, &-leave-to {
+    transform: scale3d(1, 0, 1);
+  }
+
+}

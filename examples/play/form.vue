@@ -1,34 +1,55 @@
 <template>
-  <div>
-    <span>
-      {{form}}
-    </span>
-    <!-- :origin-model="form" :origin-rules="rules" -->
-    <el-form :form="form"  ref="form" size="small" label-width="60px">
-      <el-form-item prop="name" span="24" label="名字">
-        <el-input v-model="form.name" append="测试" />
-      </el-form-item>
-      <el-form-item prop="height" label="身高">
-        <el-input-number v-model="form.height" money />
-      </el-form-item>
-      <el-form-item prop="type" label="类型">
-        <el-radio-group v-model="form.type">
-          <el-radio label="1">显示</el-radio>
-          <el-radio label="2">隐藏</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="日期" prop="date">
-         <el-date-picker value-format="yyyy-MM-dd" type="date" v-model="form.date" />
-      </el-form-item>
+  <el-page ref="page" :submit="onSubmit">
+    <el-btn @click="onSetValue">设置值</el-btn>
+    <el-btn @click="visible = true">aa</el-btn>
+    <el-dialog v-model="visible">
+      <template #footer v-if="api && templateApi">
+        <el-btn v-if="resultUrl">
+          <a
+            style="color: var(--primary-color)"
+            :href="resultUrl"
+            target="_blank"
+            download="导入结果.xlsx"
+          >
+            下载结果
+          </a>
+        </el-btn>
+        <el-btn icon="download" type="warning">下载模板</el-btn>
+      </template>
+    </el-dialog>
 
-      <el-form-item label="级联选择器">
-        <el-cascader :props="{ multiple: true }" :show-all-levels="false" :options="options" v-model="form.cas" />
-      </el-form-item>
+    <el-section title="标题">
+      <el-form :form="form" ref="form" size="small" label-width="60px">
 
-       <el-switch t-prop="swt" active-text="ac" inactive-text="iac"></el-switch>
-      <!-- <el-checkbox-group t-prop="checked" t-label="检查">
+          <el-input t-prop="name" t-label="名字" append="测试" />
+        <el-form-item prop="height" label="身高">
+          <el-input-number v-model="form.height" money />
+        </el-form-item>
+        <el-form-item prop="type" label="类型">
+          <el-radio-group v-model="form.type">
+            <el-radio label="1">显示</el-radio>
+            <el-radio label="2">隐藏</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="日期" prop="date">
+          <el-date-picker value-format="yyyy-MM-dd" type="date" v-model="form.date" />
+        </el-form-item>
+
+        <el-form-item label="级联选择器">
+          <el-cascader
+            :props="{ multiple: true }"
+            :show-all-levels="false"
+            :options="options"
+            v-model="form.cas"
+          />
+        </el-form-item>
+
+        <el-switch t-prop="swt" active-text="ac" inactive-text="iac"></el-switch>
+        <!-- <el-checkbox-group t-prop="checked" t-label="检查">
         <el-checkbox-button label="1">测试</el-checkbox-button>
+
       </el-checkbox-group>
+
 
 
 
@@ -37,10 +58,17 @@
 
 
       <el-select t-prop="selectArr" tree multiple :options="options" check-strictly  /> -->
-    </el-form>
+      </el-form>
+    </el-section>
 
-    <el-btn @click="onSetValue">设置值</el-btn>
-  </div>
+    <el-section title="标题2">
+      <el-form :form="form2">
+        <el-input t-label="测试" t-prop="test" />
+      </el-form>
+    </el-section>
+
+    <el-btn @click="getValue">获取所有表单的值</el-btn>
+  </el-page>
 </template>
 
 <script>
@@ -62,12 +90,17 @@ export default {
     ElSwitch: E.Switch,
     ElSelect: E.Select,
     ElFormItem: E.FormItem,
-    PS: E.PerfectScrollbar
+    PS: E.PerfectScrollbar,
+    ElDialog: E.Dialog,
+    ElSection: E.Section,
+    ElPage: E.Page,
   },
   data: () => ({
     form: {
       swt: false,
-      name: '',
+      name: {
+        required: true
+      },
 
       checked: [],
 
@@ -88,12 +121,25 @@ export default {
       selectArr: []
     },
 
+    form2: {
+      test: {
+        required: true
+      }
+    },
+
+    api: 'aa',
+    templateApi: 'bb',
+    resultUrl: '',
+
+    visible: false,
+
     rules: {
-      name: [{ required: true, message: '必填' },  { max: 10, message: '100' }],
+      name: [
+        { required: true, message: '必填' },
+        { max: 10, message: '100' }
+      ],
       type: [{ required: true, message: '必填' }],
-      date: [
-        { max: 100, message: '100' }
-      ]
+      date: [{ max: 100, message: '100' }]
     },
 
     options: [
@@ -119,6 +165,14 @@ export default {
         height: Math.ceil(Math.random() * 1000),
         select: 'a'
       })
+    },
+
+    getValue() {
+      console.log(this.$refs.page.getAllFormValues())
+    },
+
+    onSubmit() {
+      console.log(1)
     }
   }
 }

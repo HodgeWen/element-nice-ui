@@ -212,7 +212,13 @@ import Clickoutside from 'element-nice-ui/src/utils/clickoutside'
 import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
 import { t } from 'element-nice-ui/src/locale'
 import scrollIntoView from 'element-nice-ui/src/utils/scroll-into-view'
-import { getValueByPath, valueEquals, isIE, isEdge, getDefined } from 'element-nice-ui/src/utils/util'
+import {
+  getValueByPath,
+  valueEquals,
+  isIE,
+  isEdge,
+  getDefined
+} from 'element-nice-ui/src/utils/util'
 import NavigationMixin from './navigation-mixin'
 import { isKorean } from 'element-nice-ui/src/utils/shared'
 
@@ -494,6 +500,10 @@ export default {
       this.$nextTick(() => {
         this.resetInputHeight()
       })
+    },
+
+    api() {
+      this.getRemoteData()
     },
 
     placeholder(val) {

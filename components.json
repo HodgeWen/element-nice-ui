@@ -1,4 +1,6 @@
 {
+
+  "section": "./packages/section/index.js",
   "data": "./packages/data/index.js",
   "wang-editor": "./packages/wang-editor/index.js",
   "bpmn": "./packages/bpmn/index.js",

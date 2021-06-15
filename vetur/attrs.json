@@ -1214,6 +1214,10 @@
     "type": "flag",
     "description": "whether to display the error message inline with the form item"
   },
+  "el-form/conceal": {
+    "type": "boolean",
+    "description": "将该表单自身排除在page, dialog统一处理之外, 意味着该表单会单独校验等等"
+  },
   "el-form/origin-model": {
     "version": ">=2.0.0",
     "type": "object",

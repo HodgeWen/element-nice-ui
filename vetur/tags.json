@@ -1,4 +1,9 @@
 {
+
+  "el-section": {
+    "attributes": ["title"],
+    "description": "版块组件"
+  },
   "el-page": {
     "attributes": ["size", "no-backtop", "submit"],
     "description": "页面组件, 提供了, 回到顶部等功能"
@@ -84,6 +89,8 @@
       "icon",
       "prefix-icon",
       "suffix-icon",
+      "prepend",
+      "append",
       "rows",
       "autosize",
       "auto-complete",
@@ -470,6 +477,7 @@
   "el-form": {
     "attributes": [
       "form",
+      "conceal",
       "inline",
       "origin-model",
       "origin-rules",

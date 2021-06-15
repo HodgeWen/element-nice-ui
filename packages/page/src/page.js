@@ -39,7 +39,9 @@ export default {
 
     anchorList: [],
 
-    anchorId: 0
+    anchorId: 0,
+
+    formList: []
   }),
 
   computed: {
@@ -79,7 +81,14 @@ export default {
 
     onSubmit() {
       this.loading = true
-      if (this.submit) {
+      Promise.all(this.formList.map(form => form.validate())).then(res => {
+        let valid = res.every(v => v)
+        if (!valid) {
+          return this.loading = false
+        }
+
+        if (!this.submit) return
+
         let ret = this.submit()
         if (ret && ret.then) {
           ret
@@ -92,7 +101,17 @@ export default {
         } else {
           this.loading = false
         }
-      }
+      })
+    },
+
+    acceptForm(form) {
+      this.formList.push(form)
+    },
+
+    getAllFormValues() {
+      return this.formList.reduce((acc, cur) => {
+        return Object.assign(acc, cur.getValue())
+      }, {})
     }
   },
 

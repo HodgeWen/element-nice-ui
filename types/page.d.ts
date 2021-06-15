@@ -7,4 +7,7 @@ export declare class ElPage extends ElementUIComponent {
   noBacktop: boolean;
 
   submit: Function;
+
+  /** 获取所有的表单值的集合 */
+  getAllFormValues: () => Record<string, any>
 }

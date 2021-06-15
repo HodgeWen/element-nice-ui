@@ -23,6 +23,8 @@ export default {
   },
 
   props: {
+    conceal: Boolean,
+
     grid: {
       type: Boolean,
       default: true
@@ -268,7 +270,7 @@ export default {
       }
     })
 
-    this.notifyParent()
+    !this.conceal && this.notifyParent()
   },
   methods: {
     getFormNode({ node, prop }, i) {
