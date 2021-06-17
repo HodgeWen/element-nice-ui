@@ -32,6 +32,7 @@ export default {
         currentRow = arrayFind(data, (item) => getRowIdentity(item, rowKey) === key)
       }
       states.currentRow = currentRow
+      return currentRow
     },
 
     updateCurrentRow(currentRow) {
@@ -41,7 +42,8 @@ export default {
         if (currentRow !== oldCurrentRow) {
           states.currentRow = currentRow
           table.$emit('current-change', currentRow, oldCurrentRow)
-        } else {
+        }
+        else {
           states.currentRow = null
           table.$emit('current-change', null, oldCurrentRow)
         }

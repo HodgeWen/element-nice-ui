@@ -36,7 +36,7 @@
             <i class="el-icon-close"></i>
           </button>
         </div>
-        <el-perfect-scrollbar class="el-dialog__body" v-if="rendered">
+        <el-perfect-scrollbar class="el-dialog__body" v-if="renderBodyWithoutOpen || rendered">
           <slot />
         </el-perfect-scrollbar>
         <el-context v-if="!hideFooter" :ctx="footerCtx" class="el-dialog__footer">
@@ -73,6 +73,9 @@ export default {
     confirm: {
       type: Function
     },
+
+    renderBodyWithoutOpen: Boolean,
+
     confirmText: {
       type: String,
       default: '提交'

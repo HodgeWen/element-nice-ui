@@ -22,6 +22,7 @@ export const components = new Set([
   'el-slider',
   'el-cascader',
   'el-time-picker',
-  'el-date-time-picker'
+  'el-date-time-picker',
+  'el-table-select'
   // 'ElInput', 'ElInputNumber', 'ElDatePicker', 'ElSelect', 'ElSwitch', 'ElRadioGroup', 'ElRadio', 'ElCheckbox', 'ElCheckboxGroup', 'ElSlider', 'ElCascader', 'ElTimePicker', 'ElDateTimePicker'
 ])

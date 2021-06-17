@@ -1,0 +1,23 @@
+// @import "table";
+// @import "dialog";
+// @import "input";
+
+.el-table-select {
+  &__dialog {
+    .el-dialog__body {
+      padding: 0 8px;
+    }
+
+    .el-happy-table__tools {
+      margin: 0;
+      padding: 6px 0;
+    }
+
+    .el-happy-table--with-footer {
+      margin-bottom: 0;
+    }
+  }
+
+
+
+}

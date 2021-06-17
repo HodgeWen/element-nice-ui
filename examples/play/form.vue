@@ -20,8 +20,7 @@
 
     <el-section title="标题">
       <el-form :form="form" ref="form" size="small" label-width="60px">
-
-          <el-input t-prop="name" t-label="名字" append="测试" />
+        <el-input t-prop="name" t-label="名字" append="测试" />
         <el-form-item prop="height" label="身高">
           <el-input-number v-model="form.height" money />
         </el-form-item>
@@ -32,7 +31,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="日期" prop="date">
-          <el-date-picker value-format="yyyy-MM-dd" type="date" v-model="form.date" />
+          <el-date-picker value-format="yyyy-MM-dd" type="datetimerange" v-model="form.date" />
         </el-form-item>
 
         <el-form-item label="级联选择器">
@@ -64,6 +63,20 @@
     <el-section title="标题2">
       <el-form :form="form2">
         <el-input t-label="测试" t-prop="test" />
+
+        <el-table-select
+          :headers="[{ label: '名称', prop: 'name' }]"
+          api="arr"
+          t-label="测试2"
+          t-prop="test2"
+          pagination
+          option-label="name"
+          option-value="id"
+        >
+          <template #searcher>
+            <el-input style="width: 150px" v-model="aa" />
+          </template>
+        </el-table-select>
       </el-form>
     </el-section>
 
@@ -72,7 +85,9 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import E from 'main/index.js'
+Vue.use(E.Loading.directive)
 export default {
   components: {
     ElForm: E.Form,
@@ -94,7 +109,9 @@ export default {
     ElDialog: E.Dialog,
     ElSection: E.Section,
     ElPage: E.Page,
+    ElTableSelect: E.TableSelect
   },
+
   data: () => ({
     form: {
       swt: false,
@@ -124,8 +141,11 @@ export default {
     form2: {
       test: {
         required: true
-      }
+      },
+
+      test2: ''
     },
+    aa: '',
 
     api: 'aa',
     templateApi: 'bb',

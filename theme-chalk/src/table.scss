@@ -679,4 +679,10 @@
   @include m(with-footer) {
     margin-bottom: $--tabel-vertical-margin;
   }
+
+  @include m(selectable) {
+    tr {
+      cursor: pointer;
+    }
+  }
 }

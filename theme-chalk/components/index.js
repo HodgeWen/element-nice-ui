@@ -1,4 +1,5 @@
 import "./base.js";
+import "./table-select.js";
 import "./section.js";
 import "./data.js";
 import "./wang-editor.js";

@@ -954,6 +954,10 @@ export default {
     emitInput(val) {
       const formatted = this.formatToValue(val)
       if (!valueEquals(this.value, formatted)) {
+        if (['daterange', 'datetimerange'].includes(this.type)) {
+          this.$emit('input:start', formatted ? formatted[0] : '')
+          this.$emit('input:end', formatted ? formatted[1] : '')
+        }
         this.$emit('input', formatted)
       }
     },

@@ -152,6 +152,7 @@ export default {
 
     getRowStyle(row, rowIndex) {
       const rowStyle = this.table.rowStyle;
+
       if (typeof rowStyle === 'function') {
         return rowStyle.call(null, {
           row,
@@ -326,6 +327,8 @@ export default {
       let displayStyle = display ? null : {
         display: 'none'
       };
+
+
       return (<tr
         style={ [displayStyle, this.getRowStyle(row, $index)] }
         class={ rowClasses }

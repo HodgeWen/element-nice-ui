@@ -159,6 +159,10 @@ export default {
 
     filter: {
       type: Function
+    },
+
+    defaultPageSize: {
+      type: Number
     }
   },
 
@@ -451,6 +455,10 @@ export default {
         this.isMultiple = true
       } else if (this.value !== undefined) {
         this.isSingle = true
+      }
+
+      if (this.defaultPageSize !== undefined) {
+        this.pager.size = this.defaultPageSize
       }
     }
   },

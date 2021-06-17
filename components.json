@@ -1,5 +1,5 @@
 {
-
+  "table-select": "./packages/table-select/index.js",
   "section": "./packages/section/index.js",
   "data": "./packages/data/index.js",
   "wang-editor": "./packages/wang-editor/index.js",

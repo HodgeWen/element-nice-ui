@@ -1,5 +1,8 @@
 {
-
+  "el-table-select": {
+    "attributes": ["value", "option-label", "option-value", "headers", "api", "pagination"],
+    "description": "表格选择组件"
+  },
   "el-section": {
     "attributes": ["title"],
     "description": "版块组件"
@@ -546,6 +549,7 @@
   },
   "el-table": {
     "attributes": [
+      "default-page-size",
       "data",
       "height",
       "filter",
@@ -812,6 +816,8 @@
   },
   "el-dialog": {
     "attributes": [
+      "render-body-without-open",
+      "hide-footer",
       "title",
       "top",
       "visible",

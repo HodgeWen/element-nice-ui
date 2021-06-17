@@ -55,7 +55,10 @@
 
     <!-- 表格主体 strart -->
     <main-table
-      :class="{ 'el-happy-table--with-footer': pagination }"
+      :class="{
+        'el-happy-table--with-footer': pagination,
+        'el-happy-table--selectable': value !== undefined
+      }"
       ref="table"
       v-bind="$attrs"
       :size="size"
@@ -222,6 +225,10 @@ export default {
 
     dataMap: {
       type: Function
+    },
+
+    defaultPageSize: {
+      type: Number
     }
   },
 
@@ -374,6 +381,10 @@ export default {
       }
     },
 
+    setRowByKey(key) {
+      return this.$refs.table.store.setCurrentRowByKey(key)
+    },
+
     clearSelection() {
       this.$refs.table.clearSelection()
     },
@@ -497,6 +508,7 @@ export default {
 
       this.fetch().then(() => {
         this.loading = false
+        this.$emit('data-loaded')
       })
     },
 
@@ -563,10 +575,15 @@ export default {
     init() {
       this.isMultiple = false
       this.isSingle = false
+
       if (Array.isArray(this.value)) {
         this.isMultiple = true
       } else if (this.value !== undefined) {
         this.isSingle = true
+      }
+
+      if (this.defaultPageSize !== undefined) {
+        this.pager.size = this.defaultPageSize
       }
     }
   },
