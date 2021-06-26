@@ -2,6 +2,9 @@ import PerfectScrollbar from './ps'
 import { scrollTo } from './utils'
 export default {
   name: 'ElPerfectScrollbar',
+
+  inheritAttrs: false,
+
   props: {
     tag: {
       type: String,
@@ -78,7 +81,8 @@ export default {
 
     this.ps = new PerfectScrollbar(container, {
       wheelSpeed,
-      wheelPropagation
+      wheelPropagation,
+      ...this.$attrs
     })
 
     const observer = new MutationObserver(this.update)

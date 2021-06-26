@@ -1,14 +1,28 @@
 <template>
   <div class="el-table-select">
-    <el-input readonly :value="inputValue" @focus="onTrigger" />
+    <el-input
+      :validate-event="false"
+      readonly
+      :value="inputValue"
+      @focus="onTrigger"
+      :clearable="clearable"
+    >
+      <template #suffix>
+        <i
+          class="el-icon-arrow-down el-input__icon"
+          :style="{ transform: `rotate(${visible ? '-180deg' : '0'})` }"
+        ></i>
+      </template>
+    </el-input>
 
     <el-dialog
       class="el-table-select__dialog"
       v-model="visible"
-      width="900px"
+      :width="width"
       hide-footer
       render-body-without-open
       append-to-body
+      :title="placeholder"
     >
       <el-table
         :value="select"
@@ -19,7 +33,7 @@
         v-bind="$attrs"
         @data-loaded="init"
       >
-        <template #tools>
+        <template #searcher>
           <slot name="searcher" />
         </template>
       </el-table>
@@ -54,6 +68,17 @@ export default {
 
     optionValue: {
       default: 'value'
+    },
+
+    placeholder: {
+      default: '请选择'
+    },
+
+    clearable: Boolean,
+
+    width: {
+      type: String,
+      default: '900px'
     }
   },
 
@@ -78,7 +103,6 @@ export default {
         let row = this.$refs.table.setRowByKey(this.value)
         this.getInputValue(row)
       } else {
-
       }
       this.initialized = true
     },

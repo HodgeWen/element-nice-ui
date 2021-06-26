@@ -526,6 +526,10 @@
   "el-table/empty-text": {
     "description": "Displayed text when data is empty. You can customize this area with slot='empty'"
   },
+  "el-table/selectable": {
+    "type": "Function",
+    "description": "指定哪些行可选"
+  },
   "el-table/cache": {
     "type": "boolean",
     "description": "表示表格使用url的缓存"

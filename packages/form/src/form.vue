@@ -92,6 +92,10 @@ export default {
       if (this.validateOnRuleChange) {
         this.validate(() => {})
       }
+    },
+
+    form() {
+      this.initModel()
     }
   },
   computed: {
@@ -293,12 +297,12 @@ export default {
       if (modifier && modifierMethod[modifier]) {
         input = (v) => {
           this.model[prop] = modifierMethod[modifier](v)
-          this.$emit('change', this.model)
+          this.$emit('change', this.model, prop, this)
         }
       } else {
         input = (v) => {
           this.model[prop] = v
-          this.$emit('change', this.model)
+          this.$emit('change', this.model, prop, this)
         }
       }
 

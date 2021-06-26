@@ -550,6 +550,7 @@
   "el-table": {
     "attributes": [
       "default-page-size",
+      "selectable",
       "data",
       "height",
       "filter",

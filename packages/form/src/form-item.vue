@@ -197,7 +197,7 @@ export default {
       </div>
     ]
 
-    return (this.elForm.grid || this.span) ? (
+    return this.elForm.grid || this.span ? (
       <el-col span={this.computedSpan} class={formItemClass}>
         {children}
       </el-col>

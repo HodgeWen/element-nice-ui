@@ -1,7 +1,12 @@
 <template>
   <div class="el-happy-table" :class="{ 'el-happy-table--auto-height': autoHeight }">
     <!-- 搜索栏 start -->
-    <div class="el-happy-table__searcher" v-if="showSearcher && $slots.searcher" ref="searcher">
+    <div
+      class="el-happy-table__searcher"
+      @keyup.enter="fetchData"
+      v-if="showSearcher && $slots.searcher"
+      ref="searcher"
+    >
       <searcher-render
         :ctx="ctx"
         :label-width="queryLabelWidth"
@@ -229,6 +234,10 @@ export default {
 
     defaultPageSize: {
       type: Number
+    },
+
+    selectable: {
+      type: Function
     }
   },
 
@@ -301,10 +310,14 @@ export default {
 
       let headers = mapper(this.headers)
       if (this.isMultiple) {
-        headers.unshift({
+        let selection = {
           type: 'selection',
           align: this.align
-        })
+        }
+        if (this.selectable) {
+          selection.selectable = this.selectable
+        }
+        headers.unshift(selection)
       }
       return headers
       // TODO

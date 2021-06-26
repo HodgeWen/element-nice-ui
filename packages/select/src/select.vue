@@ -159,6 +159,16 @@
             :class="{ 'is-empty': !allowCreate && query && !tree && filteredOptionsCount === 0 }"
             v-show="computedOptions.length > 0 && !loading"
           >
+            <el-select-tree
+              :tree-data="computedOptions"
+              :checkable="multiple"
+              :value="value"
+              @input="$emit('input', $event)"
+            >
+              <template v-if="$scopedSlots['tree-item']" #default="scope">
+                <slot name="tree-item" v-bind="scope" />
+              </template>
+            </el-select-tree>
             <el-tree
               ref="tree"
               v-bind="$attrs"
@@ -221,6 +231,7 @@ import {
 } from 'element-nice-ui/src/utils/util'
 import NavigationMixin from './navigation-mixin'
 import { isKorean } from 'element-nice-ui/src/utils/shared'
+import ElSelectTree from './tree/tree.vue'
 
 export default {
   mixins: [Emitter, Locale, Focus('reference'), NavigationMixin],
@@ -356,7 +367,8 @@ export default {
     ElOption,
     ElTag,
     ElScrollbar,
-    ElTree
+    ElTree,
+    ElSelectTree
   },
 
   directives: { Clickoutside },

@@ -1,13 +1,35 @@
 // @import "table";
 // @import "dialog";
 // @import "input";
+@import "common/var";
 
 .el-table-select {
+
+  .el-input__inner {
+    cursor: pointer;
+    padding-right: 35px;
+
+    &:focus {
+      border-color: var(--primary-color, $--color-primary);
+    }
+  }
+
+  .el-input__icon {
+    height: 100%;
+    width: 25px;
+    text-align: center;
+  }
+
   &__dialog {
     .el-dialog__body {
       padding: 0 8px;
     }
 
+    .el-happy-table__searcher {
+      padding: 0;
+      padding-top: 6px;
+      margin-bottom: 0;
+    }
     .el-happy-table__tools {
       margin: 0;
       padding: 6px 0;
@@ -17,7 +39,4 @@
       margin-bottom: 0;
     }
   }
-
-
-
 }

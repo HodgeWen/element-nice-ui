@@ -204,12 +204,12 @@ export default {
       return getDefined(this.disabled, (this.elForm || {}).disabled, false)
     },
     displayValue() {
+
       if (this.userInput !== null) {
         return this.userInput
       }
 
       let currentValue = this.currentValue
-
       if (typeof currentValue === 'number') {
         if (this.stepStrictly) {
           const stepPrecision = this.getPrecision(this.step)
@@ -231,12 +231,12 @@ export default {
     }
   },
   methods: {
-    multiply(v, reciprocal = false) {
+    multiply(v = 0, reciprocal = false) {
       let mul = typeof this.money === 'number' ? this.money : 100
       return reciprocal ? v / mul : v * mul
     },
 
-    toPrecision(num, precision) {
+    toPrecision(num = 0, precision) {
       if (precision === undefined) precision = this.numPrecision
       return parseFloat(Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision))
     },
