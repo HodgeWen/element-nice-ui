@@ -40,4 +40,14 @@ export class Tree {
       depth: 0
     })
   }
+
+  getCurrentNode() {
+    return this.currentSelectNode
+  }
+
+  getCheckedNodes() {
+    return Array.from(this.checkedSet).map(item => {
+      return this.nodeKeyMap[item]
+    })
+  }
 }

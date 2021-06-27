@@ -160,31 +160,19 @@
             v-show="computedOptions.length > 0 && !loading"
           >
             <el-select-tree
+              ref="tree"
               :tree-data="computedOptions"
               :checkable="multiple"
               :value="value"
-              @input="$emit('input', $event)"
+              :treeLabel="optionLabel"
+              :treeValue="optionValue"
+              :filter-node-method="treeNodeFilter"
+              @input="onTreeInput"
             >
               <template v-if="$scopedSlots['tree-item']" #default="scope">
                 <slot name="tree-item" v-bind="scope" />
               </template>
             </el-select-tree>
-            <el-tree
-              ref="tree"
-              v-bind="$attrs"
-              :expand-on-click-node="false"
-              :highlight-current="!multiple"
-              :show-checkbox="multiple"
-              :data="computedOptions"
-              node-key="value"
-              :filter-node-method="treeNodeFilter"
-              @current-change="onCurrentTreeNodeChange"
-              @check="onTreeCheck"
-            >
-              <template v-if="$scopedSlots['tree-item']" #default="scope">
-                <slot name="tree-item" v-bind="scope" />
-              </template>
-            </el-tree>
           </el-scrollbar>
         </template>
 
@@ -523,16 +511,6 @@ export default {
     },
 
     value(val, oldVal) {
-      if (this.tree) {
-        // 单选
-        if (!this.multiple) {
-          this.$refs.tree.setCurrentKey(val ? val : null)
-        } else {
-          // 多选
-          this.$refs.tree.setCheckedKeys(val)
-        }
-      }
-
       if (this.multiple) {
         this.resetInputHeight()
         if ((val && val.length > 0) || (this.$refs.input && this.query !== '')) {
@@ -618,12 +596,6 @@ export default {
       handler() {
         if (this.tree) {
           this.$nextTick(() => {
-            if (this.multiple) {
-              this.$refs.tree.setCheckedKeys(this.value)
-            } else {
-              this.$refs.tree.setCurrentKey(this.value)
-            }
-
             this.setSelected()
           })
         } else {
@@ -656,24 +628,6 @@ export default {
   },
 
   methods: {
-    // 节点单选选择
-    onCurrentTreeNodeChange(data, node) {
-      if (this.multiple) return
-      this.$emit('input', data.value)
-      this.emitChange(data.value, data.label, data)
-      this.visible = false
-    },
-
-    // 节点多选选择
-    onTreeCheck(data, { checkedKeys, checkedNodes }) {
-      this.$emit('input', checkedKeys)
-      this.emitChange(
-        checkedKeys,
-        checkedNodes.map(node => node.label),
-        checkedNodes
-      )
-    },
-
     treeNodeFilter(value, data) {
       if (!value) return true
       return data.label.includes(value)
@@ -777,7 +731,7 @@ export default {
         // 在此处获取node, 列表刚渲染的时候需要先设置值
         let node = this.$refs.tree.getCurrentNode()
         if (node) {
-          return { value: node.value, currentLabel: node.label }
+          return { value: node.data[this.optionValue], currentLabel: node.data[this.optionLabel] }
         }
       } else {
         for (let i = this.cachedOptions.length - 1; i >= 0; i--) {
@@ -824,11 +778,11 @@ export default {
 
       // 树形选择
       if (this.tree) {
-        let checkedNodes = this.$refs.tree.getCheckedNodes(false, false, true)
+        let checkedNodes = this.$refs.tree.getCheckedNodes()
 
         this.selected = checkedNodes.map(item => ({
-          value: item.value,
-          currentLabel: item.label,
+          value: item.data[this.optionValue],
+          currentLabel: item.data[this.optionLabel],
           hitState: false
         }))
 
@@ -1183,6 +1137,11 @@ export default {
           if (res.code !== 200) return
           this.remoteOptions = getValueByPath(res, this.dataPath || option)
         })
+    },
+
+    onTreeInput(value) {
+      this.$emit('input', value)
+      this.visible = false
     }
   },
 

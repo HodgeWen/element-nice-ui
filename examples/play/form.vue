@@ -1,7 +1,9 @@
 <template>
   <div ref="page">
-    {{aa}}
-    <test-tree v-model="aa" :tree-data="options" :bubble="false" />
+
+   <el-form :form="form">
+     <el-select :options="options" tree t-prop="aa" />
+   </el-form>
   </div>
 </template>
 
@@ -36,7 +38,11 @@ export default {
   },
 
   data: () => ({
-    aa: '1',
+
+
+    form: {
+      aa: '1',
+    },
     options: [
       {
         value: '1',

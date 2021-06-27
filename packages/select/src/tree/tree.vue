@@ -46,6 +46,12 @@ export default {
     }
   },
 
+  watch: {
+    value(val) {
+      this.initTreeSelected()
+    }
+  },
+
   provide() {
     return {
       tree: this
@@ -88,6 +94,15 @@ export default {
     /** 初始化树的单选状态 */
     initTreeSelected() {
       const { tree, value } = this
+
+      if (!value) {
+        if (tree.currentSelectNode) {
+          tree.currentSelectNode.selected = false
+        }
+        tree.currentSelectNode = null
+        return
+      }
+
       let node = tree.nodeKeyMap[value]
       if (node) {
         node.setSelected()
@@ -103,6 +118,14 @@ export default {
       this.tree = tree
 
       Array.isArray(this.value) ? this.initTreeChecked() : this.initTreeSelected()
+    },
+
+    getCurrentNode() {
+      return this.tree.getCurrentNode()
+    },
+
+    getCheckedNodes() {
+      return this.tree.getCheckedNodes()
     }
   },
 
