@@ -64,6 +64,9 @@ export class TreeNode {
   /** 节点中间态 */
   indeterminate = false
 
+  /** 节点可见 */
+  visible = true
+
   /**
    * 子节点
    * @type {TreeNode[]}
@@ -83,11 +86,11 @@ export class TreeNode {
       this[key] = restOptions[key]
     })
 
+    const { nodeKeyMap } = this.context
     if (data) {
-      const { nodeKeyMap, nodeKey } = this.context
       // 将节点的值属性作为键, 节点本身作为值映射,方便直接查找
-      if (data[nodeKey]) {
-        nodeKeyMap[data[nodeKey]] = this
+      if (data.value) {
+        nodeKeyMap[data.value] = this
       }
     }
 
@@ -118,21 +121,13 @@ export class TreeNode {
     const { context } = this
     let { currentSelectNode } = context
 
-    // 已有选中节点
-    if (currentSelectNode) {
-      if (currentSelectNode !== this) {
-        currentSelectNode.selected = false
-        this.selected = true
-        context.currentSelectNode = this
-      } else {
-        this.selected = false
-        context.currentSelectNode = null
-      }
-    } else {
-      this.selected = true
-      context.currentSelectNode = this
+    // 已有选中节点且和当前节点不冲突
+    if (currentSelectNode && currentSelectNode !== this) {
+      currentSelectNode.selected = false
     }
 
+    this.selected = true
+    context.currentSelectNode = this
   }
 
   /**
@@ -147,8 +142,8 @@ export class TreeNode {
     this.checked = val
     // this.indeterminate = false // select用不到
     val
-      ? this.context.checkedSet.add(this.data[this.context.nodeKey])
-      : this.context.checkedSet.delete(this.data[this.context.nodeKey])
+      ? this.context.checkedSet.add(this.data.value)
+      : this.context.checkedSet.delete(this.data.value)
 
     // 所有的子节点如与当前选中状态不一致也执行此方法
     this.children.forEach(child => {
@@ -162,6 +157,14 @@ export class TreeNode {
     //     this.notifyParent()
     //   }
     // }
+  }
+
+  /** 设置父组件展开 */
+  setParentExpand(val) {
+    if (!this.parent) return
+    this.parent.visible = val
+    this.parent.expanded = true
+    this.parent.setParentExpand(val)
   }
 
   /** 通知父级当前状态 select组件用不到 */

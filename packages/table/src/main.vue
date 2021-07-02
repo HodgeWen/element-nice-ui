@@ -64,11 +64,13 @@
         'el-happy-table--with-footer': pagination,
         'el-happy-table--selectable': value !== undefined
       }"
+      :stripe="stripe"
       ref="table"
       v-bind="$attrs"
       :size="size"
       :height="bodyHeight"
       v-on="$listeners"
+      :tree-props="treeProps"
       :showHeader="headers && !!headers.length"
       :data="computedData"
       v-loading="loading"
@@ -78,11 +80,17 @@
       @current-change="onSelectionChange($event, 'single')"
     >
       <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
-        <template v-if="header.slotName" #default="{ row, column, $index }">
+        <template v-if="header.slotName" #default="{ row, column, $index, indexPath }">
           <el-action v-if="header.type === 'action'" :ctx="ctx">
             <slot
               :name="'column.' + header.slotName"
-              v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
+              v-bind="{
+                row,
+                column,
+                value: getValueByPath(row, header.prop),
+                index: $index,
+                indexPath
+              }"
             >
               {{ placeholder }}
             </slot>
@@ -90,7 +98,13 @@
           <slot
             v-else
             :name="'column.' + header.slotName"
-            v-bind="{ row, column, value: getValueByPath(row, header.prop), index: $index }"
+            v-bind="{
+              row,
+              column,
+              value: getValueByPath(row, header.prop),
+              index: $index,
+              indexPath
+            }"
           >
             {{ placeholder }}
           </slot>
@@ -154,6 +168,11 @@ export default {
   props: {
     api: String,
 
+    stripe: {
+      type: Boolean,
+      default: true
+    },
+
     placeholder: {
       type: String,
       default: '——'
@@ -161,6 +180,14 @@ export default {
 
     pagination: {
       type: Boolean
+    },
+
+    treeProps: {
+      type: Object,
+      default: () => ({
+        hasChildren: 'hasChildren',
+        children: 'children'
+      })
     },
 
     data: {
@@ -402,26 +429,85 @@ export default {
       this.$refs.table.clearSelection()
     },
 
-    create(record) {
+    create(record, i) {
+      const { children = 'children' } = this.treeProps
       this.total++
-      let data = this.find()
+      let data
+      if (i !== undefined && Array.isArray(i)) {
+        data = i.reduce((acc, cur) => {
+          let item = acc[cur]
+          if (item) {
+            acc = item[children]
+            if (!acc) {
+              acc = []
+              this.$set(item, children, acc)
+            }
+          }
+          return acc
+        }, this.find())
+      } else {
+        data = this.find()
+      }
       data.unshift(record)
       if (data.length > this.pager.size) {
         data.pop()
       }
+      return i
     },
 
     update(i, newRecord) {
-      if (newRecord instanceof Function) {
-        let data = this.find(i)
-        newRecord(data)
-        this.find().splice(i, 1, data)
-        return
+      const { children = 'children' } = this.treeProps
+      if (Array.isArray(i)) {
+        let data =
+          i.length <= 1
+            ? this.find()
+            : i.slice(0, -1).reduce((acc, cur) => {
+                let item = acc[cur]
+                if (item) {
+                  acc = item[children]
+                }
+
+                return acc
+              }, this.find())
+
+        let lastNodeIndex = i[i.length - 1]
+        if (newRecord instanceof Function) {
+          let record = data[lastNodeIndex]
+          newRecord(record)
+          data.splice(i, 1, record)
+          return
+        }
+        data.splice(lastNodeIndex, 1, newRecord)
+      } else {
+        let data = this.find()
+        if (newRecord instanceof Function) {
+          let record = data[i]
+          newRecord(record)
+          data.splice(i, 1, data)
+          return
+        }
+        data.splice(i, 1, newRecord)
       }
-      this.find().splice(i, 1, newRecord)
     },
 
     delete(i) {
+      const { children = 'children' } = this.treeProps
+      if (Array.isArray(i)) {
+        let data =
+          i.length <= 1
+            ? this.find()
+            : i.slice(0, -1).reduce((acc, cur) => {
+                let item = acc[cur]
+                if (item) {
+                  acc = item[children]
+                }
+
+                return acc
+              }, this.find())
+        data.splice(i[i.length - 1], 1)
+        return
+      }
+
       let data = this.find()
       if (!data.length) {
         return this.fetchData(true)

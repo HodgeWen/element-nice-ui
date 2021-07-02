@@ -163,11 +163,9 @@
               ref="tree"
               :tree-data="computedOptions"
               :checkable="multiple"
-              :value="value"
-              :treeLabel="optionLabel"
-              :treeValue="optionValue"
               :filter-node-method="treeNodeFilter"
               @input="onTreeInput"
+              @change="onTreeChange"
             >
               <template v-if="$scopedSlots['tree-item']" #default="scope">
                 <slot name="tree-item" v-bind="scope" />
@@ -596,6 +594,11 @@ export default {
       handler() {
         if (this.tree) {
           this.$nextTick(() => {
+            if (this.multiple) {
+              this.$refs.tree.setTreeChecked(this.value)
+            } else {
+              this.$refs.tree.setTreeSelected(this.value)
+            }
             this.setSelected()
           })
         } else {
@@ -728,10 +731,15 @@ export default {
         Object.prototype.toString.call(value).toLowerCase() === '[object undefined]'
 
       if (this.tree) {
+        if (!value) {
+          this.$refs.tree.setTreeSelected(value)
+        }
         // 在此处获取node, 列表刚渲染的时候需要先设置值
         let node = this.$refs.tree.getCurrentNode()
         if (node) {
-          return { value: node.data[this.optionValue], currentLabel: node.data[this.optionLabel] }
+          return { value: node.data.value, currentLabel: node.data.label }
+        } else {
+          return { value: '', currentLabel: '' }
         }
       } else {
         for (let i = this.cachedOptions.length - 1; i >= 0; i--) {
@@ -778,11 +786,13 @@ export default {
 
       // 树形选择
       if (this.tree) {
-        let checkedNodes = this.$refs.tree.getCheckedNodes()
+        // 设置组件的选中状态
+        this.$refs.tree.setTreeChecked(this.value)
+        let checkedNodes = this.$refs.tree.getCheckedNodes(true)
 
         this.selected = checkedNodes.map(item => ({
-          value: item.data[this.optionValue],
-          currentLabel: item.data[this.optionLabel],
+          value: item.data.value,
+          currentLabel: item.data.label,
           hitState: false
         }))
 
@@ -812,6 +822,7 @@ export default {
           if (this.filterable) {
             this.menuVisibleOnFocus = true
           }
+          this.setSelected()
         }
         this.$emit('focus', event)
       } else {
@@ -1033,20 +1044,18 @@ export default {
 
     deleteTag(event, tag) {
       let index = this.selected.indexOf(tag)
-
       if (index > -1 && !this.selectDisabled) {
         if (this.tree) {
           let restTags = this.selected.slice()
           restTags.splice(index, 1)
-          let { tree } = this.$refs
-          tree.setCheckedKeys(restTags.map(tag => tag.value))
-          let newNodes = tree.getCheckedNodes()
-          let newVal = newNodes.map(node => node.value)
+
+          let newVal = restTags.map(tag => tag.value)
           this.$emit('input', newVal)
+
           this.emitChange(
             newVal,
-            newNodes.map(node => node.label),
-            newNodes
+            restTags.map(tag => tag.label),
+            restTags.map(o => o.option)
           )
         } else {
           const value = this.value.slice()
@@ -1139,9 +1148,16 @@ export default {
         })
     },
 
+    // 树的值改变
     onTreeInput(value) {
       this.$emit('input', value)
-      this.visible = false
+      if (!this.multiple) {
+        this.visible = false
+      }
+    },
+
+    onTreeChange(value, label, data) {
+      this.$emit('change', value, label, data)
     }
   },
 

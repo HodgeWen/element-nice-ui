@@ -165,6 +165,7 @@ export default {
         // 对于展开行，renderCell 不允许配置的。在上一步中已经设置过，这里需要简单封装一下。
         column.renderCell = (h, data) => <div class='cell'>{originRenderCell(h, data)}</div>
         this.owner.renderExpanded = (h, data) => {
+
           return this.$scopedSlots.default ? this.$scopedSlots.default(data) : this.$slots.default
         }
       } else {
@@ -172,8 +173,8 @@ export default {
         // 对 renderCell 进行包装
         column.renderCell = (h, data) => {
           let children = null
-
           if (this.$scopedSlots.default) {
+
             children = this.$scopedSlots.default(data)
           } else {
             children = originRenderCell(h, data, placeholder)
@@ -317,6 +318,7 @@ export default {
     ]
 
     let column = this.getPropsData(basicProps, sortProps, selectProps, filterProps)
+
     column = mergeOptions(defaults, column)
 
     // 注意 compose 中函数执行的顺序是从右到左

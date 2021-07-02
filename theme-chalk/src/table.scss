@@ -147,7 +147,7 @@
 
     &.is-group {
       th {
-        background: var(--primary-color, $--color-primary);
+        background: var(--primary-tint-color-9, $--background-color-base);
       }
     }
   }
@@ -227,7 +227,7 @@
   th {
     overflow: hidden;
     user-select: none;
-    background-color: var(--primary-color, $--color-primary);
+    background-color: var(--primary-tint-color-9, $--background-color-base);
 
     > .cell {
       display: inline-block;

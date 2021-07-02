@@ -1,11 +1,11 @@
 <template>
-  <div class="el-select-tree__item">
+  <div class="el-select-tree__item" v-show="node.visible">
     <!-- 节点内容 start -->
     <section
       class="el-select-tree__content"
       :class="{
         'el-select-tree--expanded': node.expanded,
-        'el-select-tree--selected': node.selected,
+        'el-select-tree--selected': node.selected
       }"
       :style="contentStyle"
       @click="onSelect"
@@ -57,11 +57,11 @@ export default {
 
   computed: {
     label() {
-      return this.node.data[this.tree.treeLabel]
+      return this.node.data.label
     },
 
     value() {
-      return this.node.data[this.tree.treeValue]
+      return this.node.data.value
     },
 
     contentStyle() {
@@ -72,17 +72,32 @@ export default {
     }
   },
 
-
   methods: {
-    onToggleCheck(checked)  {
+    onToggleCheck(checked) {
       this.node.setChecked(checked, 'event')
-      this.tree.$emit('input', Array.from(this.tree.tree.checkedSet))
+      const { tree } = this.tree
+      const { nodeKeyMap } = tree
+      this.tree.$emit('input', Array.from(tree.checkedSet))
+      this.tree.$emit(
+        'change',
+        Array.from(tree.checkedSet),
+        Array.from(tree.checkedSet).map(key => nodeKeyMap[key].data.label),
+        Array.from(tree.checkedSet).map(key => nodeKeyMap[key].data)
+      )
     },
     /** 选择 */
     onSelect() {
+      if (this.tree.checkable) return
       this.node.setSelected()
-      const { currentSelectNode, nodeKey } = this.tree.tree
-      this.tree.$emit('input', currentSelectNode ? currentSelectNode.data[nodeKey] : '')
+      const { currentSelectNode } = this.tree.tree
+      if (currentSelectNode) {
+        const { data } = currentSelectNode
+        this.tree.$emit('input', data.value)
+        this.tree.$emit('change', data.value, data.label, data)
+      }else {
+        this.tree.$emit('input', '')
+        this.tree.$emit('change', '', '', null)
+      }
     }
   }
 }

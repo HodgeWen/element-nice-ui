@@ -116,7 +116,7 @@ export default {
 
     closeOnClickModal: {
       type: Boolean,
-      default: true
+      default: false
     },
 
     closeOnPressEscape: {

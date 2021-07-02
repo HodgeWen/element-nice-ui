@@ -37,7 +37,7 @@
       >
       </span>
       <el-checkbox
-        v-if="showCheckbox"
+        v-if="checkboxVisible"
         v-model="node.checked"
         :indeterminate="node.indeterminate"
         :disabled="!!node.disabled"
@@ -100,8 +100,17 @@ export default {
       default: true
     },
     showCheckbox: {
-      type: Boolean,
+      type: [Boolean, Function],
       default: false
+    }
+  },
+
+  computed: {
+    checkboxVisible() {
+      if (this.showCheckbox instanceof Function) {
+        return this.showCheckbox(this.node)
+      }
+      return this.showCheckbox
     }
   },
 

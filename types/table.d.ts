@@ -182,7 +182,7 @@ export declare class ElTable extends ElementUIComponent {
    * 删除一条记录
    * @param index 记录索引
    */
-  delete(index: number): void
+  delete(index: number | number[]): void
 
   /**
    * 更新一条记录

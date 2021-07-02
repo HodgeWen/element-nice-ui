@@ -98,7 +98,7 @@
       currentNodeKey: [String, Number],
       renderContent: Function,
       showCheckbox: {
-        type: Boolean,
+        type: [Boolean, Function],
         default: false
       },
       draggable: {
