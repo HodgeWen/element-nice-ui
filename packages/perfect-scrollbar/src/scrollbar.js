@@ -11,6 +11,16 @@ export default {
       default: 'div'
     },
 
+    transition: {
+      type: Boolean,
+      default: false
+    },
+
+    transitionName: {
+      type: String,
+      default: ''
+    },
+
     /** 滚动速度 */
     wheelSpeed: {
       type: Number,
@@ -64,29 +74,49 @@ export default {
   },
 
   render(h) {
-    return h(
-      this.tag,
-      {
-        ref: 'container',
-        class: 'ps',
-        on: this.$listeners
-      },
-      this.$slots.default
-    )
+    if (this.transition) {
+      return h(
+        'transition-group',
+        {
+          ref: 'container',
+          class: 'ps',
+          on: this.$listeners,
+          attrs: this.$attrs,
+          props: {
+            tag: this.tag,
+            name: this.transitionName
+          }
+        },
+        this.$slots.default
+      )
+    } else {
+      return h(
+        this.tag,
+        {
+          ref: 'container',
+          class: 'ps',
+          on: this.$listeners,
+          attrs: this.$attrs
+        },
+        this.$slots.default
+      )
+    }
   },
 
   mounted() {
     const { wheelSpeed, wheelPropagation } = this
     const { container } = this.$refs
+    let dom = this.transition ? container.$el : container
 
-    this.ps = new PerfectScrollbar(container, {
+    this.ps = new PerfectScrollbar(dom, {
       wheelSpeed,
       wheelPropagation,
       ...this.$attrs
     })
 
     const observer = new MutationObserver(this.update)
-    observer.observe(container, {
+
+    observer.observe(dom, {
       childList: true,
       ...this.observerConfig
     })

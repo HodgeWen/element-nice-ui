@@ -36,9 +36,9 @@
 
     <!-- 缩放工具 start -->
     <section class="el-bpmn__scale-tools">
-      <el-btn size="mini" circle icon="aim" @click="onZoom('reset')"></el-btn>
-      <el-btn size="mini" circle icon="minus" @click="onZoom('out')"></el-btn>
-      <el-btn size="mini" circle icon="plus" @click="onZoom('in')"></el-btn>
+      <el-btn size="mini" circle icon="aim" @click="zoom('reset')"></el-btn>
+      <el-btn size="mini" circle icon="minus" @click="zoom('out')"></el-btn>
+      <el-btn size="mini" circle icon="plus" @click="zoom('in')"></el-btn>
     </section>
     <!-- 缩放工具 end -->
 
@@ -59,7 +59,6 @@ import ElContext from 'element-nice-ui/packages/context'
 import ElDialog from 'element-nice-ui/packages/dialog'
 import ElPropPanel from './prop-panel.vue'
 import customColor from './custom/customColor'
-import customRender from './custom/customRender'
 
 export default {
   name: 'ElBpmn',
@@ -96,7 +95,6 @@ export default {
       })
 
       this.modeler = modeler
-
       this.modeling = modeler.get('modeling')
 
       this.addModelerListener()
@@ -108,7 +106,7 @@ export default {
     addModelerListener() {
       const { modeler } = this
       if (!modeler) return
-
+      console.log(modeler)
       const eventBus = modeler.get('eventBus')
       Object.keys(eventBus._listeners).forEach(key => {
         if (key.includes('context')) {
@@ -116,7 +114,7 @@ export default {
         }
       })
 
-      // 获取当前图形是啥
+      // 获取当前图形类型
       const getShape = e => {
         const elementRegistry = modeler.get('elementRegistry')
         return e.element ? elementRegistry.get(e.element.id) : e.shape
@@ -124,7 +122,6 @@ export default {
 
       modeler.on('shape.added', e => {
         this.setColor(e.element)
-
       })
 
       modeler.on('connection.added', e => {
@@ -158,7 +155,6 @@ export default {
 
       // 发生改变的节点
       modeler.on('element.changed', e => {
-
         // 更新属性面板的节点信息
         if (this.$refs.propPanel.visible && e.element.type === 'label') {
           this.$refs.propPanel.updateNodeInfo(e.element.businessObject)
@@ -174,6 +170,7 @@ export default {
       })
     },
 
+    /** 设置不同元素的颜色 */
     setColor(element) {
       const type = this.getType(element.type === 'label' ? element.labelTarget.type : element.type)
       this.$nextTick(() => {
@@ -249,7 +246,7 @@ export default {
     },
 
     /** in 放大 /  out 缩小 / reset 还原 */
-    onZoom(type) {
+    zoom(type) {
       const { modeler } = this
       if (!modeler) return
 

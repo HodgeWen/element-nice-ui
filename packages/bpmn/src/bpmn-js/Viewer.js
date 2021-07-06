@@ -1,12 +1,19 @@
-import inherits from 'inherits';
+import inherits from 'inherits'
 
-import CoreModule from './core';
-import TranslateModule from 'diagram-js/lib/i18n/translate';
-import SelectionModule from 'diagram-js/lib/features/selection';
-import OverlaysModule from 'diagram-js/lib/features/overlays';
+import CoreModule from './core'
+import TranslateModule from 'diagram-js/lib/i18n/translate'
+import SelectionModule from 'diagram-js/lib/features/selection'
+import OverlaysModule from 'diagram-js/lib/features/overlays'
 
-import BaseViewer from './BaseViewer';
+// 放大缩小用
+import ZoomScrollModule from 'diagram-js/lib/navigation/zoomscroll'
+// 可以移动 画布
+import MoveCanvasModule from 'diagram-js/lib/navigation/movecanvas'
+// 模型
+import ModelingModule from './features/modeling'
+import gridModule from "diagram-js/lib/features/grid-snapping"
 
+import BaseViewer from './BaseViewer'
 
 /**
  * A viewer for BPMN 2.0 diagrams.
@@ -56,18 +63,24 @@ import BaseViewer from './BaseViewer';
  * @param {Array<didi.Module>} [options.additionalModules] a list of modules to use with the default modules
  */
 export default function Viewer(options) {
-  BaseViewer.call(this, options);
+  BaseViewer.call(this, options)
 }
 
-inherits(Viewer, BaseViewer);
+inherits(Viewer, BaseViewer)
 
 // modules the viewer is composed of
 Viewer.prototype._modules = [
   CoreModule,
   TranslateModule,
   SelectionModule,
-  OverlaysModule
-];
+  OverlaysModule,
+
+  // 定制模块
+  ZoomScrollModule,
+  MoveCanvasModule,
+  ModelingModule,
+  gridModule
+]
 
 // default moddle extensions the viewer is composed of
-Viewer.prototype._moddleExtensions = {};
+Viewer.prototype._moddleExtensions = {}

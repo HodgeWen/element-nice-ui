@@ -5,6 +5,7 @@ import Section from '../packages/section/index.js';
 import Data from '../packages/data/index.js';
 import WangEditor from '../packages/wang-editor/index.js';
 import Bpmn from '../packages/bpmn/index.js';
+import BpmnViewer from '../packages/bpmn-viewer/index.js';
 import Page from '../packages/page/index.js';
 import PageAnchor from '../packages/page-anchor/index.js';
 import Pagination from '../packages/pagination/index.js';
@@ -103,6 +104,7 @@ const components = [
   Data,
   WangEditor,
   Bpmn,
+  BpmnViewer,
   Page,
   PageAnchor,
   Pagination,
@@ -222,7 +224,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '2.16.63',
+  version: '2.16.70',
   locale: locale.use,
   i18n: locale.i18n,
   install,
@@ -233,6 +235,7 @@ export default {
   Data,
   WangEditor,
   Bpmn,
+  BpmnViewer,
   Page,
   PageAnchor,
   Pagination,

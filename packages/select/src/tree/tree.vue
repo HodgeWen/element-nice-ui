@@ -100,7 +100,6 @@ export default {
     /** 设置树的单选状态 */
     setTreeSelected(value) {
       if (this.checkable) return
-
       const { tree } = this
 
       /** 没有值 */
@@ -113,6 +112,8 @@ export default {
       }
 
       let node = tree.nodeKeyMap[value]
+
+
       if (node) {
         node.setSelected()
       }

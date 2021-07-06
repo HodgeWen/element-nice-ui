@@ -475,6 +475,15 @@ export default {
         })
       })
 
+      this.fields.some(field => {
+        if (field.validateState === 'error') {
+          this.$nextTick(() => {
+            field.$el.scrollIntoView()
+          })
+          return true
+        }
+      })
+
       if (promise) {
         return promise
       }

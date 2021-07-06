@@ -4,6 +4,7 @@
   "data": "./packages/data/index.js",
   "wang-editor": "./packages/wang-editor/index.js",
   "bpmn": "./packages/bpmn/index.js",
+  "bpmn-viewer": "./packages/bpmn-viewer/index.js",
   "page": "./packages/page/index.js",
   "page-anchor": "./packages/page-anchor/index.js",
   "pagination": "./packages/pagination/index.js",

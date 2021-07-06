@@ -24,6 +24,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.el-icon-user:before {
+  content: "\e6bd";
+}
+
 .el-icon-more2:before {
   content: "\e6e9";
 }

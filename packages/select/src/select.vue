@@ -731,11 +731,11 @@ export default {
         Object.prototype.toString.call(value).toLowerCase() === '[object undefined]'
 
       if (this.tree) {
-        if (!value) {
-          this.$refs.tree.setTreeSelected(value)
-        }
+        this.$refs.tree.setTreeSelected(value)
+
         // 在此处获取node, 列表刚渲染的时候需要先设置值
         let node = this.$refs.tree.getCurrentNode()
+
         if (node) {
           return { value: node.data.value, currentLabel: node.data.label }
         } else {
@@ -771,7 +771,6 @@ export default {
       // 单选
       if (!this.multiple) {
         let option = this.getOption(this.value)
-
         if (option.created) {
           this.createdLabel = option.currentLabel
           this.createdSelected = true

@@ -920,7 +920,7 @@
     "description": "更加好看的滚动条"
   },
   "el-perfect-scrollbar": {
-    "attributes": ["wheel-speed", "tag", "wheel-propagation"],
+    "attributes": ["wheel-speed", "tag", "wheel-propagation", "transition", "transition-name"],
     "description": "完美滚动条"
   },
   "el-context": {
@@ -940,7 +940,11 @@
     "description": "配置, 详情查看 https://doc.wangeditor.com/"
   },
   "el-bpmn": {
-    "attributes": ["need-to-confirm", "confirm-text"],
-    "description": "操作组件容项"
+    "attributes": [],
+    "description": "流程编辑器"
+  },
+  "el-bpmn-viewer": {
+    "attributes": ["xml", "finished"],
+    "description": "流程查看器"
   }
 }

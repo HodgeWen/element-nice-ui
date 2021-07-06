@@ -1,0 +1,13 @@
+@import 'mixins/mixins';
+
+@keyframes active {
+  to {
+    stroke-dashoffset: -100%;
+  }
+}
+
+@include b(bpmn-viewer) {
+  @include m(active) {
+    animation: active 50s linear infinite;
+  }
+}
