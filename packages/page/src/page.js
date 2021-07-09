@@ -95,7 +95,8 @@ export default {
             .then(res => {
               this.loading = false
             })
-            .catch(() => {
+            .catch((err) => {
+              Promise.reject(err)
               this.loading = false
             })
         } else {

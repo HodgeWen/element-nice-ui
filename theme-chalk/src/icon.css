@@ -448,10 +448,6 @@
   content: "\e751";
 }
 
-.el-icon-user-solid:before {
-  content: "\e752";
-}
-
 .el-icon-warning:before {
   content: "\e753";
 }
@@ -510,10 +506,6 @@
 
 .el-icon-tickets:before {
   content: "\e761";
-}
-
-.el-icon-user:before {
-  content: "\e762";
 }
 
 .el-icon-video-pause:before {

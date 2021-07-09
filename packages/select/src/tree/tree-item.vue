@@ -17,7 +17,7 @@
       ></i>
       <span style="padding: 0 8px" v-else></span>
       <el-checkbox
-        v-if="tree.checkable"
+        v-if="tree.checkable && (!tree.checkableFilter || tree.checkableFilter(node.data))"
         :indeterminate="node.indeterminate"
         :value="node.checked"
         @input="onToggleCheck"

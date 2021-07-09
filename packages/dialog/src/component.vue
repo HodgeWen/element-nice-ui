@@ -141,12 +141,15 @@ export default {
       default: '15vh'
     },
     beforeClose: Function,
+
     center: {
       type: Boolean,
       default: false
     },
 
-    destroyOnClose: Boolean
+    destroyOnClose: Boolean,
+
+    defaultFullScreen: Boolean
   },
 
   data() {
@@ -154,7 +157,7 @@ export default {
       closed: false,
       key: 0,
       loading: false,
-      fullscreen: false
+      fullscreen: this.defaultFullScreen
     }
   },
 

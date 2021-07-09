@@ -1,7 +1,7 @@
 /**
  * color definitions
  */
- .djs-container {
+.djs-container {
   --blue-base-65: #7cc594;
   --blue-base-65-opacity-30: rgba(77, 144, 255, 0.3);
   --blue-darken-48: #7cc594;
@@ -95,7 +95,7 @@
 .djs-element.selected .djs-outline {
   visibility: visible;
   shape-rendering: geometricPrecision;
-  stroke-dasharray: 3,3;
+  stroke-dasharray: 3, 3;
 }
 
 .djs-element.selected .djs-outline {
@@ -346,7 +346,6 @@ marker.djs-dragger tspan {
   cursor: ew-resize;
 }
 
-
 /**
  * snapping
  */
@@ -391,7 +390,6 @@ marker.djs-dragger tspan {
 
   clear: both;
 }
-
 
 .djs-palette .djs-palette-toggle {
   cursor: pointer;
@@ -459,13 +457,17 @@ marker.djs-dragger tspan {
  * context-pad
  */
 .djs-overlay-context-pad {
-  width: 72px;
+  width: 80px;
 }
 
 .djs-context-pad {
   position: absolute;
   display: none;
   pointer-events: none;
+  background-color: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 3px 1px #eee;
 }
 
 .djs-context-pad .entry {
@@ -475,11 +477,11 @@ marker.djs-dragger tspan {
   display: inline-block;
   font-size: 22px;
   margin: 0 2px 2px 0;
-
-
+  color: #666;
   border-radius: 3px;
+  transition: color .2s;
 
-  cursor: default;
+  cursor: pointer;
 
   background-color: var(--context-pad-entry-background-color);
   box-shadow: 0 0 2px 1px var(--context-pad-entry-background-color);
@@ -491,7 +493,8 @@ marker.djs-dragger tspan {
 }
 
 .djs-context-pad .entry:hover {
-  background: var(--context-pad-entry-hover-background-color);
+  /* background: var(--context-pad-entry-hover-background-color); */
+  color: var(--primary-color);
 }
 
 .djs-context-pad.open {
@@ -544,7 +547,6 @@ marker.djs-dragger tspan {
 .djs-popup-body .entry {
   padding: 2px 10px 2px 5px;
   color: #56a370;
-
 }
 
 .djs-popup-body .entry > span {
@@ -686,9 +688,8 @@ marker.djs-dragger tspan {
 .djs-segment-dragger.djs-dragging,
 .djs-bendpoint.djs-dragging {
   display: block;
-  opacity: 1.0;
+  opacity: 1;
 }
-
 
 /**
  * tooltips
@@ -711,7 +712,6 @@ marker.djs-dragger tspan {
   opacity: 1;
 }
 
-
 /**
  * search pad
  */
@@ -733,7 +733,8 @@ marker.djs-dragger tspan {
   background: var(--search-container-background-color);
   border: solid 1px var(--search-container-border-color);
   border-radius: 2px;
-  box-shadow: 0 0 0 2px var(--search-container-box-shadow-color), 0 0 0 1px var(--search-container-box-shadow-inset-color) inset;
+  box-shadow: 0 0 0 2px var(--search-container-box-shadow-color),
+    0 0 0 1px var(--search-container-box-shadow-inset-color) inset;
 }
 
 .djs-search-container:not(.open) {

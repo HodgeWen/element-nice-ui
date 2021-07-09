@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Element from 'main/index.js'
 
 // 切换不同的示例
-import App from './play/form.vue'
+import App from './play/play.vue'
 import 'theme/components'
 // Vue.use(Element)
 

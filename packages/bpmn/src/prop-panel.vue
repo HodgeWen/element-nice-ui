@@ -24,11 +24,13 @@
 
 // 当前节点信息
 import ElForm from 'element-nice-ui/packages/form'
+import ElInput from 'element-nice-ui/packages/input'
 export default {
   name: 'ElBpmnPropPanel',
 
   components: {
-    ElForm
+    ElForm,
+    ElInput
   },
 
   data: () => ({

@@ -57,6 +57,7 @@ import ElBtn from 'element-nice-ui/packages/btn'
 import ElBtnGroup from 'element-nice-ui/packages/btn-group'
 import ElContext from 'element-nice-ui/packages/context'
 import ElDialog from 'element-nice-ui/packages/dialog'
+import ElInput from 'element-nice-ui/packages/input'
 import ElPropPanel from './prop-panel.vue'
 import customColor from './custom/customColor'
 
@@ -68,7 +69,8 @@ export default {
     ElContext,
     ElBtnGroup,
     ElDialog,
-    ElPropPanel
+    ElPropPanel,
+    ElInput
   },
 
   props: {
@@ -76,9 +78,10 @@ export default {
   },
 
   data: () => ({
-    modeler: null,
-
-    modeling: null,
+    _modeler: null,
+    _modeling: null,
+    _eventBus: null,
+    _elementRegistry: null,
 
     tipDialogVisible: false
   }),
@@ -94,8 +97,12 @@ export default {
         additionalModules: [customTranslate]
       })
 
-      this.modeler = modeler
-      this.modeling = modeler.get('modeling')
+      const { $data } = this
+
+      $data._modeler = modeler
+      $data._modeling = modeler.get('modeling')
+      $data._eventBus = modeler.get('eventBus')
+      $data._elementRegistry = modeler.get('elementRegistry')
 
       this.addModelerListener()
 
@@ -104,57 +111,53 @@ export default {
 
     /** 添加模型事件 */
     addModelerListener() {
-      const { modeler } = this
-      if (!modeler) return
-      console.log(modeler)
-      const eventBus = modeler.get('eventBus')
-      Object.keys(eventBus._listeners).forEach(key => {
+      const { _modeler, _eventBus } = this.$data
+      if (!_modeler) return
+      Object.keys(_eventBus._listeners).forEach(key => {
         if (key.includes('context')) {
-          // console.log(key)
         }
       })
 
       // 获取当前图形类型
       const getShape = e => {
-        const elementRegistry = modeler.get('elementRegistry')
+        const elementRegistry = _modeler.get('elementRegistry')
         return e.element ? elementRegistry.get(e.element.id) : e.shape
       }
 
-      modeler.on('shape.added', e => {
+      _modeler.on('shape.added', e => {
         this.setColor(e.element)
       })
 
-      modeler.on('connection.added', e => {
+      _modeler.on('connection.added', e => {
         this.setColor(e.element)
       })
 
-      modeler.on('shape.move.end', e => {
+      _modeler.on('shape.move.end', e => {
         const shape = getShape(e)
         // console.log('shape.move.end')
       })
 
-      modeler.on('shape.removed', e => {
+      _modeler.on('shape.removed', e => {
         const shape = getShape(e)
         // console.log('shape.removed')
       })
 
       // 选择的节点发生改变
-      modeler.on('selection.changed', e => {
+      _modeler.on('selection.changed', e => {
         const [shape] = e.newSelection
-        // TODO 此处 应当获取所有的shape
         if (!shape) return
         this.$refs.propPanel.render(shape)
       })
 
       // 元素被点击时发生改变
-      modeler.on('element.click', e => {
+      _modeler.on('element.click', e => {
         if (e.element.type === 'bpmn:Process') {
           this.$refs.propPanel.hide()
         }
       })
 
       // 发生改变的节点
-      modeler.on('element.changed', e => {
+      _modeler.on('element.changed', e => {
         // 更新属性面板的节点信息
         if (this.$refs.propPanel.visible && e.element.type === 'label') {
           this.$refs.propPanel.updateNodeInfo(e.element.businessObject)
@@ -172,21 +175,24 @@ export default {
 
     /** 设置不同元素的颜色 */
     setColor(element) {
+      const { _modeling } = this.$data
       const type = this.getType(element.type === 'label' ? element.labelTarget.type : element.type)
       this.$nextTick(() => {
-        this.modeling.setColor(element, customColor[type] || customColor.default)
+        _modeling.setColor(element, customColor[type] || customColor.default)
       })
     },
 
     /** 绘制 */
     draw(xml) {
-      this.modeler && this.modeler.importXML(xml)
+      const { _modeler } = this.$data
+      _modeler && _modeler.importXML(xml)
     },
 
     /** 保存为xml文件 */
     saveAsXML() {
-      if (this.modeler) {
-        return this.modeler
+      const { _modeler } = this.$data
+      _modeler &&
+        _modeler
           .saveXML({ format: true })
           .then(res => {
             this.downloadFile(`流程文件.xml`, res.xml, 'application/xml')
@@ -194,20 +200,20 @@ export default {
           .catch(err => {
             console.error(err)
           })
-      }
     },
 
     /** 保存为SVG图片 */
     saveAsSVG() {
-      if (!this.modeler) return
-      this.modeler
-        .saveSVG()
-        .then(res => {
-          this.downloadFile('流程图.svg', res.svg, 'image/svg+xml')
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      const { _modeler } = this.$data
+      _modeler &&
+        _modeler
+          .saveSVG()
+          .then(res => {
+            this.downloadFile('流程图.svg', res.svg, 'image/svg+xml')
+          })
+          .catch(err => {
+            console.log(err)
+          })
     },
 
     /** 下载文件 */
@@ -226,8 +232,9 @@ export default {
 
     /** 保存回调 */
     save(callback) {
-      this.modeler &&
-        this.modeler
+      const { _modeler } = this.$data
+      _modeler &&
+        _modeler
           .saveXML({ format: true })
           .then(callback)
           .catch(err => {
@@ -247,10 +254,10 @@ export default {
 
     /** in 放大 /  out 缩小 / reset 还原 */
     zoom(type) {
-      const { modeler } = this
-      if (!modeler) return
+      const { _modeler } = this.$data
+      if (!_modeler) return
 
-      const zoomScroll = modeler.get('zoomScroll')
+      const zoomScroll = _modeler.get('zoomScroll')
 
       if (type === 'in') return zoomScroll.stepZoom(1)
       if (type === 'out') return zoomScroll.stepZoom(-1)
@@ -259,17 +266,18 @@ export default {
 
     /** back 撤销 / forward 前进 */
     onHistoryChange(type) {
-      const { modeler } = this
-      if (!modeler) return
+      const { _modeler } = this.$data
+      if (!_modeler) return
 
-      const commandStack = modeler.get('commandStack')
+      const commandStack = _modeler.get('commandStack')
 
       if (type === 'back') return commandStack.undo()
       if (type === 'forward') return commandStack.redo()
     },
 
     onClear() {
-      this.modeler && this.modeler.clear()
+      const { _modeler } = this.$data
+      _modeler && _modeler.clear()
     },
 
     /** 导入 */

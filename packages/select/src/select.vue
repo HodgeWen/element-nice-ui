@@ -163,6 +163,7 @@
               ref="tree"
               :tree-data="computedOptions"
               :checkable="multiple"
+              :checkable-filter="checkable"
               :filter-node-method="treeNodeFilter"
               @input="onTreeInput"
               @change="onTreeChange"
@@ -245,10 +246,11 @@ export default {
   computed: {
     computedOptions() {
       let mapper
+      const { optionValue: ov, optionLabel: ol } = this
       if (this.tree) {
         mapper = option => {
-          let value = option[this.optionValue]
-          let label = option[this.optionLabel]
+          let value = option[ov]
+          let label = option[ol]
           let children = option[this.childrenKey]
 
           let item = { ...option, value, label }
@@ -263,8 +265,8 @@ export default {
         }
       } else {
         mapper = option => {
-          let value = option[this.optionValue]
-          let label = option[this.optionLabel]
+          let value = option[ov]
+          let label = option[ol]
           return { ...option, value, label }
         }
       }
@@ -360,6 +362,10 @@ export default {
   directives: { Clickoutside },
 
   props: {
+    checkable: {
+      type: Function
+    },
+
     name: String,
 
     id: String,
@@ -594,6 +600,7 @@ export default {
       handler() {
         if (this.tree) {
           this.$nextTick(() => {
+            if (!this.$refs.tree) return
             if (this.multiple) {
               this.$refs.tree.setTreeChecked(this.value)
             } else {

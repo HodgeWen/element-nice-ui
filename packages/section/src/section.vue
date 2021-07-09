@@ -7,11 +7,11 @@
         </span>
       </slot>
 
-      <i class="el-icon-arrow-down" @click="toggleExpand"></i>
+      <i class="el-icon-arrow-right" @click="toggleExpand"></i>
     </header>
     <transition name="el-section">
       <div class="el-section__body" v-show="expanded">
-        <slot />
+        <slot  />
       </div>
     </transition>
   </section>

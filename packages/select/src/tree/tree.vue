@@ -23,6 +23,9 @@ export default {
       type: Array
     },
 
+    checkableFilter: {
+      type: Function
+    },
 
     defaultShowAll: {
       type: Boolean,
@@ -93,6 +96,11 @@ export default {
         let treeNode = tree.nodeKeyMap[key]
         if (treeNode) {
           treeNode.checked = true
+          // let p = treeNode.parent
+          // while(p) {
+          //   p.expanded = true
+          //   p = p.parent
+          // }
         }
       })
     },

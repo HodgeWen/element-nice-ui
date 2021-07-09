@@ -27,7 +27,6 @@ export default function ContextPadProvider(
   rules,
   translate
 ) {
-
   config = config || {}
 
   contextPad.registerProvider(this)
@@ -80,7 +79,6 @@ ContextPadProvider.$inject = [
 ]
 
 ContextPadProvider.prototype.getContextPadEntries = function(element) {
-
   var contextPad = this._contextPad,
     modeling = this._modeling,
     elementFactory = this._elementFactory,
@@ -137,7 +135,6 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
    * @return {Object} descriptor
    */
   function appendAction(type, className, title, options) {
-
     if (typeof title !== 'string') {
       options = title
       title = translate('Append {type}', { type: type.replace(/^bpmn:/, '') })
@@ -159,7 +156,6 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
       : appendStart
 
     return {
-      group: 'model',
       className: className,
       title: title,
       action: {
@@ -180,12 +176,12 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
     }
   }
 
+  // 泳道, 参与者
   if (isAny(businessObject, ['bpmn:Lane', 'bpmn:Participant']) && isExpanded(businessObject)) {
     var childLanes = getChildLanes(element)
 
     assign(actions, {
       'lane-insert-above': {
-        group: 'lane-insert-above',
         className: 'bpmn-icon-lane-insert-above',
         title: translate('Add Lane above'),
         action: {
@@ -200,7 +196,6 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
       if (element.height >= 120) {
         assign(actions, {
           'lane-divide-two': {
-            group: 'lane-divide',
             className: 'bpmn-icon-lane-divide-two',
             title: translate('Divide into two Lanes'),
             action: {
@@ -213,7 +208,6 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
       if (element.height >= 180) {
         assign(actions, {
           'lane-divide-three': {
-            group: 'lane-divide',
             className: 'bpmn-icon-lane-divide-three',
             title: translate('Divide into three Lanes'),
             action: {
@@ -226,7 +220,6 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
 
     assign(actions, {
       'lane-insert-below': {
-        group: 'lane-insert-below',
         className: 'bpmn-icon-lane-insert-below',
         title: translate('Add Lane below'),
         action: {
@@ -238,6 +231,7 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
     })
   }
 
+  // 流程节点
   if (is(businessObject, 'bpmn:FlowNode')) {
     if (is(businessObject, 'bpmn:EventBasedGateway')) {
       assign(actions, {
@@ -298,24 +292,28 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
         ),
         'append.gateway': appendAction(
           'bpmn:ExclusiveGateway',
-          'bpmn-icon-gateway-none',
+          'bpmn-icon-gateway-xor',
           translate('Append Gateway')
         ),
-        'append.append-task': appendAction('bpmn:Task', 'bpmn-icon-task', translate('Append Task')),
-        'append.intermediate-event': appendAction(
-          'bpmn:IntermediateThrowEvent',
-          'bpmn-icon-intermediate-event-none',
-          translate('Append Intermediate/Boundary Event')
+        'append.append-task': appendAction(
+          'bpmn:UserTask',
+          'bpmn-icon-user-task',
+          translate('Append Task')
         )
+        // 'append.intermediate-event': appendAction(
+        //   'bpmn:IntermediateThrowEvent',
+        //   'bpmn-icon-intermediate-event-none',
+        //   translate('Append Intermediate/Boundary Event')
+        // )
       })
     }
   }
 
+  // 替换不为空
   if (!popupMenu.isEmpty(element, 'bpmn-replace')) {
     // Replace menu entry
     assign(actions, {
       replace: {
-        group: 'edit',
         className: 'bpmn-icon-screw-wrench',
         title: translate('Change type'),
         action: {
@@ -331,6 +329,7 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
     })
   }
 
+  // 是流程节点 or 关联节 or 对象引用 or 数据存储引用
   if (
     isAny(businessObject, [
       'bpmn:FlowNode',
@@ -340,10 +339,13 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
     ])
   ) {
     assign(actions, {
-      'append.text-annotation': appendAction('bpmn:TextAnnotation', 'bpmn-icon-text-annotation'),
+      'append.text-annotation': appendAction(
+        'bpmn:TextAnnotation',
+        'bpmn-icon-text-annotation',
+        '插入文本注释'
+      ),
 
       connect: {
-        group: 'connect',
         className: 'bpmn-icon-connection-multi',
         title: translate(
           'Connect using ' +
@@ -361,7 +363,6 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
   if (isAny(businessObject, ['bpmn:DataObjectReference', 'bpmn:DataStoreReference'])) {
     assign(actions, {
       connect: {
-        group: 'connect',
         className: 'bpmn-icon-connection-multi',
         title: translate('Connect using DataInputAssociation'),
         action: {
@@ -389,7 +390,6 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
   if (deleteAllowed) {
     assign(actions, {
       delete: {
-        group: 'edit',
         className: 'bpmn-icon-trash',
         title: translate('Remove'),
         action: {
@@ -398,7 +398,6 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
       }
     })
   }
-
 
   return actions
 }

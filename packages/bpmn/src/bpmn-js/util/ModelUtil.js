@@ -7,7 +7,7 @@
  * @return {boolean}
  */
 export function is(element, type) {
-  var bo = getBusinessObject(element);
+  var bo = getBusinessObject(element)
 
   return bo && (typeof bo.$instanceOf === 'function') && bo.$instanceOf(type);
 }

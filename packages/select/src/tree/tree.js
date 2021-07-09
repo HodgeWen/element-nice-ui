@@ -51,7 +51,7 @@ export class Tree {
       id: this.autoIncreaseId++,
       data: Array.isArray(options.data) ? { children: data } : data,
       context: this,
-      depth: 0
+      depth: 0,
     })
   }
 
