@@ -1,9 +1,14 @@
 <template>
   <div class="el-table-select">
+    <span v-if="$slots.default" @click="onTrigger">
+      <slot />
+    </span>
+
     <el-input
+      v-else
       :validate-event="false"
       readonly
-      :value="inputValue"
+      :value="inputValue || label"
       @focus="onTrigger"
       :clearable="clearable"
     >
@@ -79,6 +84,10 @@ export default {
     width: {
       type: String,
       default: '900px'
+    },
+
+    label: {
+      type: String
     }
   },
 

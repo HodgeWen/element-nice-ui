@@ -1,13 +1,12 @@
 <script>
-import { t } from 'element-nice-ui/src/locale'
 export default {
   name: 'ElTableHeader',
 
-  inject: ['store'],
+  inject: ['table'],
 
   render(h) {
-    const { headers } = this.store.state
-    const ths = headers.map((header) => {
+    const { computedHeaders } = this.table
+    const ths = computedHeaders.map((header) => {
       return <th>{header.label}</th>
     })
     return (

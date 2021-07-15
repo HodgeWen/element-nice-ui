@@ -5,7 +5,7 @@ export default {
   name: 'ElTableRow',
 
   props: {
-    row: {
+    rowData: {
       type: Object
     },
 
@@ -14,15 +14,13 @@ export default {
     }
   },
 
-
-
-  inject: ['store'],
+  inject: ['table'],
 
   render(h) {
-    const { headers } = this.store.state
-    const { row } = this
-    let cells = headers.map(header => {
-      return <td>{row[header.prop]}</td>
+    const { rowData } = this
+    const { computedHeaders } = this.table
+    let cells = computedHeaders.map(header => {
+      return <td>{rowData[header.prop]}</td>
     })
     return (
       <tr class="el-table__row">

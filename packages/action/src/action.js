@@ -5,6 +5,8 @@ import ElDropdownMenu from 'element-nice-ui/packages/dropdown-menu'
 export default {
   name: 'ElAction',
 
+  inheritAttrs: false,
+
   props: {
     max: {
       type: Number,
@@ -13,8 +15,6 @@ export default {
 
     ctx: Object
   },
-
-  inheritAttrs: false,
 
   render(h) {
     let children = this.$slots.default && this.$slots.default.filter(child => child.tag)

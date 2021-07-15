@@ -1,24 +1,33 @@
 <template>
-  <div class="el-table">
-    <el-table-searcher>
-      <slot name="searcher" />
-    </el-table-searcher>
+  <div class="el-table" :style="tableStyle">
+    <!-- 搜索栏 -->
+    <el-table-searcher> <slot name="searcher" /> </el-table-searcher>
 
-    <el-table-tools>
-      <slot name="tools" />
-    </el-table-tools>
+    <!-- 工具栏 -->
+    <el-table-tools> <slot name="tools" /> </el-table-tools>
 
-    <el-table-wrap />
+    <!-- 表格主体 -->
+    <table class="el-table__main">
+      <ElTableHeader />
+
+      <ElTableBody />
+    </table>
+
+    <!-- 分页 -->
+    <ElTablePagination ref="pagination" />
   </div>
 </template>
 
 <script>
 import ElTableSearcher from './table-searcher.vue'
 import ElTableTools from './table-tools.vue'
-import ElTableWrap from './table-wrap.vue'
-import { createStore } from './store'
+import ElTableBody from './table-body.vue'
+import ElTablePagination from './table-pagination.vue'
+import ElTableHeader from './table-header.vue'
+import { getValueByPath } from 'element-nice-ui/src/utils/util'
 import { treeMap } from './util'
 // import './table.scss'
+
 export default {
   name: 'ElNewTable',
 
@@ -27,17 +36,9 @@ export default {
   components: {
     ElTableSearcher,
     ElTableTools,
-    ElTableWrap
-  },
-
-  provide() {
-    this.store = createStore.call(this)
-    this.store
-      .commit('setData', this.computedData)
-      .commit('setHeaders', this.computedHeaders)
-    return {
-      store: this.store
-    }
+    ElTableHeader,
+    ElTableBody,
+    ElTablePagination
   },
 
   props: {
@@ -53,7 +54,8 @@ export default {
     },
 
     data: {
-      type: Array
+      type: Array,
+      required: false
     },
 
     headers: {
@@ -70,10 +72,6 @@ export default {
       default: 50
     },
 
-    pageConfig: {
-      type: Object
-    },
-
     autoQueried: {
       type: Array
     },
@@ -86,6 +84,11 @@ export default {
     showTools: {
       type: Boolean,
       default: true
+    },
+
+    height: {
+      type: String,
+      default:'100%'
     },
 
     autoHeight: {
@@ -101,80 +104,108 @@ export default {
       type: [Array, Object]
     },
 
-    noCache: {
+    cache: {
       type: Boolean
     },
-
-    noSearcher: {
-      type: Boolean
-    }
   },
 
   data() {
     return {
+      /** 内部维护的数据, 由服务端获取 */
       internalData: [],
 
-      hasCheckbox: false,
+      /** 表格能否多选 */
+      checkable: false,
 
-      hasRadio: false
+      /** 表格能否单选 */
+      selectable: false
     }
   },
 
   computed: {
+    /** 计算出的表头 */
     computedHeaders() {
       let id = 0
-      let ret = treeMap(this.headers, (header) => {
+      let ret = treeMap(this.headers, header => {
         header._id = id++
       })
-
-      // if (this.hasCheckbox) {
-      //   ret.push()
-      // } else if (this.hasRadio) {
-      //   ret.push()
-      // }
-
       return ret
     },
 
+    /** 优先以传入的数据作为表格数据 */
     computedData() {
       return this.data ? this.data : this.internalData
+    },
+
+    tableStyle() {
+      const { autoHeight, height } = this
+      return {
+        height: autoHeight ? undefined : height
+      }
     }
+  },
+
+  provide() {
+    return { table: this }
   },
 
   methods: {
-    /** 查询 */
-    fetch() {
-      // const {}
-    },
+    /**
+     * 查询数据
+     * @param pager 分页数据
+     */
+    fetch(pager) {
+      const { api, data, pagination } = this
+      if (!api || data) return
 
-    /** 初始化 */
-    init() {
-      if (Array.isArray(this.value)) {
-        this.hasCheckbox = true
-      } else if (this.value !== undefined) {
-        this.hasRadio = true
+      const {
+        // 分页数据路径
+        pageDataPath,
+        // 列表数据路径
+        listDataPath,
+        // 总数路径
+        totalPath,
+        pageKey = 'current',
+        // 分页数据大小
+        sizeKey = 'size'
+      } = this.$EL_TABLE_CONFIG
+
+      const params = {}
+
+      if (pagination) {
+        params[pageKey] = pager.page
+        params[sizeKey] = pager.size
       }
+
+      let method = 'get'
+      let url = api
+      let apiSections = api.split(':')
+      if (apiSections.length === 2) [method, url] = apiStruct
+
+      const promise = this.$http[method](url, { params })
+
+      return promise.then(res => {
+        if (res.code !== 200) return
+
+        if (this.pagination) {
+          if (!pageDataPath || !totalPath) {
+            return console.warn(`$EL_TABLE_CONFIG中的pageDataPath和totalPath属性都不能为空`)
+          }
+          this.internalData = getValueByPath(res, pageDataPath)
+          this.setTotal(getValueByPath(res, totalPath))
+        }
+
+        if (!listDataPath) {
+          return console.warn(`$EL_TABLE_CONFIG中的listDataPath属性不能为空`)
+        }
+
+        this.internalData = getValueByPath(res, listDataPath)
+      })
     },
 
-    /**  */
-  },
-
-  watch: {
-    computedData(data) {
-      this.store.commit('setData', data)
-    },
-
-    computedHeaders(headers) {
-      this.store.commit('setHeaders', headers)
+    setTotal(total) {
+      this.$refs.pagination.setTotal(total)
     }
-  },
-
-  created() {
-    this.init()
-  },
-
-  beforeDestroy() {
-    this.store && this.store.destroy()
   }
 }
 </script>

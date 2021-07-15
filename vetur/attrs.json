@@ -532,6 +532,9 @@
     "options": ["success", "exception"],
     "description": "the current status of progress bar"
   },
+  "el-table-select/label": {
+    "description": "指定一个默认的label"
+  },
   "el-table-column/min-width": {
     "description": "column minimum width. Columns with width has a fixed width, while columns with min-width has a width that is distributed in proportion"
   },
@@ -1220,7 +1223,7 @@
     "description": "确认函数, 会自动进行校验"
   },
   "el-alert/center": { "type": "flag", "description": "whether to center the text" },
-  "e;-steps/center": {
+  "el-steps/center": {
     "version": "<2.0.0",
     "type": "flag",
     "description": "center whole 'Steps' component"
@@ -1229,6 +1232,14 @@
     "version": ">=2.0.0",
     "type": "flag",
     "description": "whether to display the error message inline with the form item"
+  },
+  "el-form/trigger": {
+    "options": ["change", "blur"],
+    "description": "校验触发方式"
+  },
+  "el-form/form": {
+    "type": "object",
+    "description": "表单数据模型"
   },
   "el-form/conceal": {
     "type": "boolean",

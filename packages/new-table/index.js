@@ -1,7 +1,7 @@
-import ElTable from './src/table.vue'
+import ElNewTable from './src/table.vue'
 
-ElTable.install = function(Vue) {
-  Vue.component(ElTable.name, ElTable)
+ElNewTable.install = function(Vue) {
+  Vue.component(ElNewTable.name, ElNewTable)
 }
 
-export default ElTable
+export default ElNewTable

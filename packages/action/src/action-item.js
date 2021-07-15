@@ -33,7 +33,7 @@ export default {
   methods: {
     onClick() {
       if (this.needToConfirm) {
-        this.$confirm(this.confirmText, this.confirmTitle).then((ok) => {
+        this.$confirm(this.confirmText, this.confirmTitle).then(ok => {
           if (ok !== false) {
             this.$emit('click')
           }
@@ -46,6 +46,7 @@ export default {
 
   render(h) {
     let children = this.$slots.default
+
     return this.isDrop ? (
       <ElDropdownItem {...{ props: this.$attrs }} onClick={this.onClick}>
         {children}
@@ -55,5 +56,5 @@ export default {
         {children}
       </ElBtn>
     )
-  }
+  },
 }

@@ -7,6 +7,7 @@
       v-if="showSearcher && $slots.searcher"
       ref="searcher"
     >
+
       <searcher-render
         :ctx="ctx"
         :label-width="queryLabelWidth"
@@ -16,6 +17,7 @@
       />
     </div>
     <!-- 搜索栏 end -->
+
     <!-- 工具栏 start -->
     <div class="el-happy-table__tools" v-if="showTools" ref="tools">
       <el-context :ctx="ctx" :depth="2" class="el-happy-table__tools-left" tag="section">
@@ -409,6 +411,10 @@ export default {
 
     api() {
       this.fetchData()
+    },
+
+    computedHeaders() {
+      this.$nextTick(() => this.$refs.table.doLayout())
     }
   },
 

@@ -4,6 +4,7 @@ import ElRow from '../../row/src/row'
 import { modifierMethod, components } from './utils'
 import ElFormItem from './form-item.vue'
 import { kebabCase } from 'element-nice-ui/src/utils/util'
+
 export default {
   name: 'ElForm',
 
@@ -83,7 +84,6 @@ export default {
   },
   watch: {
     rules() {
-      // remove then add event listeners on form-item after form rules change
       this.fields.forEach(field => {
         field.removeValidateEvents()
         field.addValidateEvents()
@@ -198,11 +198,18 @@ export default {
 
         if (!valueModel) return
 
-        let trigger = valueModel.trigger || trigger || 'blur'
-        let type = valueModel.type || 'string'
+        let _trigger = valueModel.trigger || trigger || 'blur'
+        let type =
+          valueModel.type ||
+          (![undefined, null].includes(valueModel.value)
+            ? Object.prototype.toString
+                .call(valueModel.value)
+                .slice(8, -1)
+                .toLowerCase()
+            : 'string')
 
         Object.keys(valueModel).forEach(vk => {
-          // 如果key为这两种直接跳过
+          // 如果key为这几种直接跳过ƒ
           if (vk === 'value' || vk === 'trigger' || vk === 'type') return
 
           // 规则工厂
@@ -210,7 +217,7 @@ export default {
           if (!ruleFactory) return
 
           // 生成具体规则
-          let rule = { ...ruleFactory(valueModel[vk], type), trigger, type }
+          let rule = { ...ruleFactory(valueModel[vk], type), trigger: _trigger, type }
 
           if (ret[key]) {
             ret[key].push(rule)
@@ -295,12 +302,12 @@ export default {
       let input
       let modifier = attrs['t-modifier']
       if (modifier && modifierMethod[modifier]) {
-        input = (v) => {
+        input = v => {
           this.model[prop] = modifierMethod[modifier](v)
           this.$emit('change', this.model, prop, this)
         }
       } else {
-        input = (v) => {
+        input = v => {
           this.model[prop] = v
           this.$emit('change', this.model, prop, this)
         }

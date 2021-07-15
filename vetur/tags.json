@@ -482,6 +482,7 @@
       "form",
       "conceal",
       "inline",
+      "trigger",
       "origin-model",
       "origin-rules",
       "label-position",
