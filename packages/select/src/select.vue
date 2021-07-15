@@ -243,124 +243,6 @@ export default {
     }
   },
 
-  computed: {
-    computedOptions() {
-      let mapper
-      const { optionValue: ov, optionLabel: ol } = this
-      if (this.tree) {
-        mapper = option => {
-          let value = option[ov]
-          let label = option[ol]
-          let children = option[this.childrenKey]
-
-          let item = { ...option, value, label }
-          if (children && children.length) {
-            item.children = children.map(mapper)
-          }
-
-          if (this.childrenKey !== 'children') {
-            delete item[this.childrenKey]
-          }
-          return item
-        }
-      } else {
-        mapper = option => {
-          let value = option[ov]
-          let label = option[ol]
-          return { ...option, value, label }
-        }
-      }
-
-      if (this.options) {
-        if (Array.isArray(this.options)) {
-          return this.options.map(mapper)
-        } else if (!this.tree) {
-          return Object.keys(this.options).map(key => ({ value: key, label: this.options[key] }))
-        }
-      }
-      return this.remoteOptions.map(mapper)
-    },
-
-    _elFormItemSize() {
-      return (this.elFormItem || {}).elFormItemSize
-    },
-
-    selectReadonly() {
-      return getDefined(
-        this.readonly,
-        (this.elForm || {}).readonly,
-        !this.filterable || this.multiple || (!isIE() && !isEdge() && !this.visible)
-      )
-    },
-
-    showClose() {
-      let hasValue = this.multiple
-        ? Array.isArray(this.value) && this.value.length > 0
-        : this.value !== undefined && this.value !== null && this.value !== ''
-      let criteria = this.clearable && !this.selectDisabled && this.inputHovering && hasValue
-      return criteria
-    },
-
-    iconClass() {
-      return this.remote && this.filterable ? '' : this.visible ? 'arrow-up is-reverse' : 'arrow-up'
-    },
-
-    debounce() {
-      return this.remote ? 300 : 0
-    },
-
-    emptyText() {
-      if (this.loading) {
-        return this.loadingText || this.t('el.select.loading')
-      } else {
-        if (this.remote && this.query === '' && this.internalOptions.length === 0) return false
-        if (
-          this.filterable &&
-          this.query &&
-          this.internalOptions.length > 0 &&
-          this.filteredOptionsCount === 0
-        ) {
-          return this.noMatchText || this.t('el.select.noMatch')
-        }
-        if (this.internalOptions.length === 0) {
-          return this.noDataText || this.t('el.select.noData')
-        }
-      }
-      return null
-    },
-
-    showNewOption() {
-      let hasExistingOption = this.internalOptions
-        .filter(option => !option.created)
-        .some(option => option.currentLabel === this.query)
-      return this.filterable && this.allowCreate && this.query !== '' && !hasExistingOption
-    },
-
-    selectSize() {
-      return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size
-    },
-
-    selectDisabled() {
-      return getDefined(this.disabled, (this.elForm || {}).disabled, false)
-    },
-
-    collapseTagSize() {
-      return ['small', 'mini'].indexOf(this.selectSize) > -1 ? 'mini' : 'small'
-    }
-  },
-
-  components: {
-    ElInput,
-    ElSelectMenu,
-    ElOption,
-    ElTag,
-    ElScrollbar,
-    ElTree,
-    ElSelectTree
-  },
-
-  directives: { Clickoutside },
-
   props: {
     checkable: {
       type: Function
@@ -498,6 +380,124 @@ export default {
       isSilentBlur: false
     }
   },
+
+  computed: {
+    computedOptions() {
+      let mapper
+      const { optionValue: ov, optionLabel: ol } = this
+      if (this.tree) {
+        mapper = option => {
+          let value = option[ov]
+          let label = option[ol]
+          let children = option[this.childrenKey]
+
+          let item = { ...option, value, label }
+          if (children && children.length) {
+            item.children = children.map(mapper)
+          }
+
+          if (this.childrenKey !== 'children') {
+            delete item[this.childrenKey]
+          }
+          return item
+        }
+      } else {
+        mapper = option => {
+          let value = option[ov]
+          let label = option[ol]
+          return { ...option, value, label }
+        }
+      }
+
+      if (this.options) {
+        if (Array.isArray(this.options)) {
+          return this.options.map(mapper)
+        } else if (!this.tree) {
+          return Object.keys(this.options).map(key => ({ value: key, label: this.options[key] }))
+        }
+      }
+      return this.remoteOptions.map(mapper)
+    },
+
+    _elFormItemSize() {
+      return (this.elFormItem || {}).elFormItemSize
+    },
+
+    selectReadonly() {
+      return getDefined(
+        this.readonly,
+        (this.elForm || {}).readonly,
+        !this.filterable || this.multiple || (!isIE() && !isEdge() && !this.visible)
+      )
+    },
+
+    showClose() {
+      let hasValue = this.multiple
+        ? Array.isArray(this.value) && this.value.length > 0
+        : this.value !== undefined && this.value !== null && this.value !== ''
+      let criteria = this.clearable && !this.selectDisabled && this.inputHovering && hasValue
+      return criteria
+    },
+
+    iconClass() {
+      return this.remote && this.filterable ? '' : this.visible ? 'arrow-up is-reverse' : 'arrow-up'
+    },
+
+    debounce() {
+      return this.remote ? 300 : 0
+    },
+
+    emptyText() {
+      if (this.loading) {
+        return this.loadingText || this.t('el.select.loading')
+      } else {
+        if (this.remote && this.query === '' && this.internalOptions.length === 0) return false
+        if (
+          this.filterable &&
+          this.query &&
+          this.internalOptions.length > 0 &&
+          this.filteredOptionsCount === 0
+        ) {
+          return this.noMatchText || this.t('el.select.noMatch')
+        }
+        if (this.internalOptions.length === 0) {
+          return this.noDataText || this.t('el.select.noData')
+        }
+      }
+      return null
+    },
+
+    showNewOption() {
+      let hasExistingOption = this.internalOptions
+        .filter(option => !option.created)
+        .some(option => option.currentLabel === this.query)
+      return this.filterable && this.allowCreate && this.query !== '' && !hasExistingOption
+    },
+
+    selectSize() {
+      return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size
+    },
+
+    selectDisabled() {
+      return getDefined(this.disabled, (this.elForm || {}).disabled, false)
+    },
+
+    collapseTagSize() {
+      return ['small', 'mini'].indexOf(this.selectSize) > -1 ? 'mini' : 'small'
+    }
+  },
+
+  components: {
+    ElInput,
+    ElSelectMenu,
+    ElOption,
+    ElTag,
+    ElScrollbar,
+    ElTree,
+    ElSelectTree
+  },
+
+  directives: { Clickoutside },
 
   watch: {
     selectDisabled() {

@@ -3,9 +3,13 @@
     <!-- <el-new-table height="100%" :headers="headers" :data="data">
 
     </el-new-table> -->
+    <el-form :form="form">
+      <el-select allow-create filterable default-first-option :options="options" t-prop="test" />
+    </el-form>
 
     <el-table :headers="headers" :data="data">
       <template #column.action="{ row,  index }">
+        <!-- 奇数显示 -->
         <el-action-item v-if="index % 2 === 0">测试1</el-action-item>
         <el-action-item>测试2</el-action-item>
         <AuditActions :num="index" />
@@ -50,7 +54,7 @@ const AuditActions = {
   render(h) {
     return (
       <get-nodes>
-        { this.num > 3 ? <el-action-item >测试3</el-action-item> : null }
+        {this.num > 3 ? <el-action-item>测试3</el-action-item> : null}
         <el-action-item>测试4</el-action-item>
       </get-nodes>
     )
@@ -103,11 +107,17 @@ export default {
         id: Math.random()
       })),
 
+    form: {
+      test: ''
+    },
+
     headers: [
       { label: '序号', prop: 'index' },
       { label: '随机数', prop: 'id' },
       { label: '操作', slotName: 'action', type: 'action' }
-    ]
+    ],
+
+    options: []
   }),
 
   methods: {

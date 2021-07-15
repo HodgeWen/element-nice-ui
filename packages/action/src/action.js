@@ -2,6 +2,7 @@ import ElDropdown from 'element-nice-ui/packages/dropdown'
 import ElBtn from 'element-nice-ui/packages/btn'
 import ElDropdownMenu from 'element-nice-ui/packages/dropdown-menu'
 
+// 需要获取当前所有的action-item 无论其嵌套多少
 export default {
   name: 'ElAction',
 
@@ -16,31 +17,28 @@ export default {
     ctx: Object
   },
 
-  render(h) {
-    let children = this.$slots.default && this.$slots.default.filter(child => child.tag)
-    let childrenLength = 0
-    if (children && children.length) {
-      children.forEach(({ componentOptions: opts }) => {
-        if (opts) {
-          opts.propsData = { ...opts.propsData, ...this.ctx }
-        }
-      })
-      childrenLength = children.length
-    }
+  data: () => ({
+    visibleNodes: [],
+    invisibleNodes: []
+  }),
 
-    let max = this.max <= 0 ? 1 : this.max
+  methods: {
+    getActionItems() {
+      let ret = this.$slots.default && this.$slots.default.filter(child => child.tag)
+    },
 
-    let dropdownList = []
-    let drop = null
-    if (childrenLength > max) {
-      dropdownList = children.slice(max - 1)
-      dropdownList.forEach(({ componentOptions: opts }) => {
-        if (opts) {
-          opts.propsData.isDrop = true
-        }
+    getDropdownMenus(children) {
+      let { max } = this
+
+      if (children.length <= max) return null
+
+      let dropdownList = children.slice(max - 1).map(node => {
+        if (!node.componentOptions) return
+        node.componentOptions.propsData.isDrop = true
+        return node
       })
 
-      drop = (
+      return (
         <ElDropdown>
           <ElBtn
             {...{ props: this.ctx }}
@@ -50,16 +48,31 @@ export default {
           >
             更多
           </ElBtn>
+
           <ElDropdownMenu slot='dropdown'>{dropdownList}</ElDropdownMenu>
         </ElDropdown>
       )
-
-      children = children.slice(0, max - 1)
     }
+  },
+
+  render(h) {
+    let children = this.$slots.default && this.$slots.default.filter(child => child.tag)
+
+    if (children && children.length) {
+      children.forEach(({ componentOptions: opts }) => {
+        if (opts) {
+          opts.propsData = { ...opts.propsData, ...this.ctx }
+        }
+      })
+    }
+
+    const dropdownMenus = this.getDropdownMenus(children)
+
     return (
       <div>
-        {children}
-        {drop}
+        {children.slice(0, this.max - 1)}
+
+        {dropdownMenus}
       </div>
     )
   }
