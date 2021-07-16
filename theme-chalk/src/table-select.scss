@@ -4,6 +4,8 @@
 @import "common/var";
 
 .el-table-select {
+  display: inline-block;
+  width: 100%;
 
   .el-input__inner {
     cursor: pointer;
@@ -21,6 +23,12 @@
   }
 
   &__dialog {
+
+    th {
+      background-color: #f9f9f9;
+    }
+
+
     .el-dialog__body {
       padding: 0 8px;
     }

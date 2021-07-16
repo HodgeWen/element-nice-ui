@@ -164,6 +164,7 @@
               :tree-data="computedOptions"
               :checkable="multiple"
               :checkable-filter="checkable"
+              :selectable-filter="selectable"
               :filter-node-method="treeNodeFilter"
               @input="onTreeInput"
               @change="onTreeChange"
@@ -245,6 +246,10 @@ export default {
 
   props: {
     checkable: {
+      type: Function
+    },
+
+    selectable: {
       type: Function
     },
 

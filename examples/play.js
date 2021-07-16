@@ -14,7 +14,7 @@ Vue.prototype.$log = console.log
 Vue.prototype.$EL_TABLE_PROP_CONFIG = {
   page: 'data.records',
   total: 'data.total',
-  list: 'data.records'
+  list: 'data'
 }
 Vue.prototype.$EL_SELECT_PROP_CONFIG = {
   baseUrl: '',

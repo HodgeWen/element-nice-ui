@@ -5,6 +5,16 @@
     </el-new-table> -->
     <el-form :form="form">
       <el-select allow-create filterable default-first-option :options="options" t-prop="test" />
+      <el-table-select
+        size="mini"
+        api="select"
+        t-prop="test"
+        :headers="[{ label: '测试', prop: 'label' }]"
+      >
+        <template #searcher>
+          <el-input t-label="as" v-model="aa" />
+        </template>
+      </el-table-select>
     </el-form>
 
     <el-table :headers="headers" :data="data">

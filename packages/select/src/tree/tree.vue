@@ -27,6 +27,10 @@ export default {
       type: Function
     },
 
+    selectableFilter: {
+      type: Function
+    },
+
     defaultShowAll: {
       type: Boolean,
       default: false

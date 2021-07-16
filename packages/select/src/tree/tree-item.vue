@@ -5,7 +5,8 @@
       class="el-select-tree__content"
       :class="{
         'el-select-tree--expanded': node.expanded,
-        'el-select-tree--selected': node.selected
+        'el-select-tree--selected': node.selected,
+        'el-select-tree--disabled': !selectable,
       }"
       :style="contentStyle"
       @click="onSelect"
@@ -69,6 +70,11 @@ export default {
       return {
         paddingLeft: (depth - 1) * 16 + 'px'
       }
+    },
+
+    selectable() {
+      const { tree } = this
+      return tree.selectableFilter ? tree.selectableFilter(this.node.data) : true
     }
   },
 
@@ -87,7 +93,7 @@ export default {
     },
     /** 选择 */
     onSelect() {
-      if (this.tree.checkable) return
+      if (this.tree.checkable || !this.selectable) return
       this.node.setSelected()
       const { currentSelectNode } = this.tree.tree
       if (currentSelectNode) {

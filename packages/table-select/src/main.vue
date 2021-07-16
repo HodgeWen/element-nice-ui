@@ -1,8 +1,8 @@
 <template>
   <div class="el-table-select">
-    <span v-if="$slots.default" @click="onTrigger">
+    <el-context tag="span" v-if="$slots.default" :ctx="{ size }" @click="onTrigger">
       <slot />
-    </span>
+    </el-context>
 
     <el-input
       v-else
@@ -36,6 +36,7 @@
         :row-key="optionValue"
         @input="onTableInput"
         v-bind="$attrs"
+        :stripe="false"
         @data-loaded="init"
       >
         <template #searcher>
@@ -50,6 +51,7 @@
 import ElTable from 'element-nice-ui/packages/table'
 import ElDialog from 'element-nice-ui/packages/dialog'
 import ElInput from 'element-nice-ui/packages/input'
+import ElContext from 'element-nice-ui/packages/context'
 
 export default {
   name: 'ElTableSelect',
@@ -57,7 +59,8 @@ export default {
   components: {
     ElTable,
     ElDialog,
-    ElInput
+    ElInput,
+    ElContext
   },
 
   inheritAttrs: false,
@@ -87,6 +90,10 @@ export default {
     },
 
     label: {
+      type: String
+    },
+
+    size: {
       type: String
     }
   },

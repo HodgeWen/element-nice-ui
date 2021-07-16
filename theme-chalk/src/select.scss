@@ -166,6 +166,10 @@
   &--selected {
     background: #f5f7fa;
   }
+  &--disabled {
+    cursor: not-allowed;
+    color: #bbb;
+  }
 
   &__content {
     cursor: pointer;
