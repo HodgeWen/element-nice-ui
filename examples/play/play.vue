@@ -15,6 +15,26 @@
           <el-input t-label="as" v-model="aa" />
         </template>
       </el-table-select>
+
+      <el-cascader
+        filterable
+        t-prop="test1"
+        :props="{ checkStrictly: true }"
+        @change="$log"
+        :options="[
+          {
+            label: '一',
+            value: '1',
+            children: [
+              { label: '二', value: '2' },
+              { label: '三', value: '3' }
+            ]
+          },
+          {
+            label: '四', value: '4'
+          }
+        ]"
+      />
     </el-form>
 
     <el-table :headers="headers" :data="data">
@@ -58,7 +78,7 @@ const AuditActions = {
   components: { ElActionItem: E.ActionItem, GetNodes },
 
   props: {
-    num: Number
+    num: Number,
   },
 
   render(h) {
@@ -118,7 +138,8 @@ export default {
       })),
 
     form: {
-      test: ''
+      test: '',
+      test1: ''
     },
 
     headers: [

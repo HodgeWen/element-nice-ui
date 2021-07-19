@@ -307,7 +307,7 @@ export default {
       }
     },
     checkedValue(val) {
-      const { value, dropDownVisible } = this
+      const { value, dropDownVisible, leafOnly } = this
       const { checkStrictly, multiple } = this.config
 
       if (!isEqual(val, value) || isUndefined(value)) {
@@ -317,18 +317,17 @@ export default {
           this.toggleDropDownVisible(false)
         }
 
-        let nodes = this.getCheckedNodes()
+        let labels
+        if (this.multiple) {
+          labels = this.getCheckedNodes(this.leafOnly).map(node => node.pathNodes.map(v => v.label))
+        } else {
+          let node = this.getNodeByValue(val)
+          labels = node ? node.pathNodes.map(v => v.label) : []
+        }
 
         this.$emit('input', val)
-        this.$emit(
-          'change',
-          val,
-          multiple
-            ? nodes.map(node => node.pathNodes.map(v => v.label))
-            : nodes[0]
-            ? nodes[0].pathNodes.map(v => v.label)
-            : []
-        )
+
+        this.$emit('change', val, labels)
         this.dispatch('ElFormItem', 'el.form.change', [val])
       }
     },
@@ -604,6 +603,8 @@ export default {
       const { multiple } = this
       const targetNode = this.suggestions[index]
 
+      // 该方法还应该计算出label值
+
       if (multiple) {
         const { checked } = targetNode
         targetNode.doCheck(!checked)
@@ -649,6 +650,10 @@ export default {
      */
     getCheckedNodes(leafOnly) {
       return this.panel.getCheckedNodes(leafOnly)
+    },
+
+    getNodeByValue(value) {
+      return this.panel.getNodeByValue(value)
     }
   }
 }

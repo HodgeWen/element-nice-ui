@@ -68,10 +68,13 @@ export default {
 
     const dropdownMenus = this.getDropdownMenus(children)
 
+    if (children.length > this.max) {
+      children = children.slice(0, this.max - 1)
+    }
+
     return (
       <div>
-        {children.slice(0, this.max - 1)}
-
+        {children}
         {dropdownMenus}
       </div>
     )
