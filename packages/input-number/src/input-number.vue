@@ -6,29 +6,33 @@
       inputNumberSize ? 'el-input-number--' + inputNumberSize : '',
       { 'is-disabled': inputNumberDisabled },
       { 'is-without-controls': !controls },
-      { 'is-controls-right': controlsAtRight }
+      { 'is-controls-right': controlsAtRight },
+      { 'el-input-number--with-step': !(append || $slots.append)  }
     ]"
   >
-    <span
-      class="el-input-number__decrease"
-      role="button"
-      v-if="controls"
-      v-repeat-click="decrease"
-      :class="{ 'is-disabled': minDisabled }"
-      @keydown.enter="decrease"
-    >
-      <i :class="`el-icon-${controlsAtRight ? 'arrow-down' : 'minus'}`"></i>
-    </span>
-    <span
-      class="el-input-number__increase"
-      role="button"
-      v-if="controls"
-      v-repeat-click="increase"
-      :class="{ 'is-disabled': maxDisabled }"
-      @keydown.enter="increase"
-    >
-      <i :class="`el-icon-${controlsAtRight ? 'arrow-up' : 'plus'}`"></i>
-    </span>
+    <template v-if="!(append || $slots.append)">
+      <span
+        class="el-input-number__decrease"
+        role="button"
+        v-if="controls"
+        v-repeat-click="decrease"
+        :class="{ 'is-disabled': minDisabled }"
+        @keydown.enter="decrease"
+      >
+        <i :class="`el-icon-${controlsAtRight ? 'arrow-down' : 'minus'}`"></i>
+      </span>
+      <span
+        class="el-input-number__increase"
+        role="button"
+        v-if="controls"
+        v-repeat-click="increase"
+        :class="{ 'is-disabled': maxDisabled }"
+        @keydown.enter="increase"
+      >
+        <i :class="`el-icon-${controlsAtRight ? 'arrow-up' : 'plus'}`"></i>
+      </span>
+    </template>
+
     <el-input
       ref="input"
       :value="displayValue"
@@ -45,7 +49,15 @@
       @focus="handleFocus"
       @input="handleInput"
       @change="handleInputChange"
+      :append="append"
+      :prepend="prepend"
     >
+      <template #prepend>
+        <slot name="prepend" />
+      </template>
+      <template #append>
+        <slot name="append" />
+      </template>
     </el-input>
   </div>
 </template>
@@ -73,6 +85,10 @@ export default {
     ElInput
   },
   props: {
+    append: { type: String },
+
+    prepend: { type: String },
+
     money: {
       type: [Boolean, Number]
     },
@@ -162,7 +178,6 @@ export default {
 
         this.currentValue = newVal
         this.userInput = null
-        // BUGFIX this.$emit('input', newVal)
       }
     }
   },
@@ -204,7 +219,6 @@ export default {
       return getDefined(this.disabled, (this.elForm || {}).disabled, false)
     },
     displayValue() {
-
       if (this.userInput !== null) {
         return this.userInput
       }

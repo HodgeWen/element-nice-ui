@@ -3,6 +3,7 @@ import objectAssign from 'element-nice-ui/src/utils/merge'
 import ElRow from '../../row/src/row'
 import { modifierMethod, components } from './utils'
 import ElFormItem from './form-item.vue'
+import ElTooltip from 'element-nice-ui/packages/tooltip'
 import { kebabCase } from 'element-nice-ui/src/utils/util'
 
 export default {
@@ -14,7 +15,8 @@ export default {
 
   components: {
     ElRow,
-    ElFormItem
+    ElFormItem,
+    ElTooltip
   },
 
   provide() {
@@ -292,7 +294,7 @@ export default {
       let { attrs = {} } = data
 
       // 所有表单属性
-      let formProps = ['prop', 'label', 'span'].reduce((acc, cur) => {
+      let formProps = ['prop', 'span', 'label', 'tips'].reduce((acc, cur) => {
         acc[cur] = attrs[`t-${cur}`]
         return acc
       }, {})
@@ -337,7 +339,20 @@ export default {
       newNode.data = node.data
       newNode.componentOptions = opts
 
-      return <el-form-item {...{ props: formProps }}>{newNode}</el-form-item>
+      return (
+        <el-form-item span={formProps.span} prop={formProps.prop}>
+          <span slot='label'>
+            {formProps.label}
+            {formProps.tips ? (
+              <el-tooltip content={formProps.tips}>
+                <i class='el-icon-warning-outline'></i>
+              </el-tooltip>
+            ) : null}
+          </span>
+
+          {newNode}
+        </el-form-item>
+      )
     },
 
     getValue() {

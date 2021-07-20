@@ -9,13 +9,17 @@
   line-height: #{$--input-height - 2};
 
   .el-input {
-    display: block;
-
     &__inner {
       -webkit-appearance: none;
       padding-left: #{$--input-height + 10};
       padding-right: #{$--input-height + 10};
       text-align: center;
+    }
+  }
+
+  @include m(with-step) {
+    .el-input {
+      display: block;
     }
   }
 

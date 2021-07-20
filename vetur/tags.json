@@ -145,6 +145,8 @@
       "t-prop",
       "t-span",
       "t-modifier",
+      "append",
+      "prepend",
       "value",
       "precision",
       "money",

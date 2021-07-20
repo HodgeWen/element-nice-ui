@@ -3,38 +3,12 @@
     <!-- <el-new-table height="100%" :headers="headers" :data="data">
 
     </el-new-table> -->
-    <el-form :form="form">
-      <el-select allow-create filterable default-first-option :options="options" t-prop="test" />
-      <el-table-select
-        size="mini"
-        api="select"
-        t-prop="test"
-        :headers="[{ label: '测试', prop: 'label' }]"
-      >
-        <template #searcher>
-          <el-input t-label="as" v-model="aa" />
+    <el-form :form="form" label-width="100px">
+      <el-input-number t-prop="n" t-label="钱" :money="1" prepend="aaa">
+        <template #append>
+          <el-btn icon="search"></el-btn>
         </template>
-      </el-table-select>
-
-      <el-cascader
-        filterable
-        t-prop="test1"
-        :props="{ checkStrictly: true }"
-        @change="$log"
-        :options="[
-          {
-            label: '一',
-            value: '1',
-            children: [
-              { label: '二', value: '2' },
-              { label: '三', value: '3' }
-            ]
-          },
-          {
-            label: '四', value: '4'
-          }
-        ]"
-      />
+      </el-input-number>
     </el-form>
 
     <el-table :headers="headers" :data="data">
@@ -78,7 +52,7 @@ const AuditActions = {
   components: { ElActionItem: E.ActionItem, GetNodes },
 
   props: {
-    num: Number,
+    num: Number
   },
 
   render(h) {
@@ -139,7 +113,8 @@ export default {
 
     form: {
       test: '',
-      test1: ''
+      test1: '',
+      n: { type: 'number', required: true }
     },
 
     headers: [

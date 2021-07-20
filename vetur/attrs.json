@@ -35,6 +35,10 @@
     "type": "string|number",
     "description": "表单栅格长度"
   },
+  "t-tips": {
+    "type": "string",
+    "description": "表单提示"
+  },
   "t-modifier": {
     "options": ["number", "trim"],
     "description": "修饰符, 和v-model的修饰符类似, 但是不支持lazy修饰符"
