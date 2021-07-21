@@ -5,9 +5,9 @@
       'el-input-number',
       inputNumberSize ? 'el-input-number--' + inputNumberSize : '',
       { 'is-disabled': inputNumberDisabled },
-      { 'is-without-controls': !controls },
+      { 'is-without-controls': !controls || append || $slots.append },
       { 'is-controls-right': controlsAtRight },
-      { 'el-input-number--with-step': !(append || $slots.append)  }
+      { 'el-input-number--with-step': !(append || $slots.append) }
     ]"
   >
     <template v-if="!(append || $slots.append)">
@@ -85,6 +85,8 @@ export default {
     ElInput
   },
   props: {
+    clearable: true,
+
     append: { type: String },
 
     prepend: { type: String },
@@ -207,7 +209,7 @@ export default {
       }
     },
     controlsAtRight() {
-      return this.controls && this.controlsRight
+      return this.controls && this.controlsRight && !this.append && !this.$slots.append
     },
     _elFormItemSize() {
       return (this.elFormItem || {}).elFormItemSize
@@ -223,7 +225,7 @@ export default {
         return this.userInput
       }
 
-      let currentValue = this.currentValue
+      let { currentValue } = this
       if (typeof currentValue === 'number') {
         if (this.stepStrictly) {
           const stepPrecision = this.getPrecision(this.step)
@@ -233,6 +235,7 @@ export default {
         }
 
         if (this.money) {
+
           currentValue = this.formatter.format(
             currentValue / (typeof this.money === 'number' ? this.money : 100)
           )
@@ -245,7 +248,10 @@ export default {
     }
   },
   methods: {
-    multiply(v = 0, reciprocal = false) {
+    multiply(v, reciprocal = false) {
+      if (v === undefined || v === null) {
+        return v
+      }
       let mul = typeof this.money === 'number' ? this.money : 100
       return reciprocal ? v / mul : v * mul
     },
@@ -300,7 +306,6 @@ export default {
     },
     setCurrentValue(newVal) {
       const oldVal = this.currentValue
-
       if (typeof newVal === 'number') {
         if (this.precision !== undefined) {
           newVal = this.toPrecision(newVal, this.precision)
@@ -343,7 +348,6 @@ export default {
     if (this.money) {
       this.formatter = new Intl.NumberFormat(undefined, {
         maximumFractionDigits: this.precision,
-        minimumFractionDigits: this.precision
       })
     }
   },

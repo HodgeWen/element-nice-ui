@@ -125,7 +125,6 @@ export default {
 
       let node = tree.nodeKeyMap[value]
 
-
       if (node) {
         node.setSelected()
       }

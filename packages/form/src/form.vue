@@ -341,15 +341,16 @@ export default {
 
       return (
         <el-form-item span={formProps.span} prop={formProps.prop}>
-          <span slot='label'>
-            {formProps.label}
-            {formProps.tips ? (
-              <el-tooltip content={formProps.tips}>
-                <i class='el-icon-warning-outline'></i>
-              </el-tooltip>
-            ) : null}
-          </span>
-
+          {formProps.label ? (
+            <span slot='label'>
+              {formProps.label}
+              {formProps.tips ? (
+                <el-tooltip content={formProps.tips}>
+                  <i class='el-icon-warning-outline'></i>
+                </el-tooltip>
+              ) : null}
+            </span>
+          ) : null}
           {newNode}
         </el-form-item>
       )

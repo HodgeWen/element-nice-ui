@@ -4,11 +4,15 @@
 
     </el-new-table> -->
     <el-form :form="form" label-width="100px">
-      <el-input-number t-prop="n" t-label="钱" :money="1" prepend="aaa">
+      <el-input-number clearable t-prop="n" t-label="aa" :money="1" :precision="2">
         <template #append>
           <el-btn icon="search"></el-btn>
         </template>
       </el-input-number>
+
+      <el-cascader :options="options" filterable :props="{
+        checkStrictly: true
+      }" t-prop="test2" />
     </el-form>
 
     <el-table :headers="headers" :data="data">
@@ -112,9 +116,10 @@ export default {
       })),
 
     form: {
-      test: '',
+      test: 'yizhi',
       test1: '',
-      n: { type: 'number', required: true }
+      test2: [],
+      n: { value: null ,type: 'number', required: true }
     },
 
     headers: [
@@ -123,7 +128,50 @@ export default {
       { label: '操作', slotName: 'action', type: 'action' }
     ],
 
-    options: []
+    options: [
+      {
+        value: 'zhinan',
+        label: '指南',
+        children: [
+          {
+            value: 'shejiyuanze',
+            label: '设计原则',
+            children: [
+              {
+                value: 'yizhi',
+                label: '一致'
+              },
+              {
+                value: 'fankui',
+                label: '反馈'
+              },
+              {
+                value: 'xiaolv',
+                label: '效率'
+              },
+              {
+                value: 'kekong',
+                label: '可控'
+              }
+            ]
+          },
+          {
+            value: 'daohang',
+            label: '导航',
+            children: [
+              {
+                value: 'cexiangdaohang',
+                label: '侧向导航'
+              },
+              {
+                value: 'dingbudaohang',
+                label: '顶部导航'
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }),
 
   methods: {

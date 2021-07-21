@@ -20,6 +20,7 @@
       @focus="handleFocus"
       @blur="handleBlur"
       @input="handleInput"
+      :clearable="false"
     >
       <template slot="suffix">
         <i

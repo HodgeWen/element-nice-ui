@@ -166,7 +166,6 @@ export default {
     this.elForm && this.elForm.hideRequiredAsterisk && formItemClass.push('is-no-asterisk')
     this.elForm && this.elForm.statusIcon && formItemClass.push('el-form-item--feedback')
     this.sizeClass && formItemClass.push('el-form-item--' + this.sizeClass)
-
     const children = [
       <label-wrap
         is-auto-width={this.labelStyle && this.labelStyle.width === 'auto'}

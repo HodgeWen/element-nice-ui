@@ -126,6 +126,8 @@ export class TreeNode {
       currentSelectNode.selected = false
     }
 
+    this.setParentExpand(true)
+
     this.selected = true
     context.currentSelectNode = this
   }
