@@ -35,6 +35,10 @@ export default {
     /** 监听配置 */
     observerConfig: {
       type: Object
+    },
+
+    beforeUpdate: {
+      type: Function
     }
   },
 
@@ -61,7 +65,11 @@ export default {
       }
     },
 
-    update() {
+    update(mutations, observer) {
+      if (this.beforeUpdate) {
+        let ret = this.beforeUpdate(mutations, observer)
+        if (ret === false) return
+      }
       this.ps && this.$nextTick(this.ps.update())
     },
 

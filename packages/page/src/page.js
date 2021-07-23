@@ -41,7 +41,13 @@ export default {
 
     anchorId: 0,
 
-    formList: []
+    formList: [],
+
+    _observerConfig: {
+      subtree: true,
+      attributeFilter: ['style'],
+      attributeOldValue: true
+    }
   }),
 
   computed: {
@@ -67,7 +73,7 @@ export default {
 
     showFooter() {
       return (
-        this.$slots['footer-left'] || this.$slots['footer-right'] || this.submit || this.showBack
+         this.$slots['footer-left'] || this.$slots['footer-right'] || this.submit || this.showBack
       )
     },
 
@@ -115,6 +121,8 @@ export default {
       }, {})
     }
   },
+
+
 
   render(h) {
     const showFooter = this.showFooter()

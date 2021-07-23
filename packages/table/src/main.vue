@@ -7,7 +7,6 @@
       v-if="showSearcher && $slots.searcher"
       ref="searcher"
     >
-
       <searcher-render
         :ctx="ctx"
         :label-width="queryLabelWidth"
@@ -169,6 +168,10 @@ export default {
 
   props: {
     api: String,
+
+    requestBody: {
+      type: Object
+    },
 
     stripe: {
       type: Boolean,
@@ -410,7 +413,11 @@ export default {
     },
 
     api() {
-      this.fetchData()
+      this.willSearch = true
+    },
+
+    requestBody() {
+      this.willSearch = true
     },
 
     computedHeaders() {
@@ -489,7 +496,7 @@ export default {
         if (newRecord instanceof Function) {
           let record = data[i]
           newRecord(record)
-          data.splice(i, 1, data)
+          data.splice(i, 1, record)
           return
         }
         data.splice(i, 1, newRecord)
@@ -584,7 +591,14 @@ export default {
         ;[method, api] = apiStruct
       }
 
-      return this.$http[method](api, { params: commonParams }).then(res => {
+      const promise =
+        method === 'get'
+          ? this.$http.get(api, { params: commonParams })
+          : this.$http[method](api, this.requestBody, {
+              params: commonParams
+            })
+
+      return promise.then(res => {
         if (res.code !== 200) return
         if (this.pagination) {
           if (!page || !total) {

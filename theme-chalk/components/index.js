@@ -29,6 +29,7 @@ import "./checkbox-group.js";
 import "./switch.js";
 import "./select.js";
 import "./btn.js";
+import "./task-btn.js";
 import "./btn-group.js";
 import "./action.js";
 import "./action-item.js";

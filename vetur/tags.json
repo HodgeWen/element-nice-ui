@@ -38,6 +38,24 @@
     "defaults": ["type"],
     "description": "Commonly used button."
   },
+  "el-task-btn": {
+    "attributes": [
+      "type",
+      "task",
+      "size",
+      "plain",
+      "loading",
+      "disabled",
+      "icon",
+      "suffix-icon",
+      "autofocus",
+      "native-type",
+      "round",
+      "circle"
+    ],
+    "defaults": ["type"],
+    "description": "自带loading的按钮"
+  },
   "el-radio": {
     "attributes": ["label", "disabled", "border", "size", "name"],
     "defaults": ["label"],

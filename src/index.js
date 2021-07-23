@@ -32,6 +32,7 @@ import Select from '../packages/select/index.js';
 import Option from '../packages/option/index.js';
 import OptionGroup from '../packages/option-group/index.js';
 import Btn from '../packages/btn/index.js';
+import TaskBtn from '../packages/task-btn/index.js';
 import BtnGroup from '../packages/btn-group/index.js';
 import Action from '../packages/action/index.js';
 import ActionItem from '../packages/action-item/index.js';
@@ -131,6 +132,7 @@ const components = [
   Option,
   OptionGroup,
   Btn,
+  TaskBtn,
   BtnGroup,
   Action,
   ActionItem,
@@ -224,7 +226,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '2.16.93',
+  version: '2.16.96',
   locale: locale.use,
   i18n: locale.i18n,
   install,
@@ -262,6 +264,7 @@ export default {
   Option,
   OptionGroup,
   Btn,
+  TaskBtn,
   BtnGroup,
   Action,
   ActionItem,

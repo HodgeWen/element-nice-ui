@@ -1,9 +1,7 @@
 <template>
-  <div ref="page" style="height: 100%">
-    <!-- <el-new-table height="100%" :headers="headers" :data="data">
-
-    </el-new-table> -->
-    <el-form :form="form" label-width="100px">
+  <el-page ref="page" style="height: 100%">
+    <el-section title="爱仕达">
+      <el-form :form="form" label-width="100px">
       <el-input-number clearable t-prop="n" t-label="aa" :money="1" :precision="2">
         <template #append>
           <el-btn icon="search"></el-btn>
@@ -23,7 +21,45 @@
         <AuditActions :num="index" />
       </template>
     </el-table>
-  </div>
+    </el-section>
+
+    <el-section title="你好">
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+    </el-section>
+    <!-- <el-new-table height="100%" :headers="headers" :data="data">
+
+    </el-new-table> -->
+
+    <template #footer-right>
+      <el-task-btn :task="submit">确定</el-task-btn>
+    </template>
+
+  </el-page>
 </template>
 
 <script>
@@ -100,6 +136,7 @@ export default {
     ElNewTable: E.NewTable,
     ElAction: E.Action,
     ElActionItem: E.ActionItem,
+    ElTaskBtn: E.TaskBtn,
 
     AuditActions
   },
@@ -177,6 +214,14 @@ export default {
   methods: {
     changeMax() {
       this.form.num.max += 1
+    },
+
+    submit() {
+      return new Promise((rs) => {
+        setTimeout(() => {
+          rs()
+        }, 2000)
+      })
     }
   },
 
