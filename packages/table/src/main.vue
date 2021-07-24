@@ -344,7 +344,8 @@ export default {
       if (this.isMultiple) {
         let selection = {
           type: 'selection',
-          align: this.align
+          align: this.align,
+          fixed: 'left'
         }
         if (this.selectable) {
           selection.selectable = this.selectable
