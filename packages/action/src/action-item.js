@@ -44,10 +44,11 @@ export default {
     }
   },
 
+  inject: ['action'],
+
   render(h) {
     let children = this.$slots.default
-
-    return this.isDrop ? (
+    let node = this.isDrop ? (
       <ElDropdownItem {...{ props: this.$attrs }} onClick={this.onClick}>
         {children}
       </ElDropdownItem>
@@ -56,5 +57,10 @@ export default {
         {children}
       </ElBtn>
     )
+    return node
   },
+
+  // mounted() {
+  //   this.$parent !== this.action && this.action.$forceUpdate()
+  // }
 }

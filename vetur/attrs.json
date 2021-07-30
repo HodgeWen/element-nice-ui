@@ -1393,6 +1393,10 @@
     "type": "string",
     "description": "指定以何种html元素渲染"
   },
+  "el-perfect-scrollbar/no-resize": {
+    "type": "boolean",
+    "description": "关闭dom监听, 可以优化滚动条性能"
+  },
   "el-perfect-scrollbar/wheel-speed": {
     "type": "number",
     "description": "指定滚动速度"

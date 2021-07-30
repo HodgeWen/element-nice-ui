@@ -8,6 +8,12 @@ export default {
 
   inheritAttrs: false,
 
+  provide() {
+    return {
+      action: this
+    }
+  },
+
   props: {
     max: {
       type: Number,
@@ -17,15 +23,23 @@ export default {
     ctx: Object
   },
 
-  data: () => ({
-    visibleNodes: [],
-    invisibleNodes: []
-  }),
-
   methods: {
-    getActionItems() {
-      let ret = this.$slots.default && this.$slots.default.filter(child => child.tag)
-    },
+    // getActionItems(children) {
+    //   let ret = []
+    //   function walk(nodes) {
+    //     nodes.forEach(child => {
+    //       if (child.tag.includes('ElActionItem')) {
+    //         ret.push(child)
+    //       } else {
+    //         if (child.componentInstance && child.componentInstance.$children) {
+    //           walk(child.componentInstance.$children.map(item => item.$vnode))
+    //         }
+    //       }
+    //     })
+    //   }
+    //   walk(children)
+    //   return ret
+    // },
 
     getDropdownMenus(children) {
       let { max } = this
@@ -56,7 +70,14 @@ export default {
   },
 
   render(h) {
-    let children = this.$slots.default && this.$slots.default.filter(child => child.tag)
+    let children = this.$slots.default || []
+    /** 查找到所有子节点 */
+    children = children.filter(child => child.tag)
+
+    // if (children && children[0].componentInstance) {
+    //   /** 渲染完之后重新得到新的节点 */
+    //   children = this.getActionItems(children)
+    // }
 
     if (children && children.length) {
       children.forEach(({ componentOptions: opts }) => {
@@ -68,13 +89,9 @@ export default {
 
     const dropdownMenus = this.getDropdownMenus(children)
 
-    if (children.length > this.max) {
-      children = children.slice(0, this.max - 1)
-    }
-
     return (
       <div>
-        {children}
+        {children.length > this.max ? children.slice(0, this.max - 1) : children}
         {dropdownMenus}
       </div>
     )

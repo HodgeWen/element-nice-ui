@@ -79,7 +79,8 @@
     </div>
     <el-input
       ref="reference"
-      v-model="selectedLabel"
+      :value="selectedLabel || label"
+      @input="selectedLabel = $event"
       type="text"
       :placeholder="currentPlaceholder"
       :name="name"
@@ -252,6 +253,8 @@ export default {
     selectable: {
       type: Function
     },
+
+    label: String,
 
     name: String,
 

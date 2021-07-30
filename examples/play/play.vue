@@ -2,32 +2,37 @@
   <el-page ref="page" style="height: 100%">
     <el-section title="爱仕达">
       <el-form :form="form" label-width="100px">
-      <el-input-number clearable t-prop="n" t-label="aa" :money="1" :precision="2">
-        <template #append>
-          <el-btn icon="search"></el-btn>
+        <el-input-number clearable t-prop="n" t-label="aa" :money="1" :precision="2">
+          <template #append>
+            <el-btn icon="search"></el-btn>
+          </template>
+        </el-input-number>
+
+        <el-cascader
+          :options="options"
+          filterable
+          :props="{
+            checkStrictly: true
+          }"
+          t-prop="test2"
+        />
+      </el-form>
+
+      <el-table :headers="headers" :data="data">
+
+        <template #tools>
+          <el-btn @click="getData">刷新</el-btn>
         </template>
-      </el-input-number>
-
-      <el-cascader :options="options" filterable :props="{
-        checkStrictly: true
-      }" t-prop="test2" />
-    </el-form>
-
-    <el-table :headers="headers" :data="data">
-      <template #column.action="{ row,  index }">
-        <!-- 奇数显示 -->
-        <el-action-item v-if="index % 2 === 0">测试1</el-action-item>
-        <el-action-item>测试2</el-action-item>
-        <AuditActions :num="index" />
-      </template>
-    </el-table>
+        <template #column.action="{ row,  index }">
+          <!-- 奇数显示 -->
+          <el-action-item>测试1</el-action-item>
+          <el-action-item>测试2</el-action-item>
+          <!-- <AuditActions :visible="row.id > 0.5" /> -->
+        </template>
+      </el-table>
     </el-section>
 
     <el-section title="你好">
-      <p>123</p>
-      <p>123</p>
-      <p>123</p>
-      <p>123</p>
       <p>123</p>
       <p>123</p>
       <p>123</p>
@@ -55,10 +60,11 @@
 
     </el-new-table> -->
 
+    <el-btn @click="visible = !visible">切换</el-btn>
+
     <template #footer-right>
       <el-task-btn :task="submit">确定</el-task-btn>
     </template>
-
   </el-page>
 </template>
 
@@ -68,39 +74,19 @@ import E from 'main/index.js'
 import TestTree from './tree/tree.vue'
 Vue.use(E.Loading.directive)
 
-const GetNodes = {
-  methods: {
-    extractChildren() {
-      let p = this.$parent
-      while (p) {
-        if (p.receiveChildren) {
-          return p.receiveChildren(this.$slots.default)
-        }
-        p = p.$parent
-      }
-    }
-  },
-  render(h) {
-    return <span></span>
-  },
-  created() {
-    this.extractChildren()
-  }
-}
-
 const AuditActions = {
-  components: { ElActionItem: E.ActionItem, GetNodes },
+  components: { ElActionItem: E.ActionItem },
 
   props: {
-    num: Number
+    visible: Boolean
   },
 
   render(h) {
     return (
-      <get-nodes>
-        {this.num > 3 ? <el-action-item>测试3</el-action-item> : null}
+      <span>
+        {this.visible ? <el-action-item>测试3</el-action-item> : null}
         <el-action-item>测试4</el-action-item>
-      </get-nodes>
+      </span>
     )
   }
 }
@@ -145,18 +131,13 @@ export default {
     aa: '',
     visible: false,
 
-    data: Array(10)
-      .fill(null)
-      .map((v, i) => ({
-        index: i,
-        id: Math.random()
-      })),
+    data: [],
 
     form: {
       test: 'yizhi',
       test1: '',
       test2: [],
-      n: { value: null ,type: 'number', required: true }
+      n: { value: null, type: 'number', required: true }
     },
 
     headers: [
@@ -217,15 +198,26 @@ export default {
     },
 
     submit() {
-      return new Promise((rs) => {
+      return new Promise(rs => {
         setTimeout(() => {
           rs()
         }, 2000)
       })
+    },
+
+    getData() {
+      this.data = Array(3)
+      .fill(null)
+      .map((v, i) => ({
+        index: i,
+        id: Math.random()
+      }))
     }
   },
 
-  mounted() {}
+  mounted() {
+    this.getData()
+  }
 }
 </script>
 

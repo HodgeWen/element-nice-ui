@@ -78,7 +78,7 @@ export default {
     },
 
     goBack() {
-      this.$router.go(-1)
+      this.$router.back()
     },
 
     scrollTo(top, mode = 'y') {

@@ -423,6 +423,13 @@ export default {
 
     computedHeaders() {
       this.$nextTick(() => this.$refs.table.doLayout())
+    },
+
+    willSearch(v) {
+      if (v) {
+        this.willSearch = false
+        this.fetchData()
+      }
     }
   },
 
@@ -642,13 +649,6 @@ export default {
       }
       this.autoQueried.forEach(field => {
         this.$watch(`params.${field}`, handler)
-      })
-
-      this.$watch('willSearch', v => {
-        if (v) {
-          this.willSearch = false
-          this.fetchData()
-        }
       })
     },
 

@@ -72,7 +72,7 @@ export default {
               </td>)
             }
             {
-              this.hasGutter ? <th class="gutter"></th> : ''
+              this.hasGutter ? <td class="gutter"></td> : ''
             }
           </tr>
         </tbody>

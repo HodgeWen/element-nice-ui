@@ -941,7 +941,7 @@
     "description": "更加好看的滚动条"
   },
   "el-perfect-scrollbar": {
-    "attributes": ["wheel-speed", "tag", "wheel-propagation", "transition", "transition-name"],
+    "attributes": ["wheel-speed", "tag", "wheel-propagation", "transition", "transition-name", "no-resize"],
     "description": "完美滚动条"
   },
   "el-context": {
