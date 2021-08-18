@@ -10,7 +10,7 @@ export default {
       return <th>{header.label}</th>
     })
     return (
-      <thead class='el-table__header'>
+      <thead class='el-new-table__header'>
         <tr>
           {ths}
         </tr>

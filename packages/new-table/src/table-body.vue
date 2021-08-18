@@ -1,6 +1,10 @@
 <template>
-  <tbody class="el-table__body">
-    <el-table-row :row-data="row" :key="i" v-for="(row, i) of rows" />
+  <tbody class="el-new-table__body">
+    <el-table-row
+      :row-data="row"
+      :key="i"
+      v-for="(row, i) of rows"
+    />
   </tbody>
 </template>
 

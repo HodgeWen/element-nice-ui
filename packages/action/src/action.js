@@ -8,11 +8,11 @@ export default {
 
   inheritAttrs: false,
 
-  provide() {
-    return {
-      action: this
-    }
-  },
+  // provide() {
+  //   return {
+  //     action: this
+  //   }
+  // },
 
   props: {
     max: {

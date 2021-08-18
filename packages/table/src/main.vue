@@ -104,7 +104,8 @@
               column,
               value: getValueByPath(row, header.prop),
               index: $index,
-              indexPath
+              indexPath,
+              ctx
             }"
           >
             {{ placeholder }}

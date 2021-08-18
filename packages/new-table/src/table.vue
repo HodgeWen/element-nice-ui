@@ -1,5 +1,5 @@
 <template>
-  <div class="el-table" :style="tableStyle">
+  <div class="el-new-table" :style="tableStyle">
     <!-- 搜索栏 -->
     <el-table-searcher> <slot name="searcher" /> </el-table-searcher>
 
@@ -7,7 +7,7 @@
     <el-table-tools> <slot name="tools" /> </el-table-tools>
 
     <!-- 表格主体 -->
-    <table class="el-table__main">
+    <table class="el-new-table__main">
       <ElTableHeader />
 
       <ElTableBody />

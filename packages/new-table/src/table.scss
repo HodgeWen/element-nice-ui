@@ -1,6 +1,6 @@
 @import 'theme/src/mixins/mixins.scss';
 
-@include b(table) {
+@include b(new-table) {
   width: 100%;
 
   @include e(header) {

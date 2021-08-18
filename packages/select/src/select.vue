@@ -79,7 +79,7 @@
     </div>
     <el-input
       ref="reference"
-      :value="selectedLabel || label"
+      :value="selectedLabel"
       @input="selectedLabel = $event"
       type="text"
       :placeholder="currentPlaceholder"
@@ -771,7 +771,10 @@ export default {
       }
 
       if (option) return option
-      const label = !isObject && !isNull && !isUndefined ? value : ''
+      // 不存在option
+      // value不是对象, 不是null, 不是undefined则默认显示
+      const label = !isObject && !isNull && !isUndefined ? (this.label || value) : ''
+
       let newOption = {
         value: value,
         currentLabel: label

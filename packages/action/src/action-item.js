@@ -44,7 +44,7 @@ export default {
     }
   },
 
-  inject: ['action'],
+  // inject: ['action'],
 
   render(h) {
     let children = this.$slots.default

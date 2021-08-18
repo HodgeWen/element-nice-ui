@@ -23,7 +23,7 @@ export default {
       return <td>{rowData[header.prop]}</td>
     })
     return (
-      <tr class="el-table__row">
+      <tr class="el-new-table__row">
         {cells}
       </tr>
     )
