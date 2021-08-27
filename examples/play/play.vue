@@ -1,7 +1,12 @@
 <template>
-  <el-page ref="page" style="height: 100%">
-    <el-new-table :headers="headers" :data="data"></el-new-table>
-  </el-page>
+  <div ref="page" style="height: 100%">
+    <el-new-table
+      pagination
+      style="height: 300px"
+      :headers="headers"
+      :data="data"
+    ></el-new-table>
+  </div>
 </template>
 
 <script>
@@ -9,8 +14,6 @@ import Vue from 'vue'
 import E from 'main/index.js'
 import TestTree from './tree/tree.vue'
 Vue.use(E.Loading.directive)
-
-
 
 export default {
   components: {
@@ -48,9 +51,16 @@ export default {
 
   data: () => ({
     headers: [
-      { label: '序号', prop: 'index' },
+      { label: '序号', prop: 'index', fixed: 'left', width: 100 },
+      { label: '随机数', prop: 'id', fixed: 'left', width: 200 },
       { label: '随机数', prop: 'id' },
-      { label: '操作', slotName: 'action', type: 'action' }
+      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id' },
+      { label: '操作', slotName: 'action', width: 160, fixed: 'right', type: 'action' }
     ],
 
     data: []
@@ -58,12 +68,12 @@ export default {
 
   methods: {
     getData() {
-      this.data = Array(3)
-      .fill(null)
-      .map((v, i) => ({
-        index: i,
-        id: Math.random()
-      }))
+      this.data = Array(20)
+        .fill(null)
+        .map((v, i) => ({
+          index: i,
+          id: Math.random()
+        }))
     }
   },
 

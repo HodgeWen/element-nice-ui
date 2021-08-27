@@ -23,7 +23,7 @@
         <slot name="tools" />
       </el-context>
 
-      <el-context depth="2" :ctx="ctx" class="el-happy-table__tools-right" tag="section">
+      <el-context :depth="2" :ctx="ctx" class="el-happy-table__tools-right" tag="section">
         <template v-if="api">
           <el-tooltip content="查询">
             <el-btn :loading="loading" icon="search" type="primary" @click="fetchData" circle />
@@ -263,6 +263,10 @@ export default {
 
     dataMap: {
       type: Function
+    },
+
+    dataPath: {
+      type: String
     },
 
     defaultPageSize: {
@@ -613,11 +617,11 @@ export default {
           if (!page || !total) {
             console.warn(`$EL_TABLE_PROP_CONFIG中的page和total属性都不能为空`)
           }
-          this.internalData = getValueByPath(res, page)
+          this.internalData = getValueByPath(res, this.dataPath || page)
           this.total = getValueByPath(res, total)
         } else {
           !list && console.warn(`$EL_TABLE_PROP_CONFIG中的list属性不能为空`)
-          this.internalData = getValueByPath(res, list)
+          this.internalData = getValueByPath(res, this.dataPath || list)
         }
       })
     },

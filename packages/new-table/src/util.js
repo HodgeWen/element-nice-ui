@@ -1,4 +1,3 @@
-
 export function treeMap(tree, fn, depth = 0) {
   depth += 1
   return tree.map((item, i) => {
@@ -13,4 +12,55 @@ export function treeMap(tree, fn, depth = 0) {
     }
     return ret
   })
+}
+
+/**
+ * 计算dom元素的高度
+ * @param {HTMLElement} dom dom对象
+ */
+export function computedDomHeight(dom) {
+  return dom.offsetHeight
+}
+
+/**
+ * 定义对象setter
+ * @param {Record<string, any} obj 定义的对象
+ * @param {any} handler  描述器
+ */
+export function defineSetter(obj, handler) {
+  if (typeof handler === 'function') {
+    Object.keys(obj).forEach(key => {
+      let val = obj[key]
+      Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        set(v) {
+          val = v
+          handler(v)
+        },
+        get() {
+          return val
+        }
+      })
+    })
+
+    return obj
+  } else if (handler instanceof Object) {
+    Object.keys(handler).forEach(prop => {
+      let val = obj[prop]
+      Object.defineProperty(obj, prop, {
+        set(v) {
+          val = v
+          handler[prop](v)
+        },
+        get() {
+          return val
+        },
+        enumerable: true,
+        configurable: true
+      })
+    })
+
+    return obj
+  }
 }

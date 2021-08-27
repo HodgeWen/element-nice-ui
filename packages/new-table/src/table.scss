@@ -2,32 +2,54 @@
 
 @include b(new-table) {
   width: 100%;
+  position: relative;
 
-  @include e(header) {
-    th {
-      position: sticky;
-      top: 0;
-      background: #fff;
-      z-index: 1;
-      background: #ccc;
-      padding: 0 8px;
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: separate;
+  }
+
+  th {
+    z-index: 1;
+    background: #f2f2f2;
+    padding: 8px;
+    top: 0;
+    position: sticky;
+    overflow-wrap: break-word;
+
+
+    &.el-new-table__left-fixed,
+    &.el-new-table__right-fixed {
+      z-index: 2;
     }
+  }
+
+  td {
+    padding: 8px;
+    border-top: 1px solid #dee2e6;
+    background-color: #fff;
+    overflow-wrap: break-word;
   }
 
   @include e(main) {
-    width: 100%;
-
-    td {
-      padding: 0 8px;
-    }
+    position: relative;
+    overflow: auto;
   }
 
-  @include e(row) {
-    border-bottom: 1px solid #dee2e6;
+  @include e((left-fixed, right-fixed)) {
+    z-index: 0;
+    position: sticky;
+  }
 
-    td {
-      text-align: center;
-    }
+  @include e(left-last) {
+    // box-shadow: 0 0 10px 0 #ccc;
+    border-right: 1px solid #dee2e6;
+  }
+
+  @include e(right-first) {
+    border-left: 1px solid #dee2e6;
   }
 
   @include e(loading) {

@@ -31,7 +31,7 @@ export default {
     _pageSizes: [10, 20, 40, 60, 100, 200]
   }),
 
-  inject: ['table'],
+  inject: ['table', 'layout'],
 
   watch: {
     page() {
@@ -61,6 +61,12 @@ export default {
     setTotal(total) {
       this.total = total
     }
+  },
+
+  mounted() {
+    this.layout._set('pagination', {
+      height: this.$refs.pagination.$el.offsetHeight
+    })
   }
 }
 </script>

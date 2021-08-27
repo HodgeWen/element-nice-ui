@@ -1,32 +1,34 @@
 <template>
-  <div class="el-new-table" :style="tableStyle">
+  <div class="el-new-table" ref="table" :style="tableStyle">
     <!-- 搜索栏 -->
-    <el-table-searcher> <slot name="searcher" /> </el-table-searcher>
+    <el-table-searcher>
+      <slot name="searcher" />
+    </el-table-searcher>
 
     <!-- 工具栏 -->
-    <el-table-tools> <slot name="tools" /> </el-table-tools>
+    <el-table-tools>
+      <slot name="tools" />
+    </el-table-tools>
 
     <!-- 表格主体 -->
-    <table class="el-new-table__main">
-      <ElTableHeader />
-
-      <ElTableBody />
-    </table>
+    <ElTableMain />
 
     <!-- 分页 -->
-    <ElTablePagination ref="pagination" />
+    <ElTablePagination v-if="pagination" ref="pagination" />
   </div>
 </template>
 
 <script>
 import ElTableSearcher from './table-searcher.vue'
 import ElTableTools from './table-tools.vue'
-import ElTableBody from './table-body.vue'
+import ElTableMain from './table-main.vue'
 import ElTablePagination from './table-pagination.vue'
-import ElTableHeader from './table-header.vue'
 import { getValueByPath } from 'element-nice-ui/src/utils/util'
-import { treeMap } from './util'
-// import './table.scss'
+import Column from './column'
+import Layout from './layout'
+import Data from './data'
+import './table.scss'
+import { computedDomHeight } from './util'
 
 export default {
   name: 'ElNewTable',
@@ -36,8 +38,7 @@ export default {
   components: {
     ElTableSearcher,
     ElTableTools,
-    ElTableHeader,
-    ElTableBody,
+    ElTableMain,
     ElTablePagination
   },
 
@@ -58,6 +59,7 @@ export default {
       required: false
     },
 
+    /** 此属性即将废弃 */
     headers: {
       type: Array
     },
@@ -88,7 +90,7 @@ export default {
 
     height: {
       type: String,
-      default:'100%'
+      default: '100%'
     },
 
     autoHeight: {
@@ -106,7 +108,7 @@ export default {
 
     cache: {
       type: Boolean
-    },
+    }
   },
 
   data() {
@@ -118,25 +120,23 @@ export default {
       checkable: false,
 
       /** 表格能否单选 */
-      selectable: false
+      selectable: false,
+
+      /** 列配置 */
+      column: new Column(this.headers),
+
+      /** 表格布局 */
+      layout: new Layout()
     }
   },
 
   computed: {
-    /** 计算出的表头 */
-    computedHeaders() {
-      let id = 0
-      let ret = treeMap(this.headers, header => {
-        header._id = id++
-      })
-      return ret
-    },
-
     /** 优先以传入的数据作为表格数据 */
     computedData() {
       return this.data ? this.data : this.internalData
     },
 
+    /** 表格样式 */
     tableStyle() {
       const { autoHeight, height } = this
       return {
@@ -145,8 +145,14 @@ export default {
     }
   },
 
+  watch: {
+    headers(value) {
+      this.column._initColumns(value)
+    }
+  },
+
   provide() {
-    return { table: this }
+    return { table: this, column: this.column, layout: this.layout }
   },
 
   methods: {
@@ -206,6 +212,18 @@ export default {
     setTotal(total) {
       this.$refs.pagination.setTotal(total)
     }
+  },
+
+  mounted() {
+    // 如果指定了table容器的height属性则不需要计算dom的offsetHeight值
+    this.layout._set({
+      container: {
+        height: computedDomHeight(this.$refs.table)
+      },
+      pagination: {
+        visible: this.pagination
+      }
+    })
   }
 }
 </script>
