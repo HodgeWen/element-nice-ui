@@ -10,10 +10,14 @@
       readonly
       :value="inputValue || label"
       @focus="onTrigger"
-      :clearable="clearable"
+      @mouseenter.native="inputHovering = true"
+      @mouseleave.native="inputHovering = false"
     >
       <template #suffix>
+        <i class="el-input__icon el-icon-circle-close" style="cursor: pointer" v-if="clearable && inputHovering && (inputValue || label)" @click="clearSelection"></i>
+
         <i
+          v-else
           class="el-icon-arrow-down el-input__icon"
           :style="{ transform: `rotate(${visible ? '-180deg' : '0'})` }"
         ></i>
@@ -24,23 +28,31 @@
       class="el-table-select__dialog"
       v-model="visible"
       :width="width"
-      hide-footer
       render-body-without-open
       append-to-body
       :title="placeholder"
+      :confirm="onConfirm"
     >
       <el-table
-        :value="select"
+        v-model="selected"
         ref="table"
         height="300px"
         :row-key="optionValue"
-        @input="onTableInput"
         v-bind="$attrs"
+        :data="data"
         :stripe="false"
         @data-loaded="init"
       >
         <template #searcher>
           <slot name="searcher" />
+        </template>
+
+        <template #tools>
+          <slot name="tools" />
+        </template>
+
+        <template v-for="name of keys($scopedSlots)" v-slot:[name]="attrs">
+          <slot :name="name" v-bind="attrs" />
         </template>
       </el-table>
     </el-dialog>
@@ -95,6 +107,10 @@ export default {
 
     size: {
       type: String
+    },
+
+    data: {
+      type: Array
     }
   },
 
@@ -103,29 +119,55 @@ export default {
 
     inputValue: '',
 
-    select: null,
+    selected: null,
 
-    initialized: false
+    initialized: false,
+
+    inputHovering: false
   }),
+
+  watch: {
+    data(v) {
+      this.$nextTick(() => {
+        this.init()
+      })
+    },
+
+    value(v) {
+      this.init()
+    }
+  },
 
   methods: {
     onTrigger() {
       this.visible = !this.visible
     },
 
+    clearSelection() {
+      this.emitInput(this.multiple ? [] : undefined)
+    },
+
+    keys(value) {
+      return Object.keys(value).filter(item => item.startsWith('column'))
+    },
+
+    /** 初始化选中的值, 并在视图中选中 */
     init() {
-      if (this.initialized || this.value === null || this.value === undefined) return
       if (!Array.isArray(this.value)) {
         let row = this.$refs.table.setRowByKey(this.value)
         this.getInputValue(row)
       } else {
+        let rows = this.$refs.table.setSelection(this.value, this.optionValue)
+
+        this.getInputValue(rows)
       }
       this.initialized = true
     },
 
     getInputValue(v) {
-      const { optionValue: ov, optionLabel: ol } = this
+      const { optionLabel: ol } = this
       if (Array.isArray(v)) {
+        this.inputValue = v.map(item => item[ol]).join(', ')
       } else if (!!v) {
         this.inputValue = v[ol]
       } else {
@@ -149,9 +191,9 @@ export default {
       }
     },
 
-    onTableInput(v) {
-      this.emitInput(v)
-      this.getInputValue(v)
+    onConfirm() {
+      this.emitInput(this.selected)
+      this.getInputValue(this.selected)
 
       this.visible = false
     }
@@ -159,7 +201,7 @@ export default {
 
   created() {
     if (this.multiple) {
-      this.select = []
+      this.selected = []
     }
   }
 }

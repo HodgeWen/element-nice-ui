@@ -6,16 +6,12 @@
           v-for="col of cols"
           :key="col._id"
           :style="{
-            textAlign: col.align || column.align,
-            width: (col.width || column.defaultWidth) + 'px',
-            minWidth: col.width ? '' : (col.minWidth || column.minWidth) + 'px'
-
+            minWidth: col.minWidth ? col.minWidth + 'px' : '',
+            width: col.width + 'px',
           }"
-          style="minWidth: 200px"
-
-          :align="col.align || column.align"
         />
       </colgroup>
+
       <!-- 表头 -->
       <ElTableHeader />
 

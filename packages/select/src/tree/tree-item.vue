@@ -6,7 +6,7 @@
       :class="{
         'el-select-tree--expanded': node.expanded,
         'el-select-tree--selected': node.selected,
-        'el-select-tree--disabled': !selectable,
+        'el-select-tree--disabled': !selectable
       }"
       :style="contentStyle"
       @click="onSelect"
@@ -23,14 +23,24 @@
         :value="node.checked"
         @input="onToggleCheck"
       />
-      <span class="el-select-tree__label">{{ label }}</span>
+      <slot-render
+        v-if="tree.$scopedSlots.default"
+        :scope="tree.$scopedSlots.default({ item: node.data })"
+      />
+      <span v-else class="el-select-tree__label">{{ label }}</span>
     </section>
     <!-- 节点内容 end -->
 
     <!-- 子节点 start -->
     <el-collapse-transition>
       <div v-if="node.children.length && node.expanded">
-        <tree-item :key="childNode.$id" :node="childNode" v-for="childNode of node.children" />
+        <tree-item
+          :key="childNode.$id"
+          :node="childNode"
+          v-for="(childNode, index) of node.children"
+        >
+
+        </tree-item>
       </div>
     </el-collapse-transition>
     <!-- 子节点 start -->
@@ -45,7 +55,22 @@ export default {
 
   components: {
     ElCollapseTransition,
-    ElCheckbox
+    ElCheckbox,
+
+    SlotRender: {
+      functional: true,
+
+      props: {
+        scope: {
+          type: [Object, Array],
+          required: true,
+        }
+      },
+
+      render(h, { props }) {
+        return props.scope
+      }
+    }
   },
 
   inject: ['tree'],
@@ -100,7 +125,7 @@ export default {
         const { data } = currentSelectNode
         this.tree.$emit('input', data.value)
         this.tree.$emit('change', data.value, data.label, data)
-      }else {
+      } else {
         this.tree.$emit('input', '')
         this.tree.$emit('change', '', '', null)
       }

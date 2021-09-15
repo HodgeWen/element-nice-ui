@@ -14,11 +14,11 @@ export default {
     ElTableRow
   },
 
-  inject: ['table'],
+  inject: ['model'],
 
   computed: {
     rows() {
-      return this.table.computedData
+      return this.model.data
     }
   }
 }

@@ -25,8 +25,13 @@ export default class Layout {
     visible: false
   }
 
-  constructor() {
+  constructor(config) {
     let _this = this
+
+    config && Object.keys(config).forEach(key => {
+      if (config[key] === undefined) return
+      this[key] = config[key]
+    })
 
     function setter(v) {
       _this.computeMainHeight()

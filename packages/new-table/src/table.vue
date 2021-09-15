@@ -23,11 +23,10 @@ import ElTableSearcher from './table-searcher.vue'
 import ElTableTools from './table-tools.vue'
 import ElTableMain from './table-main.vue'
 import ElTablePagination from './table-pagination.vue'
-import { getValueByPath } from 'element-nice-ui/src/utils/util'
 import Column from './column'
 import Layout from './layout'
-import Data from './data'
-import './table.scss'
+import createModel from './model'
+// import './table.scss'
 import { computedDomHeight } from './util'
 
 export default {
@@ -50,6 +49,11 @@ export default {
       default: '——'
     },
 
+    /** 表格标识, 用来在数据库中保存列的信息 */
+    code: {
+      type: String
+    },
+
     pagination: {
       type: Boolean
     },
@@ -59,7 +63,7 @@ export default {
       required: false
     },
 
-    /** 此属性即将废弃 */
+    /** 此属性即将废弃, 如果指定了id, 则此属性在第一次往后都不会生效 */
     headers: {
       type: Array
     },
@@ -113,9 +117,6 @@ export default {
 
   data() {
     return {
-      /** 内部维护的数据, 由服务端获取 */
-      internalData: [],
-
       /** 表格能否多选 */
       checkable: false,
 
@@ -123,19 +124,24 @@ export default {
       selectable: false,
 
       /** 列配置 */
-      column: new Column(this.headers),
+      column: new Column(this.headers, {
+        align: this.align,
+        tableCode: this.code
+      }),
 
       /** 表格布局 */
-      layout: new Layout()
+      layout: new Layout(),
+
+      /** 数据模型 */
+      _model: createModel({
+        api: this.api,
+        data: this.data,
+        pagination: this.pagination
+      })
     }
   },
 
   computed: {
-    /** 优先以传入的数据作为表格数据 */
-    computedData() {
-      return this.data ? this.data : this.internalData
-    },
-
     /** 表格样式 */
     tableStyle() {
       const { autoHeight, height } = this
@@ -146,72 +152,29 @@ export default {
   },
 
   watch: {
+    /** 监听表头 */
     headers(value) {
       this.column._initColumns(value)
-    }
-  },
-
-  provide() {
-    return { table: this, column: this.column, layout: this.layout }
-  },
-
-  methods: {
-    /**
-     * 查询数据
-     * @param pager 分页数据
-     */
-    fetch(pager) {
-      const { api, data, pagination } = this
-      if (!api || data) return
-
-      const {
-        // 分页数据路径
-        pageDataPath,
-        // 列表数据路径
-        listDataPath,
-        // 总数路径
-        totalPath,
-        pageKey = 'current',
-        // 分页数据大小
-        sizeKey = 'size'
-      } = this.$EL_TABLE_CONFIG
-
-      const params = {}
-
-      if (pagination) {
-        params[pageKey] = pager.page
-        params[sizeKey] = pager.size
-      }
-
-      let method = 'get'
-      let url = api
-      let apiSections = api.split(':')
-      if (apiSections.length === 2) [method, url] = apiStruct
-
-      const promise = this.$http[method](url, { params })
-
-      return promise.then(res => {
-        if (res.code !== 200) return
-
-        if (this.pagination) {
-          if (!pageDataPath || !totalPath) {
-            return console.warn(`$EL_TABLE_CONFIG中的pageDataPath和totalPath属性都不能为空`)
-          }
-          this.internalData = getValueByPath(res, pageDataPath)
-          this.setTotal(getValueByPath(res, totalPath))
-        }
-
-        if (!listDataPath) {
-          return console.warn(`$EL_TABLE_CONFIG中的listDataPath属性不能为空`)
-        }
-
-        this.internalData = getValueByPath(res, listDataPath)
-      })
     },
 
-    setTotal(total) {
-      this.$refs.pagination.setTotal(total)
+    /** 监听data的变化 */
+    data(data) {
+      this.$data._model.data = data
     }
+  },
+
+  // 用以组件之间的通信
+  provide() {
+    return {
+      column: this.column,
+      layout: this.layout,
+      model: this.$data._model
+    }
+  },
+
+  // 在created生命周期内初始化 Layout, columns, model数据模型
+  created() {
+    // this.column.init()
   },
 
   mounted() {

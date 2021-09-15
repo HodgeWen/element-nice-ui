@@ -1,4 +1,5 @@
-import { walkTreeNode, getRowIdentity } from '../util'
+import { getRowIdentity } from '../util'
+import { walkTreeNode } from 'element-nice-ui/src/utils/shared'
 
 export default {
   data() {
@@ -76,11 +77,14 @@ export default {
       } else {
         walkTreeNode(
           data,
-          (parent, children, level) =>
-            (res[getRowIdentity(parent, rowKey)] = {
+          (parent, children, level) => {
+            if (!children) return
+            res[getRowIdentity(parent, rowKey)] = {
               children: children.map((row) => getRowIdentity(row, rowKey)),
               level
-            }),
+            }
+          }
+            ,
           childrenColumnName
         )
       }

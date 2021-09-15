@@ -41,3 +41,18 @@ export function historyReplace(query) {
 
   history.replaceState({}, '', location.pathname + `?${ret.slice(0, -1)}`)
 }
+
+// 遍历树形节点, 如果该节点有子节点则遍历
+export function walkTreeNode(root, cb, childrenKey = 'children') {
+  const notEmpty = (array) => Array.isArray(array) && array.length
+
+  function _walker(parent, children, level) {
+    cb(parent, children, level)
+
+    if (!notEmpty(children)) return
+
+    children.forEach((item) => _walker(item,  item[childrenKey], level + 1))
+  }
+
+  root.forEach((item) => _walker(item, item[childrenKey], 0))
+}

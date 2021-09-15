@@ -319,6 +319,7 @@ export default {
     // 根据传入的属性控制使用哪个作为表格的数据
     computedData() {
       let ret = Array.isArray(this.data) ? this.data : this.internalData
+
       if (this.filter) {
         ret = ret.filter(this.filter)
       }
@@ -447,8 +448,26 @@ export default {
       }
     },
 
+    /**
+     * 设置选中值, 该方法主要提供给table-select组件去使用
+     * @param {Array<string, number>} 选中的行的key
+     * @param {string} ov 每一行的key的字段
+     */
+    setSelection(value, ov) {
+      let s = new Set(value || [])
+
+      let rows = this.computedData.filter(item => {
+        return s.has(item[ov])
+      })
+      this.$emit('input', rows)
+      this.$refs.table.setSelection(rows)
+      return rows
+    },
+
     setRowByKey(key) {
-      return this.$refs.table.store.setCurrentRowByKey(key)
+      let row = this.$refs.table.store.setCurrentRowByKey(key)
+      this.$emit('input', row)
+      return row
     },
 
     clearSelection() {

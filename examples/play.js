@@ -13,8 +13,11 @@ Vue.prototype.$msg = Element.Message
 Vue.prototype.$log = console.log
 Vue.prototype.$EL_TABLE_PROP_CONFIG = {
   page: 'data.records',
-  total: 'data.total',
-  list: 'data'
+  list: 'data',
+  total: 'total',
+  // pageDataPath: 'records',
+  // totalPath: 'total',
+  // listDataPath: ''
 }
 Vue.prototype.$EL_SELECT_PROP_CONFIG = {
   baseUrl: '',
@@ -30,7 +33,7 @@ Vue.prototype.$http = {
           resolve({
             code: 200,
             data: {
-              records: Array(1)
+              records: Array(2)
                 .fill()
                 .map((_, i) => ({
                   id: i,
@@ -93,7 +96,7 @@ Vue.prototype.$http = {
               total: 100
             }
           })
-        }, 300)
+        }, 30)
       })
     }
     if (url === 'select') {

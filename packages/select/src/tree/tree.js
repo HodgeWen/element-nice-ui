@@ -51,7 +51,7 @@ export class Tree {
       id: this.autoIncreaseId++,
       data: Array.isArray(options.data) ? { children: data } : data,
       context: this,
-      depth: 0,
+      depth: 0
     })
   }
 
@@ -70,13 +70,19 @@ export class Tree {
     const checkedNodes = []
 
     const traverse = function(node) {
-      node.children.forEach(child => {
-        if (child.checked) {
-          return checkedNodes.push(child)
-        }
+      if (node.checked) {
+        checkedNodes.push(node)
+      }
 
-        traverse(child)
-      })
+      if (!node.children || !node.children.length) return
+
+
+      let childrenAllChecked = node.children.every(child => child.checked)
+
+      // 如果子节点没有全部选中, 则继续深度遍历
+      if (!childrenAllChecked || !node.checked) {
+        node.children.forEach(node => traverse(node))
+      }
     }
 
     traverse(this.root)

@@ -6,7 +6,7 @@ var localePath = resolve(__dirname, '../../src/locale/lang');
 var fileList = fs.readdirSync(localePath);
 
 var transform = function(filename, name, cb) {
-  require('babel-core').transformFile(resolve(localePath, filename), {
+  require('@babel/core').transformFile(resolve(localePath, filename), {
     plugins: [
       'add-module-exports',
       ['transform-es2015-modules-umd', {loose: true}]

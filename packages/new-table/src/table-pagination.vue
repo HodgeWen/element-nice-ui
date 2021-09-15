@@ -1,14 +1,14 @@
 <template>
   <el-pagination
     ref="pagination"
-    :page-size="size"
+    :page-size="model.size"
     @size-change="onSizeChange"
-    :current-page="page"
+    :current-page="model.page"
     @current-change="onPageChange"
     layout="total, sizes, prev, pager, next, jumper"
     :page-sizes="$data._pageSizes"
-    :total="total"
-    :disabled="table.loading"
+    :total="model.total"
+    :disabled="model.loading"
   />
 </template>
 
@@ -22,44 +22,18 @@ export default {
   },
 
   data: () => ({
-    size: 20,
-
-    page: 1,
-
-    total: 0,
-
     _pageSizes: [10, 20, 40, 60, 100, 200]
   }),
 
-  inject: ['table', 'layout'],
-
-  watch: {
-    page() {
-      this.fetch()
-    },
-    size() {
-      this.fetch()
-    }
-  },
+  inject: ['model', 'layout'],
 
   methods: {
     onSizeChange(size) {
-      this.size = size
+      this.model.size = size
     },
 
     onPageChange(page) {
-      this.page = page
-    },
-
-    fetch() {
-      const { table, page, size } = this
-      table.fetch && table.fetch({
-        page, size
-      })
-    },
-
-    setTotal(total) {
-      this.total = total
+      this.model.page = page
     }
   },
 

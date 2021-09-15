@@ -6,7 +6,7 @@
     >
       暂无数据
     </div>
-    <TreeItem :key="node.$id" :node="node" v-for="node of rootChildren" />
+    <TreeItem :key="node.$id" :node="node" v-for="(node, index) of rootChildren"> </TreeItem>
   </div>
 </template>
 

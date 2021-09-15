@@ -1,28 +1,30 @@
 {
   "presets": [
+    "@vue/babel-preset-jsx",
     [
-      "env",
+      "@babel/env",
       {
-        "loose": true,
-        "modules": false,
         "targets": {
-          "browsers": ["> 3%", "last 2 versions", "ie >= 11"]
+          "edge": "17",
+          "firefox": "60",
+          "chrome": "67",
+          "safari": "11.1"
         }
       }
-    ],
-    "stage-2"
+    ]
   ],
-  "plugins": ["transform-vue-jsx"],
   "env": {
     "utils": {
       "presets": [
+        "@vue/babel-preset-jsx",
         [
-          "env",
+          "@babel/env",
           {
-            "loose": true,
-            "modules": "commonjs",
             "targets": {
-              "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+              "edge": "17",
+              "firefox": "60",
+              "chrome": "67",
+              "safari": "11.1"
             }
           }
         ]
@@ -35,9 +37,6 @@
           }
         }]
       ]
-    },
-    "test": {
-      "plugins": ["istanbul"]
     }
   }
 }

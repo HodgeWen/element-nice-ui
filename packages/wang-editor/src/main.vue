@@ -18,17 +18,31 @@ export default {
     }
   },
 
+  data: () => ({
+    _editor: null
+  }),
+
+  watch: {
+    value: {
+      immediate: true,
+      async handler(v) {
+        await this.$nextTick()
+        this.$data._editor.txt.html(v)
+      }
+    }
+  },
+
   methods: {
     init() {
       const editor = new Editor(this.$refs.editor)
 
       Object.assign(editor.config, this.config)
 
-      editor.config.onchange = (v) =>  this.$emit('input', v)
+      editor.config.onchange = v => this.$emit('input', v)
 
       editor.create()
 
-      this.editor = editor
+      this.$data._editor = editor
     }
   },
 
@@ -37,8 +51,8 @@ export default {
   },
 
   beforeDestroy() {
-    this.editor.destroy()
-    this.editor = null
+    this.$data._editor?.destroy()
+    this.$data._editor = null
   }
 }
 </script>

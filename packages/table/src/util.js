@@ -232,23 +232,3 @@ export function toggleRowStatus(statusArr, row, newVal) {
   return changed
 }
 
-// 遍历树形节点, 如果该节点有子节点则遍历
-export function walkTreeNode(root, cb, childrenKey = 'children') {
-  const notEmpty = (array) => Array.isArray(array) && array.length
-
-  function _walker(parent, children, level) {
-    cb(parent, children, level)
-    children.forEach((item) => {
-      const children = item[childrenKey]
-      notEmpty(children) && _walker(item, children, level + 1)
-    })
-  }
-
-  root.forEach((item) => {
-    const children = item[childrenKey]
-    if (notEmpty(children)) {
-      _walker(item, children, 0)
-    }
-  })
-}
-

@@ -1,11 +1,8 @@
 <template>
   <div ref="page" style="height: 100%">
-    <el-new-table
-      pagination
-      style="height: 300px"
-      :headers="headers"
-      :data="data"
-    ></el-new-table>
+    <el-select api="/select/tree" tree multiple v-model="list" />
+
+    <el-table  code="test"  :headers="headers" row-key="value" api="/select/tree"></el-table>
   </div>
 </template>
 
@@ -46,13 +43,19 @@ export default {
     ElNewTable: E.NewTable,
     ElAction: E.Action,
     ElActionItem: E.ActionItem,
-    ElTaskBtn: E.TaskBtn
+    ElTaskBtn: E.TaskBtn,
+    ElWangEditor: E.WangEditor
   },
 
   data: () => ({
     headers: [
-      { label: '序号', prop: 'index', fixed: 'left', width: 100 },
+      { label: '序号', prop: 'index', fixed: 'left', width: 200 },
       { label: '随机数', prop: 'id', fixed: 'left', width: 200 },
+      { label: '随机数', prop: 'id', slotName: "aa" },
+      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id' },
       { label: '随机数', prop: 'id' },
       { label: '随机数', prop: 'id' },
       { label: '随机数', prop: 'id' },
@@ -63,7 +66,12 @@ export default {
       { label: '操作', slotName: 'action', width: 160, fixed: 'right', type: 'action' }
     ],
 
-    data: []
+    data: [],
+
+    s: '',
+    list: [],
+
+    test: '<p>123</p>'
   }),
 
   methods: {

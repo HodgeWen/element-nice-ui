@@ -170,8 +170,8 @@
               @input="onTreeInput"
               @change="onTreeChange"
             >
-              <template v-if="$scopedSlots['tree-item']" #default="scope">
-                <slot name="tree-item" v-bind="scope" />
+              <template v-if="$scopedSlots.default" #default="scope">
+                <slot v-bind="scope" />
               </template>
             </el-select-tree>
           </el-scrollbar>
@@ -219,8 +219,9 @@ import {
   getDefined
 } from 'element-nice-ui/src/utils/util'
 import NavigationMixin from './navigation-mixin'
-import { isKorean } from 'element-nice-ui/src/utils/shared'
+import { isKorean, walkTreeNode } from 'element-nice-ui/src/utils/shared'
 import ElSelectTree from './tree/tree.vue'
+
 
 export default {
   mixins: [Emitter, Locale, Focus('reference'), NavigationMixin],
@@ -1063,16 +1064,30 @@ export default {
       let index = this.selected.indexOf(tag)
       if (index > -1 && !this.selectDisabled) {
         if (this.tree) {
+          const { optionValue, optionLabel } = this
           let restTags = this.selected.slice()
           restTags.splice(index, 1)
 
-          let newVal = restTags.map(tag => tag.value)
+          let {checkedSet, nodeKeyMap} = this.$refs.tree.tree
+          let deletedNode = nodeKeyMap[tag.value]
+          let deletedValues = []
+          walkTreeNode([deletedNode], (node) => {
+            deletedValues.push(node.data[optionValue])
+          })
+
+          deletedValues.forEach(v => {
+            checkedSet.has(v) && nodeKeyMap[v].setChecked(false)
+          })
+
+
+          let newVal = Array.from(checkedSet)
+
           this.$emit('input', newVal)
 
           this.emitChange(
             newVal,
-            restTags.map(tag => tag.label),
-            restTags.map(o => o.option)
+            newVal.map(v => nodeKeyMap[v][optionLabel]),
+            newVal.map(v => nodeKeyMap[v])
           )
         } else {
           const value = this.value.slice()
