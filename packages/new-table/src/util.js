@@ -64,3 +64,17 @@ export function defineSetter(obj, handler) {
     return obj
   }
 }
+
+/**
+ * 从数组右侧开始循环
+ * @template T
+ * @param {T[]} arr 数组
+ * @param {(v: T, index: number, arr: T[]) => void} cb
+ */
+export function rightEach(arr, cb) {
+  let len = arr.length
+
+  while (--len >= 0) {
+    cb(arr[len], len, arr)
+  }
+}

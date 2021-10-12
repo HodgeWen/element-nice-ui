@@ -1,8 +1,22 @@
 <template>
-  <div ref="page" style="height: 100%">
-    <el-select api="/select/tree" tree multiple v-model="list" />
+  <div ref="page" style="height: 100%; background: #f2f2f2">
+    <!-- <el-select api="/select/tree" tree multiple v-model="list" /> -->
 
-    <el-table  code="test"  :headers="headers" row-key="value" api="/select/tree"></el-table>
+    <el-new-table
+      code="test"
+      :headers="headers"
+      row-key="value"
+      pagination
+      selectable
+      api="/arr"
+    >
+    <template #searcher>
+      <el-input t-label="测试" />
+      <el-input t-label="测试" />
+      <el-input t-label="测试" />
+      <el-input  t-label="测试"/>
+    </template>
+    </el-new-table>
   </div>
 </template>
 
@@ -14,6 +28,7 @@ Vue.use(E.Loading.directive)
 
 export default {
   components: {
+    ElGantt: E.Gantt,
     ElProgress: E.Progress,
     ElBpmnViewer: E.BpmnViewer,
     ElBpmn: E.Bpmn,

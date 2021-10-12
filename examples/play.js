@@ -12,12 +12,15 @@ Vue.prototype.$msg = Element.Message
 
 Vue.prototype.$log = console.log
 Vue.prototype.$EL_TABLE_PROP_CONFIG = {
-  page: 'data.records',
-  list: 'data',
-  total: 'total',
-  // pageDataPath: 'records',
-  // totalPath: 'total',
-  // listDataPath: ''
+  // 老table配置
+  // page: 'data.records',
+  // list: 'data',
+  // total: 'total',
+
+  // 新table配置
+  pageDataPath: 'records',
+  totalPath: 'total',
+  listDataPath: ''
 }
 Vue.prototype.$EL_SELECT_PROP_CONFIG = {
   baseUrl: '',

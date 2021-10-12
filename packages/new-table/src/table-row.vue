@@ -14,19 +14,30 @@ export default {
     const { rowData } = this
     const { staticColumns, leftFixedColumns, rightFixedColumns } = this.column
 
-    let leftCells = leftFixedColumns.map((column, index) => {
+    let extraCells = this.column.renderExtraFixedCells(rowData)
+
+    let leftCells = extraCells.concat(
+      leftFixedColumns.map((column, index) => {
+        return (
+          <td
+            class={['el-new-table__left-fixed']}
+            key={column._id}
+            style={{ left: column._offsetLeft + 'px', textAlign: column.align }}
+          >
+            {rowData[column.prop]}
+          </td>
+        )
+      })
+    )
+
+    let staticCells = staticColumns.map(column => {
       return (
-        <td
-          class={['el-new-table__left-fixed']}
-          style={{ left: column._offsetLeft + 'px', textAlign: column.align }}
-        >
+        <td class='el-new-table__static' style={{ textAlign: column.align }}>
           {rowData[column.prop]}
         </td>
       )
     })
-    let staticCells = staticColumns.map(column => {
-      return <td style={{ textAlign: column.align }}>{rowData[column.prop]}</td>
-    })
+
     let rightCells = rightFixedColumns.map((column, index) => {
       return (
         <td
@@ -37,6 +48,7 @@ export default {
         </td>
       )
     })
+
     return (
       <tr class='el-new-table__row'>
         {leftCells}

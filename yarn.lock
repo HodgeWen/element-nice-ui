@@ -4732,11 +4732,6 @@ icss-utils@^5.0.0:
   resolved "https://registry.npm.taobao.org/icss-utils/download/icss-utils-5.1.0.tgz?cache=0&sync_timestamp=1605801267950&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ficss-utils%2Fdownload%2Ficss-utils-5.1.0.tgz#c6be6858abd013d768e98366ae47e25d5887b1ae"
   integrity sha1-xr5oWKvQE9do6YNmrkfiXViHsa4=
 
-idb@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.nlark.com/idb/download/idb-6.1.2.tgz#82ef5c951b8e1f47875d36ccafa4bedafc62f2f1"
-  integrity sha1-gu9clRuOH0eHXTbMr6S+2vxi8vE=
-
 ids@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/ids/download/ids-1.0.0.tgz#df67f2d37b81d7c2effc87e03d17ebff95a58c05"
@@ -7910,10 +7905,10 @@ sass-graph@2.2.5:
     scss-tokenizer "^0.2.3"
     yargs "^13.3.2"
 
-sass-loader@^10.1.0:
-  version "10.1.0"
-  resolved "https://registry.npm.taobao.org/sass-loader/download/sass-loader-10.1.0.tgz#1727fcc0c32ab3eb197cda61d78adf4e9174a4b3"
-  integrity sha1-Fyf8wMMqs+sZfNph14rfTpF0pLM=
+sass-loader@^10.2.0:
+  version "10.2.0"
+  resolved "https://registry.nlark.com/sass-loader/download/sass-loader-10.2.0.tgz#3d64c1590f911013b3fa48a0b22a83d5e1494716"
+  integrity sha1-PWTBWQ+REBOz+kigsiqD1eFJRxY=
   dependencies:
     klona "^2.0.4"
     loader-utils "^2.0.0"
@@ -7921,15 +7916,15 @@ sass-loader@^10.1.0:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass-migrator@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.nlark.com/sass-migrator/download/sass-migrator-1.4.3.tgz#44b6fb4f9efcedbd7b19fc227e829cc60665ac9c"
-  integrity sha1-RLb7T5787b17GfwifoKcxgZlrJw=
+sass-migrator@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.nlark.com/sass-migrator/download/sass-migrator-1.5.2.tgz#a6a865e0fc74cb027dcc7b2aa7d029d48992bed0"
+  integrity sha1-pqhl4Px0ywJ9zHsqp9Ap1ImSvtA=
 
-sass@^1.34.1:
-  version "1.34.1"
-  resolved "https://registry.nlark.com/sass/download/sass-1.34.1.tgz?cache=0&sync_timestamp=1622671792816&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fsass%2Fdownload%2Fsass-1.34.1.tgz#30f45c606c483d47b634f1e7371e13ff773c96ef"
-  integrity sha1-MPRcYGxIPUe2NPHnNx4T/3c8lu8=
+sass@^1.42.1:
+  version "1.42.1"
+  resolved "https://registry.nlark.com/sass/download/sass-1.42.1.tgz#5ab17bebc1cb1881ad2e0c9a932c66ad64e441e2"
+  integrity sha1-WrF768HLGIGtLgyakyxmrWTkQeI=
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
 
@@ -8865,6 +8860,11 @@ trim-newlines@^1.0.0:
   integrity sha1-+BO1qMhrQNpZYGcisUTjIleZ9H0=
   dependencies:
     glob "^7.1.2"
+
+ts-web-cache@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.nlark.com/ts-web-cache/download/ts-web-cache-1.0.9.tgz#df2bb645ce7695debc3a8c75fdb3b526e50ea994"
+  integrity sha1-3yu2Rc52ld68Oox1/bO1JuUOqZQ=
 
 tslib@^1.9.0:
   version "1.14.1"

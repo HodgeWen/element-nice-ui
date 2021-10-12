@@ -36,8 +36,8 @@ export default {
 
   computed: {
     cols() {
-      const { leftFixedColumns, staticColumns, rightFixedColumns } = this.column
-      return leftFixedColumns.concat(staticColumns, rightFixedColumns)
+      const { leftFixedColumns, staticColumns, rightFixedColumns, extraColumns } = this.column
+      return extraColumns.concat(leftFixedColumns.concat(staticColumns, rightFixedColumns))
     }
   }
 }

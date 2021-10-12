@@ -9,16 +9,18 @@
     table-layout: fixed;
     border-spacing: 0;
     border-collapse: separate;
+
   }
 
   th {
     z-index: 1;
-    background: #f2f2f2;
+    background: var(--primary-tint-color-9, $--background-color-base);
     padding: 8px;
     top: 0;
     position: sticky;
     overflow-wrap: break-word;
     user-select: none;
+    -webkit-user-select: none;
 
     &.el-new-table__left-fixed,
     &.el-new-table__right-fixed {
@@ -33,15 +35,71 @@
     overflow-wrap: break-word;
   }
 
+  @include m(mini) {
+    th,
+    td {
+      padding: 4px;
+    }
+  }
+
+  @include m(small) {
+    th,
+    td {
+      padding: 6px;
+    }
+  }
+
+  @include m(large) {
+    th,
+    td {
+      padding: 10px;
+    }
+  }
+
   @include e(main) {
     position: relative;
     overflow: auto;
+    background-color: #fff;
+  }
+
+  @include e(query-item) {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    vertical-align: middle;
+    margin-bottom: 6px;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+
+  @include e(query-label) {
+    font-size: 14px;
+    color: #999;
+    flex-shrink: 0;
+    text-align: center;
+    padding-right: 4px;
+    box-sizing: border-box;
   }
 
   @include e((left-fixed, right-fixed)) {
     z-index: 0;
     position: sticky;
-    background-color: #f2f2f2!important;
+    // background-color: #f2f2f2 !important;
+  }
+
+  @include e(left-fixed) {
+    border-right: 1px solid #ccc;
+  }
+  @include e(right-fixed) {
+    border-left: 1px solid #ccc;
+  }
+  @include e(static) {
+    &:not(:first-child) {
+      border-left: 1px solid #ccc;
+    }
   }
 
   @include e(loading) {
@@ -54,13 +112,50 @@
   }
 
   @include e(tools) {
+    text-align: right;
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    background: #fff;
 
+    & > * {
+      vertical-align: middle;
+
+      &:not(:last-child) {
+        margin-right: 6px;
+      }
+    }
+  }
+
+  @include e(searcher) {
+    border-radius: 4px;
+    background: #fff;
+    margin-bottom: 8px;
+    padding: 6px 8px 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+
+    &-right {
+      flex-shrink: 0;
+    }
+
+    &-left {
+      overflow: hidden;
+    }
   }
 
   @include e(column-config) {
+    &.el-popover {
+      padding-bottom: 0;
+    }
     ul {
       margin: 0;
       padding: 0;
+      margin-right: -10px;
     }
 
     li {
@@ -77,7 +172,7 @@
   }
 
   @include e(handle) {
-    height: 80%;
+    height: 14px;
     cursor: col-resize;
     position: absolute;
     display: inline-block;
@@ -85,6 +180,10 @@
     top: 0;
     bottom: 0;
     margin: auto 0;
-    border-left: 3px double #666;
+    width: 3px;
+    // border: 1px double #666;
+    border-radius: 3px;
+    box-sizing: border-box;
+    // border-left: 3px double #666;
   }
 }

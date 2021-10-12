@@ -72,7 +72,12 @@ const webpackConfig = {
           MiniCssExtractPlugin.loader,
           'css-loader',
           {
-            loader: 'sass-loader'
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                quietDeps: true
+              }
+            }
           }
         ]
       },

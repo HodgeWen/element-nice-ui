@@ -24,7 +24,7 @@
     margin: 0;
     position: relative;
     cursor: pointer;
-    transition: $--all-transition;
+    // transition: $--all-transition;
 
     @include button-size($--button-padding-vertical, $--button-padding-horizontal, $--button-font-size, 0);
 

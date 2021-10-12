@@ -38,9 +38,7 @@ export default {
   },
 
   mounted() {
-    this.layout._set('pagination', {
-      height: this.$refs.pagination.$el.offsetHeight
-    })
+    this.layout.refDom('pagination', this.$refs.pagination.$el)
   }
 }
 </script>

@@ -152,7 +152,7 @@ export default function createModel(options) {
 
       /** 更新数据 */
       update() {
-        this.create()
+
       },
 
       /** 查找数据 */

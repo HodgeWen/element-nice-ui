@@ -1,5 +1,9 @@
 <template>
-  <div class="el-new-table" ref="table" :style="tableStyle">
+  <div
+    ref="table"
+    :class="['el-new-table', `el-new-table--${$data._layout.size}`]"
+    :style="tableStyle"
+  >
     <!-- 搜索栏 -->
     <el-table-searcher>
       <slot name="searcher" />
@@ -23,11 +27,10 @@ import ElTableSearcher from './table-searcher.vue'
 import ElTableTools from './table-tools.vue'
 import ElTableMain from './table-main.vue'
 import ElTablePagination from './table-pagination.vue'
-import Column from './column'
-import Layout from './layout'
+import createLayout from './layout'
 import createModel from './model'
-// import './table.scss'
-import { computedDomHeight } from './util'
+import createColumns from './column.jsx'
+import './table.scss'
 
 export default {
   name: 'ElNewTable',
@@ -82,11 +85,6 @@ export default {
       type: Array
     },
 
-    size: {
-      type: String,
-      default: 'mini'
-    },
-
     showTools: {
       type: Boolean,
       default: true
@@ -112,25 +110,28 @@ export default {
 
     cache: {
       type: Boolean
-    }
+    },
+
+    /** 表格能否多选, 优先级大于单选优先级 */
+    checkable: Boolean,
+
+    /** 表格能否单选 */
+    selectable: Boolean
   },
 
   data() {
     return {
-      /** 表格能否多选 */
-      checkable: false,
-
-      /** 表格能否单选 */
-      selectable: false,
 
       /** 列配置 */
-      column: new Column(this.headers, {
+      _column: createColumns({
+        tableCode: this.code,
         align: this.align,
-        tableCode: this.code
+        checkable: this.checkable,
+        selectable: this.selectable,
       }),
 
       /** 表格布局 */
-      layout: new Layout(),
+      _layout: createLayout(),
 
       /** 数据模型 */
       _model: createModel({
@@ -153,8 +154,12 @@ export default {
 
   watch: {
     /** 监听表头 */
-    headers(value) {
-      this.column._initColumns(value)
+    headers: {
+      handler(value) {
+        this.$data._column.init(value)
+      },
+
+      immediate: true
     },
 
     /** 监听data的变化 */
@@ -166,8 +171,8 @@ export default {
   // 用以组件之间的通信
   provide() {
     return {
-      column: this.column,
-      layout: this.layout,
+      column: this.$data._column,
+      layout: this.$data._layout,
       model: this.$data._model
     }
   },
@@ -178,11 +183,9 @@ export default {
   },
 
   mounted() {
-    // 如果指定了table容器的height属性则不需要计算dom的offsetHeight值
-    this.layout._set({
-      container: {
-        height: computedDomHeight(this.$refs.table)
-      },
+    this.$data._layout.refDom('container', this.$refs.table)
+    // TODO如果指定了table容器的height属性则不需要计算dom的offsetHeight值
+    this.$data._layout.setState({
       pagination: {
         visible: this.pagination
       }
