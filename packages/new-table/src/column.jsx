@@ -2,7 +2,6 @@ import Vue from 'vue'
 import { treeMap } from './util'
 import { openDB, Store } from './db'
 import ElCheckbox from 'element-nice-ui/packages/checkbox'
-import ElRadio from 'element-nice-ui/packages/radio'
 
 /**
  * 创建列数据
@@ -73,64 +72,46 @@ export default function createColumns(options) {
       // 渲染函数用来缓存checkable和showAsTree计算
       /** 渲染额外表头 */
       extraFixedHeaders() {
+        // 防止样式出现一瞬间的错乱
+        if (!this.allColumns.length) return []
+
         let nodeList = []
-        if (this.checkable) {
+
+        let expandStyle = {
+          'text-align': 'left',
+          left: 0
+        }
+        if (this.showAsTree) {
           nodeList.push(
-            <th class='el-new-table__left-fixed' style='text-align: center; left: 0'>
-              <ElCheckbox />
-            </th>
-          )
-        } else if (this.selectable) {
-          nodeList.push(
-            <th class='el-new-table__left-fixed' style='text-align: center; left: 0'>
-              <ElRadio />
+            <th class='el-new-table__left-fixed' style={expandStyle}>
+              {/* <i class='el-icon-arrow-right' style='cursor: pointer'></i> */}
             </th>
           )
         }
 
-        if (this.showAsTree) {
+        let style = {
+          'text-align': 'center',
+          left: nodeList.length ? '60px' : '0px'
+        }
+
+        if (this.checkable) {
           nodeList.push(
-            <th class='el-new-table__left-fixed'>
-              <i class='el-icon-right'></i>
+            <th class='el-new-table__left-fixed' style={style}>
+              <ElCheckbox />
             </th>
           )
+        } else if (this.selectable) {
+          nodeList.push(<th class='el-new-table__left-fixed' style={style}></th>)
         }
 
         return nodeList
       },
 
-      /** 渲染额外单元格 */
-      renderExtraFixedCells(row) {
-        let nodeList = []
-        if (this.checkable) {
-          nodeList.push(() => (
-            <td class='el-new-table__left-fixed' style='text-align: center; left: 0'>
-              <ElCheckbox />
-            </td>
-          ))
-        } else if (this.selectable) {
-          nodeList.push(() => (
-            <td class='el-new-table__left-fixed' style='text-align: center; left: 0'>
-              <ElRadio />
-            </td>
-          ))
-        }
-
-        if (this.showAsTree) {
-          nodeList.push(() => (
-            <td class='el-new-table__left-fixed'>
-              <i class='el-icon-right'></i>
-            </td>
-          ))
-        }
-
-        return function() {
-          return nodeList.map(r => r())
-        }
-      },
-
       /** 渲染额外的列组 */
       extraColumns() {
+        // 防止样式出现一瞬间的错乱
+        if (!this.allColumns.length) return []
+
         let extraCols = []
         if (this.checkable || this.selectable) {
           extraCols.push({
@@ -231,8 +212,18 @@ export default function createColumns(options) {
         this.leftFixedColumns = leftFixedColumns
         this.staticColumns = staticColumns
         this.rightFixedColumns = rightFixedColumns
+      },
 
-        this.save()
+      add() {
+        this.tableCode &&
+          this.getStore().add({
+            code: this.tableCode,
+            columns: this.allColumns.map(item => {
+              let ret= {...item}
+              delete ret.formatter
+              return ret
+            })
+          })
       },
 
       /** 保存至数据库 */
@@ -240,7 +231,11 @@ export default function createColumns(options) {
         this.tableCode &&
           this.getStore().put({
             code: this.tableCode,
-            columns: [...this.allColumns]
+            columns: this.allColumns.map(item => {
+              let ret= {...item}
+              delete ret.formatter
+              return ret
+            })
           })
       },
 
@@ -254,20 +249,34 @@ export default function createColumns(options) {
           this.setColumnsLayout()
           return
         }
-
         // 启用数据库保存
         await this.connectDB()
         let record = await this.getStore().get(this.tableCode)
 
         // 查到该条数据, 不用进行初始化
         if (record) {
-          this.allColumns = record.columns
+          // 查到数据后需要和当前的数据做对比, 一旦列的长度不一致则使用当前列初始化
+          if (record.columns.length !== columns.length) {
+            this.initColumns(columns)
+            this.setColumnsLayout()
+            this.save()
+            return
+          }
+
+          // 列长度未发生改变
+          this.allColumns = record.columns.map((column, index) => {
+            if (columns[index].formatter) {
+              column.formatter = columns[index].formatter
+            }
+            return column
+          })
           this.setColumnsLayout()
         }
         // 未查到该条数据
         else {
           this.initColumns(columns)
           this.setColumnsLayout()
+          this.add()
         }
       }
     }

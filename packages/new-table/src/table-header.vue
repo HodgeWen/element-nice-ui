@@ -43,6 +43,7 @@ export default {
                 column.align = v
                 popover.componentInstance.showPopper = false
                 this.column.setColumnsLayout()
+                this.column.save()
               }}
               size='mini'
             >
@@ -58,7 +59,7 @@ export default {
 
     /** 渲染左侧固定的表头 */
     renderLeftTh(h) {
-      const { leftFixedColumns, extraFixedHeaders } = this.column
+      const { leftFixedColumns } = this.column
 
       let leftNodes = leftFixedColumns.map((column, index) => (
         <th
@@ -71,10 +72,10 @@ export default {
         </th>
       ))
 
-      // let last = leftNodes[leftNodes.length - 1]
-      // if (last) {
-      //   last.data.class += ' el-new-table__left-last'
-      // }
+      let last = leftNodes[leftNodes.length - 1]
+      if (last) {
+        last.data.class += ' el-new-table__left-last'
+      }
 
       return leftNodes
     },
@@ -100,9 +101,9 @@ export default {
         </th>
       ))
 
-      // if (rightNodes[0]) {
-      //   rightNodes[0].data.class += ' el-new-table__right-first'
-      // }
+      if (rightNodes[0]) {
+        rightNodes[0].data.class += ' el-new-table__right-first'
+      }
 
       return rightNodes
     },
@@ -143,6 +144,7 @@ export default {
       ].width = parseInt(this.$data._targetCol.style.width)
 
       this.column.setColumnsLayout()
+      this.column.save()
 
       // 拖拽行为结束, 鼠标指针样式恢复正常样式
       this.resizing = false

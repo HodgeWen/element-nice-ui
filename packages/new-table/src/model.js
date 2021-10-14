@@ -13,7 +13,7 @@ import Vue from 'vue'
 export default function createModel(options) {
   let vm = new Vue({
     data() {
-      const { data, api, pagination } = options
+      const { data, api, pagination, rowKey, showAsTree, query } = options
 
       const state = {
         /** 表格数据 */
@@ -37,9 +37,13 @@ export default function createModel(options) {
         /** 查询触发状态 */
         willQuery: false,
         /** 树状表格属性 */
-        treeProps: {
-          children: 'children'
-        }
+        childrenKey: 'children',
+        /** 行key */
+        rowKey,
+        /** 是否以树形显示 */
+        showAsTree,
+        /** 查询条件 */
+        query
       }
 
       // 传入一个自定义
@@ -114,7 +118,7 @@ export default function createModel(options) {
         this.loading = false
 
         if (code !== 200) return
-
+        // TODO  使用树形表格时
         this.data = getValueByPath(data, pagination ? pageDataPath : listDataPath)
 
         if (pagination) {
@@ -165,7 +169,7 @@ export default function createModel(options) {
         }
 
         if (Array.isArray(conditions)) {
-          const { children } = this.treeProps
+          const children = this.childrenKey
           const initialValue = {
             [children]: this.data
           }

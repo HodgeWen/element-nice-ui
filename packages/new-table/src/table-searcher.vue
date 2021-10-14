@@ -29,8 +29,8 @@
       >
         {{ expanded ? '收起' : '展开' }}
       </el-btn>
-      <el-btn :size="layout.size" type="primary" title="查询" circle icon="search"></el-btn>
-      <el-btn :size="layout.size" type="danger" title="重置" circle icon="refresh"></el-btn>
+      <el-btn :size="layout.size" type="primary" title="查询" circle icon="search" @click="fetch"></el-btn>
+      <el-btn :size="layout.size" type="danger" title="重置" circle icon="refresh" @click="refresh"></el-btn>
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@ export default {
     SearcherRender
   },
 
-  inject: ['layout'],
+  inject: ['layout', 'model'],
 
   data() {
     return {
@@ -70,6 +70,9 @@ export default {
   methods: {
     toggleSearcher() {
       this.expanded = !this.expanded
+      this.$nextTick(() => {
+        this.layout.computeMainHeight()
+      })
     },
 
     resizeHandler: debounce(150, function() {
@@ -87,6 +90,14 @@ export default {
       let leftDom = this.$refs['left']
       if (!leftDom) return
       window.addEventListener('resize', this.resizeHandler)
+    },
+
+    fetch() {
+      this.model.fetchData()
+    },
+
+    refresh() {
+      this.model.fetchData()
     }
   },
 

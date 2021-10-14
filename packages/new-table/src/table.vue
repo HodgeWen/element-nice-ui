@@ -116,7 +116,19 @@ export default {
     checkable: Boolean,
 
     /** 表格能否单选 */
-    selectable: Boolean
+    selectable: Boolean,
+
+    /** 每行数据的唯一值 */
+    rowKey: String,
+
+    /** 以树形结构显示 */
+    tree: Boolean,
+
+    /** 子元素的字段 */
+    childrenKey: {
+      type: String,
+      default: 'children'
+    }
   },
 
   data() {
@@ -128,6 +140,7 @@ export default {
         align: this.align,
         checkable: this.checkable,
         selectable: this.selectable,
+        showAsTree: this.tree
       }),
 
       /** 表格布局 */
@@ -137,7 +150,11 @@ export default {
       _model: createModel({
         api: this.api,
         data: this.data,
-        pagination: this.pagination
+        pagination: this.pagination,
+        rowKey: this.rowKey,
+        query: this.query,
+        showAsTree: this.tree,
+        childrenKey: this.childrenKey
       })
     }
   },
@@ -173,7 +190,8 @@ export default {
     return {
       column: this.$data._column,
       layout: this.$data._layout,
-      model: this.$data._model
+      model: this.$data._model,
+      root: this
     }
   },
 

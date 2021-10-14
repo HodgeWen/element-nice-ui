@@ -5,7 +5,8 @@
     <el-new-table
       code="test"
       :headers="headers"
-      row-key="value"
+      row-key="id"
+      tree
       pagination
       selectable
       api="/arr"
@@ -16,6 +17,11 @@
       <el-input t-label="测试" />
       <el-input  t-label="测试"/>
     </template>
+
+    <template #tools>
+      <el-btn>新增</el-btn>
+    </template>
+
     </el-new-table>
   </div>
 </template>
@@ -67,7 +73,7 @@ export default {
       { label: '序号', prop: 'index', fixed: 'left', width: 200 },
       { label: '随机数', prop: 'id', fixed: 'left', width: 200 },
       { label: '随机数', prop: 'id', slotName: "aa" },
-      { label: '随机数', prop: 'id' },
+      { label: '随机数', prop: 'id', formatter(v) { return v + 666 } },
       { label: '随机数', prop: 'id' },
       { label: '随机数', prop: 'id' },
       { label: '随机数', prop: 'id' },
