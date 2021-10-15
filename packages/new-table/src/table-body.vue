@@ -16,16 +16,16 @@ export default {
 
   computed: {
     rowRenderQueue() {
-      const { root } =  this
+      const { root } = this
       const { leftFixedColumns, staticColumns, rightFixedColumns } = this.column
 
       let getCellRender = column => {
         if (column.formatter) {
-          return (rowData, rowIndex) => column.formatter(rowData[column.prop], rowData, rowIndex)
+          return (rowData, rowIndex) => column.formatter(rowData, rowData[column.prop], rowIndex)
         } else if (column.slotName) {
           return (rowData, rowIndex) => {
             let fn = root.$scopedSlots[`column.${column.slotName}`]
-            return fn ? fn({ item: rowData, index: rowIndex }) : '--'
+            return fn ? fn({ row: rowData, index: rowIndex, value: rowData[column.prop] }) : '--'
           }
         } else {
           return rowData => rowData[column.prop]
@@ -33,7 +33,7 @@ export default {
       }
 
       // 渲染队列, 直接根据column信息生成每个单元格的渲染队列
-      let leftRenderQueue = leftFixedColumns.map((column) => {
+      let leftRenderQueue = leftFixedColumns.map(column => {
         let cellRender = getCellRender(column)
         let className = 'el-new-table__left-fixed'
 
@@ -62,7 +62,7 @@ export default {
         }
       })
 
-      let rightRenderQueue = rightFixedColumns.map((column) => {
+      let rightRenderQueue = rightFixedColumns.map(column => {
         let cellRender = getCellRender(column)
         let className = 'el-new-table__right-fixed'
 
@@ -136,16 +136,18 @@ export default {
     })
     return (
       <tbody class='el-new-table__body'>
-        {hasColumn ? flatData.map((row, i) => (
-          <el-table-row
-            onExpand={this.expand}
-            row-render-queue={this.rowRenderQueue}
-            row-data={row}
-            row-index={i}
-            row-key={rowKey}
-            key={rowKey ? row[rowKey] : i}
-          />
-        )) : null}
+        {hasColumn
+          ? flatData.map((row, i) => (
+              <el-table-row
+                onExpand={this.expand}
+                row-render-queue={this.rowRenderQueue}
+                row-data={row}
+                row-index={i}
+                row-key={rowKey}
+                key={rowKey ? row[rowKey] : i}
+              />
+            ))
+          : null}
       </tbody>
     )
   }

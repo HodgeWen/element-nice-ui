@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import { openDB, Store } from './db'
 
 import Cache from 'ts-web-cache'
 
