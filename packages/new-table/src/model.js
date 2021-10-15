@@ -43,7 +43,12 @@ export default function createModel(options) {
         /** 是否以树形显示 */
         showAsTree,
         /** 查询条件 */
-        query
+        query,
+
+        /** 已选中行的row-key值 */
+        selected: '',
+        /** 已选中行的row-key值的集合 */
+        checked: []
       }
 
       // 传入一个自定义
@@ -106,7 +111,9 @@ export default function createModel(options) {
           sizeKey = 'size'
         } = $EL_TABLE_PROP_CONFIG
 
-        const params = {}
+        const params = {
+          ...this.query
+        }
 
         if (pagination) {
           params[pageKey] = page
@@ -118,7 +125,6 @@ export default function createModel(options) {
         this.loading = false
 
         if (code !== 200) return
-        // TODO  使用树形表格时
         this.data = getValueByPath(data, pagination ? pageDataPath : listDataPath)
 
         if (pagination) {

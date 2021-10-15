@@ -18,14 +18,20 @@ export default {
     rowRenderQueue: {
       type: Object,
       required: true
-    }
+    },
+
+    rowKey: String
   },
 
   inject: ['column'],
 
   data() {
     return {
-      expanded: false
+      expanded: false,
+
+      hasSelected: false,
+
+      hasChecked: false
     }
   },
 
@@ -45,6 +51,8 @@ export default {
         return []
       }
 
+      const { rowData, rowKey } = this
+
       let nodeList = []
 
       if (showAsTree) {
@@ -56,7 +64,7 @@ export default {
                 class={[this.expanded ? 'el-icon-arrow-down' : 'el-icon-arrow-right']}
                 style={{
                   cursor: 'pointer',
-                  'margin-left': this.rowData._depth * 10 + 'px'
+                  'margin-left': rowData._depth * 10 + 'px'
                 }}
               ></i>
             ) : null}
@@ -64,23 +72,37 @@ export default {
         )
       }
 
-      let style = {
-        'text-align': 'center',
-        left: nodeList.length ? '60px' : '0px'
-      }
+      if (rowKey) {
+        let style = {
+          'text-align': 'center',
+          left: nodeList.length ? '60px' : '0px'
+        }
 
-      if (checkable) {
-        nodeList.push(
-          <td class='el-new-table__left-fixed' style={style}>
-            <ElCheckbox />
-          </td>
-        )
-      } else if (selectable) {
-        nodeList.push(
-          <td class='el-new-table__left-fixed' style={style}>
-            <ElRadio />
-          </td>
-        )
+        if (checkable) {
+          nodeList.push(
+            <td class='el-new-table__left-fixed' style={style}>
+              <ElCheckbox
+                disabled={
+                  typeof checkable === 'function' && !checkable(this.rowData, this.rowIndex)
+                }
+                onInput={this.onCheck}
+                value={this.hasChecked}
+              />
+            </td>
+          )
+        } else if (selectable) {
+          nodeList.push(
+            <td class='el-new-table__left-fixed' style={style}>
+              <ElRadio
+                disabled={
+                  typeof selectable === 'function' && !selectable(this.rowData, this.rowIndex)
+                }
+                onInput={this.onSelect}
+                value={this.hasSelected}
+              />
+            </td>
+          )
+        }
       }
 
       return nodeList
@@ -89,6 +111,18 @@ export default {
     expand() {
       this.expanded = !this.rowData._expanded
       this.$emit('expand', this.rowData)
+    },
+
+    /** 复选 */
+    onCheck(status) {
+      // 复选选中时 不应该影响其它的行, 不能引起其他行的重新渲染, 否则会造成性能的浪费
+      this.hasChecked = status
+
+    },
+
+    /** 单选 */
+    onSelect(status) {
+      this.hasSelected = status
     }
   },
 

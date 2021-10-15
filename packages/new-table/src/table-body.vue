@@ -16,6 +16,7 @@ export default {
 
   computed: {
     rowRenderQueue() {
+      const { root } =  this
       const { leftFixedColumns, staticColumns, rightFixedColumns } = this.column
 
       let getCellRender = column => {
@@ -23,7 +24,7 @@ export default {
           return (rowData, rowIndex) => column.formatter(rowData[column.prop], rowData, rowIndex)
         } else if (column.slotName) {
           return (rowData, rowIndex) => {
-            let fn = this.root.$scopedSlots['column.' + column.slotName]
+            let fn = root.$scopedSlots[`column.${column.slotName}`]
             return fn ? fn({ item: rowData, index: rowIndex }) : '--'
           }
         } else {
@@ -32,12 +33,10 @@ export default {
       }
 
       // 渲染队列, 直接根据column信息生成每个单元格的渲染队列
-      let leftRenderQueue = leftFixedColumns.map((column, index) => {
+      let leftRenderQueue = leftFixedColumns.map((column) => {
         let cellRender = getCellRender(column)
         let className = 'el-new-table__left-fixed'
-        // if (index === leftFixedColumns.length - 1) {
-        //   className += ' el-new-table__left-last'
-        // }
+
         return (rowData, rowIndex) => {
           return (
             <td
@@ -56,23 +55,22 @@ export default {
 
         return (rowData, rowIndex) => {
           return (
-            <td class='el-new-table__static' style={{ textAlign: column.align }}>
+            <td class='el-new-table__static' key={column._id} style={{ textAlign: column.align }}>
               {cellRender(rowData, rowIndex)}
             </td>
           )
         }
       })
 
-      let rightRenderQueue = rightFixedColumns.map((column, index) => {
+      let rightRenderQueue = rightFixedColumns.map((column) => {
         let cellRender = getCellRender(column)
         let className = 'el-new-table__right-fixed'
-        // if (index === 0) {
-        //   className += ' el-new-table__right-last'
-        // }
+
         return (rowData, rowIndex) => {
           return (
             <td
               class={className}
+              key={column._id}
               style={{ right: column._offsetRight + 'px', textAlign: column.align }}
             >
               {cellRender(rowData, rowIndex)}
@@ -99,7 +97,9 @@ export default {
       let ret = []
       const { childrenKey, showAsTree } = this.model
 
-      if (!showAsTree) return this.model.data
+      if (!showAsTree) {
+        this.flatData = this.model.data
+      }
 
       function recurse(data, depth = 0) {
         data.forEach((item, i) => {
@@ -142,6 +142,7 @@ export default {
             row-render-queue={this.rowRenderQueue}
             row-data={row}
             row-index={i}
+            row-key={rowKey}
             key={rowKey ? row[rowKey] : i}
           />
         )) : null}

@@ -30,7 +30,6 @@ import ElTablePagination from './table-pagination.vue'
 import createLayout from './layout'
 import createModel from './model'
 import createColumns from './column.jsx'
-import './table.scss'
 
 export default {
   name: 'ElNewTable',
@@ -113,10 +112,14 @@ export default {
     },
 
     /** 表格能否多选, 优先级大于单选优先级 */
-    checkable: Boolean,
+    checkable: {
+      type: [Boolean, Function]
+    },
 
     /** 表格能否单选 */
-    selectable: Boolean,
+    selectable: {
+      type: [Boolean, Function]
+    },
 
     /** 每行数据的唯一值 */
     rowKey: String,

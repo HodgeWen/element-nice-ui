@@ -59,18 +59,23 @@ export default {
 
     /** 渲染左侧固定的表头 */
     renderLeftTh(h) {
-      const { leftFixedColumns } = this.column
-
-      let leftNodes = leftFixedColumns.map((column, index) => (
-        <th
-          class={'el-new-table__left-fixed'}
-          style={{ left: column._offsetLeft + 'px', textAlign: column.align }}
-          key={column._id}
-        >
-          {this.renderHeaderItem(h, column)}
-          <div class='el-new-table__handle' onMousedown={e => this.mousedown(e, index)}></div>
-        </th>
-      ))
+      const { leftFixedColumns, extraFixedHeaders } = this.column
+      let baseIndex = extraFixedHeaders.length
+      let leftNodes = extraFixedHeaders.concat(
+        leftFixedColumns.map((column, index) => (
+          <th
+            class={'el-new-table__left-fixed'}
+            style={{ left: column._offsetLeft + 'px', textAlign: column.align }}
+            key={column._id}
+          >
+            {this.renderHeaderItem(h, column)}
+            <div
+              class='el-new-table__handle'
+              onMousedown={e => this.mousedown(e, index + baseIndex)}
+            ></div>
+          </th>
+        ))
+      )
 
       let last = leftNodes[leftNodes.length - 1]
       if (last) {
@@ -81,12 +86,9 @@ export default {
     },
 
     /** 渲染右侧固定的表头 */
-    renderRightTh(h) {
+    renderRightTh(h, baseIndex) {
       const { rightFixedColumns } = this.column
 
-      let baseIndex = ['leftFixedColumns', 'staticColumns'].reduce((acc, cur) => {
-        return acc + this.column[cur].length
-      }, 0)
       let rightNodes = rightFixedColumns.map((column, index) => (
         <th
           class={'el-new-table__right-fixed'}
@@ -113,7 +115,6 @@ export default {
       this.$data._pageX = e.pageX
 
       // 目标列的索引
-      index += this.column.extraFixedHeaders.length
       this.$data._targetColIndex = index
 
       // 目标列
@@ -152,7 +153,7 @@ export default {
   },
 
   render(h) {
-    const { staticColumns, extraFixedHeaders } = this.column
+    const { staticColumns } = this.column
 
     // 左固定列 为 额为固定列加上需要渲染的左侧固定列
     let leftHeaders = this.renderLeftTh(h)
@@ -160,7 +161,7 @@ export default {
     // 静态列
     let staticHeaders = staticColumns.map((column, index) => {
       return (
-        <th class="el-new-table__static" key={column._id} style={{ textAlign: column.align }}>
+        <th class='el-new-table__static' key={column._id} style={{ textAlign: column.align }}>
           {this.renderHeaderItem(h, column)}
           <div
             class='el-new-table__handle'
@@ -171,12 +172,11 @@ export default {
     })
 
     // 右固定列
-    let rightHeaders = this.renderRightTh(h)
+    let rightHeaders = this.renderRightTh(h, leftHeaders.length + staticHeaders.length)
 
     return (
       <thead class='el-new-table__header' ref='header'>
         <tr class={{ 'el-new-table__header--resizing': this.resizing }}>
-          {extraFixedHeaders}
           {leftHeaders}
           {staticHeaders}
           {rightHeaders}

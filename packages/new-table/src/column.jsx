@@ -95,6 +95,7 @@ export default function createColumns(options) {
         }
 
         if (this.checkable) {
+          // 全选
           nodeList.push(
             <th class='el-new-table__left-fixed' style={style}>
               <ElCheckbox />
@@ -113,19 +114,20 @@ export default function createColumns(options) {
         if (!this.allColumns.length) return []
 
         let extraCols = []
-        if (this.checkable || this.selectable) {
+
+        if (this.showAsTree) {
           extraCols.push({
-            _id: 999,
+            _id: 1000,
             width: 60,
             fixed: 'left',
             _offsetLeft: 0
           })
         }
 
-        if (this.showAsTree) {
+        if (this.checkable || this.selectable) {
           extraCols.push({
-            _id: 1000,
-            width: 60,
+            _id: 1001,
+            width: 40,
             fixed: 'left',
             _offsetLeft: 0
           })
@@ -219,20 +221,23 @@ export default function createColumns(options) {
           this.getStore().add({
             code: this.tableCode,
             columns: this.allColumns.map(item => {
-              let ret= {...item}
+              let ret = { ...item }
               delete ret.formatter
               return ret
             })
           })
       },
 
+      delete() {
+        this.tableCode && this.getStore().delete(this.tableCode)
+      },
       /** 保存至数据库 */
       save() {
         this.tableCode &&
           this.getStore().put({
             code: this.tableCode,
             columns: this.allColumns.map(item => {
-              let ret= {...item}
+              let ret = { ...item }
               delete ret.formatter
               return ret
             })

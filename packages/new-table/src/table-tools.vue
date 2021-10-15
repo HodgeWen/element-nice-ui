@@ -1,6 +1,6 @@
 <template>
   <div class="el-new-table__tools" ref="tools">
-    <el-context  class="el-new-table__tools-left" :ctx="{ size: layout.size }">
+    <el-context class="el-new-table__tools-left" :ctx="{ size: layout.size }">
       <slot />
     </el-context>
 
@@ -31,6 +31,9 @@
         </template>
       </el-popover>
       <!-- 控制列的显隐 end -->
+
+      <!-- 清空数据库 -->
+      <el-btn @click="deleteRecord" icon="delete" title="恢复默认" circle type="info" :size="layout.size"></el-btn>
 
       <el-radio-group v-model="layout.size" :size="layout.size">
         <el-radio-button label="mini">迷你</el-radio-button>
@@ -79,6 +82,10 @@ export default {
       this.column.setColumnsLayout()
       this.column.save()
       this.columnConfVisible = false
+    },
+
+    deleteRecord() {
+      this.column.delete()
     }
   },
 

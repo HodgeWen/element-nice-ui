@@ -1,0 +1,237 @@
+@import 'theme/src/mixins/mixins.scss';
+
+@include b(new-table) {
+  width: 100%;
+  position: relative;
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: separate;
+  }
+
+  th {
+    z-index: 1;
+    background: var(--primary-tint-color-9, $--background-color-base);
+    padding: 8px;
+    top: 0;
+    position: sticky;
+    overflow-wrap: break-word;
+    user-select: none;
+    -webkit-user-select: none;
+
+    &.el-new-table__left-fixed,
+    &.el-new-table__right-fixed {
+      z-index: 2;
+    }
+  }
+
+  tr {
+    &:hover {
+      td {
+        background-color: $--table-row-hover-background-color;
+      }
+    }
+
+    &:last-child {
+      td {
+        border-bottom: 1px solid #dee2e6;
+      }
+    }
+  }
+
+  td {
+    padding: 8px;
+    border-top: 1px solid #dee2e6;
+    background-color: #fff;
+    overflow-wrap: break-word;
+  }
+
+  @include m(mini) {
+    th,
+    td {
+      padding: 4px;
+    }
+  }
+
+  @include m(small) {
+    th,
+    td {
+      padding: 6px;
+    }
+  }
+
+  @include m(large) {
+    th,
+    td {
+      padding: 10px;
+    }
+  }
+
+  @include e(main) {
+    position: relative;
+    overflow: auto;
+    background-color: #fff;
+  }
+
+  @include e(query-item) {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    vertical-align: middle;
+    margin-bottom: 6px;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+
+  @include e(query-label) {
+    font-size: 14px;
+    color: #999;
+    flex-shrink: 0;
+    text-align: center;
+    padding-right: 4px;
+    box-sizing: border-box;
+  }
+
+  @include e(left-last) {
+    &::after {
+      content: '';
+      pointer-events: none;
+      width: 4px;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      right: 0;
+      box-shadow: 3px 0 4px 0px #ddd;
+    }
+  }
+
+  @include e(right-first) {
+    &::before {
+      content: '';
+      pointer-events: none;
+      width: 4px;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      left: 0;
+      box-shadow: -3px 0 4px 0px #ddd;
+    }
+  }
+
+  @include e((left-fixed, right-fixed)) {
+    z-index: 0;
+    position: sticky;
+  }
+
+  @include e(left-fixed) {
+    border-right: 1px solid #dee2e6;
+  }
+  @include e(right-fixed) {
+    border-left: 1px solid #dee2e6;
+  }
+  @include e(static) {
+    & + & {
+      border-left: 1px solid #dee2e6;
+    }
+  }
+
+  @include e(loading) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #fff;
+  }
+
+  @include e(tools) {
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+
+    // &-left {
+
+    // }
+
+    &-right {
+      & > * {
+        vertical-align: middle;
+
+        &:not(:last-child) {
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+
+  @include e(searcher) {
+    border-radius: 4px;
+    background: #fff;
+    margin-bottom: 8px;
+    padding: 6px 8px 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+
+    &-right {
+      flex-shrink: 0;
+    }
+
+    &-left {
+      overflow: hidden;
+    }
+  }
+
+  @include e(column-config) {
+    &.el-popover {
+      padding-bottom: 0;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      margin-right: -10px;
+    }
+
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  @include e(header) {
+    @include m(resizing) {
+      cursor: col-resize;
+    }
+  }
+
+  @include e(handle) {
+    height: 14px;
+    cursor: col-resize;
+    position: absolute;
+    display: inline-block;
+    right: 0px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    width: 3px;
+    // border: 1px double #666;
+    border-radius: 3px;
+    box-sizing: border-box;
+    // border-left: 3px double #666;
+  }
+}

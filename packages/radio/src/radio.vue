@@ -37,9 +37,9 @@
         tabindex="-1"
       />
     </span>
-    <span class="el-radio__label" @keydown.stop>
-      <slot></slot>
+    <span class="el-radio__label" v-if="$slots.default || label" @keydown.stop>
       <template v-if="!$slots.default">{{ label }}</template>
+      <slot v-else></slot>
     </span>
   </label>
 </template>

@@ -6,13 +6,14 @@
       code="test"
       :headers="headers"
       row-key="id"
-      tree
+
       pagination
-      selectable
+      :checkable="(data, index) => index % 2 === 0"
       api="/arr"
+      :query="query"
     >
     <template #searcher>
-      <el-input t-label="测试" />
+      <el-input v-model="query.test" t-label="测试" />
       <el-input t-label="测试" />
       <el-input t-label="测试" />
       <el-input  t-label="测试"/>
@@ -92,7 +93,11 @@ export default {
     s: '',
     list: [],
 
-    test: '<p>123</p>'
+    test: '<p>123</p>',
+
+    query: {
+      test: '测试'
+    }
   }),
 
   methods: {

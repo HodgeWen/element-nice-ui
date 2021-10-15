@@ -97,16 +97,14 @@
     box-sizing: border-box;
   }
 
-  @include e((left-last, right-first)) {
-    content: '';
-    pointer-events: none;
-    width: 4px;
-    position: absolute;
-    top: 0;
-    height: 100%;
-  }
   @include e(left-last) {
     &::after {
+      content: '';
+      pointer-events: none;
+      width: 4px;
+      position: absolute;
+      top: 0;
+      height: 100%;
       right: 0;
       box-shadow: 3px 0 4px 0px #ddd;
     }
@@ -114,6 +112,12 @@
 
   @include e(right-first) {
     &::before {
+      content: '';
+      pointer-events: none;
+      width: 4px;
+      position: absolute;
+      top: 0;
+      height: 100%;
       left: 0;
       box-shadow: -3px 0 4px 0px #ddd;
     }
