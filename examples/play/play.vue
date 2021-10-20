@@ -6,8 +6,6 @@
       code="test"
       :headers="headers"
       row-key="id"
-
-      pagination
       :checkable="(data, index) => index % 2 === 0"
       api="/arr"
       :query="query"

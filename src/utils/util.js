@@ -27,7 +27,7 @@ export function toObject(arr) {
 };
 
 export const getValueByPath = function(object, prop) {
-  prop = prop || '';
+  if (!prop) return object
   const paths = prop.split('.');
   let current = object;
   let result = null;

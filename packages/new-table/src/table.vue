@@ -19,6 +19,9 @@
 
     <!-- 分页 -->
     <ElTablePagination v-if="pagination" ref="pagination" />
+
+    <!-- 放在外部的一些内容, 比如弹框等等 -->
+    <slot name="outer" />
   </div>
 </template>
 
@@ -131,6 +134,12 @@ export default {
     childrenKey: {
       type: String,
       default: 'children'
+    },
+
+    /** 数据在返回的json值中的路径 */
+    dataPath: {
+      type: String,
+      default: ''
     }
   },
 
@@ -157,7 +166,8 @@ export default {
         rowKey: this.rowKey,
         query: this.query,
         showAsTree: this.tree,
-        childrenKey: this.childrenKey
+        childrenKey: this.childrenKey,
+        dataPath: this.dataPath
       })
     }
   },

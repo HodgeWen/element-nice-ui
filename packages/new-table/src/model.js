@@ -13,7 +13,7 @@ import Vue from 'vue'
 export default function createModel(options) {
   let vm = new Vue({
     data() {
-      const { data, api, pagination, rowKey, showAsTree, query } = options
+      const { data, api, pagination, rowKey, showAsTree, query, dataPath } = options
 
       const state = {
         /** 表格数据 */
@@ -48,7 +48,9 @@ export default function createModel(options) {
         /** 已选中行的row-key值 */
         selected: '',
         /** 已选中行的row-key值的集合 */
-        checked: []
+        checked: [],
+
+        dataPath
       }
 
       // 传入一个自定义
@@ -125,7 +127,10 @@ export default function createModel(options) {
         this.loading = false
 
         if (code !== 200) return
-        this.data = getValueByPath(data, pagination ? pageDataPath : listDataPath)
+        this.data = getValueByPath(
+          data,
+          this.dataPath || (pagination ? pageDataPath : listDataPath)
+        )
 
         if (pagination) {
           this.total = getValueByPath(data, totalPath)
@@ -161,9 +166,7 @@ export default function createModel(options) {
       },
 
       /** 更新数据 */
-      update() {
-
-      },
+      update() {},
 
       /** 查找数据 */
       find(conditions) {

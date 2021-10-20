@@ -605,15 +605,15 @@ export default {
     // 查询
     fetch() {
       const {
-        page,
-        list,
-        total,
+        pageDataPath,
+        listDataPath,
+        totalPath,
         currentField = 'current',
         sizeField = 'size'
       } = this.$EL_TABLE_PROP_CONFIG
 
-      let { page: p, size, ...commonParams } = this.params
-      commonParams[currentField] = p
+      let { page, size, ...commonParams } = this.params
+      commonParams[currentField] = page
       commonParams[sizeField] = size
 
       let method = 'get'
@@ -633,14 +633,14 @@ export default {
       return promise.then(res => {
         if (res.code !== 200) return
         if (this.pagination) {
-          if (!page || !total) {
-            console.warn(`$EL_TABLE_PROP_CONFIG中的page和total属性都不能为空`)
+          if (!pageDataPath || !totalPath) {
+            console.warn(`$EL_TABLE_PROP_CONFIG中的pageDataPath和totalPath属性都不能为空`)
           }
-          this.internalData = getValueByPath(res, this.dataPath || page)
-          this.total = getValueByPath(res, total)
+          this.internalData = getValueByPath(res.data, this.dataPath || pageDataPath)
+          this.total = getValueByPath(res.data, totalPath)
         } else {
-          !list && console.warn(`$EL_TABLE_PROP_CONFIG中的list属性不能为空`)
-          this.internalData = getValueByPath(res, this.dataPath || list)
+          !listDataPath && console.warn(`$EL_TABLE_PROP_CONFIG中的list属性不能为空`)
+          this.internalData = getValueByPath(res.data, this.dataPath || listDataPath)
         }
       })
     },
