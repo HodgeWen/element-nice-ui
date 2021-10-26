@@ -45,7 +45,10 @@ export default function createColumns(options) {
         /** 可选中列的列宽 */
         _checkableColumnWidth: 60,
         /** 可展开的列宽 */
-        _treeExpandableColumnWidth: 60
+        _treeExpandableColumnWidth: 60,
+
+        /** 默认列 */
+        defaultColumns: null
       }
       options &&
         Object.keys(options).forEach(key => {
@@ -63,9 +66,6 @@ export default function createColumns(options) {
         if (this.checkable) {
           offsetLeft += this.$data._checkableColumnWidth
         }
-        if (this.showAsTree) {
-          offsetLeft += this.$data._treeExpandableColumnWidth
-        }
         return offsetLeft
       },
 
@@ -77,21 +77,9 @@ export default function createColumns(options) {
 
         let nodeList = []
 
-        let expandStyle = {
-          'text-align': 'left',
-          left: 0
-        }
-        if (this.showAsTree) {
-          nodeList.push(
-            <th class='el-new-table__left-fixed' style={expandStyle}>
-              {/* <i class='el-icon-arrow-right' style='cursor: pointer'></i> */}
-            </th>
-          )
-        }
-
         let style = {
           'text-align': 'center',
-          left: nodeList.length ? '60px' : '0px'
+          left: '0'
         }
 
         if (this.checkable) {
@@ -115,18 +103,11 @@ export default function createColumns(options) {
 
         let extraCols = []
 
-        if (this.showAsTree) {
-          extraCols.push({
-            _id: 1000,
-            width: 60,
-            fixed: 'left',
-            _offsetLeft: 0
-          })
-        }
+
 
         if (this.checkable || this.selectable) {
           extraCols.push({
-            _id: 1001,
+            _id: 1000,
             width: 40,
             fixed: 'left',
             _offsetLeft: 0
@@ -167,6 +148,10 @@ export default function createColumns(options) {
           if (!column.align) {
             column.align = this.align
           }
+          // 让列可响应
+          if (!column.fixed) {
+            column.fixed = ''
+          }
         }).map(column => {
           // 只针对一级列设置
           if (!column.width && !column.minWidth) {
@@ -194,7 +179,7 @@ export default function createColumns(options) {
           }
           if (column.fixed === 'left') {
             leftFixedColumns.push(column)
-          } else {
+          } else if (column.fixed === 'right') {
             rightFixedColumns.push(column)
           }
         })
@@ -244,8 +229,16 @@ export default function createColumns(options) {
           })
       },
 
-      /** 初始化 */
+      /** 初始化, 在table组件中监听表头调用 */
       async init(columns) {
+
+        if (!columns && this.defaultColumns) {
+          columns = this.defaultColumns
+        }
+        if (!this.defaultColumns) {
+          this.defaultColumns = columns
+        }
+
         let { tableCode } = this
 
         // 未启用数据库保存

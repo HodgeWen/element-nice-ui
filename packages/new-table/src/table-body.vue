@@ -15,17 +15,55 @@ export default {
   }),
 
   computed: {
+    // TODO renderQueue
     rowRenderQueue() {
       const { root } = this
-      const { leftFixedColumns, staticColumns, rightFixedColumns } = this.column
+      const { leftFixedColumns, staticColumns, rightFixedColumns, showAsTree } = this.column
 
-      let getCellRender = column => {
+      let getExpandPadding = (column, row) => {
+
+        return [
+          <i style={{ 'margin-left': depth * 10 + 'px' }}></i>,
+          hasChildren ? (
+            <i
+              onClick={this.expand}
+              class={[this.expanded ? 'el-icon-arrow-down' : 'el-icon-arrow-right']}
+              style={{
+                cursor: 'pointer'
+              }}
+            ></i>
+          ) : null
+        ]
+      }
+
+      let getCellRender = (column, index) => {
+        // 如果是树形显示
+        if (showAsTree && index === 0) {
+        }
+        // if (showAsTree) {
+        // if (showAsTree) {
+        //   nodeList.push(
+        //     <td class='el-new-table__left-fixed' style='text-align: left; left: 0'>
+        //       {this.rowData.children && this.rowData.children.length ? (
+        //         <i
+        //           onClick={this.expand}
+        //           class={[this.expanded ? 'el-icon-arrow-down' : 'el-icon-arrow-right']}
+        //           style={{
+        //             cursor: 'pointer',
+        //             'margin-left': rowData._depth * 10 + 'px'
+        //           }}
+        //         ></i>
+        //       ) : null}
+        //     </td>
+        //   )
+        // }
+        // }
         if (column.formatter) {
-          return (rowData, rowIndex) => column.formatter(rowData, rowData[column.prop], rowIndex)
+          return (rowData, rowIndex) => [column.formatter(rowData, rowData[column.prop], rowIndex)]
         } else if (column.slotName) {
           return (rowData, rowIndex) => {
             let fn = root.$scopedSlots[`column.${column.slotName}`]
-            return fn ? fn({ row: rowData, index: rowIndex, value: rowData[column.prop] }) : '--'
+            return [fn ? fn({ row: rowData, index: rowIndex, value: rowData[column.prop] }) : '--']
           }
         } else {
           return rowData => rowData[column.prop]
@@ -33,8 +71,8 @@ export default {
       }
 
       // 渲染队列, 直接根据column信息生成每个单元格的渲染队列
-      let leftRenderQueue = leftFixedColumns.map(column => {
-        let cellRender = getCellRender(column)
+      let leftRenderQueue = leftFixedColumns.map((column, index) => {
+        let cellRender = getCellRender(column, index)
         let className = 'el-new-table__left-fixed'
 
         return (rowData, rowIndex) => {

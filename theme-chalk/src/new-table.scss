@@ -156,8 +156,8 @@
     background: #fff;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    align-content: flex-start;
+    align-items: center;
+    align-content: center;
     flex-wrap: wrap;
 
     // &-left {
@@ -199,19 +199,73 @@
 
   @include e(column-config) {
     &.el-popover {
-      padding-bottom: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
     ul {
       margin: 0;
-      padding: 0;
-      margin-right: -10px;
+      padding: 4px 0;
     }
 
     li {
       list-style: none;
       margin: 0;
+      padding: 4px 6px;
+      background-color: #fff;
+      line-height: 24px;
+
+      & i {
+        font-size: 18px;
+        vertical-align: middle;
+      }
+
+      & .handle {
+        margin-right: 10px;
+        cursor: grab;
+      }
+
+      & [class*="el-icon-"] {
+        cursor: pointer;
+      }
+
+      & .column-fixed {
+        color: var(--primary-color);
+      }
+    }
+
+    .column-item__ghost {
+      opacity: 0;
+    }
+
+    &-header {
+      padding: 6px 8px;
+      border-bottom: 1px solid #eee;
+    }
+  }
+  @include e(size-config) {
+    padding: 4px 0;
+
+    ul {
+      margin: 0;
       padding: 0;
     }
+
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 4px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--primary-tint-color-9, $--color-primary-light-9);
+        color: var(--primary-color, $--color-primary);
+      }
+    }
+  }
+
+  @include e(size-item--selected) {
+    background-color: var(--primary-tint-color-9, $--color-primary-light-9);
+    color: var(--primary-color, $--color-primary);
   }
 
   @include e(header) {

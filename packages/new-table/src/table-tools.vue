@@ -5,87 +5,80 @@
     </el-context>
 
     <div class="el-new-table__tools-right">
-      <!-- 控制列的显隐 start -->
-      <el-popover
-        popper-class="el-new-table__column-config"
-        v-model="columnConfVisible"
-        placement="bottom"
-      >
-        <el-perfect-scrollbar tag="ul" style="max-height: 200px">
-          <li v-for="column of column.allColumns" :key="column._id">
-            <el-checkbox v-model="column.visible">
-              {{ column.label }}
-            </el-checkbox>
-
-            <!-- <i class="el-icon-arrow-left"></i> -->
-          </li>
-        </el-perfect-scrollbar>
-
-        <div style="text-align: right">
-          <!-- <el-checkbox>全选</el-checkbox> -->
-          <el-btn @click="changeColumnsVisibility" size="mini" type="text">确认</el-btn>
-        </div>
-
-        <template #reference>
-          <el-btn :size="layout.size" style="margin-left: 10px" icon="s-operation" circle />
-        </template>
-      </el-popover>
-      <!-- 控制列的显隐 end -->
-
       <!-- 清空数据库 -->
-      <el-btn @click="deleteRecord" icon="delete" title="恢复默认" circle type="info" :size="layout.size"></el-btn>
+      <el-tooltip content="恢复默认" placement="top">
+        <el-btn @click="deleteRecord" :size="layout.size" icon="refresh" circle></el-btn>
+      </el-tooltip>
 
-      <el-radio-group v-model="layout.size" :size="layout.size">
-        <el-radio-button label="mini">迷你</el-radio-button>
-        <el-radio-button label="small">小</el-radio-button>
-        <el-radio-button label="medium">中等</el-radio-button>
-        <el-radio-button label="large">大</el-radio-button>
-      </el-radio-group>
+      <el-tooltip content="尺寸设置" placement="top">
+        <el-popover popper-class="el-new-table__size-config" v-model="sizeConfVisible">
+          <template #reference>
+            <el-btn :size="layout.size" icon="s-operation" circle></el-btn>
+          </template>
+
+          <ul>
+            <li
+              v-for="size of sizes"
+              :key="size.value"
+              :class="{ 'el-new-table__size-item--selected': size.value === layout.size }"
+              @click="changeSize(size.value)"
+            >
+              {{ size.label }}
+            </li>
+          </ul>
+        </el-popover>
+      </el-tooltip>
+
+      <!-- 控制列-->
+      <ColumnsSetting />
     </div>
   </div>
 </template>
 
 <script>
 import ElPopover from 'element-nice-ui/packages/popover'
-import ElCheckbox from 'element-nice-ui/packages/checkbox'
-import ElCheckboxGroup from 'element-nice-ui/packages/checkbox-group'
 import ElBtn from 'element-nice-ui/packages/btn'
-import ElPerfectScrollbar from 'element-nice-ui/packages/perfect-scrollbar'
-import ElRadioGroup from 'element-nice-ui/packages/radio-group'
-import ElRadioButton from 'element-nice-ui/packages/radio-button'
+import ElDropdown from 'element-nice-ui/packages/dropdown'
 import ElContext from 'element-nice-ui/packages/context'
+import ElTooltip from 'element-nice-ui/packages/tooltip'
+import ColumnsSetting from './table-tools/columns-setting.vue'
 
 export default {
   name: 'ElTableTools',
 
   components: {
     ElPopover,
-    ElCheckbox,
-    ElCheckboxGroup,
     ElBtn,
-    ElPerfectScrollbar,
-    ElRadioGroup,
-    ElRadioButton,
-    ElContext
+    ElDropdown,
+    ElContext,
+    ElTooltip,
+    ColumnsSetting
   },
 
   inject: ['column', 'layout'],
 
   data: () => ({
-    columnConfVisible: false,
+    sizes: [
+      { label: '迷你', value: 'mini' },
+      { label: '小', value: 'small' },
+      { label: '默认', value: 'medium' },
+      { label: '大', value: 'large' }
+    ],
+
+    sizeConfVisible: false,
 
     visibleColumns: []
   }),
 
   methods: {
-    changeColumnsVisibility() {
-      this.column.setColumnsLayout()
-      this.column.save()
-      this.columnConfVisible = false
-    },
-
     deleteRecord() {
       this.column.delete()
+      this.column.init()
+    },
+
+    changeSize(size) {
+      this.layout.size = size
+      this.sizeConfVisible = false
     }
   },
 

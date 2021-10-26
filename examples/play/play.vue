@@ -8,6 +8,7 @@
       row-key="id"
       :checkable="(data, index) => index % 2 === 0"
       api="/arr"
+      tree
       :query="query"
     >
     <template #searcher>

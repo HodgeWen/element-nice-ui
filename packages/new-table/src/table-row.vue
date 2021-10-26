@@ -44,33 +44,16 @@ export default {
   methods: {
     /** 渲染额外单元格 */
     renderExtraFixedCells() {
-      const { allColumns, checkable, showAsTree, selectable } = this.column
+      const { allColumns, checkable, selectable } = this.column
 
       // 防止样式出现一瞬间的错乱
       if (!allColumns.length) {
         return []
       }
 
-      const { rowData, rowKey } = this
+      const { rowKey } = this
 
       let nodeList = []
-
-      if (showAsTree) {
-        nodeList.push(
-          <td class='el-new-table__left-fixed' style='text-align: left; left: 0'>
-            {this.rowData.children && this.rowData.children.length ? (
-              <i
-                onClick={this.expand}
-                class={[this.expanded ? 'el-icon-arrow-down' : 'el-icon-arrow-right']}
-                style={{
-                  cursor: 'pointer',
-                  'margin-left': rowData._depth * 10 + 'px'
-                }}
-              ></i>
-            ) : null}
-          </td>
-        )
-      }
 
       if (rowKey) {
         let style = {
@@ -117,7 +100,6 @@ export default {
     onCheck(status) {
       // 复选选中时 不应该影响其它的行, 不能引起其他行的重新渲染, 否则会造成性能的浪费
       this.hasChecked = status
-
     },
 
     /** 单选 */
