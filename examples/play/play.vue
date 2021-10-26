@@ -3,6 +3,7 @@
     <!-- <el-select api="/select/tree" tree multiple v-model="list" /> -->
 
     <el-new-table
+      default-expand-all
       code="test"
       :headers="headers"
       row-key="id"
@@ -110,7 +111,13 @@ export default {
     }
   },
 
+  beforeCreate() {
+    // console.time('aa')
+  },
+
+
   mounted() {
+    // console.timeEnd('aa')
     this.getData()
   }
 }

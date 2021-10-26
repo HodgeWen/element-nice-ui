@@ -39,6 +39,8 @@ export default {
       const { leftFixedColumns, staticColumns, rightFixedColumns, extraColumns } = this.column
       return extraColumns.concat(leftFixedColumns.concat(staticColumns, rightFixedColumns))
     }
-  }
+  },
+
+
 }
 </script>

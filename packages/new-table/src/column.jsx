@@ -103,8 +103,6 @@ export default function createColumns(options) {
 
         let extraCols = []
 
-
-
         if (this.checkable || this.selectable) {
           extraCols.push({
             _id: 1000,
@@ -231,7 +229,6 @@ export default function createColumns(options) {
 
       /** 初始化, 在table组件中监听表头调用 */
       async init(columns) {
-
         if (!columns && this.defaultColumns) {
           columns = this.defaultColumns
         }

@@ -139,10 +139,12 @@ export default {
       document.removeEventListener('mousemove', this.mousemove)
       document.removeEventListener('mouseup', this.mouseup)
 
+      // TODO 此处是否应该直接引用tableMain中的cols属性
+      const { leftFixedColumns, staticColumns, rightFixedColumns, extraColumns } = this.column
+      let cols = extraColumns.concat(leftFixedColumns.concat(staticColumns, rightFixedColumns))
+
       // 将视图中的列宽映射到列数据中
-      this.column.allColumns[
-        this.$data._targetColIndex - this.column.extraFixedHeaders.length
-      ].width = parseInt(this.$data._targetCol.style.width)
+      cols[this.$data._targetColIndex].width = parseInt(this.$data._targetCol.style.width)
 
       this.column.setColumnsLayout()
       this.column.save()
