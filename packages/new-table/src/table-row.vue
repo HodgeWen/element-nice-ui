@@ -27,17 +27,9 @@ export default {
 
   data() {
     return {
-      expanded: false,
-
       hasSelected: false,
 
       hasChecked: false
-    }
-  },
-
-  watch: {
-    rowData(v) {
-      this.expanded = v._expanded
     }
   },
 
@@ -89,11 +81,6 @@ export default {
       }
 
       return nodeList
-    },
-
-    expand() {
-      this.expanded = !this.rowData._expanded
-      this.$emit('expand', this.rowData)
     },
 
     /** 复选 */

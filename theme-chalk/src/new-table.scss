@@ -201,6 +201,7 @@
     &.el-popover {
       padding: 0;
       box-sizing: border-box;
+      outline: none;
     }
     ul {
       margin: 0;
@@ -213,19 +214,21 @@
       padding: 4px 6px;
       background-color: #fff;
       line-height: 24px;
+      user-select: none;
+      -webkit-user-select: none;
 
       & i {
         font-size: 18px;
         vertical-align: middle;
       }
 
+      & [class*='el-icon-'] {
+        cursor: pointer;
+      }
+
       & .handle {
         margin-right: 10px;
         cursor: grab;
-      }
-
-      & [class*="el-icon-"] {
-        cursor: pointer;
       }
 
       & .column-fixed {

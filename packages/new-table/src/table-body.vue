@@ -8,7 +8,7 @@ export default {
     ElTableRow
   },
 
-  inject: ['model', 'column', 'root'],
+  inject: ['model', 'column', 'root', 'layout'],
 
   data: () => ({
     flatData: []
@@ -19,15 +19,16 @@ export default {
     rowRenderQueue() {
       const { root } = this
       const { leftFixedColumns, staticColumns, rightFixedColumns, showAsTree } = this.column
+      const { childrenKey } = this.model
+      const { size } = this.layout
 
       let getExpandPadding = (column, row) => {
-
         return [
-          <i style={{ 'margin-left': depth * 10 + 'px' }}></i>,
-          hasChildren ? (
+          <i style={{ 'margin-left': row._depth * 20 + 'px' }}></i>,
+          row[childrenKey] && row[childrenKey].length ? (
             <i
-              onClick={this.expand}
-              class={[this.expanded ? 'el-icon-arrow-down' : 'el-icon-arrow-right']}
+              class={[row.$_expanded ? 'el-icon-arrow-down' : 'el-icon-arrow-right']}
+              onClick={() => this.expand(row)}
               style={{
                 cursor: 'pointer'
               }}
@@ -36,34 +37,37 @@ export default {
         ]
       }
 
-      let getCellRender = (column, index) => {
+
+      let getCellRender = (column, leftColumnIndex) => {
         // 如果是树形显示
-        if (showAsTree && index === 0) {
+        if (showAsTree && leftColumnIndex === 0) {
+          if (column.formatter) {
+            return (rowData, rowIndex) => [
+              getExpandPadding(column, rowData),
+              column.formatter(rowData, rowData[column.prop], rowIndex)
+            ]
+          } else if (column.slotName) {
+            return (rowData, rowIndex) => {
+              let fn = root.$scopedSlots[`column.${column.slotName}`]
+              return [
+                getExpandPadding(column, rowData),
+                fn ? fn({ row: rowData, index: rowIndex, value: rowData[column.prop], size }) : '--'
+              ]
+            }
+          } else {
+            return  rowData => [
+              getExpandPadding(column, rowData),
+              rowData[column.prop]
+            ]
+          }
         }
-        // if (showAsTree) {
-        // if (showAsTree) {
-        //   nodeList.push(
-        //     <td class='el-new-table__left-fixed' style='text-align: left; left: 0'>
-        //       {this.rowData.children && this.rowData.children.length ? (
-        //         <i
-        //           onClick={this.expand}
-        //           class={[this.expanded ? 'el-icon-arrow-down' : 'el-icon-arrow-right']}
-        //           style={{
-        //             cursor: 'pointer',
-        //             'margin-left': rowData._depth * 10 + 'px'
-        //           }}
-        //         ></i>
-        //       ) : null}
-        //     </td>
-        //   )
-        // }
-        // }
+
         if (column.formatter) {
           return (rowData, rowIndex) => [column.formatter(rowData, rowData[column.prop], rowIndex)]
         } else if (column.slotName) {
           return (rowData, rowIndex) => {
             let fn = root.$scopedSlots[`column.${column.slotName}`]
-            return [fn ? fn({ row: rowData, index: rowIndex, value: rowData[column.prop] }) : '--']
+            return [fn ? fn({ row: rowData, index: rowIndex, value: rowData[column.prop], size }) : '--']
           }
         } else {
           return rowData => rowData[column.prop]
@@ -127,7 +131,7 @@ export default {
 
   methods: {
     expand(item) {
-      item._expanded = !item._expanded
+      item.$_expanded = !item.$_expanded
       this.getFlatData()
     },
 
@@ -139,12 +143,11 @@ export default {
         this.flatData = this.model.data
       }
 
-      function recurse(data, depth = 0) {
+      function recurse(data) {
         data.forEach((item, i) => {
-          item._depth = depth
           ret.push(item)
-          if (item[childrenKey] && item._expanded) {
-            recurse(item[childrenKey], depth + 1)
+          if (item[childrenKey] && item.$_expanded) {
+            recurse(item[childrenKey])
           }
         })
       }
@@ -177,7 +180,6 @@ export default {
         {hasColumn
           ? flatData.map((row, i) => (
               <el-table-row
-                onExpand={this.expand}
                 row-render-queue={this.rowRenderQueue}
                 row-data={row}
                 row-index={i}

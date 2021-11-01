@@ -1,12 +1,13 @@
 'use strict';
 
 const { series, src, dest } = require('gulp');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const cssmin = require('gulp-cssmin');
 
 function compile() {
   return src(['./src/*.scss', './src/*.css'])
-    .pipe(sass.sync())
+    .pipe(
+      sass())
     .pipe(cssmin())
     .pipe(dest('./lib'));
 }

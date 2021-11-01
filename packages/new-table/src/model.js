@@ -1,6 +1,7 @@
 // 该类用来控制表格的数据来源, 以及提供一些对数据的处理操作
 import { getValueByPath } from 'element-nice-ui/src/utils/util'
 import Vue from 'vue'
+import { treeMap } from './util'
 
 /**
  * 创建数据模型
@@ -96,6 +97,25 @@ export default function createModel(options) {
     },
 
     methods: {
+      transformData(data) {
+        const { childrenKey } = this
+        if (this.showAsTree) {
+          function recurse(data, depth = 0) {
+            data.forEach((item, i) => {
+              item._depth = depth
+              item.$_expanded = false
+              if (item[childrenKey] && item[childrenKey].length) {
+                recurse(item[childrenKey], depth + 1)
+              }
+            })
+          }
+
+          recurse(data)
+        }
+
+        return data
+      },
+
       /** 请求远端数据 */
       async fetchData() {
         const { api, method, $EL_TABLE_PROP_CONFIG, page, size, pagination, $http } = this
@@ -127,9 +147,8 @@ export default function createModel(options) {
         this.loading = false
 
         if (code !== 200) return
-        this.data = getValueByPath(
-          data,
-          this.dataPath || (pagination ? pageDataPath : listDataPath)
+        this.data = this.transformData(
+          getValueByPath(data, this.dataPath || (pagination ? pageDataPath : listDataPath))
         )
 
         if (pagination) {

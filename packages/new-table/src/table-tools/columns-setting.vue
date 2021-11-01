@@ -83,7 +83,7 @@ export default {
       animation: 200,
       group: 'description',
       ghostClass: 'column-item__ghost',
-      handle: '.handle'
+      handle: '.el-icon-rank.handle'
     },
 
     dragging: false,
