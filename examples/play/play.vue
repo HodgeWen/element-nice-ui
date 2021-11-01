@@ -71,8 +71,8 @@ export default {
 
   data: () => ({
     headers: [
-      { label: '序号', prop: 'index', fixed: 'left', width: 200 },
-      { label: '随机数', prop: 'id', fixed: 'left', width: 200 },
+      { label: '序号', prop: 'index',  width: 200 },
+      { label: '随机数', prop: 'id', width: 200 },
       { label: '随机数', prop: 'id', slotName: "aa" },
       { label: '随机数', prop: 'id', formatter(v) { return v + 666 } },
       { label: '随机数', prop: 'id' },

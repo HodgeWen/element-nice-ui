@@ -92,8 +92,8 @@ export default {
         }
       })
 
-      let staticRenderQueue = staticColumns.map(column => {
-        let cellRender = getCellRender(column)
+      let staticRenderQueue = staticColumns.map((column, index) => {
+        let cellRender =  getCellRender(column, leftRenderQueue.length ? undefined : index)
 
         return (rowData, rowIndex) => {
           return (
