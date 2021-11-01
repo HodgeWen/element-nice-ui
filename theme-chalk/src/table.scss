@@ -620,11 +620,11 @@
     margin-bottom: $--tabel-vertical-margin;
     padding: 8px;
     border-radius: 4px;
-    padding-top: $--tabel-vertical-margin / 2 + 8px;
+    padding-top: $--tabel-vertical-margin * 0.5 + 8px;
     & > * {
       width: 220px;
       margin-right: 10px;
-      margin-bottom: $--tabel-vertical-margin / 2;
+      margin-bottom: $--tabel-vertical-margin * 0.5;
       vertical-align: middle;
     }
   }
