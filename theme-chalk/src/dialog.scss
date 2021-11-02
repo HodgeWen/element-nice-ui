@@ -1,22 +1,22 @@
-@import 'mixins/mixins';
-@import 'mixins/utils';
-@import 'common/var';
-@import 'common/popup';
+@use 'mixins/mixins';
+@use 'mixins/utils';
+@use 'common/var';
+@use 'common/popup';
 // @import "perfect-scrollbar";
 
-@include b(dialog) {
+@include mixins.b(dialog) {
   position: relative;
   margin: 0 auto 50px;
-  background: $--dialog-background-color;
-  border-radius: $--border-radius-base;
+  background: var.$dialog-background-color;
+  border-radius: var.$border-radius-base;
   overflow: hidden;
-  box-shadow: $--dialog-box-shadow;
+  box-shadow: var.$dialog-box-shadow;
   box-sizing: border-box;
   width: 720px;
   max-height: 70vh;
 
 
-  @include when(fullscreen) {
+  @include mixins.when(fullscreen) {
     width: 100%;
     margin-top: 0;
     margin-bottom: 0;
@@ -30,7 +30,7 @@
     }
   }
 
-  @include e(wrapper) {
+  @include mixins.e(wrapper) {
     position: fixed;
     top: 0;
     right: 0;
@@ -40,76 +40,76 @@
     margin: 0;
   }
 
-  @include e(header) {
-    padding: $--dialog-padding-primary;
+  @include mixins.e(header) {
+    padding: var.$dialog-padding-primary;
     border-bottom: 1px solid #eee;
     box-sizing: border-box;
-    background-color: var(--primary-color, $--color-primary);
+    background-color: var(--primary-color, var.$color-primary);
   }
 
-  @include e(headerbtn) {
+  @include mixins.e(headerbtn) {
     position: absolute;
     line-height: 1;
     top: (
-      ($--dialog-font-line-height + ($--dialog-padding-primary * 2) - $--message-close-size) * 0.5
+      (var.$dialog-font-line-height + (var.$dialog-padding-primary * 2) - var.$message-close-size) * 0.5
     );
     padding: 0;
     background: transparent;
     border: none;
     outline: none;
     cursor: pointer;
-    font-size: $--message-close-size;
-    color: $--color-primary-light-9;
+    font-size: var.$message-close-size;
+    color: var.$color-primary-light-9;
 
     i {
       vertical-align: top;
     }
 
     &:hover {
-      color: $--color-primary-light-5;
+      color: var.$color-primary-light-5;
     }
 
     &-full {
-      right: $--dialog-padding-primary * 2 + 16px;
+      right: var.$dialog-padding-primary * 2 + 16px;
     }
     &-close {
-      right: $--dialog-padding-primary;
+      right: var.$dialog-padding-primary;
     }
   }
 
-  @include e(title) {
-    line-height: $--dialog-font-line-height;
-    font-size: $--dialog-title-font-size;
-    color: $--color-primary-light-9;
+  @include mixins.e(title) {
+    line-height: var.$dialog-font-line-height;
+    font-size: var.$dialog-title-font-size;
+    color: var.$color-primary-light-9;
   }
 
-  @include e(body) {
-    padding: ($--dialog-padding-primary + 10px) $--dialog-padding-primary;
-    color: $--color-text-regular;
-    font-size: $--dialog-content-font-size;
+  @include mixins.e(body) {
+    padding: (var.$dialog-padding-primary + 10px) var.$dialog-padding-primary;
+    color: var.$color-text-regular;
+    font-size: var.$dialog-content-font-size;
     word-break: break-all;
     box-sizing: border-box;
     overflow: auto;
     max-height: calc(70vh - 90px);
   }
 
-  @include e(footer) {
-    padding: $--dialog-padding-primary;
+  @include mixins.e(footer) {
+    padding: var.$dialog-padding-primary;
     padding-top: 10px;
     text-align: right;
     box-sizing: border-box;
   }
 
   // 内容居中布局
-  @include m(center) {
+  @include mixins.m(center) {
     text-align: center;
 
-    @include e(body) {
+    @include mixins.e(body) {
       text-align: initial;
-      padding: 25px ($--dialog-padding-primary + 5px) 30px;
+      padding: 25px (var.$dialog-padding-primary + 5px) 30px;
     }
 
-    @include e(footer) {
+    @include mixins.e(footer) {
       text-align: inherit;
     }
   }

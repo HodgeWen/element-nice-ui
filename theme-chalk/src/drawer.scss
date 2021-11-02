@@ -1,5 +1,5 @@
-@import "mixins/mixins";
-@import "common/var";
+@use "mixins/mixins";
+@use "common/var";
 // @import 'perfect-scrollbar';
 
 @keyframes el-drawer-fade-in {
@@ -110,10 +110,10 @@
 
 $directions: rtl, ltr, ttb, btt;
 
-@include b(drawer) {
+@include mixins.b(drawer) {
   position: absolute;
   box-sizing: border-box;
-  background-color: $--dialog-background-color;
+  background-color: var.$dialog-background-color;
   display: flex;
   flex-direction: column;
   box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.2),
@@ -169,7 +169,7 @@ $directions: rtl, ltr, ttb, btt;
     border: none;
     outline: none;
     cursor: pointer;
-    font-size: $--font-size-extra-large;
+    font-size: var.$font-size-extra-large;
     color: inherit;
     background-color: transparent;
   }

@@ -1,9 +1,9 @@
-@import "mixins/mixins";
-@import "common/var";
+@use "mixins/mixins";
+@use "common/var";
 
-@include b(backtop) {
+@include mixins.b(backtop) {
   position: fixed;
-  background-color: $--backtop-background-color;
+  background-color: var.$backtop-background-color;
   width: 40px;
   height: 40px;
   border-radius: 50%;

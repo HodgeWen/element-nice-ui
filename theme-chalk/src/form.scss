@@ -1,23 +1,23 @@
-@import "mixins/mixins";
-@import "mixins/utils";
-@import "common/var";
+@use "mixins/mixins";
+@use "mixins/utils";
+@use "common/var";
 // @import 'row';
 // @import 'col';
 
-@include b(form) {
-  @include m(label-left) {
+@include mixins.b(form) {
+  @include mixins.m(label-left) {
     & .el-form-item__label {
       text-align: left;
     }
   }
-  @include m(label-top) {
+  @include mixins.m(label-top) {
     & .el-form-item__label {
       float: none;
       display: inline-block;
       text-align: left;
     }
   }
-  @include m(inline) {
+  @include mixins.m(inline) {
     & .el-form-item {
       display: inline-block;
       margin-right: 10px;
@@ -37,12 +37,12 @@
     }
   }
 }
-@include b(form-item) {
+@include mixins.b(form-item) {
 
   &.el-form-item--showerror {
     margin-bottom: 22px;
   }
-  @include utils-clearfix;
+  @include utils.utils-clearfix;
 
   & .el-form-item {
     margin-bottom: 0;
@@ -52,7 +52,7 @@
     display: none;
   }
 
-  @include m(medium) {
+  @include mixins.m(medium) {
     .el-form-item__label {
       line-height: 36px;
     }
@@ -60,7 +60,7 @@
       line-height: 36px;
     }
   }
-  @include m(small) {
+  @include mixins.m(small) {
     .el-form-item__label {
       line-height: 32px;
     }
@@ -74,7 +74,7 @@
       padding-top: 2px;
     }
   }
-  @include m(mini) {
+  @include mixins.m(mini) {
     .el-form-item__label {
       line-height: 28px;
     }
@@ -89,7 +89,7 @@
     }
   }
 
-  @include e(label-wrap) {
+  @include mixins.e(label-wrap) {
     float: left;
     .el-form-item__label {
       display: inline-block;
@@ -97,31 +97,31 @@
     }
   }
 
-  @include e(label) {
+  @include mixins.e(label) {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: right;
     vertical-align: middle;
     float: left;
-    font-size: $--form-label-font-size;
-    color: $--color-text-regular;
+    font-size: var.$form-label-font-size;
+    color: var.$color-text-regular;
     line-height: 40px;
     padding: 0 12px 0 0;
     box-sizing: border-box;
   }
-  @include e(content) {
+  @include mixins.e(content) {
     line-height: 40px;
     position: relative;
     font-size: 14px;
-    @include utils-clearfix;
+    @include utils.utils-clearfix;
 
     .el-input-group {
       vertical-align: top;
     }
   }
-  @include e(error) {
-    color: $--color-danger;
+  @include mixins.e(error) {
+    color: var.$color-danger;
     font-size: 12px;
     line-height: 1;
     padding-top: 4px;
@@ -129,7 +129,7 @@
     top: 100%;
     left: 0;
 
-    @include m(inline) {
+    @include mixins.m(inline) {
       position: relative;
       top: auto;
       left: auto;
@@ -138,22 +138,22 @@
     }
   }
 
-  @include when(required) {
-    @include pseudo('not(.is-no-asterisk)') {
+  @include mixins.when(required) {
+    @include mixins.pseudo('not(.is-no-asterisk)') {
       & > .el-form-item__label:before,
       & .el-form-item__label-wrap > .el-form-item__label:before {
         content: '*';
-        color: $--color-danger;
+        color: var.$color-danger;
         margin-right: 4px;
       }
     }
   }
 
-  @include when(error) {
+  @include mixins.when(error) {
     & .el-input__inner,
     & .el-textarea__inner {
       &, &:focus {
-        border-color: $--color-danger;
+        border-color: var.$color-danger;
       }
     }
     & .el-input-group__append,
@@ -163,11 +163,11 @@
       }
     }
     .el-input__validateIcon {
-      color: $--color-danger;
+      color: var.$color-danger;
     }
   }
 
-  @include m(feedback) {
+  @include mixins.m(feedback) {
     .el-input__validateIcon {
       display: inline-block;
     }

@@ -1,3 +1,4 @@
+@use "sass:meta";
 :root {
   --primary-color: #409EFF;
   --primary-tint-color: #66b1ff; // 20%;
@@ -6,5 +7,5 @@
   --primary-disabled-color: #a0cfff; // 50%;
 }
 
-@import "common/transition";
+@include meta.load-css("common/transition");
 @import "icon.css";

@@ -1,11 +1,11 @@
-@import "mixins/mixins";
+@use "mixins/mixins";
 
-@include b(dnd) {
+@include mixins.b(dnd) {
   border: 1px solid #ccc;
 }
 
 
-@include b(dnd-item) {
+@include mixins.b(dnd-item) {
 
 
   &.dragging {

@@ -1,6 +1,7 @@
-@import 'mixins/mixins';
+@use 'mixins/mixins';
+@use "common/var";
 
-@include b(new-table) {
+@include mixins.b(new-table) {
   width: 100%;
   position: relative;
 
@@ -13,7 +14,7 @@
 
   th {
     z-index: 1;
-    background: var(--primary-tint-color-9, $--background-color-base);
+    background: var(--primary-tint-color-9, var.$background-color-base);
     padding: 8px;
     top: 0;
     position: sticky;
@@ -30,7 +31,7 @@
   tr {
     &:hover {
       td {
-        background-color: $--table-row-hover-background-color;
+        background-color: var.$table-row-hover-background-color;
       }
     }
 
@@ -48,34 +49,34 @@
     overflow-wrap: break-word;
   }
 
-  @include m(mini) {
+  @include mixins.m(mini) {
     th,
     td {
       padding: 4px;
     }
   }
 
-  @include m(small) {
+  @include mixins.m(small) {
     th,
     td {
       padding: 6px;
     }
   }
 
-  @include m(large) {
+  @include mixins.m(large) {
     th,
     td {
       padding: 10px;
     }
   }
 
-  @include e(main) {
+  @include mixins.e(main) {
     position: relative;
     overflow: auto;
     background-color: #fff;
   }
 
-  @include e(query-item) {
+  @include mixins.e(query-item) {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
@@ -88,7 +89,7 @@
     }
   }
 
-  @include e(query-label) {
+  @include mixins.e(query-label) {
     font-size: 14px;
     color: #999;
     flex-shrink: 0;
@@ -97,7 +98,7 @@
     box-sizing: border-box;
   }
 
-  @include e(left-last) {
+  @include mixins.e(left-last) {
     &::after {
       content: '';
       pointer-events: none;
@@ -110,7 +111,7 @@
     }
   }
 
-  @include e(right-first) {
+  @include mixins.e(right-first) {
     &::before {
       content: '';
       pointer-events: none;
@@ -123,24 +124,24 @@
     }
   }
 
-  @include e((left-fixed, right-fixed)) {
+  @include mixins.e((left-fixed, right-fixed)) {
     z-index: 0;
     position: sticky;
   }
 
-  @include e(left-fixed) {
+  @include mixins.e(left-fixed) {
     border-right: 1px solid #dee2e6;
   }
-  @include e(right-fixed) {
+  @include mixins.e(right-fixed) {
     border-left: 1px solid #dee2e6;
   }
-  @include e(static) {
+  @include mixins.e(static) {
     & + & {
       border-left: 1px solid #dee2e6;
     }
   }
 
-  @include e(loading) {
+  @include mixins.e(loading) {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -149,7 +150,7 @@
     background: #fff;
   }
 
-  @include e(tools) {
+  @include mixins.e(tools) {
     padding: 6px 8px;
     margin-bottom: 8px;
     border-radius: 4px;
@@ -175,7 +176,7 @@
     }
   }
 
-  @include e(searcher) {
+  @include mixins.e(searcher) {
     border-radius: 4px;
     background: #fff;
     margin-bottom: 8px;
@@ -197,7 +198,7 @@
     }
   }
 
-  @include e(column-config) {
+  @include mixins.e(column-config) {
     &.el-popover {
       padding: 0;
       box-sizing: border-box;
@@ -245,7 +246,7 @@
       border-bottom: 1px solid #eee;
     }
   }
-  @include e(size-config) {
+  @include mixins.e(size-config) {
     padding: 4px 0;
 
     ul {
@@ -260,24 +261,24 @@
       cursor: pointer;
 
       &:hover {
-        background-color: var(--primary-tint-color-9, $--color-primary-light-9);
-        color: var(--primary-color, $--color-primary);
+        background-color: var(--primary-tint-color-9, var.$color-primary-light-9);
+        color: var(--primary-color, var.$color-primary);
       }
     }
   }
 
-  @include e(size-item--selected) {
-    background-color: var(--primary-tint-color-9, $--color-primary-light-9);
-    color: var(--primary-color, $--color-primary);
+  @include mixins.e(size-item--selected) {
+    background-color: var(--primary-tint-color-9, var.$color-primary-light-9);
+    color: var(--primary-color, var.$color-primary);
   }
 
-  @include e(header) {
-    @include m(resizing) {
+  @include mixins.e(header) {
+    @include mixins.m(resizing) {
       cursor: col-resize;
     }
   }
 
-  @include e(handle) {
+  @include mixins.e(handle) {
     height: 14px;
     cursor: col-resize;
     position: absolute;

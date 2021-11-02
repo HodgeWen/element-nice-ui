@@ -1,7 +1,7 @@
-@import 'mixins/mixins';
-@import 'mixins/utils';
-@import 'common/var';
-@import 'common/transition';
+@use 'mixins/mixins';
+@use 'mixins/utils';
+@use 'common/var';
+@use 'common/transition';
 // @import 'tooltip';
 
 @mixin menu-item($size: medium) {
@@ -16,8 +16,8 @@
     line-height: 50px;
   }
 
-  font-size: $--menu-item-font-size;
-  color: $--menu-item-font-color;
+  font-size: var.$menu-item-font-size;
+  color: var.$menu-item-font-color;
   padding: 0 20px;
   list-style: none;
   cursor: pointer;
@@ -31,34 +31,34 @@
   }
 
   i {
-    color: $--color-text-secondary;
+    color: var.$color-text-secondary;
   }
 
   &:hover,
   &:focus {
     outline: none;
-    background-color: var(--primary-tint-color-9, $--color-primary-light-9);
+    background-color: var(--primary-tint-color-9, var.$color-primary-light-9);
   }
 
-  @include when(disabled) {
+  @include mixins.when(disabled) {
     opacity: 0.25;
     cursor: not-allowed;
     background: none !important;
   }
 }
 
-@include b(menu) {
+@include mixins.b(menu) {
   list-style: none;
   position: relative;
   margin: 0;
   padding-left: 0;
-  background-color: $--menu-background-color;
-  @include utils-clearfix;
+  background-color: var.$menu-background-color;
+  @include utils.utils-clearfix;
   &.el-menu--horizontal {
     border-bottom: solid 1px #e6e6e6;
   }
 
-  @include m(horizontal) {
+  @include mixins.m(horizontal) {
     border-right: none;
     & > .el-menu-item {
       float: left;
@@ -66,7 +66,7 @@
       line-height: 60px;
       margin: 0;
       border-bottom: 2px solid transparent;
-      color: $--color-text-secondary;
+      color: var.$color-text-secondary;
 
       a,
       a:hover {
@@ -85,14 +85,14 @@
       &:hover {
         outline: none;
         .el-submenu__title {
-          color: $--color-text-primary;
+          color: var.$color-text-primary;
         }
       }
 
       &.is-active {
         .el-submenu__title {
-          border-bottom: 2px solid $--color-primary;
-          color: $--color-text-primary;
+          border-bottom: 2px solid var.$color-primary;
+          color: var.$color-text-primary;
         }
       }
 
@@ -100,7 +100,7 @@
         height: 60px;
         line-height: 60px;
         border-bottom: 2px solid transparent;
-        color: $--color-text-secondary;
+        color: var.$color-text-secondary;
 
         &:hover {
           background-color: #fff;
@@ -116,29 +116,29 @@
     & .el-menu {
       & .el-menu-item,
       & .el-submenu__title {
-        background-color: $--color-white;
+        background-color: var.$color-white;
         float: none;
         height: 36px;
         line-height: 36px;
         padding: 0 10px;
-        color: $--color-text-secondary;
+        color: var.$color-text-secondary;
       }
       & .el-menu-item.is-active,
       & .el-submenu.is-active > .el-submenu__title {
-        color: $--color-text-primary;
+        color: var.$color-text-primary;
       }
     }
     & .el-menu-item:not(.is-disabled):hover,
     & .el-menu-item:not(.is-disabled):focus {
       outline: none;
-      color: $--color-text-primary;
+      color: var.$color-text-primary;
     }
     & > .el-menu-item.is-active {
-      border-bottom: 2px solid $--color-primary;
-      color: $--color-text-primary;
+      border-bottom: 2px solid var.$color-primary;
+      color: var.$color-text-primary;
     }
   }
-  @include m(collapse) {
+  @include mixins.m(collapse) {
     width: 64px;
 
     > .el-menu-item,
@@ -177,9 +177,9 @@
         top: 0;
         left: 100%;
         z-index: 10;
-        border: 1px solid $--border-color-light;
-        border-radius: $--border-radius-small;
-        box-shadow: $--box-shadow-light;
+        border: 1px solid var.$border-color-light;
+        border-radius: var.$border-radius-small;
+        box-shadow: var.$box-shadow-light;
       }
 
       &.is-opened {
@@ -189,13 +189,13 @@
       }
     }
   }
-  @include m(popup) {
+  @include mixins.m(popup) {
     z-index: 100;
     min-width: 200px;
     border: none;
     padding: 5px 0;
-    border-radius: $--border-radius-small;
-    box-shadow: $--box-shadow-light;
+    border-radius: var.$border-radius-small;
+    box-shadow: var.$box-shadow-light;
 
     &-bottom-start {
       margin-top: 5px;
@@ -205,7 +205,7 @@
       margin-right: 5px;
     }
   }
-  @include m(small) {
+  @include mixins.m(small) {
     & .el-menu-item {
       @include menu-item(small);
     }
@@ -214,7 +214,7 @@
       @include menu-item(small);
     }
   }
-  @include m(medium) {
+  @include mixins.m(medium) {
     & .el-menu-item {
       @include menu-item(medium);
     }
@@ -223,7 +223,7 @@
       @include menu-item(medium);
     }
   }
-  @include m(large) {
+  @include mixins.m(large) {
     & .el-menu-item {
       @include menu-item(large);
     }
@@ -233,7 +233,7 @@
     }
   }
 }
-@include b(menu-item) {
+@include mixins.b(menu-item) {
   & [class^='el-icon-'] {
     margin-right: 5px;
     width: 24px;
@@ -241,23 +241,23 @@
     font-size: 18px;
     vertical-align: middle;
   }
-  @include when(active) {
-    background: var(--primary-tint-color-9, $--color-primary-light-9);
-    color: var(--primary-color, $--color-primary);
+  @include mixins.when(active) {
+    background: var(--primary-tint-color-9, var.$color-primary-light-9);
+    color: var(--primary-color, var.$color-primary);
     i {
       color: inherit;
     }
   }
 }
 
-@include b(submenu) {
+@include mixins.b(submenu) {
   list-style: none;
   margin: 0;
   padding-left: 0;
 
-  @include e(title) {
+  @include mixins.e(title) {
     &:hover {
-      background-color: var(--primary-tint-color-9, $--color-primary-light-9);
+      background-color: var(--primary-tint-color-9, var.$color-primary-light-9);
     }
   }
   & .el-menu {
@@ -267,7 +267,7 @@
     padding: 0 45px;
     min-width: 200px;
   }
-  @include e(icon-arrow) {
+  @include mixins.e(icon-arrow) {
     position: absolute;
     top: 50%;
     right: 20px;
@@ -275,17 +275,17 @@
     transition: transform 0.3s;
     font-size: 12px;
   }
-  @include when(active) {
+  @include mixins.when(active) {
     .el-submenu__title {
-      border-bottom-color: $--color-primary;
+      border-bottom-color: var.$color-primary;
     }
   }
-  @include when(opened) {
+  @include mixins.when(opened) {
     > .el-submenu__title .el-submenu__icon-arrow {
       transform: rotateZ(180deg);
     }
   }
-  @include when(disabled) {
+  @include mixins.when(disabled) {
     .el-submenu__title,
     .el-menu-item {
       opacity: 0.25;
@@ -302,15 +302,15 @@
   }
 }
 
-@include b(menu-item-group) {
+@include mixins.b(menu-item-group) {
   > ul {
     padding: 0;
   }
-  @include e(title) {
+  @include mixins.e(title) {
     padding: 7px 0 7px 20px;
     line-height: normal;
     font-size: 12px;
-    color: $--color-text-secondary;
+    color: var.$color-text-secondary;
   }
 }
 

@@ -1,17 +1,17 @@
-@import 'mixins/mixins';
+@use 'mixins/mixins';
 // @import './bpmn/diagram-js.css';
 // @import './bpmn/css/bpmn.css';
 // @import './bpmn/css/bpmn-codes.css';
 // @import './bpmn/css/bpmn-embedded.css';
 
-@include b(bpmn) {
+@include mixins.b(bpmn) {
   height: 100%;
   position: relative;
   overflow: hidden;
 
   $tools-height: 40px;
 
-  @include e(tools) {
+  @include mixins.e(tools) {
     height: $tools-height;
     line-height: $tools-height;
     left: 100px;
@@ -20,15 +20,15 @@
     z-index: 100;
   }
 
-  @include e(btn-group) {
+  @include mixins.e(btn-group) {
     margin-right: 6px;
   }
 
-  @include e(canvas) {
+  @include mixins.e(canvas) {
     height: 100%;
   }
 
-  @include e(prop-panel) {
+  @include mixins.e(prop-panel) {
     width: 250px;
     box-sizing: border-box;
     padding: 0 10px;
@@ -42,13 +42,13 @@
     transform: translateY(-50%);
   }
 
-  @include e(scale-tools) {
+  @include mixins.e(scale-tools) {
     position: absolute;
     bottom: 20px;
     right: 20px;
   }
 
-  @include e(transform) {
+  @include mixins.e(transform) {
     &-enter-active, &-leave-active {
       transition: transform .3s, opacity .3s;
     }

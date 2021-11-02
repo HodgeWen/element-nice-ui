@@ -1,6 +1,6 @@
 
-@import 'mixins/mixins';
-@import 'common/var';
+@use 'mixins/mixins';
+@use 'common/var';
 // @import 'tooltip';
 // @import 'pagination';
 // @import 'btn';
@@ -13,33 +13,33 @@
   align-content: center;
 }
 
-@include b(data) {
+@include mixins.b(data) {
   height: 100%;
 
-  @include m(auto-height) {
+  @include mixins.m(auto-height) {
     height: auto;
   }
 
-  @include e(searcher) {
+  @include mixins.e(searcher) {
 
     background: #fff;
-    margin-bottom: $--tabel-vertical-margin;
+    margin-bottom: var.$tabel-vertical-margin;
     padding: 8px;
     border-radius: 4px;
-    padding-top: $--tabel-vertical-margin * 0.5 + 8px;
+    padding-top: var.$tabel-vertical-margin * 0.5 + 8px;
     & > * {
       width: 220px;
       margin-right: 10px;
-      margin-bottom: $--tabel-vertical-margin * 0.5;
+      margin-bottom: var.$tabel-vertical-margin * 0.5;
       vertical-align: middle;
     }
   }
 
-  @include e(tools) {
+  @include mixins.e(tools) {
     @include flex;
     padding: 6px 8px;
     background: #fff;
-    margin-bottom: $--tabel-vertical-margin;
+    margin-bottom: var.$tabel-vertical-margin;
     border-radius: 4px;
 
     &-left {
@@ -60,7 +60,7 @@
     }
   }
 
-  @include e(query-item) {
+  @include mixins.e(query-item) {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
@@ -68,7 +68,7 @@
     vertical-align: middle;
   }
 
-  @include e(query-label) {
+  @include mixins.e(query-label) {
     font-size: 14px;
     color: #999;
     flex-shrink: 0;
@@ -77,11 +77,11 @@
     box-sizing: border-box;
   }
 
-  @include e(wrap) {
+  @include mixins.e(wrap) {
     background: #fff;
   }
 
-  @include m(with-footer) {
-    margin-bottom: $--tabel-vertical-margin;
+  @include mixins.m(with-footer) {
+    margin-bottom: var.$tabel-vertical-margin;
   }
 }

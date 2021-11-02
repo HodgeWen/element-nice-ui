@@ -1,4 +1,4 @@
-@import 'mixins/mixins';
+@use 'mixins/mixins';
 
 @keyframes active {
   to {
@@ -6,8 +6,8 @@
   }
 }
 
-@include b(bpmn-viewer) {
-  @include m(active) {
+@include mixins.b(bpmn-viewer) {
+  @include mixins.m(active) {
     animation: active 50s linear infinite;
   }
 }

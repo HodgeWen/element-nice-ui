@@ -1,7 +1,7 @@
 // @import "table";
 // @import "dialog";
 // @import "input";
-@import "common/var";
+@use "common/var";
 
 .el-table-select {
   display: inline-block;
@@ -12,7 +12,7 @@
     padding-right: 35px;
 
     &:focus {
-      border-color: var(--primary-color, $--color-primary);
+      border-color: var(--primary-color, var.$color-primary);
     }
   }
 

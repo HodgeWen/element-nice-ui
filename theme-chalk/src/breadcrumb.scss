@@ -1,13 +1,13 @@
-@import "mixins/mixins";
-@import "mixins/utils";
-@import "common/var";
+@use "mixins/mixins";
+@use "mixins/utils";
+@use "common/var";
 
-@include b(breadcrumb) {
+@include mixins.b(breadcrumb) {
   font-size: 14px;
   line-height: 1;
-  @include utils-clearfix;
+  @include utils.utils-clearfix;
 
-  @include e(separator) {
+  @include mixins.e(separator) {
     margin: 0 4px;
     font-weight: bold;
 
@@ -17,10 +17,10 @@
     }
   }
 
-  @include e(item) {
+  @include mixins.e(item) {
     float: left;
 
-    @include e(inner) {
+    @include mixins.e(inner) {
       &.is-link, & a {
         font-weight: bold;
         text-decoration: none;
