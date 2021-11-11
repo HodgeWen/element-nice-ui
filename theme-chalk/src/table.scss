@@ -621,11 +621,13 @@
     padding: 8px;
     border-radius: 4px;
     padding-top: var.$tabel-vertical-margin * 0.5 + 8px;
-    & > * {
-      width: 220px;
-      margin-right: 10px;
-      margin-bottom: var.$tabel-vertical-margin * 0.5;
-      vertical-align: middle;
+    & > {
+      div, section, main, nav, span, i, article {
+        width: 220px;
+        margin-right: 10px;
+        margin-bottom: var.$tabel-vertical-margin * 0.5;
+        vertical-align: middle;
+      }
     }
   }
 
