@@ -1,5 +1,5 @@
 <template>
-  <div class="el-new-table__searcher" ref="searcher">
+  <div class="el-new-table__searcher" ref="searcher" @keyup.enter="onKeyup">
     <div
       class="el-new-table__searcher-left"
       ref="left"
@@ -10,6 +10,7 @@
       <template v-if="$slots.default">
         <searcher-render
           v-for="(node, index) of $slots.default"
+          :width="queryItemWidth"
           :node="node"
           :key="index"
           :ctx="ctx"
@@ -64,10 +65,18 @@ export default {
       return {
         size: this.layout.size
       }
+    },
+
+    queryItemWidth() {
+      return this.layout.$data._queryItemWidth
     }
   },
 
   methods: {
+    onKeyup() {
+      this.model.fetchData()
+    },
+
     toggleSearcher() {
       this.expanded = !this.expanded
       this.$nextTick(() => {
@@ -97,7 +106,7 @@ export default {
     },
 
     refresh() {
-      this.model.fetchData()
+      this.model.resetQuery()
     }
   },
 

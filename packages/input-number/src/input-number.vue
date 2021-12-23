@@ -248,12 +248,13 @@ export default {
     }
   },
   methods: {
+    // 倍数操作
     multiply(v, reciprocal = false) {
       if (v === undefined || v === null) {
         return v
       }
       let mul = typeof this.money === 'number' ? this.money : 100
-      return reciprocal ? v / mul : v * mul
+      return reciprocal ? v / mul : Math.round(v * mul)
     },
 
     toPrecision(num = 0, precision) {
@@ -323,7 +324,6 @@ export default {
       if (oldVal === newVal) return
 
       this.userInput = null
-
       this.$emit('input', newVal)
       this.$emit('change', newVal, oldVal)
       this.currentValue = newVal

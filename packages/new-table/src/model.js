@@ -1,7 +1,6 @@
 // 该类用来控制表格的数据来源, 以及提供一些对数据的处理操作
 import { getValueByPath } from 'element-nice-ui/src/utils/util'
 import Vue from 'vue'
-import { treeMap } from './util'
 
 /**
  * 创建数据模型
@@ -14,7 +13,7 @@ import { treeMap } from './util'
 export default function createModel(options) {
   let vm = new Vue({
     data() {
-      const { data, api, pagination, rowKey, showAsTree, query, dataPath } = options
+      const { data, api, pagination, rowKey, showAsTree, query, dataPath, autoQueried } = options
 
       const state = {
         /** 表格数据 */
@@ -46,12 +45,17 @@ export default function createModel(options) {
         /** 查询条件 */
         query,
 
+        _defaultQuery: {...query},
+
         /** 已选中行的row-key值 */
         selected: '',
         /** 已选中行的row-key值的集合 */
         checked: [],
 
-        dataPath
+        dataPath,
+
+        /** 自动校验 */
+        _autoQueried: autoQueried
       }
 
       // 传入一个自定义
@@ -222,6 +226,23 @@ export default function createModel(options) {
         }
 
         return this.data
+      },
+
+      resetQuery() {
+        const { _defaultQuery } = this.$data
+        Object.keys(this.query).forEach(key => {
+          this.query[key] = _defaultQuery[key]
+        })
+
+      }
+    },
+
+    created() {
+      if (this.$data._autoQueried) {
+        this.$watch(
+          () => this.$data._autoQueried.map(field => this.query[field]),
+          () => this.notifyToQuery()
+        )
       }
     }
   })

@@ -1,4 +1,24 @@
 {
+  "el-new-table": {
+    "attributes": [
+      "api",
+      "placeholder",
+      "code",
+      "query",
+      "data",
+      "pagination",
+      "row-key",
+      "headers",
+      "tree",
+      "children-key",
+      "data-path",
+      "align",
+      "height",
+      "show-tools",
+      "query-item-width"
+    ],
+    "description": "高级表格"
+  },
   "el-table-select": {
     "attributes": ["value", "option-label", "option-value", "headers", "api", "pagination"],
     "description": "表格选择组件"
@@ -941,7 +961,14 @@
     "description": "更加好看的滚动条"
   },
   "el-perfect-scrollbar": {
-    "attributes": ["wheel-speed", "tag", "wheel-propagation", "transition", "transition-name", "no-resize"],
+    "attributes": [
+      "wheel-speed",
+      "tag",
+      "wheel-propagation",
+      "transition",
+      "transition-name",
+      "no-resize"
+    ],
     "description": "完美滚动条"
   },
   "el-context": {

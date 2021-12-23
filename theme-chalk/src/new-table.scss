@@ -75,6 +75,19 @@
     overflow: auto;
     background-color: #fff;
   }
+  @include mixins.e(loading) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba($color: #fff, $alpha: 0.9);
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   @include mixins.e(query-item) {
     display: inline-flex;
@@ -141,14 +154,6 @@
     }
   }
 
-  @include mixins.e(loading) {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: #fff;
-  }
 
   @include mixins.e(tools) {
     padding: 6px 8px;

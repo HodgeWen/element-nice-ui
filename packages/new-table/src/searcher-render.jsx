@@ -10,6 +10,11 @@ export default {
     ctx: {
       type: Object,
       required: true
+    },
+
+    width: {
+      type: [Number, String],
+      required: true
     }
   },
 
@@ -25,7 +30,7 @@ export default {
       if (attrs['t-label']) {
 
         let itemStyle = {
-          width: '240px'
+          width: (props.width + 'px').replace('pxpx', 'px')
         }
         if (attrs['t-width']) {
           itemStyle.width = (attrs['t-width'] + 'px').replace('pxpx', 'px')

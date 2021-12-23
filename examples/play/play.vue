@@ -8,21 +8,21 @@
       :headers="headers"
       row-key="id"
       :checkable="(data, index) => index % 2 === 0"
-      api="/arr"
+      :api="api"
       tree
+      :auto-queried="['test']"
       :query="query"
     >
-    <template #searcher>
-      <el-input v-model="query.test" t-label="测试" />
-      <el-input t-label="测试" />
-      <el-input t-label="测试" />
-      <el-input  t-label="测试"/>
-    </template>
+      <template #searcher>
+        <el-input v-model="query.test" t-label="测试" />
+        <el-input t-width="300" t-label="测试测试测试" />
+        <el-input t-label="测试" />
+        <el-input t-label="测试" />
+      </template>
 
-    <template #tools>
-      <el-btn>新增</el-btn>
-    </template>
-
+      <template #tools>
+        <el-btn>新增</el-btn>
+      </template>
     </el-new-table>
   </div>
 </template>
@@ -71,10 +71,16 @@ export default {
 
   data: () => ({
     headers: [
-      { label: '序号', prop: 'index',  width: 200 },
+      { label: '序号', prop: 'index', width: 200 },
       { label: '随机数', prop: 'id', width: 200 },
-      { label: '随机数', prop: 'id', slotName: "aa" },
-      { label: '随机数', prop: 'id', formatter(v) { return v + 666 } },
+      { label: '随机数', prop: 'id', slotName: 'aa' },
+      {
+        label: '随机数',
+        prop: 'id',
+        formatter(v) {
+          return v + 666
+        }
+      },
       { label: '随机数', prop: 'id' },
       { label: '随机数', prop: 'id' },
       { label: '随机数', prop: 'id' },
@@ -87,6 +93,12 @@ export default {
       { label: '随机数', prop: 'id' },
       { label: '操作', slotName: 'action', width: 160, fixed: 'right', type: 'action' }
     ],
+
+    aa: {
+      aa: 12
+    },
+
+    api: '/arr',
 
     data: [],
 
@@ -114,7 +126,6 @@ export default {
   beforeCreate() {
     // console.time('aa')
   },
-
 
   mounted() {
     // console.timeEnd('aa')

@@ -1,4 +1,53 @@
 {
+  "attributes": [
+    "api",
+    "placeholder",
+    "code",
+    "query",
+    "data",
+    "pagination",
+    "row-key",
+    "headers",
+    "tree",
+    "children-key",
+    "data-path",
+    "align",
+    "height",
+    "show-tools",
+    "query-item-width"
+  ],
+  "el-new-table/api": {
+    "type": "string",
+    "description": "请求接口"
+  },
+  "el-new-table/code": {
+    "type": "string",
+    "description": "表格唯一标识"
+  },
+  "el-new-table/query": {
+    "type": "object",
+    "description": "请求参数"
+  },
+  "el-new-table/tree": {
+    "type": "boolean",
+    "description": "以树形表格展示"
+  },
+  "el-new-table/headers": {
+    "type": "string",
+    "description": "表头"
+  },
+  "el-new-table/row-key": {
+    "type": "string",
+    "description": "唯一标识key"
+  },
+  "el-new-table/show-tools": {
+    "type": "boolean",
+    "description": "显示工具栏"
+  },
+  "el-new-table/query-item-width": {
+    "type": "string|number",
+    "description": "查询项宽度"
+  },
   "el-bpmn-viewer/xml": {
     "type": "string",
     "description": "xml模板字符串"

@@ -4,6 +4,7 @@
       <colgroup>
         <col
           v-for="col of cols"
+          ref="cols"
           :key="col._id"
           :style="{
             minWidth: col.minWidth ? col.minWidth + 'px' : '',
@@ -18,6 +19,10 @@
       <!-- 表格主体 -->
       <ElTableBody />
     </table>
+
+    <div class="el-new-table__loading" v-if="model.loading">
+      <span style="color: var(--primary-color);">数据加载中...</span>
+    </div>
   </div>
 </template>
 
@@ -32,7 +37,7 @@ export default {
 
   name: 'ElTableMain',
 
-  inject: ['column', 'layout'],
+  inject: ['column', 'layout', 'model'],
 
   computed: {
     cols() {
@@ -41,6 +46,16 @@ export default {
     }
   },
 
+  // watch: {
+  //   cols(cols) {
+  //     this.$nextTick(() => {
+  //        this.$refs.cols.forEach(col =>
+
+  //         console.log(col.getBoundingClientRect().width)
+  //        )
+  //     })
+  //   }
+  // }
 
 }
 </script>

@@ -5,12 +5,12 @@
     :style="tableStyle"
   >
     <!-- 搜索栏 -->
-    <el-table-searcher>
+    <el-table-searcher v-if="$slots.searcher">
       <slot name="searcher" />
     </el-table-searcher>
 
     <!-- 工具栏 -->
-    <el-table-tools>
+    <el-table-tools v-if="showTools">
       <slot name="tools" />
     </el-table-tools>
 
@@ -78,9 +78,9 @@ export default {
       default: () => ({})
     },
 
-    queryLabelWidth: {
+    queryItemWidth: {
       type: [Number, String],
-      default: 50
+      default: 240
     },
 
     autoQueried: {
@@ -156,10 +156,13 @@ export default {
       }),
 
       /** 表格布局 */
-      _layout: createLayout(),
+      _layout: createLayout({
+        queryItemWidth: this.queryItemWidth
+      }),
 
       /** 数据模型 */
       _model: createModel({
+        autoQueried: this.autoQueried,
         api: this.api,
         data: this.data,
         pagination: this.pagination,
@@ -195,6 +198,10 @@ export default {
     /** 监听data的变化 */
     data(data) {
       this.$data._model.data = data
+    },
+
+    api(api) {
+      this.$data._model.api = api
     }
   },
 

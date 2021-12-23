@@ -10,6 +10,8 @@ export default function createLayout(config) {
   return new Vue({
     data() {
       let state = {
+        _queryItemWidth: config.queryItemWidth,
+
         _dom: {
           container: null,
           searcher: null,
