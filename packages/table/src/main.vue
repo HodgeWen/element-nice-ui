@@ -210,8 +210,7 @@ export default {
     },
 
     queryLabelWidth: {
-      type: [Number, String],
-      default: 50
+      type: [Number, String]
     },
 
     pageConfig: {
@@ -578,10 +577,24 @@ export default {
       return []
     },
 
-    // query 替换
+    // query 替换, 每次请求后如果请求参数变化则执行
     queryReplace() {
       if (!this.cache) return
-      historyReplace({ ...this.params, sa: this.searchable })
+
+      const query = { ...this.params, sa: this.searchable }
+
+      if (
+        this.$router &&
+        Object.keys(query).some(key => {
+          return String(query[key]) !== String(this.$route.query[key])
+        })
+      ) {
+        return this.$router.replace({
+          path: this.$route.path,
+          query
+        })
+      }
+      historyReplace(query)
     },
 
     // 从url中获取query值, 改变query
@@ -633,13 +646,13 @@ export default {
       return promise.then(res => {
         if (res.code !== 200) return
         if (this.pagination) {
-          if (!pageDataPath || !totalPath) {
+          if (pageDataPath === undefined || totalPath === undefined) {
             console.warn(`$EL_TABLE_PROP_CONFIG中的pageDataPath和totalPath属性都不能为空`)
           }
           this.internalData = getValueByPath(res.data, this.dataPath || pageDataPath)
           this.total = getValueByPath(res.data, totalPath)
         } else {
-          !listDataPath && console.warn(`$EL_TABLE_PROP_CONFIG中的list属性不能为空`)
+          listDataPath === undefined && console.warn(`$EL_TABLE_PROP_CONFIG中的list属性不能为空`)
           this.internalData = getValueByPath(res.data, this.dataPath || listDataPath)
         }
       })
@@ -666,14 +679,15 @@ export default {
     // 自动查询的字段 监听
     autoQueryWatch() {
       if (!Array.isArray(this.autoQueried)) return
-      let handler = v => {
-        if (this.canAutoQuery) {
-          this.willSearch = true
+
+      this.$watch(
+        () => this.autoQueried.map(field => this.params[field]),
+        () => {
+          if (this.canAutoQuery) {
+            this.willSearch = true
+          }
         }
-      }
-      this.autoQueried.forEach(field => {
-        this.$watch(`params.${field}`, handler)
-      })
+      )
     },
 
     updateHeight() {

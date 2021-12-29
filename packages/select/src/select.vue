@@ -68,7 +68,7 @@
         @compositionend="handleComposition"
         v-model="query"
         @input="debouncedQueryChange"
-        v-if="filterable"
+        v-if="canFilter"
         :style="{
           'flex-grow': '1',
           width: inputLength / (inputWidth - 32) + '%',
@@ -91,7 +91,7 @@
       :readonly="selectReadonly"
       :validate-event="false"
       :class="{ 'is-focus': visible }"
-      :tabindex="multiple && filterable ? '-1' : null"
+      :tabindex="multiple && canFilter ? '-1' : null"
       @focus="handleFocus"
       @blur="handleBlur"
       :clearable="false"
@@ -391,6 +391,10 @@ export default {
   },
 
   computed: {
+    canFilter() {
+      return this.filterable || this.tree || this.computedOptions.length > 6
+    },
+
     computedOptions() {
       let mapper
       const { optionValue: ov, optionLabel: ol } = this
@@ -436,7 +440,7 @@ export default {
       return getDefined(
         this.readonly,
         (this.elForm || {}).readonly,
-        !this.filterable || this.multiple || (!isIE() && !isEdge() && !this.visible)
+        !this.canFilter || this.multiple || (!isIE() && !isEdge() && !this.visible)
       )
     },
 
@@ -449,7 +453,7 @@ export default {
     },
 
     iconClass() {
-      return this.remote && this.filterable ? '' : this.visible ? 'arrow-up is-reverse' : 'arrow-up'
+      return this.remote && this.canFilter ? '' : this.visible ? 'arrow-up is-reverse' : 'arrow-up'
     },
 
     debounce() {
@@ -462,7 +466,7 @@ export default {
       } else {
         if (this.remote && this.query === '' && this.internalOptions.length === 0) return false
         if (
-          this.filterable &&
+          this.canFilter &&
           this.query &&
           this.internalOptions.length > 0 &&
           this.filteredOptionsCount === 0
@@ -480,7 +484,7 @@ export default {
       let hasExistingOption = this.internalOptions
         .filter(option => !option.created)
         .some(option => option.currentLabel === this.query)
-      return this.filterable && this.allowCreate && this.query !== '' && !hasExistingOption
+      return this.canFilter && this.allowCreate && this.query !== '' && !hasExistingOption
     },
 
     selectSize() {
@@ -531,13 +535,13 @@ export default {
         } else {
           this.currentPlaceholder = this.cachedPlaceHolder
         }
-        if (this.filterable && !this.reserveKeyword) {
+        if (this.canFilter && !this.reserveKeyword) {
           this.query = ''
           this.handleQueryChange(this.query)
         }
       }
       this.computedOptions.length && this.setSelected()
-      if (this.filterable && !this.multiple) {
+      if (this.canFilter && !this.multiple) {
         this.inputLength = 20
       }
       if (!valueEquals(val, oldVal)) {
@@ -565,21 +569,21 @@ export default {
         })
         if (!this.multiple) {
           if (this.selected) {
-            if (this.filterable && this.allowCreate && this.createdSelected && this.createdLabel) {
+            if (this.canFilter && this.allowCreate && this.createdSelected && this.createdLabel) {
               this.selectedLabel = this.createdLabel
             } else {
               this.selectedLabel = this.selected.currentLabel
             }
-            if (this.filterable) this.query = this.selectedLabel
+            if (this.canFilter) this.query = this.selectedLabel
           }
 
-          if (this.filterable) {
+          if (this.canFilter) {
             this.currentPlaceholder = this.cachedPlaceHolder
           }
         }
       } else {
         this.broadcast('ElSelectDropdown', 'updatePopper')
-        if (this.filterable) {
+        if (this.canFilter) {
           this.query = this.remote ? '' : this.selectedLabel
           // 重新过滤
           if (this.tree && this.selectedLabel) {
@@ -638,7 +642,7 @@ export default {
       }
       if (
         this.defaultFirstOption &&
-        (this.filterable || this.remote) &&
+        (this.canFilter || this.remote) &&
         this.filteredOptionsCount
       ) {
         this.checkDefaultFirstOption()
@@ -692,7 +696,7 @@ export default {
       })
       this.hoverIndex = -1
 
-      if (this.multiple && this.filterable) {
+      if (this.multiple && this.canFilter) {
         this.$nextTick(() => {
           const length = this.$refs.input.value.length * 15 + 20
           this.inputLength = this.collapseTags ? Math.min(50, length) : length
@@ -713,7 +717,7 @@ export default {
       }
       if (
         this.defaultFirstOption &&
-        (this.filterable || this.remote) &&
+        (this.canFilter || this.remote) &&
         this.filteredOptionsCount
       ) {
         this.checkDefaultFirstOption()
@@ -798,7 +802,7 @@ export default {
         }
         this.selectedLabel = option.currentLabel
         this.selected = option
-        if (this.filterable) this.query = this.selectedLabel
+        if (this.canFilter) this.query = this.selectedLabel
         return
       }
 
@@ -835,9 +839,9 @@ export default {
 
     handleFocus(event) {
       if (!this.softFocus) {
-        if (this.automaticDropdown || this.filterable) {
+        if (this.automaticDropdown || this.canFilter) {
           this.visible = true
-          if (this.filterable) {
+          if (this.canFilter) {
             this.menuVisibleOnFocus = true
           }
           this.setSelected()
@@ -918,7 +922,7 @@ export default {
     },
 
     resetInputHeight() {
-      if (this.collapseTags && !this.filterable) return
+      if (this.collapseTags && !this.canFilter) return
       this.$nextTick(() => {
         if (!this.$refs.reference) return
         let inputChildNodes = this.$refs.reference.$el.childNodes
@@ -983,7 +987,7 @@ export default {
           this.handleQueryChange('')
           this.inputLength = 20
         }
-        if (this.filterable) this.$refs.input.focus()
+        if (this.canFilter) this.$refs.input.focus()
       } else {
         this.$emit('input', option.value)
         this.emitChange(option.value, option.label, option.option)
@@ -1108,7 +1112,7 @@ export default {
     },
 
     onInputChange() {
-      if (this.filterable && this.query !== this.selectedLabel) {
+      if (this.canFilter && this.query !== this.selectedLabel) {
         this.query = this.selectedLabel
         this.handleQueryChange(this.query)
       }

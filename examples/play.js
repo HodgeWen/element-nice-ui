@@ -1,9 +1,21 @@
 import Vue from 'vue'
-
+import VueRouter from 'vue-router'
 import Element from 'main/index.js'
 
+const  router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      component: () => import('./play/play.vue')
+    }
+  ],
+  mode: 'history'
+})
+
+Vue.use(VueRouter)
+
 // 切换不同的示例
-import App from './play/play.vue'
+// import App from './play/play.vue'
 import 'theme/components'
 // Vue.use(Element)
 
@@ -1240,5 +1252,6 @@ Vue.prototype.$http = {
 
 new Vue({
   // eslint-disable-line
-  render: h => h(App)
+  render: h => h('router-view'),
+  router
 }).$mount('#app')

@@ -9,9 +9,9 @@ export function isKorean(text) {
 export function extendQuery(origin, target) {
   if (!origin || !target) return
 
-  Object.keys(target).forEach((key) => {
+  Object.keys(origin).forEach((key) => {
     let v = target[key]
-    if (origin[key] !== undefined && v !== undefined) {
+    if (v !== undefined) {
       origin[key] = (typeof origin[key] === 'number' && v !== '') ? +v : v
     }
   })

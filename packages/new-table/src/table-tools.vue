@@ -2,6 +2,8 @@
   <div class="el-new-table__tools" ref="tools">
     <el-context class="el-new-table__tools-left" :ctx="{ size: layout.size }">
       <slot />
+
+      <!-- <el-btn type="primary" @click="onExport">导出</el-btn> -->
     </el-context>
 
     <div class="el-new-table__tools-right">
@@ -65,9 +67,7 @@ export default {
       { label: '大', value: 'large' }
     ],
 
-    sizeConfVisible: false,
-
-    visibleColumns: []
+    sizeConfVisible: false
   }),
 
   methods: {
@@ -79,6 +79,10 @@ export default {
     changeSize(size) {
       this.layout.size = size
       this.sizeConfVisible = false
+    },
+
+    onExport() {
+      this.column.allColumns.filter(column => column.visible && !column)
     }
   },
 

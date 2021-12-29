@@ -122,6 +122,7 @@ export default function createModel(options) {
 
       /** 请求远端数据 */
       async fetchData() {
+        // TODO这个地方还需要配合cahce来实现table的缓存读取
         const { api, method, $EL_TABLE_PROP_CONFIG, page, size, pagination, $http } = this
         if (!$http || !api || !this.$data._shouldRequest) return
 

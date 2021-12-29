@@ -2,7 +2,7 @@
   <div ref="page" style="height: 100%; background: #f2f2f2">
     <!-- <el-select api="/select/tree" tree multiple v-model="list" /> -->
 
-    <el-new-table
+    <!-- <el-new-table
       default-expand-all
       code="test"
       :headers="headers"
@@ -23,7 +23,27 @@
       <template #tools>
         <el-btn>新增</el-btn>
       </template>
-    </el-new-table>
+    </el-new-table> -->
+
+    <el-table
+      :auto-queried="['test']"
+      :api="api"
+      :query="query"
+      cache
+      :headers="headers"
+      :row-key="
+        row => {
+          return row.id
+        }
+      "
+    >
+      <template #searcher>
+        <el-input v-model="query.test" t-label="测试" />
+        <el-input t-width="300" t-label="测试测试测试" />
+        <el-input t-label="测试" />
+        <el-select t-label="测试2" :options="options" v-model="query.test2" />
+      </template>
+    </el-table>
   </div>
 </template>
 
@@ -94,6 +114,16 @@ export default {
       { label: '操作', slotName: 'action', width: 160, fixed: 'right', type: 'action' }
     ],
 
+    options: [
+      { label: '你好', value: 'hello' },
+      { label: '你好1', value: 'hello1' },
+      { label: '你好2', value: 'hello2' },
+      { label: '你好3', value: 'hello3' },
+      { label: '你好4', value: 'hello4' },
+      { label: '你好5', value: 'hello5' },
+      { label: '你好6', value: 'hello6' },
+    ],
+
     aa: {
       aa: 12
     },
@@ -108,7 +138,8 @@ export default {
     test: '<p>123</p>',
 
     query: {
-      test: '测试'
+      test: '测试',
+      test2: ''
     }
   }),
 
@@ -122,6 +153,8 @@ export default {
         }))
     }
   },
+
+
 
   beforeCreate() {
     // console.time('aa')
