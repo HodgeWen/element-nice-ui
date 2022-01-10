@@ -1,6 +1,6 @@
 <template>
   <div class="el-new-table__main" :style="{ height: layout.main.height + 'px' }">
-    <table>
+    <table class="el-new-table__table">
       <colgroup>
         <col
           v-for="col of cols"
@@ -8,7 +8,7 @@
           :key="col._id"
           :style="{
             minWidth: col.minWidth ? col.minWidth + 'px' : '',
-            width: col.width + 'px',
+            width: col.width + 'px'
           }"
         />
       </colgroup>
@@ -20,9 +20,11 @@
       <ElTableBody />
     </table>
 
-    <div class="el-new-table__loading" v-if="model.loading">
-      <span style="color: var(--primary-color);">数据加载中...</span>
-    </div>
+    <transition name="el-fade-in">
+      <div class="el-new-table__loading" v-if="model.loading">
+        <span style="color: var(--primary-color);">数据加载中...</span>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -44,7 +46,7 @@ export default {
       const { leftFixedColumns, staticColumns, rightFixedColumns, extraColumns } = this.column
       return extraColumns.concat(leftFixedColumns.concat(staticColumns, rightFixedColumns))
     }
-  },
+  }
 
   // watch: {
   //   cols(cols) {
@@ -56,6 +58,5 @@ export default {
   //     })
   //   }
   // }
-
 }
 </script>

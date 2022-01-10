@@ -148,7 +148,10 @@ export default function createModel(options) {
         }
 
         this.loading = true
-        const { data, code } = await $http[method](api, { params })
+        const { data, code } = await $http[method](api, { params }).catch(err => {
+          this.loading = false
+          return Promise.reject(err)
+        })
         this.loading = false
 
         if (code !== 200) return

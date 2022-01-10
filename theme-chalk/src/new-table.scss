@@ -5,48 +5,48 @@
   width: 100%;
   position: relative;
 
-  table {
+  @include mixins.e(table) {
     width: 100%;
     table-layout: fixed;
     border-spacing: 0;
     border-collapse: separate;
-  }
 
-  th {
-    z-index: 1;
-    background: var(--primary-tint-color-9, var.$background-color-base);
-    padding: 8px;
-    top: 0;
-    position: sticky;
-    overflow-wrap: break-word;
-    user-select: none;
-    -webkit-user-select: none;
+    th {
+      z-index: 1;
+      background: var(--primary-tint-color-9, var.$background-color-base);
+      padding: 8px;
+      top: 0;
+      position: sticky;
+      overflow-wrap: break-word;
+      user-select: none;
+      -webkit-user-select: none;
 
-    &.el-new-table__left-fixed,
-    &.el-new-table__right-fixed {
-      z-index: 2;
-    }
-  }
-
-  tr {
-    &:hover {
-      td {
-        background-color: var.$table-row-hover-background-color;
+      &.el-new-table__left-fixed,
+      &.el-new-table__right-fixed {
+        z-index: 2;
       }
     }
 
-    &:last-child {
-      td {
-        border-bottom: 1px solid #dee2e6;
+    tr {
+      &:hover {
+        td {
+          background-color: var.$table-row-hover-background-color;
+        }
+      }
+
+      &:last-child {
+        td {
+          border-bottom: 1px solid #dee2e6;
+        }
       }
     }
-  }
 
-  td {
-    padding: 8px;
-    border-top: 1px solid #dee2e6;
-    background-color: #fff;
-    overflow-wrap: break-word;
+    td {
+      padding: 8px;
+      border-top: 1px solid #dee2e6;
+      background-color: #fff;
+      overflow-wrap: break-word;
+    }
   }
 
   @include mixins.m(mini) {
@@ -153,7 +153,6 @@
       border-left: 1px solid #dee2e6;
     }
   }
-
 
   @include mixins.e(tools) {
     padding: 6px 8px;

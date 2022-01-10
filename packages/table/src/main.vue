@@ -678,11 +678,12 @@ export default {
 
     // 自动查询的字段 监听
     autoQueryWatch() {
-      if (!Array.isArray(this.autoQueried)) return
+      const { autoQueried } = this
+      if (!Array.isArray(autoQueried)) return
 
       this.$watch(
-        () => this.autoQueried.map(field => this.params[field]),
-        () => {
+        () => autoQueried.map(field => this.query[field]),
+        (v) => {
           if (this.canAutoQuery) {
             this.willSearch = true
           }
@@ -727,6 +728,7 @@ export default {
 
     onPaginationPageChange(page) {
       this.pager.page = page
+      console.log(page)
       this.fetchData(true)
     },
 

@@ -36,6 +36,8 @@
           return row.id
         }
       "
+      v-model="bb"
+      pagination
     >
       <template #searcher>
         <el-input v-model="query.test" t-label="测试" />
@@ -124,11 +126,13 @@ export default {
       { label: '你好6', value: 'hello6' },
     ],
 
+    bb: null,
+
     aa: {
       aa: 12
     },
 
-    api: '/arr',
+    api: '/page',
 
     data: [],
 
@@ -153,8 +157,6 @@ export default {
         }))
     }
   },
-
-
 
   beforeCreate() {
     // console.time('aa')

@@ -42,6 +42,32 @@ Vue.prototype.$EL_SELECT_PROP_CONFIG = {
 Vue.prototype.$http = {
   // 模拟接口请求
   get(url = '') {
+    if (url === '/page') {
+      return new Promise((rs) => {
+        setTimeout(() => {
+          rs({
+            code:  200,
+            data: {
+              records: Array(100).fill().map((_, i) => {
+                return {
+                  id: i,
+                  icon: null,
+                  name: '用户新增',
+                  spread: false,
+                  path: null,
+                  keepAlive: '0',
+                  permission: 'sys_user_add',
+                  type: '1',
+                  label: '用户新增',
+                  sort: null,
+                }
+              }),
+              total: 100
+            }
+          })
+        })
+      })
+    }
     if (url === 'arr') {
       return new Promise(resolve => {
         setTimeout(() => {

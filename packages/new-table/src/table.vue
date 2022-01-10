@@ -33,6 +33,7 @@ import ElTablePagination from './table-pagination.vue'
 import createLayout from './layout'
 import createModel from './model'
 import createColumns from './column.jsx'
+import debounce from 'throttle-debounce/debounce'
 
 export default {
   name: 'ElNewTable',
@@ -145,7 +146,6 @@ export default {
 
   data() {
     return {
-
       /** 列配置 */
       _column: createColumns({
         tableCode: this.code,
@@ -218,6 +218,12 @@ export default {
   // 在created生命周期内初始化 Layout, columns, model数据模型
   created() {
     // this.column.init()
+  },
+
+  methods: {
+    fetchData(keepPage) {
+      this.$data._model.fetchData(keepPage)
+    }
   },
 
   mounted() {
