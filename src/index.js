@@ -53,6 +53,7 @@ import Tabs from '../packages/tabs/index.js';
 import TabPane from '../packages/tab-pane/index.js';
 import Tag from '../packages/tag/index.js';
 import Tree from '../packages/tree/index.js';
+import NewTree from '../packages/new-tree/index.js';
 import Alert from '../packages/alert/index.js';
 import Notification from '../packages/notification/index.js';
 import Slider from '../packages/slider/index.js';
@@ -152,6 +153,7 @@ const components = [
   TabPane,
   Tag,
   Tree,
+  NewTree,
   Alert,
   Slider,
   Icon,
@@ -226,7 +228,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '2.17.42',
+  version: '2.17.43',
   locale: locale.use,
   i18n: locale.i18n,
   install,
@@ -285,6 +287,7 @@ export default {
   TabPane,
   Tag,
   Tree,
+  NewTree,
   Alert,
   Notification,
   Slider,

@@ -16,6 +16,39 @@
     "show-tools",
     "query-item-width"
   ],
+
+
+
+  "el-new-tree/tree-data": {
+    "type": "array",
+    "description": "树的数据"
+  },
+  "el-new-tree/checkable-filter": {
+    "type": "function",
+    "description": "可以显示复选框的元素过滤"
+  },
+  "el-new-tree/selectable-filter": {
+    "type": "function",
+    "description": "可以单选的元素过滤"
+  },
+  "el-new-tree/default-show-all": {
+    "type": "boolean",
+    "description": "默认显示全部"
+  },
+  "el-new-tree/filter-node-method": {
+    "type": "function",
+    "description": "节点过滤时的方法, 通过实例的filter来过滤"
+  },
+  "el-new-tree/checkable": {
+    "type": "boolean",
+    "description": "可多选的"
+  },
+  "el-new-tree/bubble": {
+    "type": "boolean",
+    "description": "是否冒泡关联"
+  },
+
+
   "el-new-table/api": {
     "type": "string",
     "description": "请求接口"

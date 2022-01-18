@@ -50,6 +50,7 @@ import "./tabs.js";
 import "./tab-pane.js";
 import "./tag.js";
 import "./tree.js";
+import "./new-tree.js";
 import "./alert.js";
 import "./notification.js";
 import "./slider.js";

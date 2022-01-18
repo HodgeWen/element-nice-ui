@@ -1,0 +1,1 @@
+import '../src/new-tree.scss'

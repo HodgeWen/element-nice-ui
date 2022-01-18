@@ -25,7 +25,7 @@
       </template>
     </el-new-table> -->
 
-    <el-table
+    <!-- <el-table
       :auto-queried="['test']"
       :api="api"
       :query="query"
@@ -45,8 +45,26 @@
         <el-input t-label="测试" />
         <el-select t-label="测试2" :options="options" v-model="query.test2" />
       </template>
-    </el-table>
-  </div>
+    </el-table> -->
+
+     <el-new-tree
+        ref="tree"
+        :tree-data="treeData"
+        :checkable="true"
+        :checkable-filter="() => true"
+        :selectable-filter="() => true"
+        :filter-node-method="(value, data) => {
+      if (!value) return true
+      return data.label.includes(value)
+    }"
+        @input="onTreeInput"
+        @change="onTreeChange"
+      >
+        <template v-if="$scopedSlots.default" #default="scope">
+          <slot v-bind="scope" />
+        </template>
+      </el-new-tree>
+ </div>
 </template>
 
 <script>
@@ -88,10 +106,18 @@ export default {
     ElAction: E.Action,
     ElActionItem: E.ActionItem,
     ElTaskBtn: E.TaskBtn,
-    ElWangEditor: E.WangEditor
+    ElWangEditor: E.WangEditor,
+    ElNewTree: E.NewTree
   },
 
   data: () => ({
+    treeData: [
+      { label: 'aa', value: 'aa', children: [
+
+        { label: 'bb', value: 'bb' }
+      ] }
+    ],
+
     headers: [
       { label: '序号', prop: 'index', width: 200 },
       { label: '随机数', prop: 'id', width: 200 },
@@ -155,6 +181,17 @@ export default {
           index: i,
           id: Math.random()
         }))
+    },
+
+    onTreeInput(value) {
+      this.$emit('input', value)
+      if (!this.multiple) {
+        this.visible = false
+      }
+    },
+
+    onTreeChange(value, label, data) {
+      this.$emit('change', value, label, data)
     }
   },
 

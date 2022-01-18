@@ -1,4 +1,12 @@
 {
+  "el-new-tree": {
+    "attributes": [
+      "tree-data", "checkable-filter", "selectable0-filter",
+      "default-show-all", "filter-node-method", "checkable",
+      "bubble"
+    ],
+    "description": "新的树形控件"
+  },
   "el-new-table": {
     "attributes": [
       "api",

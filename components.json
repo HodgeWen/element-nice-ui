@@ -52,6 +52,7 @@
   "tab-pane": "./packages/tab-pane/index.js",
   "tag": "./packages/tag/index.js",
   "tree": "./packages/tree/index.js",
+  "new-tree": "./packages/new-tree/index.js",
   "alert": "./packages/alert/index.js",
   "notification": "./packages/notification/index.js",
   "slider": "./packages/slider/index.js",
