@@ -1,0 +1,1 @@
+import '../src/gantt.scss'

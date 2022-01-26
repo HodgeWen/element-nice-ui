@@ -1,76 +1,19 @@
 <template>
   <div ref="page" style="height: 100%; background: #f2f2f2">
-    <!-- <el-select api="/select/tree" tree multiple v-model="list" /> -->
-
-    <!-- <el-new-table
-      default-expand-all
-      code="test"
-      :headers="headers"
-      row-key="id"
-      :checkable="(data, index) => index % 2 === 0"
-      :api="api"
-      tree
-      :auto-queried="['test']"
-      :query="query"
-    >
-      <template #searcher>
-        <el-input v-model="query.test" t-label="测试" />
-        <el-input t-width="300" t-label="测试测试测试" />
-        <el-input t-label="测试" />
-        <el-input t-label="测试" />
-      </template>
-
-      <template #tools>
-        <el-btn>新增</el-btn>
-      </template>
-    </el-new-table> -->
-
-    <!-- <el-table
-      :auto-queried="['test']"
-      :api="api"
-      :query="query"
-      cache
-      :headers="headers"
-      :row-key="
-        row => {
-          return row.id
-        }
-      "
-      v-model="bb"
-      pagination
-    >
-      <template #searcher>
-        <el-input v-model="query.test" t-label="测试" />
-        <el-input t-width="300" t-label="测试测试测试" />
-        <el-input t-label="测试" />
-        <el-select t-label="测试2" :options="options" v-model="query.test2" />
-      </template>
-    </el-table> -->
-
-     <el-new-tree
-        ref="tree"
-        :tree-data="treeData"
-        :checkable="true"
-        :checkable-filter="() => true"
-        :selectable-filter="() => true"
-        :filter-node-method="(value, data) => {
-      if (!value) return true
-      return data.label.includes(value)
-    }"
-        @input="onTreeInput"
-        @change="onTreeChange"
-      >
-        <template v-if="$scopedSlots.default" #default="scope">
-          <slot v-bind="scope" />
-        </template>
-      </el-new-tree>
- </div>
+    <!-- <el-gantt :tasks="tasks" :columns="columns"></el-gantt> -->
+    <el-select
+      filterable
+      allow-create
+      :options="options"
+      v-model="aa"
+    />
+    <el-dialog v-model="visible"> </el-dialog>
+  </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import E from 'main/index.js'
-import TestTree from './tree/tree.vue'
 Vue.use(E.Loading.directive)
 
 export default {
@@ -101,107 +44,82 @@ export default {
     ElSection: E.Section,
     ElPage: E.Page,
     ElTableSelect: E.TableSelect,
-    TestTree,
     ElNewTable: E.NewTable,
     ElAction: E.Action,
     ElActionItem: E.ActionItem,
     ElTaskBtn: E.TaskBtn,
     ElWangEditor: E.WangEditor,
-    ElNewTree: E.NewTree
+    ElNewTree: E.NewTree,
+    ElGantt: E.Gantt
   },
 
   data: () => ({
-    treeData: [
-      { label: 'aa', value: 'aa', children: [
-
-        { label: 'bb', value: 'bb' }
-      ] }
-    ],
-
-    headers: [
-      { label: '序号', prop: 'index', width: 200 },
-      { label: '随机数', prop: 'id', width: 200 },
-      { label: '随机数', prop: 'id', slotName: 'aa' },
+    tasks: [
       {
-        label: '随机数',
-        prop: 'id',
-        formatter(v) {
-          return v + 666
-        }
+        start: '2021-10-01',
+        end: '2022-01-10',
+        actualStart: '2021-10-09',
+        actualEnd: '2022-01-20',
+        name: '测试1'
       },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '随机数', prop: 'id' },
-      { label: '操作', slotName: 'action', width: 160, fixed: 'right', type: 'action' }
+
+      {
+        start: '2021-10-01',
+        end: '2022-01-10',
+        actualStart: '2021-10-09',
+        actualEnd: '2022-01-20',
+        name: '测试2'
+      },
+      {
+        start: '2021-10-01',
+        end: '2022-01-10',
+        actualStart: '2021-10-09',
+        actualEnd: '2022-01-20',
+        name: '测试2'
+      },
+      {
+        start: '2021-10-01',
+        end: '2022-01-10',
+        actualStart: '2021-10-09',
+        actualEnd: '2022-01-20',
+        name: '测试2'
+      },
+      {
+        start: '2021-10-01',
+        end: '2022-01-10',
+        actualStart: '2021-10-09',
+        actualEnd: '2022-01-20',
+        name: '测试2'
+      }
     ],
 
-    options: [
-      { label: '你好', value: 'hello' },
-      { label: '你好1', value: 'hello1' },
-      { label: '你好2', value: 'hello2' },
-      { label: '你好3', value: 'hello3' },
-      { label: '你好4', value: 'hello4' },
-      { label: '你好5', value: 'hello5' },
-      { label: '你好6', value: 'hello6' },
+    columns: [
+      { label: '名称', prop: 'name' },
+      { label: '开始日期', prop: 'start' },
+      { label: '结束日期', prop: 'end' }
     ],
 
-    bb: null,
+    aa: '',
 
-    aa: {
-      aa: 12
-    },
+    options: Array(1000)
+      .fill(null)
+      .map((_, i) => ({
+        label: i + '',
+        value: i + ''
+      })),
 
-    api: '/page',
-
-    data: [],
-
-    s: '',
-    list: [],
-
-    test: '<p>123</p>',
-
-    query: {
-      test: '测试',
-      test2: ''
-    }
+    visible: false
   }),
 
   methods: {
-    getData() {
-      this.data = Array(20)
-        .fill(null)
-        .map((v, i) => ({
-          index: i,
-          id: Math.random()
-        }))
-    },
-
-    onTreeInput(value) {
-      this.$emit('input', value)
-      if (!this.multiple) {
-        this.visible = false
-      }
-    },
-
-    onTreeChange(value, label, data) {
-      this.$emit('change', value, label, data)
+    remote(query) {
+      this.options = Array(10)
+      .fill(null)
+      .map((_, i) => ({
+        label: i + '',
+        value: i + ''
+      })).filter(item => String(item.label).includes(query))
     }
-  },
-
-  beforeCreate() {
-    // console.time('aa')
-  },
-
-  mounted() {
-    // console.timeEnd('aa')
-    this.getData()
   }
 }
 </script>

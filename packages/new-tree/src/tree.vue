@@ -14,6 +14,8 @@
 import TreeItem from './tree-item.vue'
 import { Tree } from './tree.js'
 export default {
+  name: 'ElNewTree',
+
   components: {
     TreeItem
   },

@@ -14,7 +14,7 @@
         ref="dialog"
         :style="style"
       >
-        <div class="el-dialog__header">
+        <div class="el-dialog__header" :style="{ cursor: isMouseDown ? 'grab' : 'default' }" @mousedown="mousedown">
           <slot name="title">
             <span class="el-dialog__title">{{ title }}</span>
           </slot>
@@ -157,7 +157,19 @@ export default {
       closed: false,
       key: 0,
       loading: false,
-      fullscreen: this.defaultFullScreen
+      fullscreen: this.defaultFullScreen,
+
+      transform: {
+        x: 0,
+        _x: 0,
+        _y: 0,
+        y: 0
+      },
+
+      _originX: 0,
+      _originY: 0,
+
+      isMouseDown: false
     }
   },
 
@@ -205,6 +217,8 @@ export default {
         if (this.width) {
           style.width = this.width
         }
+        const { x, y } = this.transform
+        style.transform = `translate(${x}px, ${y}px)`
       }
       return style
     },
@@ -225,6 +239,32 @@ export default {
 
     onToogleFullScreen() {
       this.fullscreen = !this.fullscreen
+    },
+
+    mousemove(e) {
+      const { transform, $data } = this
+      transform.x = transform._x + e.x - $data._originX
+      transform.y = transform._y + e.y - $data._originY
+    },
+
+    mouseup() {
+      const { transform } = this
+      this.isMouseDown = false
+      transform._x = transform.x
+      transform._y = transform.y
+      document.removeEventListener('mousemove', this.mousemove)
+      document.removeEventListener('mouseup', this.mouseup)
+    },
+
+    mousedown(e) {
+      if (this.fullscreen) return
+      this.isMouseDown = true
+      const { $data } = this
+      $data._originX = e.x
+      $data._originY = e.y
+
+      document.addEventListener('mousemove', this.mousemove)
+      document.addEventListener('mouseup', this.mouseup)
     },
 
     onConfirm() {

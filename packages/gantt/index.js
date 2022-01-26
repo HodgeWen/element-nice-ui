@@ -1,8 +1,8 @@
-import ElForm from './src/form';
+import ElGantt from './src/gantt.vue'
 
 /* istanbul ignore next */
-ElForm.install = function(Vue) {
-  Vue.component(ElForm.name, ElForm);
-};
+ElGantt.install = function(Vue) {
+  Vue.component(ElGantt.name, ElGantt)
+}
 
-export default ElForm;
+export default ElGantt

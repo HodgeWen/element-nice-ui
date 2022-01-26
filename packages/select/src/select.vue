@@ -139,15 +139,30 @@
             v-show="internalOptions.length > 0 && !loading"
           >
             <el-option :value="query" created v-if="showNewOption"> </el-option>
-            <el-option
-              v-for="(option, index) of computedOptions"
-              :key="option.value"
-              :value="option.value"
-              :label="option.label"
-              :option="option"
-            >
-              <slot v-bind="{ option, index }" />
-            </el-option>
+
+            <template v-if="max">
+              <el-option
+                v-for="(option, index) of visibleOptions"
+                :key="option.value"
+                :value="option.value"
+                :label="option.label"
+                :option="option"
+              >
+                <slot v-bind="{ option, index }" />
+              </el-option>
+            </template>
+
+            <template v-else>
+              <el-option
+                v-for="(option, index) of computedOptions"
+                :key="option.value"
+                :value="option.value"
+                :label="option.label"
+                :option="option"
+              >
+                <slot v-bind="{ option, index }" />
+              </el-option>
+            </template>
           </el-scrollbar>
         </template>
 
@@ -221,7 +236,6 @@ import NavigationMixin from './navigation-mixin'
 import { isKorean, walkTreeNode } from 'element-nice-ui/src/utils/shared'
 import ElNewTree from 'element-nice-ui/packages/new-tree'
 
-
 export default {
   mixins: [Emitter, Locale, Focus('reference'), NavigationMixin],
 
@@ -252,6 +266,11 @@ export default {
 
     selectable: {
       type: Function
+    },
+
+    max: {
+      type: Number,
+      default: 100
     },
 
     label: String,
@@ -362,6 +381,8 @@ export default {
 
   data() {
     return {
+      // 可见的选项 (为了处理大数据量)
+      visibleOptions: [],
       internalOptions: [],
       /** 从服务器中查询到的选项 */
       remoteOptions: [],
@@ -421,14 +442,24 @@ export default {
         }
       }
 
+      let result = []
       if (this.options) {
         if (Array.isArray(this.options)) {
-          return this.options.map(mapper)
+          result = this.options.map(mapper)
         } else if (!this.tree) {
-          return Object.keys(this.options).map(key => ({ value: key, label: this.options[key] }))
+          result = Object.keys(this.options).map(key => ({ value: key, label: this.options[key] }))
         }
+      } else {
+        result = this.remoteOptions.map(mapper)
       }
-      return this.remoteOptions.map(mapper)
+
+      // 出现改动时替代visibleOptions
+      if (this.max) {
+        let len = result.length
+        this.visibleOptions = len > this.max ? result.slice(0, this.max) : result
+      }
+
+      return result
     },
 
     _elFormItemSize() {
@@ -592,7 +623,7 @@ export default {
             this.$refs.input.focus()
           } else {
             if (!this.remote) {
-              this.broadcast('ElOption', 'queryChange', '')
+              this.max ? this.filterOptions('') : this.broadcast('ElOption', 'queryChange', '')
               this.broadcast('ElOptionGroup', 'queryChange')
             }
 
@@ -638,11 +669,7 @@ export default {
       if (Array.prototype.indexOf.call(inputs, document.activeElement) === -1) {
         this.setSelected()
       }
-      if (
-        this.defaultFirstOption &&
-        (this.canFilter || this.remote) &&
-        this.filteredOptionsCount
-      ) {
+      if (this.defaultFirstOption && (this.canFilter || this.remote) && this.filteredOptionsCount) {
         this.checkDefaultFirstOption()
       }
     }
@@ -664,6 +691,19 @@ export default {
         this.isOnComposition = !isKorean(lastCharacter)
       }
     },
+
+    // 在大数据量下特殊处理的过滤
+    filterOptions(val) {
+      if (!val) {
+        let len = this.computedOptions.length
+        this.visibleOptions = len > this.max ? this.computedOptions.slice(0, this.max) : this.computedOptions
+        return
+      }
+      this.visibleOptions = this.computedOptions.filter(item => {
+        return item.label.includes(val)
+      })
+    },
+
     handleQueryChange(val) {
       if (this.previousQuery === val || this.isOnComposition) return
       if (
@@ -710,14 +750,14 @@ export default {
         this.broadcast('ElOptionGroup', 'queryChange')
       } else {
         this.filteredOptionsCount = this.optionsCount
-        this.broadcast('ElOption', 'queryChange', val)
+        if (this.max) {
+          this.filterOptions(val)
+        } else {
+          this.broadcast('ElOption', 'queryChange', val)
+        }
         this.broadcast('ElOptionGroup', 'queryChange')
       }
-      if (
-        this.defaultFirstOption &&
-        (this.canFilter || this.remote) &&
-        this.filteredOptionsCount
-      ) {
+      if (this.defaultFirstOption && (this.canFilter || this.remote) && this.filteredOptionsCount) {
         this.checkDefaultFirstOption()
       }
     },
@@ -776,7 +816,7 @@ export default {
       if (option) return option
       // 不存在option
       // value不是对象, 不是null, 不是undefined则默认显示
-      const label = !isObject && !isNull && !isUndefined ? (this.label || value) : ''
+      const label = !isObject && !isNull && !isUndefined ? this.label || value : ''
 
       let newOption = {
         value: value,
@@ -1070,17 +1110,16 @@ export default {
           let restTags = this.selected.slice()
           restTags.splice(index, 1)
 
-          let {checkedSet, nodeKeyMap} = this.$refs.tree.tree
+          let { checkedSet, nodeKeyMap } = this.$refs.tree.tree
           let deletedNode = nodeKeyMap[tag.value]
           let deletedValues = []
-          walkTreeNode([deletedNode], (node) => {
+          walkTreeNode([deletedNode], node => {
             deletedValues.push(node.data[optionValue])
           })
 
           deletedValues.forEach(v => {
             checkedSet.has(v) && nodeKeyMap[v].setChecked(false)
           })
-
 
           let newVal = Array.from(checkedSet)
 

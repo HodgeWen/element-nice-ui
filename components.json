@@ -1,4 +1,5 @@
 {
+  "gantt": "./packages/gantt/index.js",
   "table-select": "./packages/table-select/index.js",
   "section": "./packages/section/index.js",
   "data": "./packages/data/index.js",

@@ -1,4 +1,5 @@
 import "./base.js";
+import "./gantt.js";
 import "./table-select.js";
 import "./section.js";
 import "./data.js";
