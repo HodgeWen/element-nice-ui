@@ -169,7 +169,10 @@
         <template v-else>
           <el-scrollbar
             tag="ul"
-            wrap-class="el-select-dropdown__wrap"
+            :wrap-class="[
+              'el-select-dropdown__wrap',
+              dropdownClass
+            ]"
             view-class="el-select-dropdown__list"
             ref="scrollbar"
             :class="{ 'is-empty': !allowCreate && query && !tree && filteredOptionsCount === 0 }"
@@ -263,6 +266,8 @@ export default {
     checkable: {
       type: Function
     },
+
+    dropdownClass: String,
 
     selectable: {
       type: Function
