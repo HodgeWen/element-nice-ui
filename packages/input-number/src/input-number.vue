@@ -348,6 +348,7 @@ export default {
     if (this.money) {
       this.formatter = new Intl.NumberFormat(undefined, {
         maximumFractionDigits: this.precision,
+        minimumFractionDigits: this.precision,
       })
     }
   },
