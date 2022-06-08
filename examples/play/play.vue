@@ -1,12 +1,14 @@
 <template>
   <div ref="page" style="height: 100%; background: #f2f2f2">
     <!-- <el-gantt :tasks="tasks" :columns="columns"></el-gantt> -->
-    <el-select
+    <!-- <el-select
       filterable
       allow-create
       :options="options"
       v-model="aa"
-    />
+    /> -->
+    <el-input-number v-model="n" :money="100" />
+    {{ n }}
     <el-dialog v-model="visible"> </el-dialog>
   </div>
 </template>
@@ -92,6 +94,8 @@ export default {
         name: '测试2'
       }
     ],
+
+    n: undefined,
 
     columns: [
       { label: '名称', prop: 'name' },

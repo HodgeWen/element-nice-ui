@@ -129,6 +129,7 @@ export default {
     placeholder: String,
     precision: {
       type: Number,
+      default: 2,
       validator(val) {
         return val >= 0 && val === parseInt(val, 10)
       }
@@ -162,6 +163,7 @@ export default {
           }
 
           if (this.precision !== undefined) {
+
             newVal = this.toPrecision(newVal, this.precision)
           }
         }
@@ -177,7 +179,6 @@ export default {
           if (newVal >= this.max) newVal = this.max
           if (newVal <= this.min) newVal = this.min
         }
-
         this.currentValue = newVal
         this.userInput = null
       }
@@ -248,13 +249,15 @@ export default {
     }
   },
   methods: {
-    // 倍数操作
+    // 倍数操作, 真实的值是一个倍数
     multiply(v, reciprocal = false) {
       if (v === undefined || v === null) {
         return v
       }
+      // 倍数
       let mul = typeof this.money === 'number' ? this.money : 100
-      return reciprocal ? v / mul : Math.round(v * mul)
+
+      return reciprocal ? v / mul : v * mul
     },
 
     toPrecision(num = 0, precision) {
@@ -315,7 +318,6 @@ export default {
 
       if (newVal >= this.max) newVal = this.max
       if (newVal <= this.min) newVal = this.min
-
       // money标记
       if (this.money) {
         newVal = this.multiply(newVal)
