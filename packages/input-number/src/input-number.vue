@@ -267,7 +267,7 @@ export default {
       let strV = v + ''
       let dotIndex = strV.indexOf('.')
       let dotLen = dotIndex === -1 ? 0 : strV.length - 1 - dotIndex
-      console.log(v)
+
       let factor = Math.pow(10, dotLen)
 
       v = Math.round(v * factor)

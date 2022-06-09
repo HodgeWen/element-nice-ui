@@ -7,7 +7,7 @@
       :options="options"
       v-model="aa"
     /> -->
-    <el-input-number v-model="n" :money="100" />
+    <el-input-number v-model="n" :money="1" />
     {{ n }}
     <el-dialog v-model="visible"> </el-dialog>
   </div>
