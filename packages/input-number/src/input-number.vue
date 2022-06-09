@@ -138,48 +138,52 @@ export default {
   data() {
     return {
       currentValue: 0,
-      userInput: null
+      userInput: null,
+      _inUserEvent: false
     }
   },
   watch: {
     value: {
       immediate: true,
       handler(value) {
-        let newVal = value === undefined || value === null ? value : Number(value)
-        if (newVal !== undefined && newVal !== null) {
-          if (isNaN(newVal)) {
-            return
-          }
+        // 由用户事件更新的属性不再触发更新
+        if (this.$data._inUserEvent) {
+          return (this.$data._inUserEvent = false)
+        }
+        // 要根据传入的值进行回显
 
-          if (this.stepStrictly) {
-            const stepPrecision = this.getPrecision(this.step)
-            const precisionFactor = Math.pow(10, stepPrecision)
-            newVal =
-              (Math.round(newVal / this.step) * precisionFactor * this.step) / precisionFactor
-          }
-
-          // money标记
-          if (this.money) {
-          }
-
-          if (this.precision !== undefined) {
-
-            newVal = this.toPrecision(newVal, this.precision)
-          }
+        // 空值直接返回空串
+        if (value === undefined || value === null) {
+          return (this.userInput = '')
         }
 
-        // money标记
+        // 转化为数字
+        value = Number(value)
+        if (isNaN(value)) return
+
+        // money模式下需要除以指定的倍数
+        let { min, max } = this
         if (this.money) {
-          let max = this.multiply(this.max)
-          let min = this.multiply(this.min)
-
-          if (newVal >= max) newVal = max
-          if (newVal <= min) newVal = min
-        } else {
-          if (newVal >= this.max) newVal = this.max
-          if (newVal <= this.min) newVal = this.min
+          max = this.multiply(max)
+          min = this.multiply(min)
         }
-        this.currentValue = newVal
+        if (value > max) value = max
+        if (value < min) value = min
+
+        if (this.precision !== undefined) {
+          value = this.toPrecision(value, this.precision)
+        }
+
+        // 严格步进精度
+        if (this.stepStrictly) {
+          const stepPrecision = this.getPrecision(this.step)
+          const precisionFactor = Math.pow(10, stepPrecision)
+          value =
+            (Math.round(value / this.step) * precisionFactor * this.step) /
+            precisionFactor
+        }
+
+        this.currentValue = value
         this.userInput = null
       }
     }
@@ -210,7 +214,12 @@ export default {
       }
     },
     controlsAtRight() {
-      return this.controls && this.controlsRight && !this.append && !this.$slots.append
+      return (
+        this.controls &&
+        this.controlsRight &&
+        !this.append &&
+        !this.$slots.append
+      )
     },
     _elFormItemSize() {
       return (this.elFormItem || {}).elFormItemSize
@@ -232,11 +241,13 @@ export default {
           const stepPrecision = this.getPrecision(this.step)
           const precisionFactor = Math.pow(10, stepPrecision)
           currentValue =
-            (Math.round(currentValue / this.step) * precisionFactor * this.step) / precisionFactor
+            (Math.round(currentValue / this.step) *
+              precisionFactor *
+              this.step) /
+            precisionFactor
         }
 
         if (this.money) {
-
           currentValue = this.formatter.format(
             currentValue / (typeof this.money === 'number' ? this.money : 100)
           )
@@ -249,20 +260,29 @@ export default {
     }
   },
   methods: {
-    // 倍数操作, 真实的值是一个倍数
     multiply(v, reciprocal = false) {
       if (v === undefined || v === null) {
         return v
       }
+      let strV = v + ''
+      let dotIndex = strV.indexOf('.')
+      let dotLen = dotIndex === -1 ? 0 : strV.length - 1 - dotIndex
+      console.log(v)
+      let factor = Math.pow(10, dotLen)
+
+      v = Math.round(v * factor)
+
       // 倍数
       let mul = typeof this.money === 'number' ? this.money : 100
 
-      return reciprocal ? v / mul : v * mul
+      return (reciprocal ? v / mul : v * mul) / factor
     },
 
     toPrecision(num = 0, precision) {
       if (precision === undefined) precision = this.numPrecision
-      return parseFloat(Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision))
+      return parseFloat(
+        Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision)
+      )
     },
     getPrecision(value) {
       if (value === undefined || value === null) return 0
@@ -279,26 +299,34 @@ export default {
 
       const precisionFactor = Math.pow(10, this.numPrecision)
       // Solve the accuracy problem of JS decimal calculation by converting the value to integer.
-      return this.toPrecision((precisionFactor * val + precisionFactor * step) / precisionFactor)
+      return this.toPrecision(
+        (precisionFactor * val + precisionFactor * step) / precisionFactor
+      )
     },
     _decrease(val, step) {
       if (typeof val !== 'number' && val !== undefined) return this.currentValue
 
       const precisionFactor = Math.pow(10, this.numPrecision)
 
-      return this.toPrecision((precisionFactor * val - precisionFactor * step) / precisionFactor)
+      return this.toPrecision(
+        (precisionFactor * val - precisionFactor * step) / precisionFactor
+      )
     },
     increase() {
       if (this.inputNumberDisabled || this.maxDisabled) return
       // money标记
-      const value = this.money ? this.multiply(this.value || 0, true) : this.value || 0
+      const value = this.money
+        ? this.multiply(this.value || 0, true)
+        : this.value || 0
       const newVal = this._increase(value, this.step)
       this.setCurrentValue(newVal)
     },
     decrease() {
       if (this.inputNumberDisabled || this.minDisabled) return
       // money标记
-      const value = this.money ? this.multiply(this.value || 0, true) : this.value || 0
+      const value = this.money
+        ? this.multiply(this.value || 0, true)
+        : this.value || 0
       const newVal = this._decrease(value, this.step)
       this.setCurrentValue(newVal)
     },
@@ -318,6 +346,7 @@ export default {
 
       if (newVal >= this.max) newVal = this.max
       if (newVal <= this.min) newVal = this.min
+
       // money标记
       if (this.money) {
         newVal = this.multiply(newVal)
@@ -334,8 +363,11 @@ export default {
       this.userInput = value
     },
     handleInputChange(value) {
+      this.$data._inUserEvent = true
+      // 替换掉所有的,
       value = value.replace(/,/g, '')
       const newVal = value === '' ? undefined : Number(value)
+
       if (!isNaN(newVal) || value === '') {
         this.setCurrentValue(newVal)
       }
@@ -350,7 +382,7 @@ export default {
     if (this.money) {
       this.formatter = new Intl.NumberFormat(undefined, {
         maximumFractionDigits: this.precision,
-        minimumFractionDigits: this.precision,
+        minimumFractionDigits: this.precision
       })
     }
   },
