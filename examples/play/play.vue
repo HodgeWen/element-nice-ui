@@ -7,9 +7,18 @@
       :options="options"
       v-model="aa"
     /> -->
-    <el-input-number v-model="n" :money="1" />
-    {{ n }}
-    <el-dialog v-model="visible"> </el-dialog>
+    <el-input-number v-model="n" :money="100" />
+
+    <!-- <el-dialog v-model="visible"> </el-dialog> -->
+
+    <el-form v-show="visible"  ref="form" :form="model" #data="scope">
+    {{scope}}
+      <el-input t-label="aa" t-prop="test1" />
+      <el-input-number t-label="bb" t-prop="test2" :money="100" />
+    </el-form>
+
+    <el-btn @click="visible = !visible">切换</el-btn>
+    <el-btn @click="handleSubmit">提交</el-btn>
   </div>
 </template>
 
@@ -17,6 +26,8 @@
 import Vue from 'vue'
 import E from 'main/index.js'
 Vue.use(E.Loading.directive)
+
+
 
 export default {
   components: {
@@ -105,6 +116,11 @@ export default {
 
     aa: '',
 
+    model: {
+      test1: {  },
+      test2: { type: 'number', required: true }
+    },
+
     options: Array(1000)
       .fill(null)
       .map((_, i) => ({
@@ -123,6 +139,14 @@ export default {
         label: i + '',
         value: i + ''
       })).filter(item => String(item.label).includes(query))
+    },
+
+    async handleSubmit() {
+      const valid = await this.$refs.form.validate()
+      console.log(this.$refs.form.getValue())
+      if (!valid) return
+      this.$refs.form.resetFields()
+      this.visible = false
     }
   }
 }

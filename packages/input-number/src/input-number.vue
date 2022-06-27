@@ -154,8 +154,11 @@ export default {
 
         // 空值直接返回空串
         if (value === undefined || value === null) {
-          return (this.userInput = '')
+          this.userInput = ''
+          this.currentValue = null
+          return
         }
+
 
         // 转化为数字
         value = Number(value)
