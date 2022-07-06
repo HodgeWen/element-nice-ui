@@ -19,7 +19,7 @@
     align-content: center;
   }
 
-  .el-icon-arrow-right {
+  & > .el-icon-arrow-right {
     transition: transform .2s ease-in-out;
     cursor: pointer;
   }
