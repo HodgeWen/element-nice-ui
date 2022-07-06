@@ -25,7 +25,7 @@
   }
 
   &--expanded {
-    .el-icon-arrow-right {
+   & > .el-icon-arrow-right {
       transform: rotate(90deg);
     }
   }
