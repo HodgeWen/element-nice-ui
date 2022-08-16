@@ -1,7 +1,7 @@
 <!-- 新表格, 未完全实现, 考虑用vue3之后再实现会更好 -->
 
 <template>
-  <el-table :headers="headers" height="200px" :data="data"></el-table>
+  <el-table :headers="headers" height="200px" pagination api="/page"></el-table>
 </template>
 
 <script>

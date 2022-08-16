@@ -11,8 +11,8 @@
 
     <!-- <el-dialog v-model="visible"> </el-dialog> -->
 
-    <el-form v-show="visible"  ref="form" :form="model" #data="scope">
-    {{scope}}
+    <el-form v-show="visible" ref="form" :form="model" #data="scope">
+      {{ scope }}
       <el-input t-label="aa" t-prop="test1" />
       <el-input-number t-label="bb" t-prop="test2" :money="100" />
     </el-form>
@@ -26,8 +26,6 @@
 import Vue from 'vue'
 import E from 'main/index.js'
 Vue.use(E.Loading.directive)
-
-
 
 export default {
   components: {
@@ -117,7 +115,7 @@ export default {
     aa: '',
 
     model: {
-      test1: {  },
+      test1: {},
       test2: { type: 'number', required: true }
     },
 
@@ -134,11 +132,12 @@ export default {
   methods: {
     remote(query) {
       this.options = Array(10)
-      .fill(null)
-      .map((_, i) => ({
-        label: i + '',
-        value: i + ''
-      })).filter(item => String(item.label).includes(query))
+        .fill(null)
+        .map((_, i) => ({
+          label: i + '',
+          value: i + ''
+        }))
+        .filter(item => String(item.label).includes(query))
     },
 
     async handleSubmit() {
