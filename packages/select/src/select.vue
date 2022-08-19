@@ -802,7 +802,7 @@ export default {
         if (node) {
           return { value: node.data.value, currentLabel: node.data.label }
         } else {
-          return { value: '', currentLabel: '' }
+          return { value, currentLabel: value }
         }
       } else {
         for (let i = this.cachedOptions.length - 1; i >= 0; i--) {
@@ -860,6 +860,7 @@ export default {
           currentLabel: item.data.label,
           hitState: false
         }))
+
 
         this.$nextTick(() => {
           this.resetInputHeight()

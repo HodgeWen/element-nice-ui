@@ -1,12 +1,12 @@
 <template>
   <div ref="page" style="height: 100%; background: #f2f2f2">
+  {{aa}}
     <!-- <el-gantt :tasks="tasks" :columns="columns"></el-gantt> -->
-    <!-- <el-select
-      filterable
-      allow-create
-      :options="options"
+    <el-select
       v-model="aa"
-    /> -->
+      tree
+      api="/select/tree"
+    />
     <el-input-number v-model="n" :money="100" />
 
     <!-- <el-dialog v-model="visible"> </el-dialog> -->
@@ -112,7 +112,7 @@ export default {
       { label: '结束日期', prop: 'end' }
     ],
 
-    aa: '',
+    aa: 'zujian',
 
     model: {
       test1: {},

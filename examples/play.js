@@ -6,7 +6,7 @@ const  router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: () => import('./play/table.vue')
+      component: () => import('./play/play.vue')
     }
   ],
   mode: 'history'
