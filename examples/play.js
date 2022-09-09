@@ -6,7 +6,7 @@ const  router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: () => import('./play/play.vue')
+      component: () => import('./play/table.vue')
     }
   ],
   mode: 'history'
@@ -65,7 +65,7 @@ Vue.prototype.$http = {
               total: 100
             }
           })
-        })
+        }, 3000)
       })
     }
     if (url === 'arr') {

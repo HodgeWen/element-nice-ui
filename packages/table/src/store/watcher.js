@@ -88,6 +88,7 @@ export default Vue.extend({
     updateColumns() {
       const states = this.states;
       const _columns = states._columns || [];
+
       states.fixedColumns = _columns.filter((column) => column.fixed === true || column.fixed === 'left');
       states.rightFixedColumns = _columns.filter((column) => column.fixed === 'right');
 

@@ -358,26 +358,9 @@ export default {
         headers.unshift(selection)
       }
       return headers
-      // TODO
-      this.visibleHeaderIds = headers.map(item => item._id)
-      return headers.reduce((pre, cur) => {
-        pre[cur._id] = cur
-        return pre
-      }, {})
     },
 
-    // 可见的表头
-    visibleHeaders() {
-      // TODO
-      // let headers  = this.visibleHeaderIds.map(id => this.computedHeaders[id])
-      // if (this.isMultiple) {
-      //   headers.unshift({
-      //     type: 'selection',
-      //     align: this.align
-      //   })
-      // }
-      // return headers
-    },
+
 
     // 显示搜索
     showSearcher() {

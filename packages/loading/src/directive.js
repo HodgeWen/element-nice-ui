@@ -64,7 +64,7 @@ loadingDirective.install = Vue => {
         el.mask.style[property] = el.maskStyle[property];
       });
 
-      if (el.originalPosition !== 'absolute' && el.originalPosition !== 'fixed') {
+      if (el.originalPosition !== 'absolute' && el.originalPosition !== 'fixed' && el.originalPosition !== 'sticky') {
         addClass(parent, 'el-loading-parent--relative');
       }
       if (binding.modifiers.fullscreen && binding.modifiers.lock) {
@@ -93,14 +93,14 @@ loadingDirective.install = Vue => {
       const spinnerExr = el.getAttribute('element-loading-spinner');
       const backgroundExr = el.getAttribute('element-loading-background');
       const customClassExr = el.getAttribute('element-loading-custom-class');
-
+      const vm = vnode.context;
       const mask = new Mask({
         el: document.createElement('div'),
         data: {
-          text: textExr || '加载中...',
-          spinner: spinnerExr,
-          background: backgroundExr,
-          customClass: customClassExr,
+          text: vm && vm[textExr] || textExr || '加载中',
+          spinner: vm && vm[spinnerExr] || spinnerExr,
+          background: vm && vm[backgroundExr] || backgroundExr,
+          customClass: vm && vm[customClassExr] || customClassExr,
           fullscreen: !!binding.modifiers.fullscreen
         }
       });
