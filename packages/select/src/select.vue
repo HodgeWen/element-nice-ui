@@ -20,7 +20,9 @@
           @close="deleteTag($event, selected[0])"
           disable-transitions
         >
-          <span class="el-select__tags-text">{{ selected[0].currentLabel }}</span>
+          <span class="el-select__tags-text">{{
+            selected[0].currentLabel
+          }}</span>
         </el-tag>
         <el-tag
           v-if="selected.length > 1"
@@ -118,10 +120,21 @@
           @click="handleClearClick"
         ></i>
 
-        <i v-else :class="['el-select__caret', 'el-input__icon', 'el-icon-' + iconClass]"></i>
+        <i
+          v-else
+          :class="[
+            'el-select__caret',
+            'el-input__icon',
+            'el-icon-' + iconClass
+          ]"
+        ></i>
       </template>
     </el-input>
-    <transition name="el-zoom-in-top" @before-enter="handleMenuEnter" @after-leave="doDestroy">
+    <transition
+      name="el-zoom-in-top"
+      @before-enter="handleMenuEnter"
+      @after-leave="doDestroy"
+    >
       <el-select-menu
         ref="popper"
         :class="[inline ? 'el-select--inline' : '']"
@@ -135,7 +148,9 @@
             wrap-class="el-select-dropdown__wrap"
             view-class="el-select-dropdown__list"
             ref="scrollbar"
-            :class="{ 'is-empty': !allowCreate && query && filteredOptionsCount === 0 }"
+            :class="{
+              'is-empty': !allowCreate && query && filteredOptionsCount === 0
+            }"
             v-show="internalOptions.length > 0 && !loading"
           >
             <el-option :value="query" created v-if="showNewOption"> </el-option>
@@ -169,13 +184,13 @@
         <template v-else>
           <el-scrollbar
             tag="ul"
-            :wrap-class="[
-              'el-select-dropdown__wrap',
-              dropdownClass
-            ]"
+            :wrap-class="['el-select-dropdown__wrap', dropdownClass]"
             view-class="el-select-dropdown__list"
             ref="scrollbar"
-            :class="{ 'is-empty': !allowCreate && query && !tree && filteredOptionsCount === 0 }"
+            :class="{
+              'is-empty':
+                !allowCreate && query && !tree && filteredOptionsCount === 0
+            }"
             v-show="computedOptions.length > 0 && !loading"
           >
             <el-new-tree
@@ -225,7 +240,10 @@ import ElTag from 'element-nice-ui/packages/tag'
 import ElScrollbar from 'element-nice-ui/packages/scrollbar'
 import debounce from 'throttle-debounce/debounce'
 import Clickoutside from 'element-nice-ui/src/utils/clickoutside'
-import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
+import {
+  addResizeListener,
+  removeResizeListener
+} from 'element-nice-ui/src/utils/resize-event'
 import { t } from 'element-nice-ui/src/locale'
 import scrollIntoView from 'element-nice-ui/src/utils/scroll-into-view'
 import {
@@ -452,7 +470,10 @@ export default {
         if (Array.isArray(this.options)) {
           result = this.options.map(mapper)
         } else if (!this.tree) {
-          result = Object.keys(this.options).map(key => ({ value: key, label: this.options[key] }))
+          result = Object.keys(this.options).map(key => ({
+            value: key,
+            label: this.options[key]
+          }))
         }
       } else {
         result = this.remoteOptions.map(mapper)
@@ -461,7 +482,8 @@ export default {
       // 出现改动时替代visibleOptions
       if (this.max) {
         let len = result.length
-        this.visibleOptions = len > this.max ? result.slice(0, this.max) : result
+        this.visibleOptions =
+          len > this.max ? result.slice(0, this.max) : result
       }
 
       return result
@@ -475,7 +497,9 @@ export default {
       return getDefined(
         this.readonly,
         (this.elForm || {}).readonly,
-        !this.canFilter || this.multiple || (!isIE() && !isEdge() && !this.visible)
+        !this.canFilter ||
+          this.multiple ||
+          (!isIE() && !isEdge() && !this.visible)
       )
     },
 
@@ -483,12 +507,17 @@ export default {
       let hasValue = this.multiple
         ? Array.isArray(this.value) && this.value.length > 0
         : this.value !== undefined && this.value !== null && this.value !== ''
-      let criteria = this.clearable && !this.selectDisabled && this.inputHovering && hasValue
+      let criteria =
+        this.clearable && !this.selectDisabled && this.inputHovering && hasValue
       return criteria
     },
 
     iconClass() {
-      return this.remote && this.canFilter ? '' : this.visible ? 'arrow-up is-reverse' : 'arrow-up'
+      return this.remote && this.canFilter
+        ? ''
+        : this.visible
+        ? 'arrow-up is-reverse'
+        : 'arrow-up'
     },
 
     debounce() {
@@ -499,7 +528,12 @@ export default {
       if (this.loading) {
         return this.loadingText || this.t('el.select.loading')
       } else {
-        if (this.remote && this.query === '' && this.internalOptions.length === 0) return false
+        if (
+          this.remote &&
+          this.query === '' &&
+          this.internalOptions.length === 0
+        )
+          return false
         if (
           this.canFilter &&
           this.query &&
@@ -519,7 +553,12 @@ export default {
       let hasExistingOption = this.internalOptions
         .filter(option => !option.created)
         .some(option => option.currentLabel === this.query)
-      return this.canFilter && this.allowCreate && this.query !== '' && !hasExistingOption
+      return (
+        this.canFilter &&
+        this.allowCreate &&
+        this.query !== '' &&
+        !hasExistingOption
+      )
     },
 
     selectSize() {
@@ -564,7 +603,10 @@ export default {
     value(val, oldVal) {
       if (this.multiple) {
         this.resetInputHeight()
-        if ((val && val.length > 0) || (this.$refs.input && this.query !== '')) {
+        if (
+          (val && val.length > 0) ||
+          (this.$refs.input && this.query !== '')
+        ) {
           this.currentPlaceholder = ''
         } else {
           this.currentPlaceholder = this.cachedPlaceHolder
@@ -597,13 +639,22 @@ export default {
         this.menuVisibleOnFocus = false
         this.resetHoverIndex()
         this.$nextTick(() => {
-          if (this.$refs.input && this.$refs.input.value === '' && this.selected.length === 0) {
+          if (
+            this.$refs.input &&
+            this.$refs.input.value === '' &&
+            this.selected.length === 0
+          ) {
             this.currentPlaceholder = this.cachedPlaceHolder
           }
         })
         if (!this.multiple) {
           if (this.selected) {
-            if (this.canFilter && this.allowCreate && this.createdSelected && this.createdLabel) {
+            if (
+              this.canFilter &&
+              this.allowCreate &&
+              this.createdSelected &&
+              this.createdLabel
+            ) {
               this.selectedLabel = this.createdLabel
             } else {
               this.selectedLabel = this.selected.currentLabel
@@ -615,20 +666,25 @@ export default {
             this.currentPlaceholder = this.cachedPlaceHolder
           }
         }
+
+
       } else {
         this.broadcast('ElSelectDropdown', 'updatePopper')
         if (this.canFilter) {
           this.query = this.remote ? '' : this.selectedLabel
-          // 重新过滤
-          if (this.tree && this.selectedLabel) {
-            this.$refs.tree.filter('')
+
+          // 有选择了项 重新过滤
+          if (this.tree && this.canFilter) {
+             this.$refs.tree.filter('')
           }
           this.handleQueryChange(this.query)
           if (this.multiple) {
             this.$refs.input.focus()
           } else {
             if (!this.remote) {
-              this.max ? this.filterOptions('') : this.broadcast('ElOption', 'queryChange', '')
+              this.max
+                ? this.filterOptions('')
+                : this.broadcast('ElOption', 'queryChange', '')
               this.broadcast('ElOptionGroup', 'queryChange')
             }
 
@@ -674,7 +730,11 @@ export default {
       if (Array.prototype.indexOf.call(inputs, document.activeElement) === -1) {
         this.setSelected()
       }
-      if (this.defaultFirstOption && (this.canFilter || this.remote) && this.filteredOptionsCount) {
+      if (
+        this.defaultFirstOption &&
+        (this.canFilter || this.remote) &&
+        this.filteredOptionsCount
+      ) {
         this.checkDefaultFirstOption()
       }
     }
@@ -701,7 +761,10 @@ export default {
     filterOptions(val) {
       if (!val) {
         let len = this.computedOptions.length
-        this.visibleOptions = len > this.max ? this.computedOptions.slice(0, this.max) : this.computedOptions
+        this.visibleOptions =
+          len > this.max
+            ? this.computedOptions.slice(0, this.max)
+            : this.computedOptions
         return
       }
       this.visibleOptions = this.computedOptions.filter(item => {
@@ -713,7 +776,8 @@ export default {
       if (this.previousQuery === val || this.isOnComposition) return
       if (
         this.previousQuery === null &&
-        (typeof this.filterMethod === 'function' || typeof this.remoteMethod === 'function')
+        (typeof this.filterMethod === 'function' ||
+          typeof this.remoteMethod === 'function')
       ) {
         this.previousQuery = val
         return
@@ -762,15 +826,22 @@ export default {
         }
         this.broadcast('ElOptionGroup', 'queryChange')
       }
-      if (this.defaultFirstOption && (this.canFilter || this.remote) && this.filteredOptionsCount) {
+      if (
+        this.defaultFirstOption &&
+        (this.canFilter || this.remote) &&
+        this.filteredOptionsCount
+      ) {
         this.checkDefaultFirstOption()
       }
     },
 
     scrollToOption(option) {
-      const target = Array.isArray(option) && option[0] ? option[0].$el : option.$el
+      const target =
+        Array.isArray(option) && option[0] ? option[0].$el : option.$el
       if (this.$refs.popper && target) {
-        const menu = this.$refs.popper.$el.querySelector('.el-select-dropdown__wrap')
+        const menu = this.$refs.popper.$el.querySelector(
+          '.el-select-dropdown__wrap'
+        )
         scrollIntoView(menu, target)
       }
       this.$refs.scrollbar && this.$refs.scrollbar.handleScroll()
@@ -788,10 +859,14 @@ export default {
 
     getOption(value) {
       let option
-      const isObject = Object.prototype.toString.call(value).toLowerCase() === '[object object]'
-      const isNull = Object.prototype.toString.call(value).toLowerCase() === '[object null]'
+      const isObject =
+        Object.prototype.toString.call(value).toLowerCase() ===
+        '[object object]'
+      const isNull =
+        Object.prototype.toString.call(value).toLowerCase() === '[object null]'
       const isUndefined =
-        Object.prototype.toString.call(value).toLowerCase() === '[object undefined]'
+        Object.prototype.toString.call(value).toLowerCase() ===
+        '[object undefined]'
 
       if (this.tree) {
         this.$refs.tree.setTreeSelected(value)
@@ -821,7 +896,8 @@ export default {
       if (option) return option
       // 不存在option
       // value不是对象, 不是null, 不是undefined则默认显示
-      const label = !isObject && !isNull && !isUndefined ? this.label || value : ''
+      const label =
+        !isObject && !isNull && !isUndefined ? this.label || value : ''
 
       let newOption = {
         value: value,
@@ -860,7 +936,6 @@ export default {
           currentLabel: item.data.label,
           hitState: false
         }))
-
 
         this.$nextTick(() => {
           this.resetInputHeight()
@@ -955,7 +1030,9 @@ export default {
 
     managePlaceholder() {
       if (this.currentPlaceholder !== '') {
-        this.currentPlaceholder = this.$refs.input.value ? '' : this.cachedPlaceHolder
+        this.currentPlaceholder = this.$refs.input.value
+          ? ''
+          : this.cachedPlaceHolder
       }
     },
 
@@ -970,14 +1047,19 @@ export default {
       this.$nextTick(() => {
         if (!this.$refs.reference) return
         let inputChildNodes = this.$refs.reference.$el.childNodes
-        let input = [].filter.call(inputChildNodes, item => item.tagName === 'INPUT')[0]
+        let input = [].filter.call(
+          inputChildNodes,
+          item => item.tagName === 'INPUT'
+        )[0]
         const tags = this.$refs.tags
         const sizeInMap = this.initialInputHeight || 40
         input.style.height =
           this.selected.length === 0
             ? sizeInMap + 'px'
             : Math.max(
-                tags ? tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0) : 0,
+                tags
+                  ? tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0)
+                  : 0,
                 sizeInMap
               ) + 'px'
         if (this.visible && this.emptyText !== false) {
@@ -1011,7 +1093,10 @@ export default {
         const optionIndex = this.getValueIndex(value, option.value)
         if (optionIndex > -1) {
           value.splice(optionIndex, 1)
-        } else if (this.multipleLimit <= 0 || value.length < this.multipleLimit) {
+        } else if (
+          this.multipleLimit <= 0 ||
+          value.length < this.multipleLimit
+        ) {
           value.push(option.value)
         }
         this.$emit('input', value)
@@ -1054,14 +1139,18 @@ export default {
     },
 
     getValueIndex(arr = [], value) {
-      const isObject = Object.prototype.toString.call(value).toLowerCase() === '[object object]'
+      const isObject =
+        Object.prototype.toString.call(value).toLowerCase() ===
+        '[object object]'
       if (!isObject) {
         return arr.indexOf(value)
       } else {
         const valueKey = this.valueKey
         let index = -1
         arr.some((item, i) => {
-          if (getValueByPath(item, valueKey) === getValueByPath(value, valueKey)) {
+          if (
+            getValueByPath(item, valueKey) === getValueByPath(value, valueKey)
+          ) {
             index = i
             return true
           }
@@ -1209,7 +1298,10 @@ export default {
     },
 
     getValueKey(item) {
-      if (Object.prototype.toString.call(item.value).toLowerCase() !== '[object object]') {
+      if (
+        Object.prototype.toString.call(item.value).toLowerCase() !==
+        '[object object]'
+      ) {
         return item.value
       } else {
         return getValueByPath(item.value, this.valueKey)
@@ -1217,7 +1309,8 @@ export default {
     },
 
     getRemoteData() {
-      const { baseUrl = '', option = 'data' } = this.$EL_SELECT_PROP_CONFIG || {}
+      const { baseUrl = '', option = 'data' } =
+        this.$EL_SELECT_PROP_CONFIG || {}
       !this.options &&
         this.api &&
         this.$http &&
@@ -1277,7 +1370,8 @@ export default {
         mini: 28
       }
       const input = reference.$el.querySelector('input')
-      this.initialInputHeight = input.getBoundingClientRect().height || sizeMap[this.selectSize]
+      this.initialInputHeight =
+        input.getBoundingClientRect().height || sizeMap[this.selectSize]
     }
     if (this.remote && this.multiple) {
       this.resetInputHeight()
@@ -1290,7 +1384,8 @@ export default {
   },
 
   beforeDestroy() {
-    if (this.$el && this.handleResize) removeResizeListener(this.$el, this.handleResize)
+    if (this.$el && this.handleResize)
+      removeResizeListener(this.$el, this.handleResize)
   }
 }
 </script>

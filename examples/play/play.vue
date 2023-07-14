@@ -112,7 +112,7 @@ export default {
       { label: '结束日期', prop: 'end' }
     ],
 
-    aa: 'zujian',
+    aa: '',
 
     model: {
       test1: {},
