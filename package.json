@@ -1,6 +1,6 @@
 {
   "name": "element-nice-ui",
-  "version": "2.17.56",
+  "version": "2.17.57",
   "description": "A Component Library for Vue.js.",
   "main": "lib/element-nice-ui.common.js",
   "files": [
@@ -27,7 +27,7 @@
     "dev:play": "npm run build:file && cross-env NODE_ENV=development PLAY_ENV=true webpack-dev-server --config build/webpack.demo.js",
     "dist": "npm run clean && npm run build:file && webpack --config build/webpack.conf.js && webpack --config build/webpack.common.js && webpack --config build/webpack.component.js && npm run build:utils && npm run build:umd && npm run build:theme",
     "i18n": "node build/bin/i18n.js",
-    "pub": "yarn dist && npm publish",
+    "pub": "pnpm dist && npm publish --registry=https://registry.npmjs.org",
     "test": "npm run build:theme && cross-env CI_ENV=/dev/ BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test:watch": "npm run build:theme && cross-env BABEL_ENV=test karma start test/unit/karma.conf.js"
   },
@@ -83,9 +83,9 @@
     "es6-promise": "^4.0.5",
     "file-loader": "^1.1.11",
     "file-save": "^0.2.0",
-    "gulp": "^4.0.2",
-    "gulp-cssmin": "^0.2.0",
-    "gulp-sass": "^5.0.0",
+    "gulp": "^5.0.1",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-sass": "^6.0.1",
     "highlight.js": "^11.3.1",
     "html-webpack-plugin": "^3.2.0",
     "json-loader": "^0.5.7",
@@ -100,7 +100,7 @@
     "postcss": "^8.2.1",
     "progress-bar-webpack-plugin": "^1.11.0",
     "rimraf": "^2.5.4",
-    "sass": "^1.42.1",
+    "sass-embedded": "^1.89.2",
     "sass-loader": "^10.2.0",
     "sass-migrator": "^1.5.2",
     "select-version-cli": "^0.0.2",
