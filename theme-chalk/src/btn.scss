@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@use "sass:color";
+@use 'sass:color';
 @use 'common/var';
 @use 'mixins/button';
 @use 'mixins/mixins';
@@ -41,8 +41,16 @@
   }
 
   &:active {
-    color: color.mix(var.$color-black, var.$color-primary, var.$button-active-shade-percent);
-    border-color: color.mix(var.$color-black, var.$color-primary, var.$button-active-shade-percent);
+    color: color.mix(
+      var.$color-black,
+      var.$color-primary,
+      var.$button-active-shade-percent
+    );
+    border-color: color.mix(
+      var.$color-black,
+      var.$color-primary,
+      var.$button-active-shade-percent
+    );
     outline: none;
   }
 
@@ -66,15 +74,31 @@
 
     &:active {
       background: var.$color-white;
-      border-color: color.mix(var.$color-black, var.$color-primary, var.$button-active-shade-percent);
-      color: color.mix(var.$color-black, var.$color-primary, var.$button-active-shade-percent);
+      border-color: color.mix(
+        var.$color-black,
+        var.$color-primary,
+        var.$button-active-shade-percent
+      );
+      color: color.mix(
+        var.$color-black,
+        var.$color-primary,
+        var.$button-active-shade-percent
+      );
       outline: none;
     }
   }
 
   @include mixins.when(active) {
-    color: color.mix(var.$color-black, var.$color-primary, var.$button-active-shade-percent);
-    border-color: color.mix(var.$color-black, var.$color-primary, var.$button-active-shade-percent);
+    color: color.mix(
+      var.$color-black,
+      var.$color-primary,
+      var.$button-active-shade-percent
+    );
+    border-color: color.mix(
+      var.$color-black,
+      var.$color-primary,
+      var.$button-active-shade-percent
+    );
   }
 
   @include mixins.when(disabled) {
@@ -130,8 +154,8 @@
 
   @include mixins.m(primary) {
     color: #fff;
-    background-color: var(--primary-color, #409EFF);
-    border-color: var(--primary-color, #409EFF);
+    background-color: var(--primary-color, #409eff);
+    border-color: var(--primary-color, #409eff);
     // &:focus
     &:hover {
       background-color: var(--primary-tint-color, #66b1ff);

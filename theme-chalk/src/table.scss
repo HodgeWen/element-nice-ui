@@ -1,15 +1,15 @@
 @use 'mixins/mixins';
 @use 'common/var';
-// @import 'checkbox';
-// @import 'tag';
-// @import 'tooltip';
-// @import 'popover';
-// @import 'table-column';
-// @import 'scrollbar';
-// @import 'pagination';
-// @import 'btn';
-// @import 'action';
-// @import 'backtop
+// @use 'checkbox';
+// @use 'tag';
+// @use 'tooltip';
+// @use 'popover';
+// @use 'table-column';
+// @use 'scrollbar';
+// @use 'pagination';
+// @use 'btn';
+// @use 'action';
+// @use 'backtop
 
 @include mixins.b(table) {
   position: relative;
@@ -133,7 +133,8 @@
         background-clip: padding-box;
         border-radius: 7px;
         background-color: rgba(0, 0, 0, 0.15);
-        box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+        box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05),
+          inset 1px 1px 0px rgba(0, 0, 0, 0.05);
         &:hover {
           background-color: rgba(0, 0, 0, 0.3);
         }
@@ -615,14 +616,19 @@
   }
 
   @include mixins.e(searcher) {
-
     background: #fff;
     margin-bottom: var.$tabel-vertical-margin;
     padding: 8px;
     border-radius: 4px;
     padding-top: var.$tabel-vertical-margin * 0.5 + 8px;
     & > {
-      div, section, main, nav, span, i, article {
+      div,
+      section,
+      main,
+      nav,
+      span,
+      i,
+      article {
         width: 220px;
         margin-right: 10px;
         margin-bottom: var.$tabel-vertical-margin * 0.5;

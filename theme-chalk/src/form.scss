@@ -1,8 +1,8 @@
-@use "mixins/mixins";
-@use "mixins/utils";
-@use "common/var";
-// @import 'row';
-// @import 'col';
+@use 'mixins/mixins';
+@use 'mixins/utils';
+@use 'common/var';
+// @use 'row';
+// @use 'col';
 
 @include mixins.b(form) {
   @include mixins.m(label-left) {
@@ -38,7 +38,6 @@
   }
 }
 @include mixins.b(form-item) {
-
   &.el-form-item--showerror {
     margin-bottom: 22px;
   }
@@ -152,7 +151,8 @@
   @include mixins.when(error) {
     & .el-input__inner,
     & .el-textarea__inner {
-      &, &:focus {
+      &,
+      &:focus {
         border-color: var.$color-danger;
       }
     }

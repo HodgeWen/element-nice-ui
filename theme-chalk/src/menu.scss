@@ -2,7 +2,7 @@
 @use 'mixins/utils';
 @use 'common/var';
 @use 'common/transition';
-// @import 'tooltip';
+// @use 'tooltip';
 
 @mixin menu-item($size: medium) {
   @if $size == medium {

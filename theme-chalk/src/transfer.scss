@@ -1,10 +1,10 @@
 @use 'mixins/mixins';
 @use 'mixins/utils';
 @use 'common/var';
-// @import 'input';
-// @import 'btn';
-// @import 'checkbox';
-// @import 'checkbox-group';
+// @use 'input';
+// @use 'btn';
+// @use 'checkbox';
+// @use 'checkbox-group';
 
 @include mixins.b(transfer) {
   font-size: var.$font-size-base;
@@ -88,7 +88,8 @@
     box-sizing: border-box;
 
     @include mixins.when(filterable) {
-      height: #{var.$transfer-panel-body-height - var.$transfer-filter-height - 20px};
+      height: #{var.$transfer-panel-body-height - var.$transfer-filter-height -
+        20px};
       padding-top: 0;
     }
   }

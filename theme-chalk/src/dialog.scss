@@ -2,7 +2,7 @@
 @use 'mixins/utils';
 @use 'common/var';
 @use 'common/popup';
-// @import "perfect-scrollbar";
+// @use "perfect-scrollbar";
 
 @include mixins.b(dialog) {
   position: relative;
@@ -14,7 +14,6 @@
   box-sizing: border-box;
   width: 720px;
   max-height: 70vh;
-
 
   @include mixins.when(fullscreen) {
     width: 100%;
@@ -51,7 +50,10 @@
     position: absolute;
     line-height: 1;
     top: (
-      (var.$dialog-font-line-height + (var.$dialog-padding-primary * 2) - var.$message-close-size) * 0.5
+      (
+          var.$dialog-font-line-height + (var.$dialog-padding-primary * 2) -
+            var.$message-close-size
+        ) * 0.5
     );
     padding: 0;
     background: transparent;

@@ -1,7 +1,7 @@
 @use 'mixins/mixins';
 @use 'common/var';
-// @import 'btn';
-// @import 'btn-group';
+// @use 'btn';
+// @use 'btn-group';
 
 @include mixins.b(calendar) {
   background-color: #fff;

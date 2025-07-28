@@ -1,8 +1,8 @@
 @use 'mixins/mixins';
-// @import './bpmn/diagram-js.css';
-// @import './bpmn/css/bpmn.css';
-// @import './bpmn/css/bpmn-codes.css';
-// @import './bpmn/css/bpmn-embedded.css';
+// @use './bpmn/diagram-js.css';
+// @use './bpmn/css/bpmn.css';
+// @use './bpmn/css/bpmn-codes.css';
+// @use './bpmn/css/bpmn-embedded.css';
 
 @include mixins.b(bpmn) {
   height: 100%;
@@ -49,11 +49,13 @@
   }
 
   @include mixins.e(transform) {
-    &-enter-active, &-leave-active {
-      transition: transform .3s, opacity .3s;
+    &-enter-active,
+    &-leave-active {
+      transition: transform 0.3s, opacity 0.3s;
     }
 
-    &-enter, &-leave-to {
+    &-enter,
+    &-leave-to {
       transform: translate(250px, -50%);
       opacity: 0;
     }

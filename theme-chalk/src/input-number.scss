@@ -1,6 +1,6 @@
 @use 'mixins/mixins';
 @use 'common/var';
-// @import "input";
+// @use "input";
 
 @include mixins.b(input-number) {
   position: relative;

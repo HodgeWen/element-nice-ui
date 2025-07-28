@@ -13,14 +13,16 @@ function fileExists(filePath) {
   }
 }
 
-themes.forEach((theme) => {
+themes.forEach(theme => {
   var isSCSS = theme !== 'theme-default'
-  var indexContent = isSCSS ? '@import "./base.scss";\n' : '@import "./base.css";\n'
+  var indexContent = isSCSS
+    ? '@use "./base.scss";\n'
+    : '@import "./base.css";\n'
 
-  Components.forEach(function(key) {
+  Components.forEach(function (key) {
     if (['icon', 'option', 'option-group'].indexOf(key) > -1) return
     var fileName = key + (isSCSS ? '.scss' : '.css')
-    indexContent += '@import "./' + fileName + '";\n'
+    indexContent += (isSCSS ? '@use "./' : '@import "./') + fileName + '";\n'
     var filePath = path.resolve(basepath, theme, 'src', fileName)
     var fileJsPath = path.resolve(basepath, theme, 'components', key + '.js')
 
@@ -33,7 +35,10 @@ themes.forEach((theme) => {
         fs
           .readFileSync(filePath)
           .toString()
-          .replace(/(?<!\/\/\s)@import\s*(?!(.*common.*;|.*mixins.*;))/g, `// @import `),
+          .replace(
+            /(?<!\/\/\s)@import\s*(?!(.*common.*;|.*mixins.*;))/g,
+            `// @import `
+          ),
         'utf-8'
       )
     }
@@ -46,7 +51,7 @@ themes.forEach((theme) => {
         .match(/@import.*;/g)
       let content = ''
       if (matched) {
-        matched.forEach((item) => {
+        matched.forEach(item => {
           if (/(common|mixins)/.test(item)) return
           if (/date-picker/.test(item)) {
             content += `import '${path.join(

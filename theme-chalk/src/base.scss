@@ -1,4 +1,5 @@
 @use 'sass:meta';
+@use 'icon.css';
 :root {
   --primary-color: #409eff;
   --primary-tint-color: #66b1ff; // 20%;
@@ -8,4 +9,3 @@
 }
 
 @include meta.load-css('common/transition');
-@import 'icon.css';

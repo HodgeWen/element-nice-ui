@@ -1,9 +1,9 @@
-@use "mixins/mixins";
-@use "common/var";
-// @import "./input";
-// @import "./popper";
-// @import "./tag";
-// @import "./cascader-panel";
+@use 'mixins/mixins';
+@use 'common/var';
+// @use "./input";
+// @use "./popper";
+// @use "./tag";
+// @use "./cascader-panel";
 
 @include mixins.b(cascader) {
   display: inline-block;
@@ -29,7 +29,7 @@
     }
 
     .el-icon-arrow-down {
-      transition: transform .3s;
+      transition: transform 0.3s;
       font-size: 14px;
 
       @include mixins.when(reverse) {
@@ -144,7 +144,8 @@
     outline: none;
     cursor: pointer;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background: var.$cascader-node-background-hover;
     }
 

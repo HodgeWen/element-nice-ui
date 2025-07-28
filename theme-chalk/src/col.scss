@@ -1,9 +1,8 @@
-@use "sass:math";
+@use 'sass:math';
+@use 'common/var';
+@use 'mixins/mixins';
 
-@use "common/var";
-@use "mixins/mixins";
-
-[class*="el-col-"] {
+[class*='el-col-'] {
   float: left;
   box-sizing: border-box;
 }

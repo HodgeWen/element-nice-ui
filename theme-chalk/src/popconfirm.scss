@@ -1,6 +1,6 @@
-@use "mixins/mixins";
-@use "common/var";
-// @import "popover";
+@use 'mixins/mixins';
+@use 'common/var';
+// @use "popover";
 
 @include mixins.b(popconfirm) {
   @include mixins.e(main) {
@@ -12,6 +12,6 @@
   }
   @include mixins.e(action) {
     text-align: right;
-    margin: 0
+    margin: 0;
   }
 }

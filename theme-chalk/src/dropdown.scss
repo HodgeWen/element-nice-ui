@@ -1,8 +1,8 @@
-@use "sass:color";
+@use 'sass:color';
 @use 'mixins/mixins';
 @use 'common/var';
-// @import 'btn';
-// @import 'popper';
+// @use 'btn';
+// @use 'popper';
 
 @include mixins.b(dropdown) {
   display: inline-block;

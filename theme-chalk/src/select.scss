@@ -1,13 +1,13 @@
 @use 'mixins/mixins';
 @use 'mixins/utils';
 @use 'common/var';
-// @import "select-dropdown";
-// @import "input";
-// @import "tag";
-// @import "option";
-// @import "option-group";
-// @import "scrollbar";
-// @import "tree";
+// @use "select-dropdown";
+// @use "input";
+// @use "tag";
+// @use "option";
+// @use "option-group";
+// @use "scrollbar";
+// @use "tree";
 
 @include mixins.b(select) {
   display: inline-block;

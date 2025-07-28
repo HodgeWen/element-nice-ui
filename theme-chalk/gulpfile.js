@@ -1,7 +1,7 @@
 'use strict'
 
 const { series, src, dest } = require('gulp')
-const sass = require('gulp-sass')(require('sass'))
+const sass = require('gulp-sass')(require('sass-embedded'))
 const cleanCSS = require('gulp-clean-css')
 
 function compile() {

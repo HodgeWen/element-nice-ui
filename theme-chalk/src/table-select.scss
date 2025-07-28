@@ -1,7 +1,7 @@
-// @import "table";
-// @import "dialog";
-// @import "input";
-@use "common/var";
+// @use "table";
+// @use "dialog";
+// @use "input";
+@use 'common/var';
 
 .el-table-select {
   display: inline-block;
@@ -23,11 +23,9 @@
   }
 
   &__dialog {
-
     th {
       background-color: #f9f9f9;
     }
-
 
     .el-dialog__body {
       padding: 0 8px;
