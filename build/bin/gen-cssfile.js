@@ -24,6 +24,7 @@ themes.forEach(theme => {
     var fileName = key + (isSCSS ? '.scss' : '.css')
     indexContent += (isSCSS ? '@use "./' : '@import "./') + fileName + '";\n'
     var filePath = path.resolve(basepath, theme, 'src', fileName)
+
     var fileJsPath = path.resolve(basepath, theme, 'components', key + '.js')
 
     if (!fileExists(filePath)) {
@@ -77,6 +78,6 @@ themes.forEach(theme => {
   )
   fs.writeFileSync(
     path.resolve(basepath, theme, 'components', 'index.js'),
-    indexContent.replace(/@/g, '').replace(/scss/g, 'js')
+    indexContent.replace(/@use/g, 'import').replace(/scss/g, 'js')
   )
 })
