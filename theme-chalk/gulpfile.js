@@ -12,7 +12,9 @@ function compile() {
 }
 
 function copyfont() {
-  return src('./src/fonts/**').pipe(dest('./lib/fonts'))
+  return src('./src/fonts/**', {
+    encoding: false
+  }).pipe(dest('./lib/fonts'))
 }
 
 exports.build = series(compile, copyfont)
