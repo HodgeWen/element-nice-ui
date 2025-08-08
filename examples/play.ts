@@ -10,6 +10,7 @@ const modules = import.meta.glob('./play/*.vue', {
 const routes = Object.keys(modules).map(key => {
   return {
     path: key.replace('./play', '').replace(/\.vue$/, ''),
+    // @ts-ignore
     component: modules[key].default
   }
 })
@@ -55,22 +56,21 @@ Vue.prototype.$http = {
           rs({
             code: 200,
             data: {
-              records: Array(100)
-                .fill()
-                .map((_, i) => {
-                  return {
-                    id: i,
-                    icon: null,
-                    name: '用户新增',
-                    spread: false,
-                    path: null,
-                    keepAlive: '0',
-                    permission: 'sys_user_add',
-                    type: '1',
-                    label: '用户新增',
-                    sort: null
-                  }
-                }),
+              records: Array.from({ length: 100 })
+              .map((_, i) => {
+                return {
+                  id: i,
+                  icon: null,
+                  name: '用户新增',
+                  spread: false,
+                  path: null,
+                  keepAlive: '0',
+                  permission: 'sys_user_add',
+                  type: '1',
+                  label: '用户新增',
+                  sort: null
+                }
+              }),
               total: 100
             }
           })

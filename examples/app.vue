@@ -9,15 +9,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // import { use } from 'element-nice-ui/lib/locale'
 // import zhLocale from 'element-nice-ui/lib/locale/lang/zh-CN'
 
 // use(zhLocale)
-import { RouterView } from 'vue-router'
 
 export default {
-  components: { RouterView },
   name: 'app',
 
   computed: {}
