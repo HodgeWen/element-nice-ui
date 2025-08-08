@@ -1,7 +1,8 @@
-import { ElementUIComponent } from './component'
-
-/** Header Component */
-export declare class ElHeader extends ElementUIComponent {
-  /** Height of the header */
-  height: string
+import Vue from 'vue'
+export interface ElHeaderProps {
+  height?: string
 }
+export declare class ElHeader extends Vue {
+  $props: ElHeaderProps
+}
+export default ElHeader

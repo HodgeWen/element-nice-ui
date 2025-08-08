@@ -1,13 +1,9 @@
-import { ElementUIComponent } from './component'
-
-/** Page Component */
-export declare class ElPage extends ElementUIComponent {
-  size: string;
-
-  noBacktop: boolean;
-
-  submit: Function;
-
-  /** 获取所有的表单值的集合 */
-  getAllFormValues: () => Record<string, any>
+import Vue from 'vue'
+export interface ElPageProps {
+  tag?: string
+  title?: string
 }
+export declare class ElPage extends Vue {
+  $props: ElPageProps
+}
+export default ElPage

@@ -1,12 +1,9 @@
-import { ElementUIComponent } from './component'
-
-export type ContentPosition = 'left' | 'center' | 'right'
-
-/** Divider Component */
-export declare class ElDivider extends ElementUIComponent {
-  /** enable vertical divider */
-  vertical: boolean
-
-  /** customize the content on the divider line */
-  posiiton: ContentPosition
+import Vue from 'vue'
+export interface ElDividerProps {
+  direction?: string
+  contentPosition?: string
 }
+export declare class ElDivider extends Vue {
+  $props: ElDividerProps
+}
+export default ElDivider

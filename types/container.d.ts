@@ -1,7 +1,8 @@
-import { ElementUIComponent } from './component'
-
-/** Container Component */
-export declare class ElContainer extends ElementUIComponent {
-  /** Layout direction for child elements */
-  direction: 'horizontal' | 'vertical'
+import Vue from 'vue'
+export interface ElContainerProps {
+  direction?: string
 }
+export declare class ElContainer extends Vue {
+  $props: ElContainerProps
+}
+export default ElContainer

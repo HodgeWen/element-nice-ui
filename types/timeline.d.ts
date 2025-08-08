@@ -1,6 +1,8 @@
-import { ElementUIComponent } from './component'
-
-/** Timeline Component */
-export declare class ElTimeline extends ElementUIComponent {
-  reverse: boolean
+import Vue from 'vue'
+export interface ElTimelineProps {
+  reverse?: boolean
 }
+export declare class ElTimeline extends Vue {
+  $props: ElTimelineProps
+}
+export default ElTimeline

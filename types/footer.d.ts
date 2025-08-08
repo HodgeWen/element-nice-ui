@@ -1,7 +1,8 @@
-import { ElementUIComponent } from './component'
-
-/** Footer Component */
-export declare class ElFooter extends ElementUIComponent {
-  /** Height of the footer */
-  height: string
+import Vue from 'vue'
+export interface ElFooterProps {
+  height?: string
 }
+export declare class ElFooter extends Vue {
+  $props: ElFooterProps
+}
+export default ElFooter

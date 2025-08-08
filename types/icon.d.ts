@@ -1,7 +1,8 @@
-import { ElementUIComponent } from './component'
-
-/** Icon Component */
-export declare class ElIcon extends ElementUIComponent {
-  /** Icon name */
-  name: string  
+import Vue from 'vue'
+export interface ElIconProps {
+  name?: string
 }
+export declare class ElIcon extends Vue {
+  $props: ElIconProps
+}
+export default ElIcon
