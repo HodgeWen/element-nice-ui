@@ -1,6 +1,6 @@
 {
   "name": "element-nice-ui",
-  "version": "2.18.2",
+  "version": "2.18.7",
   "description": "A Component Library for Vue.js.",
   "main": "lib/element-nice-ui.common.js",
   "files": [
@@ -21,7 +21,7 @@
     "clean": "rimraf lib && rimraf packages/*/lib && rimraf test/**/coverage",
     "dev:extension": "rimraf examples/extension/dist && cross-env NODE_ENV=development webpack --watch --config build/webpack.extension.js",
     "dev": "npm run bootstrap && npm run build:file && cross-env NODE_ENV=development webpack-dev-server --config build/webpack.demo.js & node build/bin/template.js",
-    "dev:play": "npm run build:file && cross-env NODE_ENV=development PLAY_ENV=true webpack-dev-server --config build/webpack.demo.js",
+    "play": "vite --config examples/vite.config.js",
     "dist": "npm run clean && npm run build:file && webpack --config build/webpack.conf.js && webpack --config build/webpack.common.js && webpack --config build/webpack.component.js && npm run build:utils && npm run build:umd && npm run build:theme",
     "i18n": "node build/bin/i18n.js",
     "release": "npm publish --registry=https://registry.npmjs.org",
@@ -57,16 +57,16 @@
     "wangeditor": "^4.6.7"
   },
   "peerDependencies": {
-    "vue": "^2.7.16"
+    "vue": "^2.6.12"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.0",
-    "@babel/core": "^7.28.0",
-    "@babel/preset-env": "^7.28.0",
-    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.2.1",
     "babel-plugin-transform-es2015-modules-umd": "6.24.1",
-    "@vue/babel-preset-jsx": "^1.4.0",
-    "@vue/component-compiler-utils": "^3.3.0",
+    "@vue/babel-preset-jsx": "^1.2.4",
+    "@vue/component-compiler-utils": "^3.2.0",
     "algoliasearch": "^3.24.5",
     "babel-loader": "^8.2.2",
     "babel-plugin-module-resolver": "^4.1.0",
@@ -97,7 +97,7 @@
     "progress-bar-webpack-plugin": "^1.11.0",
     "rimraf": "^2.5.4",
     "sass-embedded": "^1.89.2",
-    "sass-loader": "^10.2.0",
+    "sass-loader": "^16.0.5",
     "sass-migrator": "^1.5.2",
     "select-version-cli": "^0.0.2",
     "sinon": "^7.2.7",
@@ -109,15 +109,20 @@
     "uglifyjs-webpack-plugin": "^2.1.1",
     "uppercamelcase": "^1.1.0",
     "url-loader": "^1.0.1",
-    "vue": "^2.7.16",
+    "vue": "^2.6.12",
     "vue-loader": "^15.9.6",
     "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.7.16",
-    "vue-template-es2015-compiler": "^1.9.1",
+    "vue-template-compiler": "^2.6.12",
+    "vue-template-es2015-compiler": "^1.6.0",
     "webpack": "^4.14.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.11.0",
-    "webpack-node-externals": "^2.5.2"
+    "webpack-node-externals": "^2.5.2",
+    "cat-kit": "^3.7.13",
+    "vite-plugin-vue2": "^1.9.3",
+    "@vitejs/plugin-vue-jsx": "^1.3.10",
+    "unplugin-vue-components": "^29.0.0",
+    "vite": "npm:rolldown-vite@7.0.12"
   },
   "vetur": {
     "tags": "./vetur/tags.json",

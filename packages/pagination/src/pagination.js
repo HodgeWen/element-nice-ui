@@ -23,7 +23,9 @@ export default {
     pagerCount: {
       type: Number,
       validator(value) {
-        return (value | 0) === value && value > 4 && value < 22 && value % 2 === 1
+        return (
+          (value | 0) === value && value > 4 && value < 22 && value % 2 === 1
+        )
       },
       default: 7
     },
@@ -69,7 +71,10 @@ export default {
   render(h) {
     const layout = this.layout
     if (!layout) return null
-    if (this.hideOnSinglePage && (!this.internalPageCount || this.internalPageCount === 1))
+    if (
+      this.hideOnSinglePage &&
+      (!this.internalPageCount || this.internalPageCount === 1)
+    )
       return null
 
     let template = (
@@ -81,7 +86,7 @@ export default {
             'el-pagination--small': this.small
           }
         ]}
-      />
+      ></div>
     )
     const TEMPLATE_MAP = {
       prev: <prev />,
@@ -100,13 +105,13 @@ export default {
       slot: <slot>{this.$slots.default ? this.$slots.default : ''}</slot>,
       total: <total />
     }
-    const components = layout.split(',').map((item) => item.trim())
+    const components = layout.split(',').map(item => item.trim())
     const rightWrapper = <div class='el-pagination__rightwrapper' />
     let haveRightWrapper = false
 
     template.children = template.children || []
     rightWrapper.children = rightWrapper.children || []
-    components.forEach((compo) => {
+    components.forEach(compo => {
       if (compo === '->') {
         haveRightWrapper = true
         return
@@ -133,7 +138,9 @@ export default {
           <button
             type='button'
             class='btn-prev'
-            disabled={this.$parent.disabled || this.$parent.internalCurrentPage <= 1}
+            disabled={
+              this.$parent.disabled || this.$parent.internalCurrentPage <= 1
+            }
             on-click={this.$parent.prev}
           >
             {this.$parent.prevText ? (
@@ -154,7 +161,8 @@ export default {
             class='btn-next'
             disabled={
               this.$parent.disabled ||
-              this.$parent.internalCurrentPage === this.$parent.internalPageCount ||
+              this.$parent.internalCurrentPage ===
+                this.$parent.internalPageCount ||
               this.$parent.internalPageCount === 0
             }
             on-click={this.$parent.next}
@@ -192,7 +200,10 @@ export default {
       },
 
       render(h) {
-        let options = this.pageSizes.map(size => ({ value: size, label: size + this.t('el.pagination.pagesize') }))
+        let options = this.pageSizes.map(size => ({
+          value: size,
+          label: size + this.t('el.pagination.pagesize')
+        }))
         return (
           <span class='el-pagination__sizes'>
             <el-select
@@ -255,7 +266,8 @@ export default {
           this.userInput = value
         },
         handleChange(value) {
-          this.$parent.internalCurrentPage = this.$parent.getValidCurrentPage(value)
+          this.$parent.internalCurrentPage =
+            this.$parent.getValidCurrentPage(value)
           this.$parent.emitChange()
           this.userInput = null
         }
@@ -269,7 +281,11 @@ export default {
               class='el-pagination__editor is-in-pagination'
               min={1}
               max={this.$parent.internalPageCount}
-              value={this.userInput !== null ? this.userInput : this.$parent.internalCurrentPage}
+              value={
+                this.userInput !== null
+                  ? this.userInput
+                  : this.$parent.internalCurrentPage
+              }
               type='number'
               clearable={false}
               disabled={this.$parent.disabled}
@@ -350,7 +366,10 @@ export default {
 
     emitChange() {
       this.$nextTick(() => {
-        if (this.internalCurrentPage !== this.lastEmittedPage || this.userChangePageSize) {
+        if (
+          this.internalCurrentPage !== this.lastEmittedPage ||
+          this.userChangePageSize
+        ) {
           this.$emit('current-change', this.internalCurrentPage)
           this.lastEmittedPage = this.internalCurrentPage
           this.userChangePageSize = false
@@ -361,7 +380,6 @@ export default {
 
   computed: {
     internalPageCount() {
-
       if (typeof this.total === 'number') {
         return Math.max(1, Math.ceil(this.total / this.internalPageSize))
       } else if (typeof this.pageCount === 'number') {

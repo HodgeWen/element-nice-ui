@@ -1,5 +1,8 @@
 <template>
-  <div class="el-happy-table" :class="{ 'el-happy-table--auto-height': autoHeight }">
+  <div
+    class="el-happy-table"
+    :class="{ 'el-happy-table--auto-height': autoHeight }"
+  >
     <!-- 搜索栏 start -->
     <div
       class="el-happy-table__searcher"
@@ -19,18 +22,40 @@
 
     <!-- 工具栏 start -->
     <div class="el-happy-table__tools" v-if="showTools" ref="tools">
-      <el-context :ctx="ctx" :depth="2" class="el-happy-table__tools-left" tag="section">
+      <el-context
+        :ctx="ctx"
+        :depth="2"
+        class="el-happy-table__tools-left"
+        tag="section"
+      >
         <slot name="tools" />
       </el-context>
 
-      <el-context :depth="2" :ctx="ctx" class="el-happy-table__tools-right" tag="section">
+      <el-context
+        :depth="2"
+        :ctx="ctx"
+        class="el-happy-table__tools-right"
+        tag="section"
+      >
         <template v-if="api">
           <el-tooltip content="查询">
-            <el-btn :loading="loading" icon="search" type="primary" @click="fetchData" circle />
+            <el-btn
+              :loading="loading"
+              icon="search"
+              type="primary"
+              @click="fetchData"
+              circle
+            />
           </el-tooltip>
 
           <el-tooltip content="重置">
-            <el-btn :loading="loading" icon="refresh" type="danger" @click="onReset" circle />
+            <el-btn
+              :loading="loading"
+              icon="refresh"
+              type="danger"
+              @click="onReset"
+              circle
+            />
           </el-tooltip>
         </template>
 
@@ -38,7 +63,12 @@
           v-if="$slots.searcher && api && !data && !this.noSearcher"
           content="显示/隐藏 搜索栏"
         >
-          <el-btn v-model="searchable" @input="onToggleSearcher" icon="set-up" circle />
+          <el-btn
+            v-model="searchable"
+            @input="onToggleSearcher"
+            icon="set-up"
+            circle
+          />
         </el-tooltip>
 
         <!-- <el-popover placement="bottom" trigger="click">
@@ -80,8 +110,15 @@
       :highlight-current-row="isSingle"
       @current-change="onSelectionChange($event, 'single')"
     >
-      <table-column v-for="header of computedHeaders" :key="header._id" v-bind="header">
-        <template v-if="header.slotName" #default="{ row, column, $index, indexPath }">
+      <table-column
+        v-for="header of computedHeaders"
+        :key="header._id"
+        v-bind="header"
+      >
+        <template
+          v-if="header.slotName"
+          #default="{ row, column, $index, indexPath }"
+        >
           <el-action v-if="header.type === 'action'" :ctx="ctx">
             <slot
               :name="'column.' + header.slotName"
@@ -136,7 +173,7 @@
 </template>
 
 <script>
-import MainTable from './table'
+import MainTable from './table.vue'
 import ElContext from 'element-nice-ui/packages/context'
 import ElPagination from 'element-nice-ui/packages/pagination'
 import ElBtn from 'element-nice-ui/packages/btn'
@@ -145,7 +182,11 @@ import SearcherRender from './searcher-render'
 import TableColumn from './table-column'
 import { debounce } from 'throttle-debounce'
 import { getValueByPath } from 'element-nice-ui/src/utils/util'
-import { extendQuery, getUrlSearchObj, historyReplace } from 'element-nice-ui/src/utils/shared'
+import {
+  extendQuery,
+  getUrlSearchObj,
+  historyReplace
+} from 'element-nice-ui/src/utils/shared'
 import ElAction from 'element-nice-ui/packages/action'
 import ElPopover from 'element-nice-ui/packages/popover'
 import ElCheckbox from 'element-nice-ui/packages/checkbox'
@@ -360,8 +401,6 @@ export default {
       return headers
     },
 
-
-
     // 显示搜索
     showSearcher() {
       return this.searchable && this.api && !this.data && !this.noSearcher
@@ -425,7 +464,10 @@ export default {
     getValueByPath,
 
     onSelectionChange(val, type = 'single') {
-      if ((type === 'multiple' && this.isMultiple) || (type === 'single' && this.isSingle)) {
+      if (
+        (type === 'multiple' && this.isMultiple) ||
+        (type === 'single' && this.isSingle)
+      ) {
         this.$emit('input', val)
       }
     },
@@ -630,13 +672,22 @@ export default {
         if (res.code !== 200) return
         if (this.pagination) {
           if (pageDataPath === undefined || totalPath === undefined) {
-            console.warn(`$EL_TABLE_PROP_CONFIG中的pageDataPath和totalPath属性都不能为空`)
+            console.warn(
+              `$EL_TABLE_PROP_CONFIG中的pageDataPath和totalPath属性都不能为空`
+            )
           }
-          this.internalData = getValueByPath(res.data, this.dataPath || pageDataPath)
+          this.internalData = getValueByPath(
+            res.data,
+            this.dataPath || pageDataPath
+          )
           this.total = getValueByPath(res.data, totalPath)
         } else {
-          listDataPath === undefined && console.warn(`$EL_TABLE_PROP_CONFIG中的list属性不能为空`)
-          this.internalData = getValueByPath(res.data, this.dataPath || listDataPath)
+          listDataPath === undefined &&
+            console.warn(`$EL_TABLE_PROP_CONFIG中的list属性不能为空`)
+          this.internalData = getValueByPath(
+            res.data,
+            this.dataPath || listDataPath
+          )
         }
       })
     },
@@ -666,7 +717,7 @@ export default {
 
       this.$watch(
         () => autoQueried.map(field => this.query[field]),
-        (v) => {
+        v => {
           if (this.canAutoQuery) {
             this.willSearch = true
           }
@@ -711,7 +762,6 @@ export default {
 
     onPaginationPageChange(page) {
       this.pager.page = page
-      console.log(page)
       this.fetchData(true)
     },
 

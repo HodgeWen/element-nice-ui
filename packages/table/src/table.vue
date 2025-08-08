@@ -13,7 +13,8 @@
         'el-table--scrollable-y': layout.scrollY,
         'el-table--enable-row-hover': !store.states.isComplex,
         'el-table--enable-row-transition':
-          (store.states.data || []).length !== 0 && (store.states.data || []).length < 100
+          (store.states.data || []).length !== 0 &&
+          (store.states.data || []).length < 100
       },
       tableSize ? `el-table--${tableSize}` : ''
     ]"
@@ -43,10 +44,13 @@
       </div>
     </template>
 
+    <!-- body1 -->
     <div
       class="el-table__body-wrapper"
       ref="bodyWrapper"
-      :class="[layout.scrollX ? `is-scrolling-${scrollPosition}` : 'is-scrolling-none']"
+      :class="[
+        layout.scrollX ? `is-scrolling-${scrollPosition}` : 'is-scrolling-none'
+      ]"
       :style="[bodyHeight]"
     >
       <table-body
@@ -71,11 +75,16 @@
           <slot name="empty">{{ emptyText || t('el.table.emptyText') }}</slot>
         </span>
       </div>
-      <div v-if="$slots.append" class="el-table__append-wrapper" ref="appendWrapper">
+      <div
+        v-if="$slots.append"
+        class="el-table__append-wrapper"
+        ref="appendWrapper"
+      >
         <slot name="append"></slot>
       </div>
     </div>
 
+    <!-- body2 -->
     <div
       v-if="showSummary"
       v-show="data && data.length > 0"
@@ -85,6 +94,7 @@
     >
       <table-footer
         :store="store"
+        :data="tableData"
         :border="border"
         :sum-text="sumText || t('el.table.sumText')"
         :summary-method="summaryMethod"
@@ -96,6 +106,7 @@
       </table-footer>
     </div>
 
+    <!-- body3 -->
     <div
       v-if="fixedColumns.length > 0"
       v-mousewheel="handleFixedMousewheel"
@@ -108,7 +119,11 @@
         fixedHeight
       ]"
     >
-      <div v-if="showHeader" class="el-table__fixed-header-wrapper" ref="fixedHeaderWrapper">
+      <div
+        v-if="showHeader"
+        class="el-table__fixed-header-wrapper"
+        ref="fixedHeaderWrapper"
+      >
         <table-header
           ref="fixedTableHeader"
           fixed="left"
@@ -181,7 +196,11 @@
         fixedHeight
       ]"
     >
-      <div v-if="showHeader" class="el-table__fixed-header-wrapper" ref="rightFixedHeaderWrapper">
+      <div
+        v-if="showHeader"
+        class="el-table__fixed-header-wrapper"
+        ref="rightFixedHeaderWrapper"
+      >
         <table-header
           ref="rightFixedTableHeader"
           fixed="right"
@@ -247,14 +266,21 @@
         height: layout.headerHeight + 'px'
       }"
     ></div>
-    <div class="el-table__column-resize-proxy" ref="resizeProxy" v-show="resizeProxyVisible"></div>
+    <div
+      class="el-table__column-resize-proxy"
+      ref="resizeProxy"
+      v-show="resizeProxyVisible"
+    ></div>
   </div>
 </template>
 
 <script type="text/babel">
 import ElCheckbox from 'element-nice-ui/packages/checkbox'
 import { debounce, throttle } from 'throttle-debounce'
-import { addResizeListener, removeResizeListener } from 'element-nice-ui/src/utils/resize-event'
+import {
+  addResizeListener,
+  removeResizeListener
+} from 'element-nice-ui/src/utils/resize-event'
 import Mousewheel from 'element-nice-ui/src/directives/mousewheel'
 import Locale from 'element-nice-ui/src/mixins/locale'
 import Migrating from 'element-nice-ui/src/mixins/migrating'
@@ -284,7 +310,7 @@ export default {
 
     data: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       }
     },
@@ -466,9 +492,15 @@ export default {
     },
 
     // TODO 使用 CSS transform
-    syncPostion: throttle(5, function() {
-      const { scrollLeft, scrollTop, offsetWidth, scrollWidth } = this.bodyWrapper
-      const { headerWrapper, footerWrapper, fixedBodyWrapper, rightFixedBodyWrapper } = this.$refs
+    syncPostion: throttle(5, function () {
+      const { scrollLeft, scrollTop, offsetWidth, scrollWidth } =
+        this.bodyWrapper
+      const {
+        headerWrapper,
+        footerWrapper,
+        fixedBodyWrapper,
+        rightFixedBodyWrapper
+      } = this.$refs
       // if (headerWrapper) headerWrapper.style.transform = `translate(${-scrollLeft}px)`;
       if (headerWrapper) headerWrapper.scrollLeft = scrollLeft
       if (footerWrapper) footerWrapper.scrollLeft = scrollLeft
@@ -485,14 +517,18 @@ export default {
     }),
 
     bindEvents() {
-      this.bodyWrapper.addEventListener('scroll', this.syncPostion, { passive: true })
+      this.bodyWrapper.addEventListener('scroll', this.syncPostion, {
+        passive: true
+      })
       if (this.fit) {
         addResizeListener(this.$el, this.resizeListener)
       }
     },
 
     unbindEvents() {
-      this.bodyWrapper.removeEventListener('scroll', this.syncPostion, { passive: true })
+      this.bodyWrapper.removeEventListener('scroll', this.syncPostion, {
+        passive: true
+      })
       if (this.fit) {
         removeResizeListener(this.$el, this.resizeListener)
       }
@@ -572,7 +608,11 @@ export default {
         const maxHeight = parseHeight(this.maxHeight)
         if (typeof maxHeight === 'number') {
           return {
-            'max-height': maxHeight - footerHeight - (this.showHeader ? headerHeight : 0) + 'px'
+            'max-height':
+              maxHeight -
+              footerHeight -
+              (this.showHeader ? headerHeight : 0) +
+              'px'
           }
         }
       }
@@ -582,12 +622,16 @@ export default {
     fixedBodyHeight() {
       if (this.height) {
         return {
-          height: this.layout.fixedBodyHeight ? this.layout.fixedBodyHeight + 'px' : ''
+          height: this.layout.fixedBodyHeight
+            ? this.layout.fixedBodyHeight + 'px'
+            : ''
         }
       } else if (this.maxHeight) {
         let maxHeight = parseHeight(this.maxHeight)
         if (typeof maxHeight === 'number') {
-          maxHeight = this.layout.scrollX ? maxHeight - this.layout.gutterWidth : maxHeight
+          maxHeight = this.layout.scrollX
+            ? maxHeight - this.layout.gutterWidth
+            : maxHeight
           if (this.showHeader) {
             maxHeight -= this.layout.headerHeight
           }
@@ -608,16 +652,23 @@ export default {
           }
         }
         return {
-          bottom: this.layout.scrollX && this.data.length ? this.layout.gutterWidth + 'px' : ''
+          bottom:
+            this.layout.scrollX && this.data.length
+              ? this.layout.gutterWidth + 'px'
+              : ''
         }
       } else {
         if (this.showSummary) {
           return {
-            height: this.layout.tableHeight ? this.layout.tableHeight + 'px' : ''
+            height: this.layout.tableHeight
+              ? this.layout.tableHeight + 'px'
+              : ''
           }
         }
         return {
-          height: this.layout.viewportHeight ? this.layout.viewportHeight + 'px' : ''
+          height: this.layout.viewportHeight
+            ? this.layout.viewportHeight + 'px'
+            : ''
         }
       }
     },
@@ -717,7 +768,8 @@ export default {
   },
 
   data() {
-    const { hasChildren = 'hasChildren', children = 'children' } = this.treeProps
+    const { hasChildren = 'hasChildren', children = 'children' } =
+      this.treeProps
 
     this.store = createStore(this, {
       rowKey: this.rowKey,

@@ -1,14 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Element from 'main/index.js'
+import App from './app.vue'
+// import * as Element from 'element-nice-ui'
 
-const  router = new VueRouter({
-  routes: [
-    {
-      path: '/',
-      component: () => import('./play/play.vue')
-    }
-  ],
+const modules = import.meta.glob('./play/*.vue', {
+  eager: true
+})
+
+const routes = Object.keys(modules).map(key => {
+  return {
+    path: key.replace('./play', '').replace(/\.vue$/, ''),
+    component: modules[key].default
+  }
+})
+
+const router = new VueRouter({
+  routes: routes,
   mode: 'history'
 })
 
@@ -16,11 +23,11 @@ Vue.use(VueRouter)
 
 // 切换不同的示例
 // import App from './play/play.vue'
-import 'theme/components'
-Vue.use(Element)
 
-Vue.prototype.$confirm = Element.MessageBox.confirm
-Vue.prototype.$msg = Element.Message
+// Vue.use(Element)
+
+// Vue.prototype.$confirm = Element.MessageBox.confirm
+// Vue.prototype.$msg = Element.Message
 
 Vue.prototype.$log = console.log
 Vue.prototype.$EL_TABLE_PROP_CONFIG = {
@@ -43,25 +50,27 @@ Vue.prototype.$http = {
   // 模拟接口请求
   get(url = '') {
     if (url === '/page') {
-      return new Promise((rs) => {
+      return new Promise(rs => {
         setTimeout(() => {
           rs({
-            code:  200,
+            code: 200,
             data: {
-              records: Array(100).fill().map((_, i) => {
-                return {
-                  id: i,
-                  icon: null,
-                  name: '用户新增',
-                  spread: false,
-                  path: null,
-                  keepAlive: '0',
-                  permission: 'sys_user_add',
-                  type: '1',
-                  label: '用户新增',
-                  sort: null,
-                }
-              }),
+              records: Array(100)
+                .fill()
+                .map((_, i) => {
+                  return {
+                    id: i,
+                    icon: null,
+                    name: '用户新增',
+                    spread: false,
+                    path: null,
+                    keepAlive: '0',
+                    permission: 'sys_user_add',
+                    type: '1',
+                    label: '用户新增',
+                    sort: null
+                  }
+                }),
               total: 100
             }
           })
@@ -1278,6 +1287,6 @@ Vue.prototype.$http = {
 
 new Vue({
   // eslint-disable-line
-  render: h => h('router-view'),
+  render: h => h(App),
   router
 }).$mount('#app')

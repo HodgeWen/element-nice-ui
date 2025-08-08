@@ -1,29 +1,25 @@
 <template>
-  <div id="app" :class="{ 'is-component': isComponent }">
-    <main-header v-if="lang !== 'play'"></main-header>
+  <div id="aa">
+    <router-view />
+    <!-- <main-header v-if="lang !== 'play'"></main-header>
     <div class="main-cnt">
       <router-view></router-view>
     </div>
-    <main-footer v-if="lang !== 'play' && !isComponent"></main-footer>
+    <main-footer v-if="lang !== 'play' && !isComponent"></main-footer> -->
   </div>
 </template>
 
 <script>
-import { use } from 'main/locale'
-import zhLocale from 'main/locale/lang/zh-CN'
+// import { use } from 'element-nice-ui/lib/locale'
+// import zhLocale from 'element-nice-ui/lib/locale/lang/zh-CN'
 
-use(zhLocale)
+// use(zhLocale)
+import { RouterView } from 'vue-router'
 
 export default {
+  components: { RouterView },
   name: 'app',
 
-  computed: {
-    lang() {
-      return this.$route.path.split('/')[1] || 'zh-CN'
-    },
-    isComponent() {
-      return /^component-/.test(this.$route.name || '')
-    }
-  }
+  computed: {}
 }
 </script>

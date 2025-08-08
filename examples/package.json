@@ -1,0 +1,9 @@
+{
+  "name": "element-nice-ui-examples",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite "
+  }
+}
