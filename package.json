@@ -14,7 +14,7 @@
   "typings": "types/index.d.ts",
   "scripts": {
     "build:module": "node build/bin/build-module-declare.js",
-    "build:file": "node build/bin/iconInit.js & node build/bin/build-entry.js & node build/bin/i18n.js & node build/bin/version.js",
+    "build:file": "node build/bin/iconInit.js & node build/bin/build-entry.js",
     "build:theme": "node build/bin/gen-cssfile && gulp build --gulpfile theme-chalk/gulpfile.js && cp-cli theme-chalk/lib lib/theme-chalk",
     "build:utils": "cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/index.js",
     "build:umd": "node build/bin/build-locale.js",
@@ -23,7 +23,6 @@
     "dev": "npm run bootstrap && npm run build:file && cross-env NODE_ENV=development webpack-dev-server --config build/webpack.demo.js & node build/bin/template.js",
     "play": "vite --config examples/vite.config.js",
     "dist": "npm run clean && npm run build:file && webpack --config build/webpack.conf.js && webpack --config build/webpack.common.js && webpack --config build/webpack.component.js && npm run build:utils && npm run build:umd && npm run build:theme",
-    "i18n": "node build/bin/i18n.js",
     "release": "npm publish --registry=https://registry.npmjs.org",
     "pub": "pnpm dist && pnpm release"
   },
