@@ -1,10 +1,10 @@
-import Vue from 'vue'
-export interface ElCollapseProps {
-  title?: string
-  name?: string
-  disabled?: boolean
+import { ElementUIComponent } from './component'
+
+/** Use Collapse to store contents. */
+export declare class ElCollapse extends ElementUIComponent {
+  /** Whether to activate accordion mode */
+  accordion: boolean
+
+  /** Currently active panel */
+  value: string | number | string[] | number[]
 }
-export declare class ElCollapse extends Vue {
-  $props: ElCollapseProps
-}
-export default ElCollapse

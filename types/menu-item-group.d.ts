@@ -1,5 +1,7 @@
-import Vue from 'vue'
-export declare class ElMenuItemGroup extends Vue {
-  $props: Record<string, any>
+import { ElementUIComponent } from './component'
+
+/** Menu Item Group Component */
+export declare class ElMenuItemGroup extends ElementUIComponent {
+  /** Group title */
+  title: string
 }
-export default ElMenuItemGroup

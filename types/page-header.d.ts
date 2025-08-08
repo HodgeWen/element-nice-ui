@@ -1,9 +1,10 @@
-import Vue from 'vue'
-export interface ElPageHeaderProps {
-  title?: string
-  content?: string
+import { ElementUIComponent } from './component'
+
+/** PageHeader Component */
+export declare class ElPageHeader extends ElementUIComponent {
+  /** title */
+  title: String
+
+  /** content */
+  content: String
 }
-export declare class ElPageHeader extends Vue {
-  $props: ElPageHeaderProps
-}
-export default ElPageHeader

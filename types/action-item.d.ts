@@ -1,5 +1,5 @@
-import Vue from 'vue'
-export declare class ElActionItem extends Vue {
-  $props: Record<string, any>
+import { ElementUIComponent } from './component'
+
+export declare class ElActionItem extends ElementUIComponent {
+
 }
-export default ElActionItem

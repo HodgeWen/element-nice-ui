@@ -1,15 +1,29 @@
-import Vue from 'vue'
-export interface ElPopconfirmProps {
-  title?: string
-  confirmButtonText?: string
-  cancelBtnText?: string
-  confirmButtonType?: string
-  cancElBtnType?: string
-  icon?: string
-  iconColor?: string
-  hideIcon?: boolean
+import { ElementUIComponent } from './component'
+import { ElPopover } from './popover'
+
+/** Popconfirm Component */
+export declare class ElPopconfirm extends ElPopover {
+  /** Popconfirm title */
+  title: string
+
+  /** Popconfirm ok text */
+  confirmButtonText: string
+  
+  /** Popconfirm cancel text */
+  cancelButtonText: string
+
+  /** Popconfirm ok type */
+  confirmButtonType: string
+
+  /** Popconfirm cancal type */
+  cancelButtonType: string
+
+  /** Popconfirm icon */
+  icon: string
+
+  /** Popconfirm icon color */
+  iconColor: string
+
+  /** Popconfirm hide icon */
+  hideIcon: boolean
 }
-export declare class ElPopconfirm extends Vue {
-  $props: ElPopconfirmProps
-}
-export default ElPopconfirm

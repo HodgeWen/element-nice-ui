@@ -1,11 +1,16 @@
-import Vue from 'vue'
-export interface ElBacktopProps {
-  visibilityHeight?: number
-  target?: string
-  right?: number
-  bottom?: number
+import { ElementUIComponent } from './component'
+
+/** Backtop Component */
+export declare class ElBacktop extends ElementUIComponent {
+  /** Backtop target */
+  target: string
+  
+  /** Backtop visibility height */
+  visibilityHeight: string | number
+
+  /** Backtop right position */
+  right: string | number
+
+  /** Backtop bottom position */
+  bottom: string | number
 }
-export declare class ElBacktop extends Vue {
-  $props: ElBacktopProps
-}
-export default ElBacktop

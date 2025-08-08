@@ -1,5 +1,4 @@
-import Vue from 'vue'
-export declare class ElDropdownMenu extends Vue {
-  $props: Record<string, any>
-}
-export default ElDropdownMenu
+import { ElementUIComponent } from './component'
+
+/** Dropdown Menu Component */
+export declare class ElDropdownMenu extends ElementUIComponent {}

@@ -1,9 +1,26 @@
-import Vue from 'vue'
-export interface ElCardProps {
-  header?: any
-  shadow?: string
+import { VNode, VNodeDirective } from 'vue'
+import { ElementUIComponent } from './component'
+
+export interface CardSlots {
+  /** Content of the card */
+  default: VNode[],
+
+  /** Title of the card */
+  header: VNode[]
+
+  [key: string]: VNode[]
 }
-export declare class ElCard extends Vue {
-  $props: ElCardProps
+
+/** Integrate information in a card container */
+export declare class ElCard extends ElementUIComponent {
+  /** Title of the card */
+  header: string
+
+  /** CSS style of body */
+  bodyStyle: object
+
+  /** When to show card shadows */
+  shadow: string
+
+  $slots: CardSlots
 }
-export default ElCard

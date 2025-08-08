@@ -1,5 +1,6 @@
-import Vue from 'vue'
-export declare class ElInfiniteScroll extends Vue {
-  $props: Record<string, any>
+import { VNodeDirective } from 'vue'
+
+export interface ElInfiniteScroll extends VNodeDirective {
+  name: 'infinite-scroll',
+  value: Function
 }
-export default ElInfiniteScroll
